@@ -103,16 +103,16 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_1.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_2.jpg">
 <meta property="og:image" content="https://bigphess.github.io/L3_3.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_4.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_5.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_6.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_7.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L4_1.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L4_2.jpg">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L4_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_5.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_6.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L3_7.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L4_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L4_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/L4_3.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L4_4.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L4_5.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L5_1.jpg">
@@ -134,11 +134,11 @@
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_2.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_3.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_4.jpg">
-<meta property="og:updated_time" content="2019-03-20T06:05:31.671Z">
+<meta property="og:updated_time" content="2019-03-20T06:07:16.037Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StanfordCS231N笔记">
 <meta name="twitter:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
-<meta name="twitter:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_1.jpg">
+<meta name="twitter:image" content="https://bigphess.github.io/L3_1.jpg">
 
 
 
@@ -367,7 +367,7 @@
                 
               
 
-              <time title="Created: 2019-03-20 15:04:22 / Modified: 15:05:31" itemprop="dateCreated datePublished" datetime="2019-03-20T15:04:22+09:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 15:04:22 / Modified: 15:07:16" itemprop="dateCreated datePublished" datetime="2019-03-20T15:04:22+09:00">2019-03-20</time>
             
 
             
@@ -494,7 +494,7 @@
 <li>Li的每一项都在0和差值之间找最大值，然后把每一项的加起来求和</li>
 <li>如何理解这个式子：既然对于不同class的评分越高就是越可能，那么评分是负数的话就说明不可能，这样就直接用0把这种可能性抹去了。如果其他种类在正的方面评分越高，说明这个种类跑偏了，loss越大</li>
 </ul>
-<p><img src="/2019/03/20/StanfordCS231N笔记/L3_1.jpg" alt="SVM"></p>
+<p><img src="/L3_1.jpg" alt="SVM"></p>
 <p>###注意点</p>
 <ul>
 <li>在上面这张图里，因为车的评分已经是最高了，计算出来的loss就是0</li>
@@ -503,7 +503,7 @@
 <li>也有的SVM里面用的是max之后平方，但是不平方的用的更多一点，也是一个hyper parameter</li>
 <li>scale</li>
 <li>最小：0</li>
-<li>最大：infinite<br><img src="/2019/03/20/StanfordCS231N笔记/L3_2.jpg" alt="python code"></li>
+<li>最大：infinite<br><img src="/L3_2.jpg" alt="python code"></li>
 </ul>
 <h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><ul>
 <li>在实际应用里面没有那么好的效果</li>
@@ -532,7 +532,7 @@
 <li>最终处理完的score就是每个类型推测出来的占比可能性（和为1）</li>
 <li>这里求完-log（p）其实就是信息熵，代表对不确定度的度量</li>
 <li>直接比较可能性和log之后比较可能性在本质上是没有区别的</li>
-<li>但是数学上一般log之后的数据会看起来好一些<br><img src="/L3_3.jpg" alt="softmax function"><br>实际操作如下<br><img src="/2019/03/20/StanfordCS231N笔记/L3_4.jpg" alt="softmax result"></li>
+<li>但是数学上一般log之后的数据会看起来好一些<br><img src="/L3_3.jpg" alt="softmax function"><br>实际操作如下<br><img src="/L3_4.jpg" alt="softmax result"></li>
 </ul>
 <h3 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h3><ul>
 <li>极值</li>
@@ -547,7 +547,7 @@
 <li>对于softmax来说，后面的-100还是-200还是会对loss最终的值产生影响，softmax希望所有的值都在正确的class上面，后面啥都没有。所以更具有robustness。</li>
 <li>SVM会有一个你需要的区域，剩下的根本不考虑；而softmax会考虑所有的区域</li>
 </ul>
-<h2 id="上方区域总结"><a href="#上方区域总结" class="headerlink" title="上方区域总结"></a>上方区域总结</h2><p><img src="/2019/03/20/StanfordCS231N笔记/L3_5.jpg" alt="总结"></p>
+<h2 id="上方区域总结"><a href="#上方区域总结" class="headerlink" title="上方区域总结"></a>上方区域总结</h2><p><img src="/L3_5.jpg" alt="总结"></p>
 <ul>
 <li>x：训练集里面的数据，放在图片里就是把一个图片拉成一个1xN的向量</li>
 <li>y：训练集的标签，用来和最终的结果比对</li>
@@ -574,14 +574,14 @@
 <li>在写代码的时候用的肯定都是analytic gradient</li>
 <li>但是需要在应用之前用numerical gradient检查一下，确保两者的结果是一样的，为了保证代码里面写的积分是正确的</li>
 </ul>
-<h3 id="gradient-descent"><a href="#gradient-descent" class="headerlink" title="gradient descent"></a>gradient descent</h3><p><img src="/2019/03/20/StanfordCS231N笔记/L3_6.jpg" alt="gradient descent"></p>
+<h3 id="gradient-descent"><a href="#gradient-descent" class="headerlink" title="gradient descent"></a>gradient descent</h3><p><img src="/L3_6.jpg" alt="gradient descent"></p>
 <ul>
 <li>mini-batch</li>
 <li>在实际应用的时候，不会把整个的训练集都拿来优化W，而是会把一部分拿出来（sample examples）</li>
 <li>一小点一小点的拿结果不会非常准确，但是可以step很多次，在实际应用里面一般都不会用整个training set，不是很现实而且效果不是很好。</li>
 <li>选择的数量上 32/64/256，这个不是一个很重要的hyperparameter，主要是根据GPU的性能来决定的</li>
 <li>最终结果的loss是会下降的，虽然noise很多但是最终会go dowm</li>
-<li>learning rate<br><img src="/2019/03/20/StanfordCS231N笔记/L3_7.jpg" alt="learning rate"></li>
+<li>learning rate<br><img src="/L3_7.jpg" alt="learning rate"></li>
 </ul>
 <h2 id="图片中使用linear-classifier"><a href="#图片中使用linear-classifier" class="headerlink" title="图片中使用linear classifier"></a>图片中使用linear classifier</h2><p>因为图片像素太多了，不可能对每个像素都用线性分类，所以一般会先提取一些特征然后得到最终的分类结果</p>
 <h3 id="color-histogram"><a href="#color-histogram" class="headerlink" title="color histogram"></a>color histogram</h3><ul>
@@ -599,14 +599,14 @@
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般都是先进行特征提取然后再进行线性分类 <-> 深度学习特征都是自己提取</-></p>
 <hr>
 <h1 id="Backpropagation-amp-neural-network"><a href="#Backpropagation-amp-neural-network" class="headerlink" title="Backpropagation &amp; neural network"></a>Backpropagation &amp; neural network</h1><p>目的：求出来loss function的gradient</p>
-<h2 id="backpropagation"><a href="#backpropagation" class="headerlink" title="backpropagation"></a>backpropagation</h2><p><img src="/2019/03/20/StanfordCS231N笔记/L4_1.jpg" alt="example"><br>最右边的点因为是df/df所以结果就是1</p>
+<h2 id="backpropagation"><a href="#backpropagation" class="headerlink" title="backpropagation"></a>backpropagation</h2><p><img src="/L4_1.jpg" alt="example"><br>最右边的点因为是df/df所以结果就是1</p>
 <ul>
 <li>forward pass：知道开始然后一直顺到结束</li>
 <li>在一个node上面，收到了x和y的input，对他们进行f操作，得到最终的结果z</li>
 <li>z再往后操作得到最后的loss（不知道什么操作）</li>
 <li>backward pass：从后到前，通过链式法则倒回来</li>
 <li>虽然不知道loss对x或者y的gradient，但是可以求出来dz/dx和dz/dy（只和这个点有关）</li>
-<li>可以得到dL/dz，然后乘以local gradient<br><img src="/2019/03/20/StanfordCS231N笔记/L4_2.jpg" alt="local gradient"></li>
+<li>可以得到dL/dz，然后乘以local gradient<br><img src="/L4_2.jpg" alt="local gradient"></li>
 <li>local gradient</li>
 <li>每一个node上面的gradient往前推的时候，都可以通过链式法则（chain rule）变成这个点输入的gradient和这个点到上一个点的gradient的乘积。</li>
 <li>算local的时候，乘的参数是输入进去的参数啊。比如dL/dx = dL/dz（这个带这个点back回来的数字） * dz/dx （这个里面的x带这个点输入进来x的值）</li>
@@ -622,7 +622,7 @@
 <li>local gradient对最大的那个就是1，对其他的都是0</li>
 <li>因为如果没能通过max的gate的话根本对后门的loss没有影响。back的时候走最大的点就可以了，其他的都不用管了</li>
 <li>multiply：switcher，真，两极反转</li>
-<li>当往回的时候，两个点指向一个点，gradient需要相加（如下图）<br><img src="/2019/03/20/StanfordCS231N笔记/L4_3.jpg" alt="branch"></li>
+<li>当往回的时候，两个点指向一个点，gradient需要相加（如下图）<br><img src="/L4_3.jpg" alt="branch"></li>
 </ul>
 <h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><h3 id="psuedocode"><a href="#psuedocode" class="headerlink" title="psuedocode"></a>psuedocode</h3><ul>
 <li>graph or net object</li>
