@@ -96,15 +96,49 @@
 
 
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Stanford_CS231n笔记">
+  <meta name="description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
+<meta name="keywords" content="深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stanford CS231n笔记">
 <meta property="og:url" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_1.jpg">
-<meta property="og:updated_time" content="2019-03-20T05:53:52.581Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_5.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_6.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_7.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L4_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L4_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L4_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L4_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L4_5.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L5_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L5_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L5_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L5_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L6_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L6_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L6_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L7_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L7_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L8_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L8_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L9_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L9_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L9_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L9_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L10_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L10_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L10_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L10_4.jpg">
+<meta property="og:updated_time" content="2019-03-20T05:39:28.574Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stanford_CS231n笔记">
+<meta name="twitter:title" content="Stanford CS231n笔记">
+<meta name="twitter:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
 <meta name="twitter:image" content="https://bigphess.github.io/2019/03/20/Stanford-CS231n笔记/L3_1.jpg">
 
 
@@ -122,7 +156,7 @@
   };
 </script>
 
-  <title>Stanford_CS231n笔记 | 今天开始努力学习</title>
+  <title>Stanford CS231n笔记 | 今天开始努力学习</title>
   
 
 
@@ -308,7 +342,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Stanford_CS231n笔记
+          <h1 class="post-title" itemprop="name headline">Stanford CS231n笔记
 
               
             
@@ -334,7 +368,7 @@
                 
               
 
-              <time title="Created: 2019-03-20 14:53:06 / Modified: 14:53:52" itemprop="dateCreated datePublished" datetime="2019-03-20T14:53:06+09:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 14:37:46 / Modified: 14:39:28" itemprop="dateCreated datePublished" datetime="2019-03-20T14:37:46+09:00">2019-03-20</time>
             
 
             
@@ -373,7 +407,733 @@
       
 
       
-        <p><img src="/2019/03/20/Stanford-CS231n笔记/L3_1.jpg" alt="这是一张图片"></p>
+        <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><hr>
+<h1 id="Image-Classification-pipeline"><a href="#Image-Classification-pipeline" class="headerlink" title="Image Classification pipeline"></a>Image Classification pipeline</h1><h2 id="challenges"><a href="#challenges" class="headerlink" title="challenges"></a>challenges</h2><ul>
+<li>图片是由无数数字块组成的</li>
+<li>视角的转变，亮度的变化，变形都会产生非常大的变化</li>
+<li>viewpoint</li>
+<li>illumination</li>
+<li>deformation</li>
+<li>occlusion</li>
+<li>background clutter</li>
+<li>intraclass variation</li>
+</ul>
+<h2 id="image-classifer"><a href="#image-classifer" class="headerlink" title="image classifer"></a>image classifer</h2><ul>
+<li>input:image</li>
+<li>output: class_label</li>
+</ul>
+<h2 id="data-driven-approach"><a href="#data-driven-approach" class="headerlink" title="data-driven approach"></a>data-driven approach</h2><ul>
+<li>其他方法不行</li>
+<li>attempts: 边缘检测，纹理等等（但是太过具体）</li>
+<li>以数据为导向的方法</li>
+<li>def train(image, label)</li>
+<li>def predict(model, test_image)</li>
+</ul>
+<h2 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h2><h3 id="NN"><a href="#NN" class="headerlink" title="NN"></a>NN</h3><ul>
+<li>对于每一个测试的data，在数据库里面找到离他最近的图片（选择一共找多少张，这么多张里面投票）</li>
+<li>定义距离（hyperparameter）</li>
+<li>曼哈顿距离 L1: 两张图相减求绝对值，然后把整张照片求和</li>
+<li>欧几里得距离 L2: 距离的平方和开方</li>
+<li>实现</li>
+<li>training：记住每个图片的内容和label</li>
+<li>image：N✖D，每行是一张图片（拉成一行），一共N张</li>
+<li>label：1-d数组，sizeN</li>
+<li>predict：计算距离找到最小的角标（np.argmin)</li>
+<li>速度：linearly to size of dataset</li>
+<li>缺点：</li>
+<li>预测的时间太长了（expensive）</li>
+<li>但是我们希望训练的时间长但是测试的时间短（CNN）</li>
+</ul>
+<h3 id="KNN-1"><a href="#KNN-1" class="headerlink" title="KNN"></a>KNN</h3><ul>
+<li>找到最近的K个，投票</li>
+<li>当K增加的时候，整个图片的边缘变得平滑了</li>
+<li>K的数量也是一个hyperparameter</li>
+<li>需要选择的hyper（并不能很好的找到最优解）</li>
+<li>K</li>
+<li>用什么distance</li>
+<li>如何选择最好的参数</li>
+<li>总不能尝试所有的参数吧2333</li>
+<li>不能使用test data，请在训练的时候忘记自己拥有它</li>
+<li>把train data fold成不同的部分，把其中的一部分当成测试数据（validation data），然后测试训练的结果寻找hyper</li>
+<li>交叉验证（cross-validation），循环当validation fold然后average result</li>
+</ul>
+<h3 id="但是根本不用呢"><a href="#但是根本不用呢" class="headerlink" title="但是根本不用呢"></a>但是根本不用呢</h3><ul>
+<li>在test time的performance太差了</li>
+<li>两个图片之间的距离太不直观了，你根本不知道图片间的距离会怎么变</li>
+</ul>
+<h2 id="linear-classification"><a href="#linear-classification" class="headerlink" title="linear classification"></a>linear classification</h2><h3 id="parametric-approach"><a href="#parametric-approach" class="headerlink" title="parametric approach"></a>parametric approach</h3><ul>
+<li>输入：32x32x3的图片，array of numbers 0,1,…3072</li>
+<li>f(x,W) = Wx + b （<strong>在线性分类的情况下</strong>） （10x1）</li>
+<li>x: image （3072x1 -&gt; 拉直了）</li>
+<li>W: parameters，weights （10x3027）</li>
+<li>b： bias （10x1），不是这个函数的参数，只是用来决定比如猫的数量特别多，偏向猫的bias可能就比较大</li>
+<li>输出：10个数字，表示每个class的scores</li>
+</ul>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>W是把不同分类的classifer拼在了一起（乐高一样），每一行都是一个不同的class的分类器，点乘这个图片上面的像素，加上bias就是这个图片最终的得分</li>
+<li>resize所有的图片到一个大小（目前）</li>
+<li>实际上每个class的score就是图片里面每个点的加权求和，可以想象成在数每个不同地方的点的颜色。如果把W矩阵还原，还原出来的就是这个class的感觉上的颜色</li>
+<li>可以想象在一个巨高d的space里面，用线性分类</li>
+</ul>
+<h3 id="hard-part"><a href="#hard-part" class="headerlink" title="hard part"></a>hard part</h3><ul>
+<li>都用灰度图会有问题</li>
+<li>相似的texture（？</li>
+</ul>
+<hr>
+<h1 id="loss-function-optimization"><a href="#loss-function-optimization" class="headerlink" title="loss function optimization"></a>loss function optimization</h1><p>todo：</p>
+<ul>
+<li>定义一个loss function来定义这个score的好坏</li>
+<li>找到一个efficiently way去找到minimize 这个loss</li>
+</ul>
+<h2 id="SVM-loss"><a href="#SVM-loss" class="headerlink" title="SVM loss"></a>SVM loss</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>假设如果只有三个种类，一张图片对三个class分别会有不同的score。每张图片都可以计算出一个对应的loss</li>
+<li>SVM loss Li = sum max（0，sj - si + 1）</li>
+<li>si: 想要计算这个的loss function 的class的评分（也就是label标注的class的评分）</li>
+<li>sj: 这张图对于所有其他种类（除了i）的评分</li>
+<li>Li: 最终这张图片的loss</li>
+<li>1: 是一个safety margin（也是一个hyper parameter）。可以选择其他正数，但是选0会出问题</li>
+<li>Li的每一项都在0和差值之间找最大值，然后把每一项的加起来求和</li>
+<li>如何理解这个式子：既然对于不同class的评分越高就是越可能，那么评分是负数的话就说明不可能，这样就直接用0把这种可能性抹去了。如果其他种类在正的方面评分越高，说明这个种类跑偏了，loss越大</li>
+</ul>
+<p><img src="/2019/03/20/Stanford-CS231n笔记/L3_1.jpg" alt="SVM"></p>
+<p>###注意点</p>
+<ul>
+<li>在上面这张图里，因为车的评分已经是最高了，计算出来的loss就是0</li>
+<li>最后再把所有类型的loss求和，除以种类得到最终的loss</li>
+<li>用的是求和而不是mean也是取决于自己的决定</li>
+<li>也有的SVM里面用的是max之后平方，但是不平方的用的更多一点，也是一个hyper parameter</li>
+<li>scale</li>
+<li>最小：0</li>
+<li>最大：infinite<br><img src="/2019/03/20/Stanford-CS231n笔记/L3_2.jpg" alt="python code"></li>
+</ul>
+<h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><ul>
+<li>在实际应用里面没有那么好的效果</li>
+<li>W不是唯一的，比如把这个W加倍，如果loss是0的时候是一样的 -&gt; 需要得到唯一的W</li>
+</ul>
+<h3 id="weight-regularization（解决上面这个问题）"><a href="#weight-regularization（解决上面这个问题）" class="headerlink" title="weight regularization（解决上面这个问题）"></a>weight regularization（解决上面这个问题）</h3><ul>
+<li>在之前的loss的基础上加上了 \lambda R(W)</li>
+<li>\lambda是一个hyper parameter，是取决于自己的选择的</li>
+<li>R是一个regularization函数，这个函数的作用是抵抗之前的loss。因为之前的loss是从训练集上得到的，比较吻合训练集，所以需要一个比较特别的W来和之前的fight，这样的话结果可能会在实际使用的时候更好一些</li>
+<li>主要分类</li>
+<li>L2 regularization：W里面的所有项平方然后求和（最常见）</li>
+<li>L1 regularization：W里面所有项绝对值然后求和 -&gt; 在一些其他地方使用</li>
+<li>elastic net（L1+L2）：所有项平方乘参数加绝对值求和</li>
+<li>max norm regularization -&gt; 后面讲</li>
+<li>dropout</li>
+<li>理解L2</li>
+<li>比如X是[1,1,1,1],两个W分别是[1,0,0,0]和[0.25,0.25,0.25,0.25]</li>
+<li>这样乘出来的最终结果都是一样的，都是1。</li>
+<li>但是如果加上了L2的regularization之后就发现第二种方法的loss更少一点。因为他用到了更多的维数，在实际应用之中效果更好。</li>
+</ul>
+<h2 id="softmax（用起来更好）（multinomial-logistic-regression）"><a href="#softmax（用起来更好）（multinomial-logistic-regression）" class="headerlink" title="softmax（用起来更好）（multinomial logistic regression）"></a>softmax（用起来更好）（multinomial logistic regression）</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>scores：unnormalized log probabilities of the class </li>
+<li>需要把score先exp回来(这样所有的数都变成正数了)</li>
+<li>再normalize（除以所有exp之后的的和）</li>
+<li>最终，对于正确class的最终处理完的score来说，max这个log或者min（loss function）- log会得到最终最好的结果</li>
+<li>最终处理完的score就是每个类型推测出来的占比可能性（和为1）</li>
+<li>这里求完-log（p）其实就是信息熵，代表对不确定度的度量</li>
+<li>直接比较可能性和log之后比较可能性在本质上是没有区别的</li>
+<li>但是数学上一般log之后的数据会看起来好一些<br><img src="/2019/03/20/Stanford-CS231n笔记/L3_3.jpg" alt="softmax function"><br>实际操作如下<br><img src="/2019/03/20/Stanford-CS231n笔记/L3_4.jpg" alt="softmax result"></li>
+</ul>
+<h3 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h3><ul>
+<li>极值</li>
+<li>Li最小值：0 -&gt; 如果正确类型的可能性是1，求出来的最终值就是0</li>
+<li>Li最大值：infinite，可能性非常低非常接近于0</li>
+<li>当W的初始化很小，所有score都接近于0：</li>
+<li>score求exp之后都是1，normalize之后是1/num（class），最后再求log</li>
+<li>可以用于开头的检验</li>
+<li>SVM和softmax</li>
+<li>如果输入是[10,-100,-100]，在这个范围里微小变化，第一个是正确的class</li>
+<li>对于SVM来说，后面两个负值都非常小了，根本不会去管后面的两个东西，-100和-200没啥区别</li>
+<li>对于softmax来说，后面的-100还是-200还是会对loss最终的值产生影响，softmax希望所有的值都在正确的class上面，后面啥都没有。所以更具有robustness。</li>
+<li>SVM会有一个你需要的区域，剩下的根本不考虑；而softmax会考虑所有的区域</li>
+</ul>
+<h2 id="上方区域总结"><a href="#上方区域总结" class="headerlink" title="上方区域总结"></a>上方区域总结</h2><p><img src="/2019/03/20/Stanford-CS231n笔记/L3_5.jpg" alt="总结"></p>
+<ul>
+<li>x：训练集里面的数据，放在图片里就是把一个图片拉成一个1xN的向量</li>
+<li>y：训练集的标签，用来和最终的结果比对</li>
+<li>W: weights，需要优化的部分</li>
+<li>L：loss，用来权衡W优化结果的好坏</li>
+<li>基本过程</li>
+<li>Wx+b得到目前的分类器的score（score function）</li>
+<li>y是目前分类应该有的结果（label）</li>
+<li>R（W）得到regularzation的值</li>
+<li>分类器得到score，y知道正确的分类，通过softmax或者SVM得到这个分类器目前的loss，再加上R（W）的部分增加robustness最终得到整个分类器的loss</li>
+</ul>
+<h2 id="optimization-loss"><a href="#optimization-loss" class="headerlink" title="optimization loss"></a>optimization loss</h2><h3 id="follow-the-slope"><a href="#follow-the-slope" class="headerlink" title="follow the slope"></a>follow the slope</h3><ul>
+<li>通过计算gradient来找到最低点</li>
+<li>最基础的想法：（从数学上入手）</li>
+<li>因为梯度是lim f(x+,h)-f(x)/h</li>
+<li>把W上面的每一个点都加上一个0.00001（接近于0）然后再求上面的式子，就能得到第一次操作的梯度</li>
+<li>silly</li>
+<li>每一步都需要每一个维度都算一下，在CNN里面参数高达百万个，计算太慢了</li>
+<li>因为用的0.00001，其实并不准确</li>
+<li>感谢牛顿莱布尼兹发明了微积分 -&gt; 如何具体计算在下一节课</li>
+<li>把loss的gradient改成了一个式子</li>
+<li>快速，准确，然是容易发生bug（error-prone）</li>
+<li><strong>practice</strong>需要进行gradient check</li>
+<li>在写代码的时候用的肯定都是analytic gradient</li>
+<li>但是需要在应用之前用numerical gradient检查一下，确保两者的结果是一样的，为了保证代码里面写的积分是正确的</li>
+</ul>
+<h3 id="gradient-descent"><a href="#gradient-descent" class="headerlink" title="gradient descent"></a>gradient descent</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L3_6.jpg" alt="gradient descent"></p>
+<ul>
+<li>mini-batch</li>
+<li>在实际应用的时候，不会把整个的训练集都拿来优化W，而是会把一部分拿出来（sample examples）</li>
+<li>一小点一小点的拿结果不会非常准确，但是可以step很多次，在实际应用里面一般都不会用整个training set，不是很现实而且效果不是很好。</li>
+<li>选择的数量上 32/64/256，这个不是一个很重要的hyperparameter，主要是根据GPU的性能来决定的</li>
+<li>最终结果的loss是会下降的，虽然noise很多但是最终会go dowm</li>
+<li>learning rate<br><img src="/2019/03/20/Stanford-CS231n笔记/L3_7.jpg" alt="learning rate"></li>
+</ul>
+<h2 id="图片中使用linear-classifier"><a href="#图片中使用linear-classifier" class="headerlink" title="图片中使用linear classifier"></a>图片中使用linear classifier</h2><p>因为图片像素太多了，不可能对每个像素都用线性分类，所以一般会先提取一些特征然后得到最终的分类结果</p>
+<h3 id="color-histogram"><a href="#color-histogram" class="headerlink" title="color histogram"></a>color histogram</h3><ul>
+<li>先得到一张图片的颜色特征分布</li>
+<li>然后把整个特征分布拽成一个长的vector进行分类</li>
+</ul>
+<h3 id="HOG-SIFT"><a href="#HOG-SIFT" class="headerlink" title="HOG/SIFT"></a>HOG/SIFT</h3><ul>
+<li>找到边缘特征，在图片的哪个部分有那种样子的edge</li>
+</ul>
+<h3 id="bag-of-words"><a href="#bag-of-words" class="headerlink" title="bag of words"></a>bag of words</h3><ul>
+<li>先把图片里面的一些特征当作一个vocabulary，然后放进一个词典里面</li>
+<li>找到词典里每个词出现的频率然后拽成vector</li>
+<li>线性分类</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般都是先进行特征提取然后再进行线性分类 <-> 深度学习特征都是自己提取</-></p>
+<hr>
+<h1 id="Backpropagation-amp-neural-network"><a href="#Backpropagation-amp-neural-network" class="headerlink" title="Backpropagation &amp; neural network"></a>Backpropagation &amp; neural network</h1><p>目的：求出来loss function的gradient</p>
+<h2 id="backpropagation"><a href="#backpropagation" class="headerlink" title="backpropagation"></a>backpropagation</h2><p><img src="/2019/03/20/Stanford-CS231n笔记/L4_1.jpg" alt="example"><br>最右边的点因为是df/df所以结果就是1</p>
+<ul>
+<li>forward pass：知道开始然后一直顺到结束</li>
+<li>在一个node上面，收到了x和y的input，对他们进行f操作，得到最终的结果z</li>
+<li>z再往后操作得到最后的loss（不知道什么操作）</li>
+<li>backward pass：从后到前，通过链式法则倒回来</li>
+<li>虽然不知道loss对x或者y的gradient，但是可以求出来dz/dx和dz/dy（只和这个点有关）</li>
+<li>可以得到dL/dz，然后乘以local gradient<br><img src="/2019/03/20/Stanford-CS231n笔记/L4_2.jpg" alt="local gradient"></li>
+<li>local gradient</li>
+<li>每一个node上面的gradient往前推的时候，都可以通过链式法则（chain rule）变成这个点输入的gradient和这个点到上一个点的gradient的乘积。</li>
+<li>算local的时候，乘的参数是输入进去的参数啊。比如dL/dx = dL/dz（这个带这个点back回来的数字） * dz/dx （这个里面的x带这个点输入进来x的值）</li>
+<li>想不明白的时候把不同的点假设成不同名字然后求导！</li>
+<li>在这个网络里面，如果gate是加法（x + y）的话不是求偏导，如果求x的导数的话y并不是参数而是常数，所以求出来的结果是1，所以加法的gate就是直接把这个值相等的分开</li>
+<li>加gate是一个gradient distributor，当一个gradient进来的时候会被相同的分开成了两份</li>
+<li>也可以把一些gate组成一个大的gate，比如sigmoid</li>
+<li>注意，求出来的gradient如果是正的，说明这个点对最终的<strong>loss</strong>有positive的作用</li>
+<li>patterns</li>
+<li>add：gradient distributor</li>
+<li>max：router</li>
+<li>假设f是max（x，y）</li>
+<li>local gradient对最大的那个就是1，对其他的都是0</li>
+<li>因为如果没能通过max的gate的话根本对后门的loss没有影响。back的时候走最大的点就可以了，其他的都不用管了</li>
+<li>multiply：switcher，真，两极反转</li>
+<li>当往回的时候，两个点指向一个点，gradient需要相加（如下图）<br><img src="/2019/03/20/Stanford-CS231n笔记/L4_3.jpg" alt="branch"></li>
+</ul>
+<h2 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h2><h3 id="psuedocode"><a href="#psuedocode" class="headerlink" title="psuedocode"></a>psuedocode</h3><ul>
+<li>graph or net object</li>
+<li>forward:</li>
+<li>把input pass进这个gate里面（必须在代码里面记住input）</li>
+<li>把整个computational的garph往前推动</li>
+<li>最后一个gate会return这个网络的loss</li>
+<li>backward</li>
+<li>输入dz，然后乘不同的x和y</li>
+<li>不同的gate分别是不同的文件（API），每个文件里面包括初始化，forward和backward</li>
+<li>每次update的时候都需要进行forward和backward，forward得到gradient，backward再回来求最终的loss</li>
+</ul>
+<h3 id="vectorized"><a href="#vectorized" class="headerlink" title="vectorized"></a>vectorized</h3><ul>
+<li>在实际的计算中x，y，z都是矩阵，dz/dx是jacobian矩阵（全部都由偏导组成的矩阵）</li>
+<li>比如一个max的门，如果输入是1x4096，输出也是1x4096，但是求偏导出来的矩阵是4096x4096（太大了），矩阵中间只有对角线部分的是需要考虑的（还会有很多0）</li>
+<li>然后如果用了minibatch的100，得到的结果就是409600了，更可怕了</li>
+<li>所以在每次API的时候，肯定不能写出来所有的链式法则，只用其中的一部分</li>
+<li><strong>作业的重点就是如何让这个东西计算出来效率高</strong></li>
+</ul>
+<h2 id="neural-network"><a href="#neural-network" class="headerlink" title="neural network"></a>neural network</h2><h3 id="两层的NN"><a href="#两层的NN" class="headerlink" title="两层的NN"></a>两层的NN</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L4_4.jpg" alt="branch"></p>
+<ul>
+<li>输入是图片一共的坐标数量</li>
+<li>先通过第一层（max）得到100的中间层（hidden layer）-&gt; 100是hyperparameter，自己定的，但是越多越好吧</li>
+<li>然后通过W2得到最终的分类结果（分10类）</li>
+<li>其实具体里面是什么东西真的是不知道的？<br><img src="/2019/03/20/Stanford-CS231n笔记/L4_5.jpg" alt="code"></li>
+</ul>
+<h3 id="神经元"><a href="#神经元" class="headerlink" title="神经元"></a>神经元</h3><ul>
+<li>每个神经元的输入是Wx+b，然后经过激活函数 输出</li>
+<li>激活函数 activation function</li>
+<li>sigmoid</li>
+<li>tanh</li>
+<li>ReLU</li>
+<li>层状 -&gt; 可以更加efficient</li>
+</ul>
+<h1 id="Neural-network-2（training-part1）"><a href="#Neural-network-2（training-part1）" class="headerlink" title="Neural network 2（training part1）"></a>Neural network 2（training part1）</h1><p>前方提示：</p>
+<ul>
+<li>小的dataset也可以有结果</li>
+<li>电脑的性能有限</li>
+</ul>
+<h2 id="回顾一下历史"><a href="#回顾一下历史" class="headerlink" title="回顾一下历史"></a>回顾一下历史</h2><ul>
+<li>perceptron -&gt; 激活函数：0或者1，不能back</li>
+<li>madaline<br>···</li>
+</ul>
+<h2 id="activation-function（一个hyerparameter）"><a href="#activation-function（一个hyerparameter）" class="headerlink" title="activation function（一个hyerparameter）"></a>activation function（一个hyerparameter）</h2><h3 id="sigmoid"><a href="#sigmoid" class="headerlink" title="sigmoid"></a>sigmoid</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L5_1.jpg" alt="sigmoid"></p>
+<ul>
+<li>特点：</li>
+<li>把所有的数值都压到了0到1之间</li>
+<li>曾经非常受欢迎，因为satrating的效果比较好</li>
+<li>问题：</li>
+<li>在saturate的情况下（非常接近0或者1），会杀死gradent -&gt; 看函数的图就能感觉出来-10做哟的导数就是0了，back回来没有意义</li>
+<li>output不是以0为中心的（预处理的时候希望是0中心的）</li>
+<li>不是0中心的问题：如果所有输入的x都是positive的话，得到的gradient要不都是positive要不都是negative</li>
+<li>最后走出来的路径都是zig zag的</li>
+<li>exp（）在计算上比较expensive</li>
+</ul>
+<h3 id="tanh"><a href="#tanh" class="headerlink" title="tanh"></a>tanh</h3><ul>
+<li>把数字从-1到1之间分布，是一个以0为中心的sigmoid（0-centered），所以sigmoid的缺点（saturated的点会kill gradient）的缺点还在</li>
+</ul>
+<h3 id="ReLU"><a href="#ReLU" class="headerlink" title="ReLU"></a>ReLU</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L5_2.jpg" alt="ReLU"></p>
+<ul>
+<li>输入是正数的时候直接pass这个值，输入是负数的时候直接kill</li>
+<li>可能的优点：（实际应用的时候效果非常好但是具体解释起来也没有那么知道为什么）</li>
+<li>不会saturate（不会消失gradient）</li>
+<li>计算效率高</li>
+<li>更容易相交</li>
+<li>问题</li>
+<li>不是0-centered</li>
+<li>如果x小于0（没有激活） -&gt; kill gradient）</li>
+<li>死的时候会死一大片 -&gt; 所以一般的时候会把relu初始化的时候加上一个slightly positive bias</li>
+<li>注意learning rate，选不好容易死</li>
+</ul>
+<h3 id="leaky-ReLU"><a href="#leaky-ReLU" class="headerlink" title="leaky ReLU"></a>leaky ReLU</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L5_3.jpg" alt="leaky ReLU"></p>
+<ul>
+<li>在小于0的时候会有一个微小的值，所以不会die</li>
+<li>在使用的时候converges的速度比sigmoid和tanh快很多</li>
+<li>加上了一个参数，可以在back的时候学到，这个值可以确定他是不是ReLU或者其他的</li>
+</ul>
+<h3 id="Maxout-neuron"><a href="#Maxout-neuron" class="headerlink" title="Maxout neuron"></a>Maxout neuron</h3><ul>
+<li>把ReLU和leaky ReLU组合了起来，有两个参数。算出来两个分别的值然后取其中大的那个</li>
+<li>不会发生saturate或者die的问题</li>
+<li>问题在于参数需要计算两次</li>
+</ul>
+<h2 id="步骤：-预处理数据-gt-选择architecture"><a href="#步骤：-预处理数据-gt-选择architecture" class="headerlink" title="步骤： 预处理数据 -&gt; 选择architecture"></a>步骤： 预处理数据 -&gt; 选择architecture</h2><h2 id="data-preprocessing"><a href="#data-preprocessing" class="headerlink" title="data preprocessing"></a>data preprocessing</h2><h3 id="ML"><a href="#ML" class="headerlink" title="ML"></a>ML</h3><ul>
+<li>处理数据的时候首先需要0-center -&gt; 减去平均值（不是特别需要normalize，ML需要）</li>
+<li>PCA，Whitening，其实都在DL里不怎么常用</li>
+</ul>
+<h3 id="实际应用里：只需要center"><a href="#实际应用里：只需要center" class="headerlink" title="实际应用里：只需要center"></a>实际应用里：只需要center</h3><ul>
+<li>比如一张图是32x32x3的</li>
+<li>减去mean image（32x32x3）</li>
+<li>减去per-channel mean （每个channel的mean，一共是三个数字）</li>
+</ul>
+<h2 id="weight-initialization（重要）"><a href="#weight-initialization（重要）" class="headerlink" title="weight initialization（重要）"></a>weight initialization（重要）</h2><p>请不要这么做：set所有w都是0，得到的结果就是每个神经元的功能都是一样的</p>
+<h3 id="small-random-numbers"><a href="#small-random-numbers" class="headerlink" title="small random numbers"></a>small random numbers</h3><ul>
+<li>0.01* np.random.randn(D,H)</li>
+<li>问题：</li>
+<li>在比较小的net里可以使用</li>
+<li>在layer之间会发生non-homogeneous distribution of activation的问题</li>
+<li>所有的activations会变成0</li>
+<li>在back的时候所有的gradient都会变成0</li>
+<li>如果把0。01变成了1，这时候发现所有的neurons全都是1或者-1 -&gt; gradient也全都是0，死亡</li>
+</ul>
+<h3 id="其他的一些论文也讨论过其他方法"><a href="#其他的一些论文也讨论过其他方法" class="headerlink" title="其他的一些论文也讨论过其他方法"></a>其他的一些论文也讨论过其他方法</h3><ul>
+<li>Xavier 2010</li>
+<li>除以input的sqrt</li>
+<li>ReLU， non-liear，会breaking。每回relu都会杀掉一半的东西，set到0</li>
+<li>He 2015</li>
+<li>把input除以2以后sqrt了</li>
+<li>在实践中很有用</li>
+</ul>
+<h3 id="batch-normalization-gt-实际中解决w初始化的方法"><a href="#batch-normalization-gt-实际中解决w初始化的方法" class="headerlink" title="batch normalization -&gt; 实际中解决w初始化的方法"></a>batch normalization -&gt; 实际中解决w初始化的方法</h3><ul>
+<li>核心思想：x越来越接近0的原因是因为越乘越小（或者越大），这个时候我们就希望可以normalize这个x的input。因为gaussian的normaliztion是可以积分的，所以可以放回到back里面，在整个的网络里面插入一些normalize的部分就可以了</li>
+<li>插在FC或者CNN之后，然后放在激活函数之前</li>
+<li>优点</li>
+<li>提高net里面的gradient flow</li>
+<li>允许更高的学习率</li>
+<li>减少对初始化参数的影响</li>
+<li>form of regularization -&gt; 可能可以减少dropout的需求</li>
+</ul>
+<h2 id="babysitting-amp-learning-process"><a href="#babysitting-amp-learning-process" class="headerlink" title="babysitting &amp; learning process"></a>babysitting &amp; learning process</h2><h3 id="检查loss算的对不对"><a href="#检查loss算的对不对" class="headerlink" title="检查loss算的对不对"></a>检查loss算的对不对</h3><ul>
+<li>初始化这个net，去掉regularization，检查最后返回的loss</li>
+<li>因为什么都没做呢，所以loss应该是最终知道的值（10 class是2。3）</li>
+<li>再加上regularization，结果应该小小的变化</li>
+</ul>
+<h3 id="尝试训练"><a href="#尝试训练" class="headerlink" title="尝试训练"></a>尝试训练</h3><ul>
+<li>overfit一个非常小的dataset，关掉reg，得到非常小的loss和很高的accuracy</li>
+<li>一个可能性：建议以一个小的reg开始，找到让loss变小的learning rate（如果不变小可能是rate太小了）</li>
+<li>cost：NaN，可能是learning rate高了</li>
+<li>建议范围： 1e-3 ~ 1e-5</li>
+</ul>
+<h2 id="hyper-optimization"><a href="#hyper-optimization" class="headerlink" title="hyper optimization"></a>hyper optimization</h2><h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><ul>
+<li>找到准确率高的部分，使用其中的hyper</li>
+<li>最好set到log的space</li>
+<li>再调整parameter，找到更准确的值</li>
+<li>如果结果特别好可能也不对，可能是已经到了boundary了</li>
+</ul>
+<h3 id="参数的选择sample"><a href="#参数的选择sample" class="headerlink" title="参数的选择sample"></a>参数的选择sample</h3><ul>
+<li>randomly的结果更好，不要固定一个选另一个，可能一个参数比另外一个重要很多</li>
+<li>如果训练和验证之间的gap太大，说明overfitting，需要增加reg的力度。如果太小可能需要增加model的容量</li>
+<li>ratio between the values and updates: ~ 0.0002 / 0.02 = 0.01 (about okay)</li>
+</ul>
+<h3 id="需要选择的hyper"><a href="#需要选择的hyper" class="headerlink" title="需要选择的hyper"></a>需要选择的hyper</h3><ul>
+<li>net architecture</li>
+<li>learning rate. decay schedule and update type</li>
+<li>regularization(L2/Dropout)</li>
+</ul>
+<p>##总体summary<br><img src="/2019/03/20/Stanford-CS231n笔记/L5_4.jpg" alt="summary"></p>
+<h1 id="training-Neural-Net2"><a href="#training-Neural-Net2" class="headerlink" title="training Neural Net2"></a>training Neural Net2</h1><h2 id="parameter-update"><a href="#parameter-update" class="headerlink" title="parameter update"></a>parameter update</h2><h3 id="SGD"><a href="#SGD" class="headerlink" title="SGD"></a>SGD</h3><ul>
+<li>以前是直接用gradient来update，现在希望变得复杂一点 -&gt; SGD太慢了</li>
+<li>为什么SGD太慢：</li>
+<li>如果在一个loss的分布上，一个维度特别密集，另一个维度特别稀疏，直接用gradient改变就会在一个方向跑大了</li>
+<li>最后就会形成那种zag的形状</li>
+</ul>
+<h3 id="momentum-update"><a href="#momentum-update" class="headerlink" title="momentum update"></a>momentum update</h3><ul>
+<li>在计算的时候引入了速度v = mu <em> v - learning_rate </em> dx （v初始化为0）</li>
+<li>假设路线就是一个球在loss的圆弧里面运动，mu是～0.5，0.9，0.99（只使用一个值，single number，hyper）</li>
+<li>形态，从初始点开始走一个大的圆弧，会跑过了，但是会再快速的converge回去</li>
+<li>优点</li>
+<li>引入了速度，可以在比较shallow的方向上速度逐渐增加</li>
+<li>在比较深的维度上面，就像球在圆弧里面来回滑动</li>
+</ul>
+<h3 id="nesterov-momentum-update"><a href="#nesterov-momentum-update" class="headerlink" title="nesterov momentum update"></a>nesterov momentum update</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L6_1.jpg" alt="nmu"></p>
+<ul>
+<li>在上面的方法之后 look a head 了一步，得到的是两个向量之间的差</li>
+<li>在实际走的过程当中，弧度会比monnument的更大一些，跑过的会更小一些</li>
+</ul>
+<h3 id="adaGrad-（parameter-adaptive）"><a href="#adaGrad-（parameter-adaptive）" class="headerlink" title="adaGrad （parameter-adaptive）"></a>adaGrad （parameter-adaptive）</h3><ul>
+<li>首先定义了一个cache，这个cache是gradient的平方的和，只是positive，和parameter的维度是一样的</li>
+<li>然后把SGD的学习率scale了一个这个数</li>
+<li>“ Added element-wise scaling of the gradient based on the historical sum of squares in each dimension”</li>
+<li>结果：在越密集的维度上，update的步伐越小，越稀疏的上面update越大</li>
+<li>问题</li>
+<li>step size：时间越长learning rate会最终变到0，然后就停止学习</li>
+</ul>
+<h3 id="RMSProp（上面一个的变形）"><a href="#RMSProp（上面一个的变形）" class="headerlink" title="RMSProp（上面一个的变形）"></a>RMSProp（上面一个的变形）</h3><ul>
+<li>把cache的定义改变了，增加了一个decay rate（hyper）</li>
+<li>依然能保持各个维度上面的平衡，但是不会让learning rate变到0</li>
+</ul>
+<h3 id="adam"><a href="#adam" class="headerlink" title="adam"></a>adam</h3><p><img src="/2019/03/20/Stanford-CS231n笔记/L6_2.jpg" alt="nmu"></p>
+<ul>
+<li>beta都是hyper</li>
+<li>结合了上面的两种方法</li>
+</ul>
+<h3 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h3><ul>
+<li>默认用adam</li>
+<li>刚开始使用高的learning rate -&gt; 这样进展会非常快</li>
+<li>decay over time -&gt; 在进行到一定程度的时候会没有办法更细致的逼近minimum</li>
+<li>step decay: 比如过一些epoch之后就把lr减少到一半</li>
+<li>exponential decay</li>
+<li>1/t decay</li>
+</ul>
+<h3 id="secend-order-optimization-method（ml）"><a href="#secend-order-optimization-method（ml）" class="headerlink" title="secend order optimization method（ml）"></a>secend order optimization method（ml）</h3><ul>
+<li>在计算的时候不仅需要gradient，还需要hessian来告诉你曲面的curve程度，以此来确定如何前进（牛顿method）</li>
+<li>速度更快，hyper更少</li>
+<li>但是在deep nets里面不太能使用，因为参数太多惹</li>
+<li>BFGS（approximate inverse Hessian with rank 1 updates over time (O(n^2) each).</li>
+<li>L-BFGS</li>
+<li>work well in full batch</li>
+<li>mini-batch不是很适用</li>
+</ul>
+<h2 id="evaluation：model-ensembles"><a href="#evaluation：model-ensembles" class="headerlink" title="evaluation：model ensembles"></a>evaluation：model ensembles</h2><ul>
+<li>可以不用训练很多个model，而是训练一个然后在其中选取不一样的check point</li>
+<li>track一个参数vector的running average可能会得到更好的效果</li>
+</ul>
+<h2 id="regularization（DROPOUT）"><a href="#regularization（DROPOUT）" class="headerlink" title="regularization（DROPOUT）"></a>regularization（DROPOUT）</h2><ul>
+<li>在forward的时候，随机的把一些neruon的值设置成0（比如杀掉一半）</li>
+<li>为什么要使用：</li>
+<li>为了求出来的结果更加的准确，每个特定的特征都不能完全依赖，因为这个feature可能就被drop掉了</li>
+<li>计算一个大的net的其中一小部分，被drop掉的部分在back的时候也不会再计算了，就彻底关掉了。相当于在net里面取了一部分sample</li>
+<li>test time</li>
+<li>在测试的时候希望可以把所有的neuron都打开（就进行一次）</li>
+<li><strong>scale！！！！</strong><br><img src="/2019/03/20/Stanford-CS231n笔记/L6_3.jpg" alt="dropout"></li>
+<li>需要注意的问题：</li>
+<li>计算训练时候的期望，就发现dropout之后的期望是测试的实际值的1/2（因为drop了一半）</li>
+<li>因为以前net没见过这么大的output，会直接死掉，所以需要把测试时候的结果再缩小一半（或者drop的比例，* p）</li>
+<li>最终结果：测试时候的输出 = 训练时候的期望输出</li>
+<li>另一种方法 inverted dropout</li>
+<li>在train的时候 / p</li>
+<li>在测试的时候就不用改变了</li>
+</ul>
+<h2 id="gradient-checking（并没有讲）"><a href="#gradient-checking（并没有讲）" class="headerlink" title="gradient checking（并没有讲）"></a>gradient checking（并没有讲）</h2><h1 id="CNN开始啦"><a href="#CNN开始啦" class="headerlink" title="CNN开始啦"></a>CNN开始啦</h1><h2 id="卷积层（核心部分）"><a href="#卷积层（核心部分）" class="headerlink" title="卷积层（核心部分）"></a>卷积层（核心部分）</h2><ul>
+<li>对一张图片操作：</li>
+<li>拥有一张图像32x32x3</li>
+<li>拥有卷积核5x5x3（这两个东西必须维度一样） -&gt; 奇数尺寸的效果更好</li>
+<li>kernal做卷积（所有的channel），得到一个28x28x1的activaton map</li>
+<li>再对这张图片使用下一个不同的卷积核（卷积核的数量是一个hyper）</li>
+<li>这样一个32x32x3变成了一个28x28x6（6是选择的hyper的数量）<br><img src="/2019/03/20/Stanford-CS231n笔记/L7_1.jpg" alt="CNN"></li>
+<li>当把这些层可视化了之后，发现越深图片的feature越高级（从上一级的特征得到的新的特征）</li>
+</ul>
+<h2 id="大致布局"><a href="#大致布局" class="headerlink" title="大致布局"></a>大致布局</h2><ul>
+<li>卷积层</li>
+<li>RELU层 -&gt; 黑白化</li>
+<li>pooling层</li>
+<li>最后加上fc层</li>
+</ul>
+<h2 id="具体计算"><a href="#具体计算" class="headerlink" title="具体计算"></a>具体计算</h2><h3 id="stride"><a href="#stride" class="headerlink" title="stride"></a>stride</h3><ul>
+<li>每次卷积核移动的时候的步长</li>
+<li>注意在不同图片大小，不同卷积核大小和不同步长可能不匹配</li>
+<li>（图片 - 卷积核）/步长 + 1     是不是整数，结果是输出图片的尺寸</li>
+</ul>
+<h3 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h3><ul>
+<li>可以在图片周围一圈加上一圈0，这样图片卷积之后的大小就不变了</li>
+<li>0-padding的大小和卷积核的大小有关，大小是（卷积核 -1）/2</li>
+<li>如果不进行padding，图片会越来越小</li>
+</ul>
+<h3 id="参数数量"><a href="#参数数量" class="headerlink" title="参数数量"></a>参数数量</h3><ul>
+<li>对一个卷积核：卷积核的大小 * 深度 + 1 （加一是加了一个bias）</li>
+<li>一层的参数： 卷积核数量 * 一个卷积核</li>
+<li>四个hyper：</li>
+<li>K：filter的数量，2的指数 -&gt; 计算效率高</li>
+<li>S：步长</li>
+<li>F：卷积核大小</li>
+<li>P：0-padding</li>
+</ul>
+<h3 id="1x1的卷积"><a href="#1x1的卷积" class="headerlink" title="1x1的卷积"></a>1x1的卷积</h3><ul>
+<li>1x1的卷积层（stride也是1）会有比较好的效果</li>
+<li>比如输入是56x56x64，filter是32个1x1x64。因为数据是有深度的，1x1的时候是有意义的（在二维上面没有意义）</li>
+</ul>
+<h3 id="现在处理的东西都是方形的"><a href="#现在处理的东西都是方形的" class="headerlink" title="现在处理的东西都是方形的"></a>现在处理的东西都是方形的</h3><h3 id="从神经元的角度来看CNN"><a href="#从神经元的角度来看CNN" class="headerlink" title="从神经元的角度来看CNN"></a>从神经元的角度来看CNN</h3><ul>
+<li>可以把filter认为成一个固定位置的神经元，这个神经元只看到了图片上面的一小部分，没有和全部的图片相连，然后进行了wx+b的运算</li>
+<li>当slide这个filter的时候，weight是不变的，可以假设成一圈共享参数的神经元</li>
+<li>对同一张图片的不同的filter可以认为成他们是在三维上面排列的一组神经元，每一层神经元都和这一层共享参数<br>（不希望全部都是全联接，因为浪费了很多参数）</li>
+</ul>
+<h2 id="pooling"><a href="#pooling" class="headerlink" title="pooling"></a>pooling</h2><ul>
+<li>在卷积的时候是不会改变图片的大小的</li>
+<li>改变图片大小的操作在pooling layer里面实现</li>
+<li>长宽缩短，深度不变</li>
+</ul>
+<h3 id="max-pooling"><a href="#max-pooling" class="headerlink" title="max pooling"></a>max pooling</h3><ul>
+<li>2x2pool，stride2 -&gt; 每4个格子里面选择一个最大的表示</li>
+<li>两个参数</li>
+<li>pooling size F 2，3</li>
+<li>stride S 2，2</li>
+<li>不会改变图片的深度</li>
+</ul>
+<h2 id="fully-connected"><a href="#fully-connected" class="headerlink" title="fully connected"></a>fully connected</h2><ul>
+<li>就跟普通的神经网络一样，所有神经元之间都会连接</li>
+<li>把最后的图片变成一个列，放进去开始计算</li>
+</ul>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><h3 id="LeNet-5"><a href="#LeNet-5" class="headerlink" title="LeNet-5"></a>LeNet-5</h3><h3 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h3><ul>
+<li>两天不同的线，因为当时的GPU的效果不够</li>
+<li>优点：</li>
+<li>第一次使用ReLU</li>
+<li>把data normalization了，但是现在看其实并不需要</li>
+<li>data augumenation -&gt; 有用！</li>
+<li>dropout 0.5，最后几层</li>
+</ul>
+<h3 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a>ZFNet</h3><ul>
+<li>在第一层上比alex的stride短，因为alex的步长4跳过了太多图片信息，这里改成了步长2</li>
+<li>fliter的数量更多</li>
+</ul>
+<h3 id="VGGNet"><a href="#VGGNet" class="headerlink" title="VGGNet"></a>VGGNet</h3><ul>
+<li>只有3x3 s1 p1的卷积核，和2x2 s2的max pooling</li>
+<li>结果还特别好</li>
+<li>图像的尺寸越来越小，但是深度越来越高</li>
+<li>需要的计算量：93MB/image（forward） -&gt; 200m/image(所有的计算加起来)</li>
+<li>大部分的memory都在前期的层里，大部分的参数都在最后的全链接层里面（最后的计算量太大，后面有更好的方法）</li>
+<li>VGG也有位置确定，他比overfeat的层数更深</li>
+</ul>
+<h3 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a>GoogLeNet</h3><ul>
+<li>是一个一个的小结构组成出来了</li>
+<li>参数的数量非常少 5million，取消了fc层</li>
+<li>使用了average pool，把7x7x1024变成了1x1x1024    :把每个activate map取平均值</li>
+<li>用VGG的人更多因为VGG的结构比较好想2333</li>
+</ul>
+<h3 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a>ResNet</h3><ul>
+<li>t5 error降到了3.多</li>
+<li>平常的加深层数训练集和测试集上边的准确率变化结果不统一，但是res做到了统一</li>
+<li>虽然层数特比多，但是速度还是快 -&gt; 加入了skip的部分，把输入跳过了卷积又加了回去，这样back的时候就会分流<br><img src="/2019/03/20/Stanford-CS231n笔记/L7_2.jpg" alt="ResNet"></li>
+</ul>
+<h3 id="top-5-error"><a href="#top-5-error" class="headerlink" title="top-5 error"></a>top-5 error</h3><ul>
+<li>在看结果的时候不光看准确率，还会看分类器认为的前5个可能性（可能有几千个分类），如果这5个可能性都不对的话就是求出来的就是top-5 error</li>
+</ul>
+<h1 id="spatial-localization-and-detection"><a href="#spatial-localization-and-detection" class="headerlink" title="spatial localization and detection"></a>spatial localization and detection</h1><p>这章的主要内容是识别出来这个东西之后用框框框出来<br><img src="/2019/03/20/Stanford-CS231n笔记/L8_1.jpg" alt="task"></p>
+<h2 id="分类-定位：Localization-as-Regression"><a href="#分类-定位：Localization-as-Regression" class="headerlink" title="分类+定位：Localization as Regression"></a>分类+定位：Localization as Regression</h2><ul>
+<li>实际上就跟regression差不多</li>
+<li>neurral net的输出是bounding box（4个数字），左上角的坐标和长宽</li>
+<li>实际的图片标注的内容也有左上角坐标和长宽，求出这两个部分的L2 distance作为loss</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li>训练（下载）一个分类的model</li>
+<li>在net里面加上fc的regression head</li>
+<li>用SGD和L2loss训练regression head部分</li>
+<li>test的时候分类和regression都用</li>
+</ul>
+<h3 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h3><ul>
+<li>平常的分类：最终的数量和class的数量相同</li>
+<li>一个box里面会有4个数字，一共Cx4个数字 </li>
+</ul>
+<h3 id="加在什么地方"><a href="#加在什么地方" class="headerlink" title="加在什么地方"></a>加在什么地方</h3><ul>
+<li>conv layer之后</li>
+<li>fc之后</li>
+</ul>
+<h3 id="多个目标的检测（Aside）"><a href="#多个目标的检测（Aside）" class="headerlink" title="多个目标的检测（Aside）"></a>多个目标的检测（Aside）</h3><ul>
+<li>知道准确的检测目标的数量k，那么最终的分类数量就是4 * k</li>
+<li>应用：人的动作检测 -&gt; 得到关节的位置</li>
+</ul>
+<h2 id="分类-定位：sliding-window：overfeat"><a href="#分类-定位：sliding-window：overfeat" class="headerlink" title="分类 + 定位：sliding window：overfeat"></a>分类 + 定位：sliding window：overfeat</h2><ul>
+<li>核心idea：在检测的时候直接process图片，但是对一张图片在不同的地方进行多次操作</li>
+<li>操作步骤：</li>
+<li>首先对图片进行conv和pooling，然后对得到的结果进行两个不同的fc，</li>
+<li>得到的是1000个的分类种类</li>
+<li>另一个的到的是1000x4的bounding box坐标</li>
+<li>在一张大的图片上，在不同区域找到需要寻找的东西（比如分成四部分，这四部分是<strong>有重叠的，不是pooling那个样子</strong>）</li>
+<li>得到每个部分对于这个分类的得分，以及相应部分对应的bounding box</li>
+<li>最后用没怎么讲的办法merge了这些框，得到了最终结果</li>
+<li>进一步优化</li>
+<li>因为要对这个图片的不同crop做cnn，计算量会非常大</li>
+<li>在fc层其实只是一个向量1x4096，把这个玩意拉成了一个cnn，4096x1x1，然后直接conv1x1的卷积核</li>
+<li>现在net里面就只有conv和pooling了，所以就可以处理不同尺寸的图片了（不同尺寸的方形）</li>
+<li>而且在处理不同区域的时候是参数是share的</li>
+</ul>
+<h2 id="目标检测"><a href="#目标检测" class="headerlink" title="目标检测"></a>目标检测</h2><ul>
+<li>主要不同：不能确定图片里面物体的数量</li>
+<li>思路：</li>
+<li>尝试所有可能的window然后用classifcation找到需要的部分</li>
+<li>问题：需要很多次分类</li>
+<li>历史解决方法：用非常快的分类器，尝试所有（linear classifier） </li>
+<li>更想用的方法：用cnn，只测试tiny subsets of possible locations</li>
+</ul>
+<h3 id="region-proposals"><a href="#region-proposals" class="headerlink" title="region proposals"></a>region proposals</h3><ul>
+<li>输入一张图片，输出所有可能有物体的区域</li>
+<li>不在意到底是什么类型</li>
+<li>不在意精确度</li>
+<li>但是速度很快</li>
+<li>selective search</li>
+<li>从一个pixel开始，如果相邻的pixel有一样的颜色或者texture，merge</li>
+<li>形成连接区域，再连接不同区域，这个区域也可以再打散</li>
+<li>还有很多其他方法：edge boxes（推荐）</li>
+</ul>
+<h3 id="RCNN（region-based-CNN）"><a href="#RCNN（region-based-CNN）" class="headerlink" title="RCNN（region based CNN）"></a>RCNN（region based CNN）</h3><ul>
+<li>从输入图片里面用region proposal的方法得到一系列的boundings（不同的位置和scale）</li>
+<li>对每个区域crrop和wrap这个区域到fixed size</li>
+<li>cnn分类，regression head &amp; classifcation head</li>
+<li>过程</li>
+<li>下载model</li>
+<li>fine-tune for detection：改变分类的种类等</li>
+<li>extract features</li>
+<li>为每个class训练一个SVM（看这个区域是否包括寻找的东西）</li>
+<li>box regression：对每个种类，训练一个linear regression来纠正位置的偏差（太左太右，空隙太多）（dx，dy，dw，dh）</li>
+<li>datast</li>
+<li>PASCAL VOC 比较小</li>
+<li>ImageNet 不是事很好操作，但是一张图一半只有一个东西</li>
+<li>MS-COCO 一张图多个内容</li>
+</ul>
+<h3 id="fast-RCNN-（提速）"><a href="#fast-RCNN-（提速）" class="headerlink" title="fast RCNN （提速）"></a>fast RCNN （提速）</h3><ul>
+<li>在测试时的速度比较慢 -&gt; 一张图里，在不同的proposals之间share conv的计算</li>
+<li>训练时不是一起训练的，训练的pipeline也很复杂 -&gt; 把整个系统端对端对的训练一次</li>
+<li>ROI pooling</li>
+<li>在用的时候希望感兴趣区域的分辨率比较高，fc层希望更低的conv feature</li>
+<li>在conv feature map上面投影高分辨率的region proposal</li>
+<li>把这个区域分成小格，然后对每个格子进行max pooling(back的时候也是这么回来)</li>
+<li>训练8倍！测试146倍！结果更准确！<br><img src="/2019/03/20/Stanford-CS231n笔记/L8_2.jpg" alt="fast RCNN"></li>
+</ul>
+<h3 id="faster-RCNN（再提速）"><a href="#faster-RCNN（再提速）" class="headerlink" title="faster RCNN（再提速）"></a>faster RCNN（再提速）</h3><ul>
+<li>之前的测试速度计算都没有算region proposal的时间，所以把这个问题也交给conv去干</li>
+<li>在最后一层conv后面加入region proposal net</li>
+<li>在feature map上面的移动实际就是卷积</li>
+<li>训练一个小的网络判断是不是一个物体并分类，以及regression框的位置</li>
+<li>在每个位置使用了N anchor boxes，不同的anchor有score来判断他是否属于一个object，在不同的形状上有不同的可能性（？</li>
+<li>后续的paper里面可以一口气train了</li>
+</ul>
+<h3 id="yolo"><a href="#yolo" class="headerlink" title="yolo"></a>yolo</h3><ul>
+<li>把detection变成了regression的问题</li>
+<li>分成不同的小块，在每个块里面都加入</li>
+</ul>
+<h1 id="visualization-deep-dream-neural-style"><a href="#visualization-deep-dream-neural-style" class="headerlink" title="visualization, deep dream, neural style"></a>visualization, deep dream, neural style</h1><p>可视化：观察神经网络如何工作</p>
+<h2 id="可视化不同位置"><a href="#可视化不同位置" class="headerlink" title="可视化不同位置"></a>可视化不同位置</h2><ul>
+<li>可视化activation的神经元 -&gt; 大量的图片扔进神经元里面，找出来一个神经元最感兴趣的部分</li>
+<li>可视化fliter -&gt; 只能在第一层进行（其他的层可以但是意义不大） 但是啥算法都会得出来长得差不多的</li>
+<li>可视化特征（全联接层的特征向量） -&gt;</li>
+<li>t-SNE：Embed high-dimensional points so that locally, pairwise distances are conserved，特征相似的东西会聚类</li>
+<li>对图片进行遮罩，可以看出来遮住不同地方这张图片被识别出来的概率</li>
+<li>deep conv和optimazation的可视化工具：<a href="http://yosinski.com/deepvis" target="_blank" rel="noopener">http://yosinski.com/deepvis</a></li>
+</ul>
+<h2 id="deconv实现"><a href="#deconv实现" class="headerlink" title="deconv实现"></a>deconv实现</h2><h3 id="问题1-如何计算任意一个神经元的梯度（代码实现）"><a href="#问题1-如何计算任意一个神经元的梯度（代码实现）" class="headerlink" title="问题1:如何计算任意一个神经元的梯度（代码实现）"></a>问题1:如何计算任意一个神经元的梯度（代码实现）</h3><ul>
+<li>找到想要的神经元，forward的时候就停在这里</li>
+<li>然后进行back，把所有其他的神经元的都设置成0，只把感兴趣的神经元设置成1，然后计算back出来的结果</li>
+<li>最后的结果看起来并不是很好理解，所以改变了back的方法，得到更好的结果（“guided back”）<br><img src="/2019/03/20/Stanford-CS231n笔记/L9_1.jpg" alt="guide back"></li>
+<li>guided back的计算方法</li>
+<li>在普通的计算中，back的时候使用relu，会把所有负值都转化成0</li>
+<li>在guide的计算里，在激活之后的东西back回去的时候，如果input的东西是负数的话，也会把这个东西kill成0，也就是说一个是block back的时候的gradient的值，另一个还会附加block输入进来的值<br><img src="/2019/03/20/Stanford-CS231n笔记/L9_2.jpg" alt="guide back"></li>
+<li>发生了什么：把输入进去ReLU的负的影响也取消掉了。如果不取消的话，这些正负就会互相fight，呈现更奇怪的图片。但是去掉负的之后变得就更清晰了。</li>
+<li>deconv：直接无视掉relu的存在了</li>
+</ul>
+<h3 id="第二个问题：图像优化"><a href="#第二个问题：图像优化" class="headerlink" title="第二个问题：图像优化"></a>第二个问题：图像优化</h3><ul>
+<li>how to find an image maximize some class score，但是整个网络不变</li>
+<li>输入一张全0的图片</li>
+<li>在back的时候把score设置成[0,0,0,1,0,0,…]，只有感兴趣的是1</li>
+<li>back回去，找到对图片会产生什么影响</li>
+<li>不停的重复这个步骤，更新的是图片不是weight<br><img src="/2019/03/20/Stanford-CS231n笔记/L9_3.jpg" alt="max image"></li>
+<li>效果</li>
+<li>找到可以让一个类型分数最高的图片（图片是根据网络生成的）</li>
+<li>可视化data的梯度 -&gt; 得到了一个类似热量图的东西，这样对黑色的部分改变对这个东西的分类没有很大的影响</li>
+<li>上面的步骤可以对任何的神经元进行（生成一张图片）</li>
+<li>更好的regular</li>
+<li>忽视了惩罚，只max神经元</li>
+<li>但是更新之后blur了一下图像，这样可以阻止图片进行高频率积累</li>
+</ul>
+<h3 id="第三个问题，CNN的code包含多少信息"><a href="#第三个问题，CNN的code包含多少信息" class="headerlink" title="第三个问题，CNN的code包含多少信息"></a>第三个问题，CNN的code包含多少信息</h3><ul>
+<li>是否可以通过net还原出来原来的图片（涉及到隐私泄露的问题）</li>
+<li>越往后的时候预测的准确度越低</li>
+</ul>
+<h2 id="deep-dream"><a href="#deep-dream" class="headerlink" title="deep dream"></a>deep dream</h2><ul>
+<li>一个非常简单的过程，只有几百行代码，就是optimazation image</li>
+<li>每次调用make_step图片都会发生微小的改变</li>
+<li>把网络forward到一个位置</li>
+<li>把gradient设置成activation设置成一样的</li>
+<li>再往回传回去</li>
+<li>可以强调对图片贡献最多的部分，不管激活了什么，都会把这个激活加强</li>
+</ul>
+<h2 id="deepart"><a href="#deepart" class="headerlink" title="deepart"></a>deepart</h2><ul>
+<li>把目标的content传进CNN</li>
+<li>把style contet也传进CNN</li>
+<li>把目标的loss和style的loss匹配，然后得到相应的opt image</li>
+</ul>
+<h2 id="是否可以用生成的图片去fool-CNN"><a href="#是否可以用生成的图片去fool-CNN" class="headerlink" title="是否可以用生成的图片去fool CNN"></a>是否可以用生成的图片去fool CNN</h2><ul>
+<li>把图片的gradient设置成其他的东西，本来希望可以得到混合的结果，但是实际上图片的distort根本看起来不变</li>
+<li>有些图片人类看起来差不多，但是gradient（或者HOG）之类的可能彻底是其他的东西</li>
+<li>原因：</li>
+<li>图片有很高维度的空间</li>
+<li>实际训练的图像有一小部分被约束，放了一个线性分类之类只调整了其中的一小部分</li>
+<li>在线性分类里，如果在每个维度上面都改变了一点点，实际上的置信区间会发生特别大的改变（大规模的点积运算）.下图只加进去了一点点的金鱼的噪音，分类就变成了100%的金鱼<br><img src="/2019/03/20/Stanford-CS231n笔记/L9_4.jpg" alt="confidence"></li>
+<li>这个现象不仅仅发生在图片里面，也发生在其他的地方</li>
+</ul>
+<h1 id="RNN（recurrent-neural-network）"><a href="#RNN（recurrent-neural-network）" class="headerlink" title="RNN（recurrent neural network）"></a>RNN（recurrent neural network）</h1><p>普通的nets：大小都是固定的 one to one<br>RNN：可以有灵活的对应结果</p>
+<ul>
+<li>一系列的词来描述这张图</li>
+<li>machine translation：seq of words -&gt; seq of words</li>
+<li>frame level的视频classification</li>
+</ul>
+<h2 id="RNN是什么"><a href="#RNN是什么" class="headerlink" title="RNN是什么"></a>RNN是什么</h2><ul>
+<li>可以在任何时间接受一个input（vector），然后对于不同的state产生不同的预测结果，然后需要在一些时间中预测出来vector。只需要特定的情况，其他的情况虽然有但是没有记录下来</li>
+<li>过去的状态 + 新的input + 参数w -&gt; 预测出来新的state</li>
+<li><p>注意：同样的function里面的weight是固定的，在不同时间使用但是weight是一样的<br><img src="/2019/03/20/Stanford-CS231n笔记/L10_1.jpg" alt="RNN"></p>
+</li>
+<li><p>比如例子：<a href="https://gist.github.com/karpathy/d4dee566867f8291f086" target="_blank" rel="noopener">https://gist.github.com/karpathy/d4dee566867f8291f086</a></p>
+</li>
+<li>输入一个字母的序列h e l o</li>
+<li>预测下面的字母是什么，训练的模型是hello</li>
+<li>把每个字母分别feed进去，顺着这个字母顺序来优化参数的序列，因为知道下一个的结果是什么了，就可以朝着这个目标来努力<br><img src="/2019/03/20/Stanford-CS231n笔记/L10_2.jpg" alt="RNNexp"></li>
+<li>竟然可以生成句子数学公式甚至代码</li>
+</ul>
+<h2 id="在图片中开始使用"><a href="#在图片中开始使用" class="headerlink" title="在图片中开始使用"></a>在图片中开始使用</h2><ul>
+<li>从一张图得到一系列的文字</li>
+<li>两部分组成</li>
+<li>CNN：把test图片输入到CNN，一直到最后的fc，但是然后不进行分类，输入RNN</li>
+<li>RNN：RNN不仅是现在的输入，还会加入了CNN里面出来的输出。然后得到的结果（得到了没准一个词）进入下一个循环（就跟生成语义的时候一样）</li>
+<li>直到在RNN里面找到<end>的token，然后结束RNN</end></li>
+</ul>
+<h2 id="LSTM-long-short-term-memory（大概是个生物里面的东西）"><a href="#LSTM-long-short-term-memory（大概是个生物里面的东西）" class="headerlink" title="LSTM long short term memory（大概是个生物里面的东西）"></a>LSTM long short term memory（大概是个生物里面的东西）</h2><ul>
+<li>RNN有好多层，每层还有很多个参数来决定这层往哪走</li>
+<li>有两个输入x和h，组合到w上面，然后不同的东西乘不同的激活函数</li>
+<li>x来自below</li>
+<li>h是从上一回来的</li>
+<li>基于gate和function（forget gate）的类型，会更新c的值（反正都是参数的）</li>
+<li>进行这些奇怪的操作的原因就是找到一个平衡和更好的结果<br><img src="/2019/03/20/Stanford-CS231n笔记/L10_3.jpg" alt="LSTM"></li>
+<li>比较</li>
+<li>每次普通的RNN都要经过f gate，会彻底改变。back的时候gradient会消失或者爆炸</li>
+<li>LSTM里面用加法跳过了这个门，有一定的影响但是没有彻底改变，gradient的消失问题会被控制住（因为只用了加，不会die）</li>
+<li>gradient clipping可以控制住gradient爆炸<br><img src="/2019/03/20/Stanford-CS231n笔记/L10_4.jpg" alt="campare"></li>
+</ul>
+<h1 id="作业相关内容"><a href="#作业相关内容" class="headerlink" title="作业相关内容"></a>作业相关内容</h1><h2 id="安装anaconda！！！-conda-activate-cs231n"><a href="#安装anaconda！！！-conda-activate-cs231n" class="headerlink" title="安装anaconda！！！ conda activate cs231n"></a>安装anaconda！！！ conda activate cs231n</h2><h2 id="python3-m-IPython-notebook-打开！！"><a href="#python3-m-IPython-notebook-打开！！" class="headerlink" title="python3 -m IPython notebook 打开！！"></a>python3 -m IPython notebook 打开！！</h2><h2 id="assignment1"><a href="#assignment1" class="headerlink" title="assignment1"></a>assignment1</h2><h3 id="knn"><a href="#knn" class="headerlink" title="knn"></a>knn</h3><ul>
+<li>两次循环计算距离</li>
+<li><p>不需要一个像素一个像素的计算，用X直接表示i对应的那行的像素值的和，直接做差（每一项之间，平方（每一个，求和（所有项），开方。会快很多！！！！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#dists是一个500x5000的矩阵（测试数量和训练数量）</span><br><span class="line">dists[i,j] = np.sqrt(np.sum(np.square(X[i] - self.X_train[j])))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化数组的方法是 np.array([[],[]])</p>
+</li>
+<li>如果一个像素一个像素的循环结果简直太可怕了，害怕</li>
+</ul>
 
       
     </div>
@@ -395,6 +1155,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
 
       
       
@@ -404,8 +1170,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/20/Stanford CS231n笔记/" rel="next" title="Stanford CS231n笔记">
-                <i class="fa fa-chevron-left"></i> Stanford CS231n笔记
+              <a href="/2019/03/19/test/" rel="next" title="小朋友们大家好！">
+                <i class="fa fa-chevron-left"></i> 小朋友们大家好！
               </a>
             
           </div>
@@ -456,8 +1222,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -472,7 +1247,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -518,6 +1293,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Image-Classification-pipeline"><span class="nav-number">2.</span> <span class="nav-text">Image Classification pipeline</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#challenges"><span class="nav-number">2.1.</span> <span class="nav-text">challenges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#image-classifer"><span class="nav-number">2.2.</span> <span class="nav-text">image classifer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-driven-approach"><span class="nav-number">2.3.</span> <span class="nav-text">data-driven approach</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KNN"><span class="nav-number">2.4.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NN"><span class="nav-number">2.4.1.</span> <span class="nav-text">NN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KNN-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">KNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#但是根本不用呢"><span class="nav-number">2.4.3.</span> <span class="nav-text">但是根本不用呢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linear-classification"><span class="nav-number">2.5.</span> <span class="nav-text">linear classification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#parametric-approach"><span class="nav-number">2.5.1.</span> <span class="nav-text">parametric approach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">2.5.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hard-part"><span class="nav-number">2.5.3.</span> <span class="nav-text">hard part</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#loss-function-optimization"><span class="nav-number">3.</span> <span class="nav-text">loss function optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVM-loss"><span class="nav-number">3.1.</span> <span class="nav-text">SVM loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">3.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bug"><span class="nav-number">3.1.2.</span> <span class="nav-text">bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weight-regularization（解决上面这个问题）"><span class="nav-number">3.1.3.</span> <span class="nav-text">weight regularization（解决上面这个问题）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#softmax（用起来更好）（multinomial-logistic-regression）"><span class="nav-number">3.2.</span> <span class="nav-text">softmax（用起来更好）（multinomial logistic regression）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些问题"><span class="nav-number">3.2.2.</span> <span class="nav-text">一些问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上方区域总结"><span class="nav-number">3.3.</span> <span class="nav-text">上方区域总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optimization-loss"><span class="nav-number">3.4.</span> <span class="nav-text">optimization loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#follow-the-slope"><span class="nav-number">3.4.1.</span> <span class="nav-text">follow the slope</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gradient-descent"><span class="nav-number">3.4.2.</span> <span class="nav-text">gradient descent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片中使用linear-classifier"><span class="nav-number">3.5.</span> <span class="nav-text">图片中使用linear classifier</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#color-histogram"><span class="nav-number">3.5.1.</span> <span class="nav-text">color histogram</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HOG-SIFT"><span class="nav-number">3.5.2.</span> <span class="nav-text">HOG/SIFT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bag-of-words"><span class="nav-number">3.5.3.</span> <span class="nav-text">bag of words</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.5.4.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Backpropagation-amp-neural-network"><span class="nav-number">4.</span> <span class="nav-text">Backpropagation &amp; neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#backpropagation"><span class="nav-number">4.1.</span> <span class="nav-text">backpropagation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Implementation"><span class="nav-number">4.2.</span> <span class="nav-text">Implementation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#psuedocode"><span class="nav-number">4.2.1.</span> <span class="nav-text">psuedocode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vectorized"><span class="nav-number">4.2.2.</span> <span class="nav-text">vectorized</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#neural-network"><span class="nav-number">4.3.</span> <span class="nav-text">neural network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两层的NN"><span class="nav-number">4.3.1.</span> <span class="nav-text">两层的NN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经元"><span class="nav-number">4.3.2.</span> <span class="nav-text">神经元</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Neural-network-2（training-part1）"><span class="nav-number">5.</span> <span class="nav-text">Neural network 2（training part1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回顾一下历史"><span class="nav-number">5.1.</span> <span class="nav-text">回顾一下历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activation-function（一个hyerparameter）"><span class="nav-number">5.2.</span> <span class="nav-text">activation function（一个hyerparameter）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid"><span class="nav-number">5.2.1.</span> <span class="nav-text">sigmoid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh"><span class="nav-number">5.2.2.</span> <span class="nav-text">tanh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReLU"><span class="nav-number">5.2.3.</span> <span class="nav-text">ReLU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#leaky-ReLU"><span class="nav-number">5.2.4.</span> <span class="nav-text">leaky ReLU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maxout-neuron"><span class="nav-number">5.2.5.</span> <span class="nav-text">Maxout neuron</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤：-预处理数据-gt-选择architecture"><span class="nav-number">5.3.</span> <span class="nav-text">步骤： 预处理数据 -&gt; 选择architecture</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-preprocessing"><span class="nav-number">5.4.</span> <span class="nav-text">data preprocessing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ML"><span class="nav-number">5.4.1.</span> <span class="nav-text">ML</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用里：只需要center"><span class="nav-number">5.4.2.</span> <span class="nav-text">实际应用里：只需要center</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weight-initialization（重要）"><span class="nav-number">5.5.</span> <span class="nav-text">weight initialization（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#small-random-numbers"><span class="nav-number">5.5.1.</span> <span class="nav-text">small random numbers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他的一些论文也讨论过其他方法"><span class="nav-number">5.5.2.</span> <span class="nav-text">其他的一些论文也讨论过其他方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#batch-normalization-gt-实际中解决w初始化的方法"><span class="nav-number">5.5.3.</span> <span class="nav-text">batch normalization -&gt; 实际中解决w初始化的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#babysitting-amp-learning-process"><span class="nav-number">5.6.</span> <span class="nav-text">babysitting &amp; learning process</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#检查loss算的对不对"><span class="nav-number">5.6.1.</span> <span class="nav-text">检查loss算的对不对</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尝试训练"><span class="nav-number">5.6.2.</span> <span class="nav-text">尝试训练</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hyper-optimization"><span class="nav-number">5.7.</span> <span class="nav-text">hyper optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉验证"><span class="nav-number">5.7.1.</span> <span class="nav-text">交叉验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数的选择sample"><span class="nav-number">5.7.2.</span> <span class="nav-text">参数的选择sample</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需要选择的hyper"><span class="nav-number">5.7.3.</span> <span class="nav-text">需要选择的hyper</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#training-Neural-Net2"><span class="nav-number">6.</span> <span class="nav-text">training Neural Net2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#parameter-update"><span class="nav-number">6.1.</span> <span class="nav-text">parameter update</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SGD"><span class="nav-number">6.1.1.</span> <span class="nav-text">SGD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#momentum-update"><span class="nav-number">6.1.2.</span> <span class="nav-text">momentum update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nesterov-momentum-update"><span class="nav-number">6.1.3.</span> <span class="nav-text">nesterov momentum update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adaGrad-（parameter-adaptive）"><span class="nav-number">6.1.4.</span> <span class="nav-text">adaGrad （parameter-adaptive）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RMSProp（上面一个的变形）"><span class="nav-number">6.1.5.</span> <span class="nav-text">RMSProp（上面一个的变形）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#adam"><span class="nav-number">6.1.6.</span> <span class="nav-text">adam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际使用"><span class="nav-number">6.1.7.</span> <span class="nav-text">实际使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#secend-order-optimization-method（ml）"><span class="nav-number">6.1.8.</span> <span class="nav-text">secend order optimization method（ml）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#evaluation：model-ensembles"><span class="nav-number">6.2.</span> <span class="nav-text">evaluation：model ensembles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regularization（DROPOUT）"><span class="nav-number">6.3.</span> <span class="nav-text">regularization（DROPOUT）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-checking（并没有讲）"><span class="nav-number">6.4.</span> <span class="nav-text">gradient checking（并没有讲）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN开始啦"><span class="nav-number">7.</span> <span class="nav-text">CNN开始啦</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层（核心部分）"><span class="nav-number">7.1.</span> <span class="nav-text">卷积层（核心部分）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大致布局"><span class="nav-number">7.2.</span> <span class="nav-text">大致布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体计算"><span class="nav-number">7.3.</span> <span class="nav-text">具体计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#stride"><span class="nav-number">7.3.1.</span> <span class="nav-text">stride</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padding"><span class="nav-number">7.3.2.</span> <span class="nav-text">padding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数数量"><span class="nav-number">7.3.3.</span> <span class="nav-text">参数数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1x1的卷积"><span class="nav-number">7.3.4.</span> <span class="nav-text">1x1的卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现在处理的东西都是方形的"><span class="nav-number">7.3.5.</span> <span class="nav-text">现在处理的东西都是方形的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从神经元的角度来看CNN"><span class="nav-number">7.3.6.</span> <span class="nav-text">从神经元的角度来看CNN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pooling"><span class="nav-number">7.4.</span> <span class="nav-text">pooling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#max-pooling"><span class="nav-number">7.4.1.</span> <span class="nav-text">max pooling</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fully-connected"><span class="nav-number">7.5.</span> <span class="nav-text">fully connected</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际应用"><span class="nav-number">7.6.</span> <span class="nav-text">实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LeNet-5"><span class="nav-number">7.6.1.</span> <span class="nav-text">LeNet-5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AlexNet"><span class="nav-number">7.6.2.</span> <span class="nav-text">AlexNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ZFNet"><span class="nav-number">7.6.3.</span> <span class="nav-text">ZFNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VGGNet"><span class="nav-number">7.6.4.</span> <span class="nav-text">VGGNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GoogLeNet"><span class="nav-number">7.6.5.</span> <span class="nav-text">GoogLeNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ResNet"><span class="nav-number">7.6.6.</span> <span class="nav-text">ResNet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top-5-error"><span class="nav-number">7.6.7.</span> <span class="nav-text">top-5 error</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#spatial-localization-and-detection"><span class="nav-number">8.</span> <span class="nav-text">spatial localization and detection</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类-定位：Localization-as-Regression"><span class="nav-number">8.1.</span> <span class="nav-text">分类+定位：Localization as Regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">8.1.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类别"><span class="nav-number">8.1.2.</span> <span class="nav-text">类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加在什么地方"><span class="nav-number">8.1.3.</span> <span class="nav-text">加在什么地方</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个目标的检测（Aside）"><span class="nav-number">8.1.4.</span> <span class="nav-text">多个目标的检测（Aside）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类-定位：sliding-window：overfeat"><span class="nav-number">8.2.</span> <span class="nav-text">分类 + 定位：sliding window：overfeat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标检测"><span class="nav-number">8.3.</span> <span class="nav-text">目标检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#region-proposals"><span class="nav-number">8.3.1.</span> <span class="nav-text">region proposals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RCNN（region-based-CNN）"><span class="nav-number">8.3.2.</span> <span class="nav-text">RCNN（region based CNN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-RCNN-（提速）"><span class="nav-number">8.3.3.</span> <span class="nav-text">fast RCNN （提速）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#faster-RCNN（再提速）"><span class="nav-number">8.3.4.</span> <span class="nav-text">faster RCNN（再提速）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yolo"><span class="nav-number">8.3.5.</span> <span class="nav-text">yolo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#visualization-deep-dream-neural-style"><span class="nav-number">9.</span> <span class="nav-text">visualization, deep dream, neural style</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化不同位置"><span class="nav-number">9.1.</span> <span class="nav-text">可视化不同位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deconv实现"><span class="nav-number">9.2.</span> <span class="nav-text">deconv实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1-如何计算任意一个神经元的梯度（代码实现）"><span class="nav-number">9.2.1.</span> <span class="nav-text">问题1:如何计算任意一个神经元的梯度（代码实现）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二个问题：图像优化"><span class="nav-number">9.2.2.</span> <span class="nav-text">第二个问题：图像优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三个问题，CNN的code包含多少信息"><span class="nav-number">9.2.3.</span> <span class="nav-text">第三个问题，CNN的code包含多少信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deep-dream"><span class="nav-number">9.3.</span> <span class="nav-text">deep dream</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deepart"><span class="nav-number">9.4.</span> <span class="nav-text">deepart</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#是否可以用生成的图片去fool-CNN"><span class="nav-number">9.5.</span> <span class="nav-text">是否可以用生成的图片去fool CNN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN（recurrent-neural-network）"><span class="nav-number">10.</span> <span class="nav-text">RNN（recurrent neural network）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN是什么"><span class="nav-number">10.1.</span> <span class="nav-text">RNN是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在图片中开始使用"><span class="nav-number">10.2.</span> <span class="nav-text">在图片中开始使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM-long-short-term-memory（大概是个生物里面的东西）"><span class="nav-number">10.3.</span> <span class="nav-text">LSTM long short term memory（大概是个生物里面的东西）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#作业相关内容"><span class="nav-number">11.</span> <span class="nav-text">作业相关内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装anaconda！！！-conda-activate-cs231n"><span class="nav-number">11.1.</span> <span class="nav-text">安装anaconda！！！ conda activate cs231n</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python3-m-IPython-notebook-打开！！"><span class="nav-number">11.2.</span> <span class="nav-text">python3 -m IPython notebook 打开！！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#assignment1"><span class="nav-number">11.3.</span> <span class="nav-text">assignment1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#knn"><span class="nav-number">11.3.1.</span> <span class="nav-text">knn</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
