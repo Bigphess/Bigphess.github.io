@@ -103,12 +103,10 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="在commit了40多次之后终于把自己的博客搭好了，中间画遇到了一些奇怪的问题记录一下 github部分 在一些地方看到的说网站的名字必须和github的名字一样，不知道是不是必须的但是还是这么设置了 网站需要选择在master  hexo部分基本功能：生成网页1hexo g 传到github上面1hexo d">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://bigphess.github.io/2019/03/20/关于hexo和gitpage的博客搭建以及设置/相对路径">
-<meta property="og:updated_time" content="2019-03-20T07:31:53.681Z">
+<meta property="og:updated_time" content="2019-03-20T07:34:51.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于hexo和gitpage的博客搭建以及设置">
 <meta name="twitter:description" content="在commit了40多次之后终于把自己的博客搭好了，中间画遇到了一些奇怪的问题记录一下 github部分 在一些地方看到的说网站的名字必须和github的名字一样，不知道是不是必须的但是还是这么设置了 网站需要选择在master  hexo部分基本功能：生成网页1hexo g 传到github上面1hexo d">
-<meta name="twitter:image" content="https://bigphess.github.io/2019/03/20/关于hexo和gitpage的博客搭建以及设置/相对路径">
 
 
 
@@ -369,7 +367,7 @@
                 
               
 
-              <time title="Created: 2019-03-20 15:40:41 / Modified: 16:31:53" itemprop="dateCreated datePublished" datetime="2019-03-20T15:40:41+09:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 15:40:41 / Modified: 16:34:51" itemprop="dateCreated datePublished" datetime="2019-03-20T15:40:41+09:00">2019-03-20</time>
             
 
             
@@ -437,11 +435,17 @@
 <p>生成新的md<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &lt;title&gt;</span><br></pre></td></tr></table></figure></p>
 <p>需要把生成的全部清除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure></p>
 <h3 id="添加主题"><a href="#添加主题" class="headerlink" title="添加主题"></a>添加主题</h3><ul>
-<li>把相应的主题clone下来，然后修改博客根目录的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* 遇到404或者不显示模板的时候基本就是没套对</span><br><span class="line">* 主题内容在主题的config修改</span><br><span class="line">这部分遇到的主要问题是两个：</span><br><span class="line">#### 根目录config忘记添加一部分</span><br></pre></td></tr></table></figure></li>
+<li>把相应的主题clone下来，然后修改博客根目录的 _config.yml 文件</li>
+<li>遇到404或者不显示模板的时候基本就是没套对</li>
+<li>主题内容在主题的config修改<br>这部分遇到的主要问题是两个：<h4 id="根目录config忘记添加一部分"><a href="#根目录config忘记添加一部分" class="headerlink" title="根目录config忘记添加一部分"></a>根目录config忘记添加一部分</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">jsonContent:</span><br><span class="line">    meta: false</span><br><span class="line">    pages: false</span><br><span class="line">    posts:</span><br><span class="line">        title: true</span><br><span class="line">        date: true</span><br><span class="line">        path: true</span><br><span class="line">        text: false</span><br><span class="line">        raw: false</span><br><span class="line">        content: false</span><br><span class="line">        slug: false</span><br><span class="line">        updated: false</span><br><span class="line">        comments: false</span><br><span class="line">        link: false</span><br><span class="line">        permalink: false</span><br><span class="line">        excerpt: false</span><br><span class="line">        categories: false</span><br><span class="line">        tags: true</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>jsonContent:<br>    meta: false<br>    pages: false<br>    posts:<br>        title: true<br>        date: true<br>        path: true<br>        text: false<br>        raw: false<br>        content: false<br>        slug: false<br>        updated: false<br>        comments: false<br>        link: false<br>        permalink: false<br>        excerpt: false<br>        categories: false<br>        tags: true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#### hexo的url和root部分设置不对</span><br><span class="line">* github的deploy 地址应该是clone时候的网址</span><br><span class="line">* url部分应该是https://bigphess.github.io/，root部分是/</span><br><span class="line"></span><br><span class="line">### md文件增加图片</span><br><span class="line">在config里面设置，生成新的文章的时候就会生成对应的文件夹</span><br></pre></td></tr></table></figure></p>
-<p>post_asset_folder: true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后把相应的图片放在文件夹里，引用的时候直接md格式引用：</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/03/20/关于hexo和gitpage的博客搭建以及设置/相对路径" alt="图片的名字"><br><code>`</code></p>
+<h4 id="hexo的url和root部分设置不对"><a href="#hexo的url和root部分设置不对" class="headerlink" title="hexo的url和root部分设置不对"></a>hexo的url和root部分设置不对</h4><ul>
+<li>github的deploy 地址应该是clone时候的网址</li>
+<li>url部分应该是<a href="https://bigphess.github.io/，root部分是/">https://bigphess.github.io/，root部分是/</a></li>
+</ul>
+<h3 id="md文件增加图片"><a href="#md文件增加图片" class="headerlink" title="md文件增加图片"></a>md文件增加图片</h3><p>在config里面设置，生成新的文章的时候就会生成对应的文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure></p>
+<p>然后把相应的图片放在文件夹里，引用的时候直接md格式引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![图片的名字](相对路径)</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -647,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#github部分"><span class="nav-number">1.</span> <span class="nav-text">github部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo部分"><span class="nav-number">2.</span> <span class="nav-text">hexo部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本功能："><span class="nav-number">2.1.</span> <span class="nav-text">基本功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加主题"><span class="nav-number">2.2.</span> <span class="nav-text">添加主题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#github部分"><span class="nav-number">1.</span> <span class="nav-text">github部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo部分"><span class="nav-number">2.</span> <span class="nav-text">hexo部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本功能："><span class="nav-number">2.1.</span> <span class="nav-text">基本功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加主题"><span class="nav-number">2.2.</span> <span class="nav-text">添加主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#根目录config忘记添加一部分"><span class="nav-number">2.2.1.</span> <span class="nav-text">根目录config忘记添加一部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hexo的url和root部分设置不对"><span class="nav-number">2.2.2.</span> <span class="nav-text">hexo的url和root部分设置不对</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#md文件增加图片"><span class="nav-number">2.3.</span> <span class="nav-text">md文件增加图片</span></a></li></ol></li></ol></div>
             
 
           </div>
