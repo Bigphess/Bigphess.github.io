@@ -103,11 +103,11 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://bigphess.github.io/L3_1.jpg">
-<meta property="og:image" content="https://bigphess.github.io/L3_2.jpg">
-<meta property="og:image" content="https://bigphess.github.io/L3_3.jpg">
-<meta property="og:image" content="https://bigphess.github.io/L3_4.jpg">
-<meta property="og:image" content="https://bigphess.github.io/L3_5.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_4.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_5.jpg">
 <meta property="og:image" content="https://bigphess.github.io/L3_6.jpg">
 <meta property="og:image" content="https://bigphess.github.io/L3_7.jpg">
 <meta property="og:image" content="https://bigphess.github.io/L4_1.jpg">
@@ -134,11 +134,11 @@
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_2.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_3.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L10_4.jpg">
-<meta property="og:updated_time" content="2019-03-20T06:07:16.037Z">
+<meta property="og:updated_time" content="2019-03-20T06:11:48.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StanfordCS231N笔记">
 <meta name="twitter:description" content="Introduction Image Classification pipelinechallenges 图片是由无数数字块组成的 视角的转变，亮度的变化，变形都会产生非常大的变化 viewpoint illumination deformation occlusion background clutter intraclass variation  image classifer input:i">
-<meta name="twitter:image" content="https://bigphess.github.io/L3_1.jpg">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/03/20/StanfordCS231N笔记/L3_1.jpg">
 
 
 
@@ -367,7 +367,7 @@
                 
               
 
-              <time title="Created: 2019-03-20 15:04:22 / Modified: 15:07:16" itemprop="dateCreated datePublished" datetime="2019-03-20T15:04:22+09:00">2019-03-20</time>
+              <time title="Created: 2019-03-20 15:04:22 / Modified: 15:11:48" itemprop="dateCreated datePublished" datetime="2019-03-20T15:04:22+09:00">2019-03-20</time>
             
 
             
@@ -494,7 +494,7 @@
 <li>Li的每一项都在0和差值之间找最大值，然后把每一项的加起来求和</li>
 <li>如何理解这个式子：既然对于不同class的评分越高就是越可能，那么评分是负数的话就说明不可能，这样就直接用0把这种可能性抹去了。如果其他种类在正的方面评分越高，说明这个种类跑偏了，loss越大</li>
 </ul>
-<p><img src="/L3_1.jpg" alt="SVM"></p>
+<p><img src="/2019/03/20/StanfordCS231N笔记/L3_1.jpg" alt="SVM"></p>
 <p>###注意点</p>
 <ul>
 <li>在上面这张图里，因为车的评分已经是最高了，计算出来的loss就是0</li>
@@ -503,7 +503,7 @@
 <li>也有的SVM里面用的是max之后平方，但是不平方的用的更多一点，也是一个hyper parameter</li>
 <li>scale</li>
 <li>最小：0</li>
-<li>最大：infinite<br><img src="/L3_2.jpg" alt="python code"></li>
+<li>最大：infinite<br><img src="/2019/03/20/StanfordCS231N笔记/L3_2.jpg" alt="python code"></li>
 </ul>
 <h3 id="bug"><a href="#bug" class="headerlink" title="bug"></a>bug</h3><ul>
 <li>在实际应用里面没有那么好的效果</li>
@@ -532,7 +532,7 @@
 <li>最终处理完的score就是每个类型推测出来的占比可能性（和为1）</li>
 <li>这里求完-log（p）其实就是信息熵，代表对不确定度的度量</li>
 <li>直接比较可能性和log之后比较可能性在本质上是没有区别的</li>
-<li>但是数学上一般log之后的数据会看起来好一些<br><img src="/L3_3.jpg" alt="softmax function"><br>实际操作如下<br><img src="/L3_4.jpg" alt="softmax result"></li>
+<li>但是数学上一般log之后的数据会看起来好一些<br><img src="/2019/03/20/StanfordCS231N笔记/L3_3.jpg" alt="softmax function"><br>实际操作如下<br><img src="/2019/03/20/StanfordCS231N笔记/L3_4.jpg" alt="softmax result"></li>
 </ul>
 <h3 id="一些问题"><a href="#一些问题" class="headerlink" title="一些问题"></a>一些问题</h3><ul>
 <li>极值</li>
@@ -547,7 +547,7 @@
 <li>对于softmax来说，后面的-100还是-200还是会对loss最终的值产生影响，softmax希望所有的值都在正确的class上面，后面啥都没有。所以更具有robustness。</li>
 <li>SVM会有一个你需要的区域，剩下的根本不考虑；而softmax会考虑所有的区域</li>
 </ul>
-<h2 id="上方区域总结"><a href="#上方区域总结" class="headerlink" title="上方区域总结"></a>上方区域总结</h2><p><img src="/L3_5.jpg" alt="总结"></p>
+<h2 id="上方区域总结"><a href="#上方区域总结" class="headerlink" title="上方区域总结"></a>上方区域总结</h2><p><img src="/2019/03/20/StanfordCS231N笔记/L3_5.jpg" alt="总结"></p>
 <ul>
 <li>x：训练集里面的数据，放在图片里就是把一个图片拉成一个1xN的向量</li>
 <li>y：训练集的标签，用来和最终的结果比对</li>
