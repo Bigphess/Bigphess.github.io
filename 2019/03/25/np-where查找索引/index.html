@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]]) 上面这个例子的条件为[[True,False], [True">
+  <meta name="description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]])">
 <meta name="keywords" content="Numpy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="np.where查找索引">
 <meta property="og:url" content="https://bigphess.github.io/2019/03/25/np-where查找索引/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
-<meta property="og:description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]]) 上面这个例子的条件为[[True,False], [True">
+<meta property="og:description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]])">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-25T04:35:41.425Z">
+<meta property="og:updated_time" content="2019-03-25T04:42:55.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="np.where查找索引">
-<meta name="twitter:description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]]) 上面这个例子的条件为[[True,False], [True">
+<meta name="twitter:description" content="np.wherenp.where(condition, x, y)满足条件(condition)，输出x，不满足输出y。123np.where([[True,False], [True,True]],    # 官网上的例子[[1,2], [3,4]],[[9,8], [7,6]]) 输出12array([[1, 8],[3, 4]])">
 
 
 
@@ -264,7 +264,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">7</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">9</span></a>
 
   </li>
 
@@ -368,7 +368,7 @@
                 
               
 
-              <time title="Created: 2019-03-25 13:34:38 / Modified: 13:35:41" itemprop="dateCreated datePublished" datetime="2019-03-25T13:34:38+09:00">2019-03-25</time>
+              <time title="Created: 2019-03-25 13:34:38 / Modified: 13:42:55" itemprop="dateCreated datePublished" datetime="2019-03-25T13:34:38+09:00">2019-03-25</time>
             
 
             
@@ -441,6 +441,7 @@
       
         <h2 id="np-where"><a href="#np-where" class="headerlink" title="np.where"></a>np.where</h2><h3 id="np-where-condition-x-y"><a href="#np-where-condition-x-y" class="headerlink" title="np.where(condition, x, y)"></a>np.where(condition, x, y)</h3><p>满足条件(condition)，输出x，不满足输出y。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.where([[True,False], [True,True]],    # 官网上的例子</span><br><span class="line">[[1,2], [3,4]],</span><br><span class="line">[[9,8], [7,6]])</span><br></pre></td></tr></table></figure></p>
 <p>输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array([[1, 8],</span><br><span class="line">[3, 4]])</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>上面这个例子的条件为[[True,False], [True,False]]，分别对应最后输出结果的四个值。第一个值从[1,9]中选，因为条件为True，所以是选1。第二个值从[2,8]中选，因为条件为False，所以选8，后面以此类推<br><strong>这里的true指的就是选前面的，false就是指选后面的</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = 10</span><br><span class="line">&gt;&gt;&gt; np.where([[a &gt; 5,a &lt; 5], [a == 10,a == 7]],</span><br><span class="line">[[&quot;chosen&quot;,&quot;not chosen&quot;], [&quot;chosen&quot;,&quot;not chosen&quot;]],</span><br><span class="line">[[&quot;not chosen&quot;,&quot;chosen&quot;], [&quot;not chosen&quot;,&quot;chosen&quot;]])</span><br><span class="line"></span><br><span class="line">array([[&apos;chosen&apos;, &apos;chosen&apos;],</span><br><span class="line">[&apos;chosen&apos;, &apos;chosen&apos;]], dtype=&apos;&lt;U10&apos;)</span><br></pre></td></tr></table></figure>
 <h3 id="np-where-condition"><a href="#np-where-condition" class="headerlink" title="np.where(condition)"></a>np.where(condition)</h3><p>只有条件 (condition)，没有x和y，则输出满足条件 (即非0) 元素的<strong>坐标</strong>（注意这里返回的是坐标）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a = np.array([2,4,6,8,10])</span><br><span class="line">&gt;&gt;&gt; np.where(a &gt; 5)             # 返回索引</span><br><span class="line">(array([2, 3, 4]),)   </span><br><span class="line">&gt;&gt;&gt; a[np.where(a &gt; 5)]              # 等价于 a[a&gt;5]</span><br><span class="line">array([ 6,  8, 10])</span><br></pre></td></tr></table></figure></p>
@@ -570,7 +571,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
