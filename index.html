@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">7</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">12</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">11</span></a>
 
   </li>
 
@@ -471,260 +471,6 @@
 <h3 id="vector对vector"><a href="#vector对vector" class="headerlink" title="vector对vector"></a>vector对vector</h3><p>y = [y1,y2 …. ym]<br>x = [x1,x2 …. xn]<br>最后求出来的结果是一个m行n列的矩阵，jacobian矩阵</p>
 <h3 id="matrix对vector"><a href="#matrix对vector" class="headerlink" title="matrix对vector"></a>matrix对vector</h3><p>矩阵y =<br>[[y11,y12…y1n],<br>[y21,y22 …y2n],<br>…<br>[yn1,yn2 …ynn]<br>]<br>向量x = [x1,x2…xn]T<br>最终的结果是每一行分别对这个x的向量求导，所以矩阵的列数和向量的行数应该先通</p>
 <h2 id="对于矩阵"><a href="#对于矩阵" class="headerlink" title="对于矩阵"></a>对于矩阵</h2><p>一般只考虑标量对矩阵(剩下的情况和上面类似)<br>最终结果是这个标量对所有的矩阵内容求导，求出来的是梯度矩阵</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/03/29/CS231Nassignment1SVM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/29/CS231Nassignment1SVM/" class="post-title-link" itemprop="url">CS231N作业assignment1之SVM部分</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-03-29 16:00:12" itemprop="dateCreated datePublished" datetime="2019-03-29T16:00:12+09:00">2019-03-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-30 15:07:04" itemprop="dateModified" datetime="2019-03-30T15:07:04+09:00">2019-03-30</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Assignment from : <a href="http://cs231n.github.io/assignments2018/assignment1/" target="_blank" rel="noopener">http://cs231n.github.io/assignments2018/assignment1/</a></p>
-<h3 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h3><ul>
-<li>a fully-vectorized loss function for the SVM</li>
-<li>fully-vectorized expression for its analytic gradient</li>
-<li>use a validation set to tune the learning rate and regularization strength</li>
-<li>optimize the loss function with SGD</li>
-<li>visualize the final learned weights</li>
-</ul>
-<h2 id="Set-up部分"><a href="#Set-up部分" class="headerlink" title="Set up部分"></a>Set up部分</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run some setup code for this notebook.</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> cs231n.data_utils <span class="keyword">import</span> load_CIFAR10</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># This is a bit of magic to make matplotlib figures appear inline in the</span></span><br><span class="line"><span class="comment"># notebook rather than in a new window.</span></span><br><span class="line">%matplotlib inline</span><br><span class="line">plt.rcParams[<span class="string">'figure.figsize'</span>] = (<span class="number">10.0</span>, <span class="number">8.0</span>) <span class="comment"># set default size of plots</span></span><br><span class="line">plt.rcParams[<span class="string">'image.interpolation'</span>] = <span class="string">'nearest'</span></span><br><span class="line">plt.rcParams[<span class="string">'image.cmap'</span>] = <span class="string">'gray'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Some more magic so that the notebook will reload external python modules;</span></span><br><span class="line"><span class="comment"># see http://stackoverflow.com/questions/1907993/autoreload-of-modules-in-ipython</span></span><br><span class="line">%load_ext autoreload</span><br><span class="line">%autoreload <span class="number">2</span></span><br></pre></td></tr></table></figure>
-<h2 id="读取CIFAR-10的数据，预处理"><a href="#读取CIFAR-10的数据，预处理" class="headerlink" title="读取CIFAR-10的数据，预处理"></a>读取CIFAR-10的数据，预处理</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load the raw CIFAR-10 data.</span></span><br><span class="line">cifar10_dir = <span class="string">'cs231n/datasets/cifar-10-batches-py'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Cleaning up variables to prevent loading data multiple times (which may cause memory issue)</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">   <span class="keyword">del</span> X_train, y_train</span><br><span class="line">   <span class="keyword">del</span> X_test, y_test</span><br><span class="line">   print(<span class="string">'Clear previously loaded data.'</span>)</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">   <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)</span><br><span class="line"></span><br><span class="line"><span class="comment"># As a sanity check, we print out the size of the training and test data.</span></span><br><span class="line">print(<span class="string">'Training data shape: '</span>, X_train.shape)</span><br><span class="line">print(<span class="string">'Training labels shape: '</span>, y_train.shape)</span><br><span class="line">print(<span class="string">'Test data shape: '</span>, X_test.shape)</span><br><span class="line">print(<span class="string">'Test labels shape: '</span>, y_test.shape)</span><br></pre></td></tr></table></figure>
-<p>结果：<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Training data shape:  (50000, 32, 32, 3)</span><br><span class="line">Training labels shape:  (50000,)</span><br><span class="line"><span class="keyword">Test </span>data shape:  (10000, 32, 32, 3)</span><br><span class="line"><span class="keyword">Test </span>labels shape:  (10000,)</span><br></pre></td></tr></table></figure></p>
-<h3 id="可视化dataset"><a href="#可视化dataset" class="headerlink" title="可视化dataset"></a>可视化dataset</h3><ul>
-<li>从类型中<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Visualize some examples from the dataset.</span></span><br><span class="line"><span class="comment"># We show a few examples of training images from each class.</span></span><br><span class="line">classes = [<span class="string">'plane'</span>, <span class="string">'car'</span>, <span class="string">'bird'</span>, <span class="string">'cat'</span>, <span class="string">'deer'</span>, <span class="string">'dog'</span>, <span class="string">'frog'</span>, <span class="string">'horse'</span>, <span class="string">'ship'</span>, <span class="string">'truck'</span>]</span><br><span class="line">num_classes = len(classes)</span><br><span class="line">samples_per_class = <span class="number">7</span></span><br><span class="line"><span class="keyword">for</span> y, cls <span class="keyword">in</span> enumerate(classes):</span><br><span class="line">    idxs = np.flatnonzero(y_train == y)</span><br><span class="line">    idxs = np.random.choice(idxs, samples_per_class, replace=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">for</span> i, idx <span class="keyword">in</span> enumerate(idxs):</span><br><span class="line">        plt_idx = i * num_classes + y + <span class="number">1</span></span><br><span class="line">        plt.subplot(samples_per_class, num_classes, plt_idx)</span><br><span class="line">        plt.imshow(X_train[idx].astype(<span class="string">'uint8'</span>))</span><br><span class="line">        plt.axis(<span class="string">'off'</span>)</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            plt.title(cls)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">np.flatnonzero(y_train =</span>=<span class="string"> y)</span></span><br></pre></td></tr></table></figure>
-<p>返回内容非0的index。这句是返回plane类别里面的（y_train == y）所有非0的内容。然后从这些里面随机选择7个内容，画出来。</p>
-<p>结果如下：<br><img src="/2019/03/29/CS231Nassignment1SVM/image_1.jpg" alt="可视化"></p>
-<h3 id="进一步分为几部分"><a href="#进一步分为几部分" class="headerlink" title="进一步分为几部分"></a>进一步分为几部分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Split the data into train, val, and test sets. In addition we will</span></span><br><span class="line"><span class="comment"># create a small development set as a subset of the training data;</span></span><br><span class="line"><span class="comment"># we can use this for development so our code runs faster.</span></span><br><span class="line">num_training = <span class="number">49000</span></span><br><span class="line">num_validation = <span class="number">1000</span></span><br><span class="line">num_test = <span class="number">1000</span></span><br><span class="line"><span class="comment"># 用这部分来优化代码</span></span><br><span class="line">num_dev = <span class="number">500</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Our validation set will be num_validation points from the original</span></span><br><span class="line"><span class="comment"># training set.</span></span><br><span class="line">mask = range(num_training, num_training + num_validation)</span><br><span class="line">X_val = X_train[mask]</span><br><span class="line">y_val = y_train[mask]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Our training set will be the first num_train points from the original</span></span><br><span class="line"><span class="comment"># training set.</span></span><br><span class="line">mask = range(num_training)</span><br><span class="line">X_train = X_train[mask]</span><br><span class="line">y_train = y_train[mask]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We will also make a development set, which is a small subset of</span></span><br><span class="line"><span class="comment"># the training set.</span></span><br><span class="line">mask = np.random.choice(num_training, num_dev, replace=<span class="literal">False</span>)</span><br><span class="line">X_dev = X_train[mask]</span><br><span class="line">y_dev = y_train[mask]</span><br><span class="line"></span><br><span class="line"><span class="comment"># We use the first num_test points of the original test set as our</span></span><br><span class="line"><span class="comment"># test set.</span></span><br><span class="line">mask = range(num_test)</span><br><span class="line">X_test = X_test[mask]</span><br><span class="line">y_test = y_test[mask]</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Train data shape: '</span>, X_train.shape)</span><br><span class="line">print(<span class="string">'Train labels shape: '</span>, y_train.shape)</span><br><span class="line">print(<span class="string">'Validation data shape: '</span>, X_val.shape)</span><br><span class="line">print(<span class="string">'Validation labels shape: '</span>, y_val.shape)</span><br><span class="line">print(<span class="string">'Test data shape: '</span>, X_test.shape)</span><br><span class="line">print(<span class="string">'Test labels shape: '</span>, y_test.shape)</span><br></pre></td></tr></table></figure>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mask</span> = range(num_test)</span><br><span class="line"><span class="attr">X_test</span> = X_test[mask]</span><br></pre></td></tr></table></figure>
-<p>感觉这是一种从一个整体中选取其中一部分的代码</p>
-<h3 id="将image拉成row"><a href="#将image拉成row" class="headerlink" title="将image拉成row"></a>将image拉成row</h3><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Preprocessing: <span class="built_in">reshape</span> the image <span class="keyword">data</span> into rows</span><br><span class="line">X_train = np.<span class="built_in">reshape</span>(X_train, (X_train.<span class="built_in">shape</span>[<span class="number">0</span>], -<span class="number">1</span>))</span><br><span class="line">X_val = np.<span class="built_in">reshape</span>(X_val, (X_val.<span class="built_in">shape</span>[<span class="number">0</span>], -<span class="number">1</span>))</span><br><span class="line">X_test = np.<span class="built_in">reshape</span>(X_test, (X_test.<span class="built_in">shape</span>[<span class="number">0</span>], -<span class="number">1</span>))</span><br><span class="line">X_dev = np.<span class="built_in">reshape</span>(X_dev, (X_dev.<span class="built_in">shape</span>[<span class="number">0</span>], -<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"># As a sanity check, <span class="built_in">print</span> <span class="keyword">out</span> the shapes of the <span class="keyword">data</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Training data shape: '</span>, X_train.<span class="built_in">shape</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Validation data shape: '</span>, X_val.<span class="built_in">shape</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Test data shape: '</span>, X_test.<span class="built_in">shape</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'dev data shape: '</span>, X_dev.<span class="built_in">shape</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>当想把无论任何大小的东西拉成一整行的时候，用a.reshape(x,-1)。<strong>X_train.shape[0]行，列数未知，但是拉平了</strong></li>
-<li>如果想拉成一整列的时候，用a.reshape(-1,x)。<strong>列数为x，每列有多少东西未知</strong></li>
-</ul>
-<h3 id="预处理部分：减去mean-image"><a href="#预处理部分：减去mean-image" class="headerlink" title="预处理部分：减去mean image"></a>预处理部分：减去mean image</h3><ul>
-<li><p>第一步，求出训练集的mean并且可视化</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Preprocessing: subtract the mean image</span></span><br><span class="line"><span class="comment"># first: compute the image mean based on the training data</span></span><br><span class="line">mean_image = np.mean<span class="params">(X_train, <span class="attr">axis</span>=0)</span></span><br><span class="line">print<span class="params">(mean_image[:10])</span> <span class="comment"># print a few of the elements</span></span><br><span class="line">plt.figure<span class="params">(<span class="attr">figsize</span>=(4,4)</span>)</span><br><span class="line">plt.imshow<span class="params">(mean_image.reshape((32,32,3)</span>)<span class="string">.astype</span><span class="params">('uint8')</span>) <span class="comment"># visualize the mean image</span></span><br><span class="line">plt.show<span class="params">()</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第二步，从train和test里面减去平均数据</p>
-<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># second: subtract the mean image from train and test data</span></span><br><span class="line">X_train <span class="attr">-=</span> mean_image</span><br><span class="line">X_val <span class="attr">-=</span> mean_image</span><br><span class="line">X_test <span class="attr">-=</span> mean_image</span><br><span class="line">X_dev <span class="attr">-=</span> mean_image</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第三步，把预处理好的所有图片的末尾（拉成行之后的最后）加了一个1（bias的dim）</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># third: append the bias dimension of ones (i.e. bias trick) so that our SVM</span></span><br><span class="line"><span class="comment"># only has to worry about optimizing a single weight matrix W.</span></span><br><span class="line">X_train = np.hstack([X_train, np.ones((X_train.shape[0], 1))])</span><br><span class="line">X_val = np.hstack([X_val, np.ones((X_val.shape[0], 1))])</span><br><span class="line">X_test = np.hstack([X_test, np.ones((X_test.shape[0], 1))])</span><br><span class="line">X_dev = np.hstack([X_dev, np.ones((X_dev.shape[0], 1))])</span><br><span class="line"></span><br><span class="line">print(X_train.shape, X_val.shape, X_test.shape, X_dev.shape)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>np.hstack()，沿着水平方向把数组叠起来。<br>于此相同，np.vstack()，是沿着垂直方向把数组叠起来。</p>
-<h2 id="SVM-classifier"><a href="#SVM-classifier" class="headerlink" title="SVM classifier"></a>SVM classifier</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cs231n/classifiers/linear_svm<span class="selector-class">.py</span>.</span><br></pre></td></tr></table></figure>
-<h3 id="svm-loss-naive"><a href="#svm-loss-naive" class="headerlink" title="svm_loss_naive"></a>svm_loss_naive</h3><ul>
-<li>有三个输入<ul>
-<li>X：一个有N个元素的minibatch，每个元素的内容是D (N,D)</li>
-<li>W: weights，(D,C),图片的内容是D，一共C个class，所以用的时候跟普遍想法的W是tranpose的</li>
-<li>y: 标签，大小(N,) 一共N张照片，每张照片有一个标签</li>
-</ul>
-</li>
-<li>最终结果<ul>
-<li>一个float的结果：loss</li>
-<li>W的gradient dW</li>
-</ul>
-</li>
-<li>注意，Wx求出来的就是不同分类的积分</li>
-</ul>
-<h4 id="dW的计算-https-blog-csdn-net-zt-1995-article-details-62227201"><a href="#dW的计算-https-blog-csdn-net-zt-1995-article-details-62227201" class="headerlink" title="dW的计算(https://blog.csdn.net/zt_1995/article/details/62227201)"></a>dW的计算(<a href="https://blog.csdn.net/zt_1995/article/details/62227201" target="_blank" rel="noopener">https://blog.csdn.net/zt_1995/article/details/62227201</a>)</h4><p><img src="/2019/03/29/CS231Nassignment1SVM/dW.jpg" alt="dW"></p>
-<ul>
-<li>形状很奇怪的1(x)指的是，当x为真的时候结果是1，当x为假的时候结果取0</li>
-<li>第一个式子表示第i个被正确分类的梯度<ul>
-<li>有多少个Wj让这个边界值不被满足，就对损失起了多少贡献</li>
-<li>乘以xi是因为xi包含了样本的全部特征，所以前面乘以一个系数1就可以了</li>
-<li>符号是因为SGD采用负梯度运算</li>
-</ul>
-</li>
-<li>第二个式子表示不正确分类的梯度，只有在yi == j的时候才有贡献，所以没有求和。但是注意，在每张图里面，这个都会在j == yi的时候发生一次，所以每张图的j部分需要加上这个值</li>
-<li>最终的结果需要，除以N</li>
-<li>别忘了正则化！而且用2\lanmdaW来正则化的效果更好一些</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">svm_loss_naive</span><span class="params">(W, X, y, reg)</span>:</span></span><br><span class="line">  <span class="string">"""</span></span><br><span class="line"><span class="string">  Structured SVM loss function, naive implementation (with loops).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Inputs have dimension D, there are C classes, and we operate on minibatches</span></span><br><span class="line"><span class="string">  of N examples.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Inputs:</span></span><br><span class="line"><span class="string">  - W: A numpy array of shape (D, C) containing weights.</span></span><br><span class="line"><span class="string">  - X: A numpy array of shape (N, D) containing a minibatch of data.</span></span><br><span class="line"><span class="string">  - y: A numpy array of shape (N,) containing training labels; y[i] = c means</span></span><br><span class="line"><span class="string">    that X[i] has label c, where 0 &lt;= c &lt; C.</span></span><br><span class="line"><span class="string">  - reg: (float) regularization strength</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Returns a tuple of:</span></span><br><span class="line"><span class="string">  - loss as single float</span></span><br><span class="line"><span class="string">  - gradient with respect to weights W; an array of same shape as W</span></span><br><span class="line"><span class="string">  """</span></span><br><span class="line">  dW = np.zeros(W.shape)  <span class="comment"># initialize the gradient as zero</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># compute the loss and the gradient</span></span><br><span class="line">  num_classes = W.shape[<span class="number">1</span>]</span><br><span class="line">  <span class="comment"># 有多少需要训练的个数</span></span><br><span class="line">  num_train = X.shape[<span class="number">0</span>]</span><br><span class="line">  loss = <span class="number">0.0</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(num_train):</span><br><span class="line">    scores = X[i].dot(W)</span><br><span class="line">    correct_class_score = scores[y[i]]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(num_classes):</span><br><span class="line">      <span class="comment"># 如果这个类型是正确的，那就不用管了</span></span><br><span class="line">      <span class="keyword">if</span> j == y[i]:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">      margin = scores[j] - correct_class_score + <span class="number">1</span>  <span class="comment"># note delta = 1</span></span><br><span class="line">      <span class="keyword">if</span> margin &gt; <span class="number">0</span>:</span><br><span class="line">        loss += margin</span><br><span class="line">        dW[:, y[i]] += -X[i]</span><br><span class="line">        dW[:, j] += X[i]</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Right now the loss is a sum over all training examples, but we want it</span></span><br><span class="line">  <span class="comment"># to be an average instead so we divide by num_train.</span></span><br><span class="line">  loss /= num_train</span><br><span class="line">  dW /= num_train</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Add regularization to the loss.</span></span><br><span class="line">  <span class="comment"># reg是lanbda</span></span><br><span class="line">  loss += reg * np.sum(W * W)</span><br><span class="line">  dW += <span class="number">2</span> * reg * W</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loss, dW</span><br></pre></td></tr></table></figure>
-<h3 id="svm-loss-vectorized"><a href="#svm-loss-vectorized" class="headerlink" title="svm_loss_vectorized"></a>svm_loss_vectorized</h3><p>通过向量化来提高计算速度</p>
 
           
         
@@ -2180,6 +1926,179 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/03/20/关于hexo和gitpage的博客搭建以及设置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/20/关于hexo和gitpage的博客搭建以及设置/" class="post-title-link" itemprop="url">关于hexo和gitpage的博客搭建以及设置</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-20 15:40:41 / Modified: 16:35:40" itemprop="dateCreated datePublished" datetime="2019-03-20T15:40:41+09:00">2019-03-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/博客相关/" itemprop="url" rel="index"><span itemprop="name">博客相关</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在commit了40多次之后终于把自己的博客搭好了，中间画遇到了一些奇怪的问题记录一下</p>
+<h2 id="github部分"><a href="#github部分" class="headerlink" title="github部分"></a>github部分</h2><ul>
+<li>在一些地方看到的说网站的名字必须和github的名字一样，不知道是不是必须的但是还是这么设置了</li>
+<li>网站需要选择在master</li>
+</ul>
+<h2 id="hexo部分"><a href="#hexo部分" class="headerlink" title="hexo部分"></a>hexo部分</h2><h3 id="基本功能："><a href="#基本功能：" class="headerlink" title="基本功能："></a>基本功能：</h3><p>生成网页<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br></pre></td></tr></table></figure></p>
+<p>传到github上面<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/20/关于hexo和gitpage的博客搭建以及设置/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2228,7 +2147,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2259,9 +2178,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2282,9 +2199,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
