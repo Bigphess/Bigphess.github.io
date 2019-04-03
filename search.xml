@@ -11,14 +11,6 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[日语连语笔记]]></title>
-    <url>%2F2019%2F04%2F01%2F%E6%97%A5%E8%AF%AD%E8%BF%9E%E8%AF%8D%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[あいしょう 相性 ある する〜が合う xはyと相性が合う 亜さんは、同じクラスのbさんと相性が合うらしく、入学以来いつも一緒にいる。 色々なスポーツをしてみたが、どうも私は柔道のうような格闘技と相性が合わないようだ。 〜がいい が悪い 母は、妻と相性が良く、二人とも仲がいい。 あいじょう 愛情 ある する并不单单是爱情，还有爱心，怜爱的意思 ～がある 〜がない どんなに条件がよくでも、相手に対する愛情がなければ結婚すべきではないだろう。 〜に飢える（うえる） 渴望得到爱情 YがXの愛情に飢える 幼（おさな）くして母親を亡くしたAさんは母の愛情に飢えていたのか、母親の面影を持った女性に恋をした。]]></content>
-      <categories>
-        <category>日语</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[关于Normalization的方法以及实现]]></title>
     <url>%2F2019%2F04%2F01%2FNormalize%2F</url>
     <content type="text"><![CDATA[在处理数据的时候，因为数据的大小差别会比较大，为了避免数据的特征被其他特征吃掉，需要对数据进行normalization的处理 (0,1) 标准化找到最大值和最小值，以最大值为1，最小值为0，计算其他数据在0到1之间的分布。 12def normal0_1(x,Max,Min): return (x-Min)/(Max-Min) 使用np.max()，np.min来找最大值和最小值 正态分布输入原始数据的均值和标准差，对数据处理，处理之后的数据是标准正态分布（均值是0，标准差是1） 12def Normalization(x, mu, sigma): return (x-mu) / sigma 使用np.average()和np.std()找到均值和标准差 Sigmoid函数sigmoid函数关于（0， 0.5）中心对称，在中心附近斜率较大，在负无穷接近0，正无穷接近1 12def sigmood(x): return 1.0/(1+np.exp(-float(x)))]]></content>
