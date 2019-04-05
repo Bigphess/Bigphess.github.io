@@ -104,10 +104,12 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="目标 之前实现的都是写好了一个linear classifier然后直接对输入图片的raw pixel进行分类 这部分是先从raw data得到相应的图片特征，然后再对特征进行分类">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-03T07:04:22.200Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/03/CS231Nassignment1Feature/example.jpg">
+<meta property="og:updated_time" content="2019-04-05T06:36:21.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231Nassignment1之Image Features">
 <meta name="twitter:description" content="目标 之前实现的都是写好了一个linear classifier然后直接对输入图片的raw pixel进行分类 这部分是先从raw data得到相应的图片特征，然后再对特征进行分类">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/04/03/CS231Nassignment1Feature/example.jpg">
 
 
 
@@ -245,7 +247,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">11</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">13</span></a>
 
   </li>
         
@@ -264,7 +266,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">18</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">20</span></a>
 
   </li>
 
@@ -397,12 +399,24 @@
                 
               
 
-              <time title="Created: 2019-04-03 14:36:19 / Modified: 16:04:22" itemprop="dateCreated datePublished" datetime="2019-04-03T14:36:19+09:00">2019-04-03</time>
+              <time title="Created: 2019-04-03 14:36:19" itemprop="dateCreated datePublished" datetime="2019-04-03T14:36:19+09:00">2019-04-03</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-05 15:36:21" itemprop="dateModified" datetime="2019-04-05T15:36:21+09:00">2019-04-05</time>
               
             
           </span>
@@ -473,6 +487,35 @@
 <li>这部分是先从raw data得到相应的图片特征，然后再对<strong>特征</strong>进行分类</li>
 </ul>
 <a id="more"></a>
+<p>前面的简单的setup和load data都和之前的一样。</p>
+<h2 id="Extract-Features"><a href="#Extract-Features" class="headerlink" title="Extract Features"></a>Extract Features</h2><ul>
+<li>对每张图片计算HOG以及在HSV的color space上面的hue channel。（这是两个不同的功能）</li>
+<li>HOG可以提取图片的texture的特征，忽略颜色的影响。而颜色的histogram表示的是颜色而忽略texture，颜色的特征会拉成一个新的vector然后进行分类。</li>
+<li><p>如果我们把这两个东西结合可能会有更好的结果。</p>
+</li>
+<li><p>在这部分的代码里面，直接给出来了提取hog feature和color histogram的两个function，用这两个直接提取出了特征然后构成了一个新的extract_features，由图片内容和特征组成。</p>
+</li>
+<li>然后预处理了特征，减去平均值，除以std（这样大家都在同一个scale里面），最后加上了一个bias的dim</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> cs231n.features <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">num_color_bins = <span class="number">10</span> <span class="comment"># Number of bins in the color histogram</span></span><br><span class="line">feature_fns = [hog_feature, <span class="keyword">lambda</span> img: color_histogram_hsv(img, nbin=num_color_bins)]</span><br><span class="line">X_train_feats = extract_features(X_train, feature_fns, verbose=<span class="literal">True</span>)</span><br><span class="line">X_val_feats = extract_features(X_val, feature_fns)</span><br><span class="line">X_test_feats = extract_features(X_test, feature_fns)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preprocessing: Subtract the mean feature</span></span><br><span class="line">mean_feat = np.mean(X_train_feats, axis=<span class="number">0</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">X_train_feats -= mean_feat</span><br><span class="line">X_val_feats -= mean_feat</span><br><span class="line">X_test_feats -= mean_feat</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preprocessing: Divide by standard deviation. This ensures that each feature</span></span><br><span class="line"><span class="comment"># has roughly the same scale.</span></span><br><span class="line">std_feat = np.std(X_train_feats, axis=<span class="number">0</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line">X_train_feats /= std_feat</span><br><span class="line">X_val_feats /= std_feat</span><br><span class="line">X_test_feats /= std_feat</span><br><span class="line"></span><br><span class="line"><span class="comment"># Preprocessing: Add a bias dimension</span></span><br><span class="line">X_train_feats = np.hstack([X_train_feats, np.ones((X_train_feats.shape[<span class="number">0</span>], <span class="number">1</span>))])</span><br><span class="line">X_val_feats = np.hstack([X_val_feats, np.ones((X_val_feats.shape[<span class="number">0</span>], <span class="number">1</span>))])</span><br><span class="line">X_test_feats = np.hstack([X_test_feats, np.ones((X_test_feats.shape[<span class="number">0</span>], <span class="number">1</span>))])</span><br></pre></td></tr></table></figure>
+<h2 id="训练SVM来处理features"><a href="#训练SVM来处理features" class="headerlink" title="训练SVM来处理features"></a>训练SVM来处理features</h2><p>用处理多个类别的SVM来给这些特征分类，得到的结果应该比直接分类得到的结果好。大概结果为0.44左右，注意这里面用的是grid search而不是random search</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use the validation set to tune the learning rate and regularization strength</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> cs231n.classifiers.linear_classifier <span class="keyword">import</span> LinearSVM</span><br><span class="line"></span><br><span class="line">learning_rates = [<span class="number">1e-9</span>, <span class="number">1e-8</span>, <span class="number">1e-7</span>]</span><br><span class="line">regularization_strengths = [<span class="number">5e4</span>, <span class="number">5e5</span>, <span class="number">5e6</span>]</span><br><span class="line"></span><br><span class="line">results = &#123;&#125;</span><br><span class="line">best_val = <span class="number">-1</span></span><br><span class="line">best_svm = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span>                                                                        #</span></span><br><span class="line"><span class="comment"># Use the validation set to set the learning rate and regularization strength. #</span></span><br><span class="line"><span class="comment"># This should be identical to the validation that you did for the SVM; save    #</span></span><br><span class="line"><span class="comment"># the best trained classifer in best_svm. You might also want to play          #</span></span><br><span class="line"><span class="comment"># with different numbers of bins in the color histogram. If you are careful    #</span></span><br><span class="line"><span class="comment"># you should be able to get accuracy of near 0.44 on the validation set.       #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> lr <span class="keyword">in</span> learning_rates:</span><br><span class="line">    <span class="keyword">for</span> rs <span class="keyword">in</span> regularization_strengths:</span><br><span class="line">        svm = LinearSVM()</span><br><span class="line">        svm.train(X_train_feats, y_train, learning_rate = lr, reg = rs, num_iters = <span class="number">1000</span>, verbose = <span class="literal">True</span>)</span><br><span class="line">        y_pred_val = svm.predict(X_val_feats)</span><br><span class="line">        y_pred_train = svm.predict(X_train_feats)</span><br><span class="line"></span><br><span class="line">        train_acc = np.mean(y_pred_train)</span><br><span class="line">        val_acc = np.mean(y_pred_val == y_val)</span><br><span class="line"></span><br><span class="line">        results[(lr, rs)] = (train_acc,val_acc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> val_acc &gt; best_val:</span><br><span class="line">            best_val = val_acc</span><br><span class="line">            best_svm = svm</span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">#                              END OF YOUR CODE                                #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Print out results.</span></span><br><span class="line"><span class="keyword">for</span> lr, reg <span class="keyword">in</span> sorted(results):</span><br><span class="line">    train_accuracy, val_accuracy = results[(lr, reg)]</span><br><span class="line">    print(<span class="string">'lr %e reg %e train accuracy: %f val accuracy: %f'</span> % (</span><br><span class="line">                lr, reg, train_accuracy, val_accuracy))</span><br><span class="line">    </span><br><span class="line">print(<span class="string">'best validation accuracy achieved during cross-validation: %f'</span> % best_val)</span><br></pre></td></tr></table></figure>
+<p>同时也可视化了不是这个类别却被分到这个类别的错误sample：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># An important way to gain intuition about how an algorithm works is to</span></span><br><span class="line"><span class="comment"># visualize the mistakes that it makes. In this visualization, we show examples</span></span><br><span class="line"><span class="comment"># of images that are misclassified by our current system. The first column</span></span><br><span class="line"><span class="comment"># shows images that our system labeled as "plane" but whose true label is</span></span><br><span class="line"><span class="comment"># something other than "plane".</span></span><br><span class="line"></span><br><span class="line">examples_per_class = <span class="number">8</span></span><br><span class="line">classes = [<span class="string">'plane'</span>, <span class="string">'car'</span>, <span class="string">'bird'</span>, <span class="string">'cat'</span>, <span class="string">'deer'</span>, <span class="string">'dog'</span>, <span class="string">'frog'</span>, <span class="string">'horse'</span>, <span class="string">'ship'</span>, <span class="string">'truck'</span>]</span><br><span class="line"><span class="keyword">for</span> cls, cls_name <span class="keyword">in</span> enumerate(classes):</span><br><span class="line">    idxs = np.where((y_test != cls) &amp; (y_test_pred == cls))[<span class="number">0</span>]</span><br><span class="line">    idxs = np.random.choice(idxs, examples_per_class, replace=<span class="literal">False</span>)</span><br><span class="line">    <span class="keyword">for</span> i, idx <span class="keyword">in</span> enumerate(idxs):</span><br><span class="line">        plt.subplot(examples_per_class, len(classes), i * len(classes) + cls + <span class="number">1</span>)</span><br><span class="line">        plt.imshow(X_test[idx].astype(<span class="string">'uint8'</span>))</span><br><span class="line">        plt.axis(<span class="string">'off'</span>)</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            plt.title(cls_name)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/03/CS231Nassignment1Feature/example.jpg" alt="example"><br>（感觉自己训练了一个傻子）</p>
+<h2 id="用两层的nerual-net试试看"><a href="#用两层的nerual-net试试看" class="headerlink" title="用两层的nerual net试试看"></a>用两层的nerual net试试看</h2><ul>
+<li>首先去除上文中bias的dim</li>
+<li>然后交叉训练，找到最好的参数</li>
+<li><strong>这部分半天loss下不去的原因主要是lr选的太小了</strong></li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> cs231n.classifiers.neural_net <span class="keyword">import</span> TwoLayerNet</span><br><span class="line"></span><br><span class="line">input_dim = X_train_feats.shape[<span class="number">1</span>]</span><br><span class="line">hidden_dim = <span class="number">500</span></span><br><span class="line">num_classes = <span class="number">10</span></span><br><span class="line">hidden_size = [<span class="number">300</span>,<span class="number">400</span>,<span class="number">500</span>,<span class="number">600</span>]</span><br><span class="line">learning_rate   = [<span class="number">1</span>,<span class="number">1e-1</span>,<span class="number">1e-2</span>]</span><br><span class="line">reg = [<span class="number">1e-4</span>,<span class="number">1e-3</span>,<span class="number">1e-2</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># net = TwoLayerNet(input_dim, hidden_dim, num_classes)</span></span><br><span class="line">best_net = <span class="literal">None</span></span><br><span class="line">best_acc = <span class="number">-1</span></span><br><span class="line">result = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> Train a two-layer neural network on image features. You may want to    #</span></span><br><span class="line"><span class="comment"># cross-validate various parameters as in previous sections. Store your best   #</span></span><br><span class="line"><span class="comment"># model in the best_net variable.                                              #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> lr <span class="keyword">in</span> learning_rate:</span><br><span class="line">    <span class="keyword">for</span> hidd <span class="keyword">in</span> hidden_size:</span><br><span class="line">        <span class="keyword">for</span> rs <span class="keyword">in</span> reg:</span><br><span class="line">            net = TwoLayerNet(input_size, hidden, num_class)</span><br><span class="line">            status = net.train(X_train_feats, y_train, X_val_feats, y_val, num_iters=<span class="number">1200</span>, batch_size=<span class="number">400</span>,</span><br><span class="line">                             learning_rate=lr, learning_rate_decay=<span class="number">0.95</span>, reg=rs, verbose= <span class="literal">True</span>)</span><br><span class="line">            val_acc = (net.predict(X_val_feats) == y_val).mean()</span><br><span class="line">            </span><br><span class="line">            result[(lr, rs, hidd)] = (val_acc)</span><br><span class="line">            <span class="keyword">if</span> val_acc &gt; best_acc:</span><br><span class="line">                best_acc = val_acc</span><br><span class="line">                best_net = net</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(result)</span></span><br><span class="line"><span class="comment"># for lr, rs, hidd in sorted(result):</span></span><br><span class="line"><span class="comment">#     val_accuracy = result[(lr, rs, hidd)]</span></span><br><span class="line"><span class="comment">#     print('lr %e reg %e hidden_units %e val accuracy: %f' % (</span></span><br><span class="line"><span class="comment">#                 lr, rs, hidd , val_accuracy))</span></span><br><span class="line">print(<span class="string">'best validation accuracy achieved during cross-validation: %f'</span> % best_acc)</span><br><span class="line">print(<span class="string">'best parameter is :'</span>,list (result.keys()) [list (result.values()).index (best_acc)])</span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">#                              END OF YOUR CODE                                #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br></pre></td></tr></table></figure>
+<p>best validation accuracy achieved during cross-validation: 0.605000<br>best parameter is : (1, 0.0001, 500)</p>
+<h2 id="一点感觉"><a href="#一点感觉" class="headerlink" title="一点感觉"></a>一点感觉</h2><ul>
+<li>感觉要是lr太小的话，即使增加iteration的次数，后面的改变也不大</li>
+<li>lr最基础的范围应该先定下来</li>
+<li>最后换了换参数居然训出来了60%的val正确率</li>
+<li>test的正确率在55.8左右</li>
+</ul>
+
       
     </div>
 
@@ -591,7 +634,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -630,7 +673,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -667,7 +714,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -727,7 +778,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Extract-Features"><span class="nav-number">2.</span> <span class="nav-text">Extract Features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练SVM来处理features"><span class="nav-number">3.</span> <span class="nav-text">训练SVM来处理features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用两层的nerual-net试试看"><span class="nav-number">4.</span> <span class="nav-text">用两层的nerual net试试看</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一点感觉"><span class="nav-number">5.</span> <span class="nav-text">一点感觉</span></a></li></ol></div>
             
 
           </div>
