@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2019 1Q AR笔记]]></title>
+    <url>%2F2019%2F04%2F09%2F2019Q1AR%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起 Ex1打开相机 注意初始化 videocapture 应该是在while的循环之前的 thresholding 函数 cv::threshold(…) src dst thres的值，也就是阈值的边界值 double maxval，在最后一个参数是binary的时候，确定binary的最大值 type，二值图，反二值图，保留原色等乱七八糟的 注意binary之前要先 cvtcolor到灰度图！！！ detect connected componentscv::findContours 函数 图片 contours vector&lt;std::vector&lt;cv::Point&gt; &gt; hierarchy vector&lt;cv::Vec4i&gt;，contour的拓扑学信息 mode （注意在这里选择要外轮廓还是内外都要） method：估计contour的方法 offset（当从ROI提取轮廓然后在整张图片里面分析的情况） 去除过小的contour12345678910vector&lt;vector&lt;Point&gt;&gt; :: iterator itc = contours.begin(); while(itc != contours.end())&#123; if(itc -&gt; size() &lt; 60)&#123; itc = contours.erase(itc); &#125; else&#123; itc++; &#125; &#125; 估计contour的多边形 approxPolyDP 被估计的contour 估计出来的的多边形 估计的参数，影响估计的精度 closed，估计出来的多边形是不是封闭的 画出来只有四个角的多边形 drawContours() 图片 需要画的轮廓s （注意这是这张图片里面的所有轮廓） 需要画的index thickness 线的 线得种类 Optional information about hierarchy. maxLevel Maximal level for drawn contours. If it is 0, only the specified contour is drawn. If it is 1, the function draws the contour(s) and all the nested contours. If it is 2, the function draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This parameter is only taken into account when there is hierarchy available. offset：可选]]></content>
+      <categories>
+        <category>AR</category>
+        <category>上课笔记</category>
+      </categories>
+      <tags>
+        <tag>AR</tag>
+        <tag>OpenCV</tag>
+        <tag>OpenGL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Notes for papers about smart kitchen]]></title>
+    <url>%2F2019%2F04%2F08%2Fkitchen%2F</url>
+    <content type="text"><![CDATA[Choptop: An Interactive Chopping Board2018 abstract 一个可交互的案板 可以给用户菜谱的指导，承重，计时 用户可以通过按案板来进行对画面的操作 上面就是长成上图的样子，案板底下充满了各种传感器。 Intro 针对学生不会自己做饭，不吃新鲜的饭的问题，缺时间 -&gt; 一步一步的把怎么做饭写出来了，包括图片动画等东西 built-in timer用来每一步计时 使用mobile device来提高菜单的交互性 考虑到手的脏等问题，所以不是按屏幕而是按案板（这里考虑能不能像pac pac一样，用手势操作） load sensors，可以解决称重的问题 思路 主要目的是一种新的学习做饭的方法 （作为做饭有天赋的人，我认为这样没有灵魂！） related work smart kitchen Research has aimed to improve the cook- ing process, promote healthier eating and make it simpler to procure ingredients，大家都从不同的角度实现智能厨房 他这个论文的东西成本不是特别高也不是特别大（是在嘲讽我吗） load sensing 之前已经用了很多force的传感器 之前也有用过带重量传感器的案板，以及带扭矩传感器的刀[9] 他们认为camera没有什么用，并且把所有的硬件都藏起来了 装这个senser的方法参考了[12] Design硬件 整个硬件是self-contained的 屏幕是单片机控制的 力量传感系用 检测按压用的是edge detection -&gt; 防止检测到其他东西（原理不是太懂） UI The interface updates based on the information delivered from the recognition engine 成功之后还会有声音 按案板的不同部分就可以往不同的方向移动 user study 找了十三个人，准备一道沙拉 [3]里面找到了一个调查问卷System Usability Scale future SVM训练了74%的测试率（好低），提高正确率 提高自动翻页（？ 用用户的手机来达到屏幕的作用 进一步分user study CookTab: Smart cutting board for creating recipe with real-time feedback2012 abstract 考虑到很多厨师做饭随心所欲，而且不会记录下来精准的用量 一个可以记录下来用量的案板 intro 专门针对切菜部分的记录的软件 记录用的材料的名字，菜量，视频和调味方法，然后会有real-time的feedback related work [3]可以记录视频，声音，用的camera和mic 加重量感应的， [2]四个承重的模块，加速度传安琪 但是他们的系统会有real-time的feedback 不好意思好像就是在pad上切菜 Enabling Nutrition-Aware Cooking in a Smart KitchenCHI 2007（大概只能看个概念了） abstract 目标：health cooking（是不是大家的目标都是那么伟大） sensors，detect cooking activities, and digtail feedback intro 主要目标就是如果人加东西假的过量了或者怎么着，就会提醒 Smart Kitchens for People with Cognitive Impairments: A Qualitative Study of Design RequirementsCHI-2018]]></content>
+      <categories>
+        <category>Papers</category>
+      </categories>
+      <tags>
+        <tag>Smart Kitchen</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于mac消去分区]]></title>
+    <url>%2F2019%2F04%2F08%2F%E5%85%B3%E4%BA%8Emac%E6%B6%88%E5%8E%BB%E5%88%86%E5%8C%BA%2F</url>
+    <content type="text"><![CDATA[最近刚接手了别人的mbp，他因为装双系统分区之后，windows分区无法消去。试了一圈之后发现只要再新建一个分区，然后再一起合并就可以了。]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[关于Python的字典多key，value返回key]]></title>
     <url>%2F2019%2F04%2F05%2F%E5%85%B3%E4%BA%8EPython%E7%9A%84%E5%AD%97%E5%85%B8%E7%9A%84%E4%B8%80%E4%BA%9B%E4%B8%9C%E8%A5%BF%2F</url>
     <content type="text"><![CDATA[多个keys1dict = &#123;(key11,key12): value&#125; 大概就是长这个样子的，key的个数多少没有限制，访问value的时候1dict[(key11,key12)] 多个value1dict = &#123;key1:(value1, value2)&#125; 访问的时候大概就是这么取值12dict[key]dict[key][index] 从value找到key 先通过list(dict.key())获得所有的key，变成一个list list(dict.value())得到所有的value的list 上面这两个list的index相同，先获取value的index，然后再作为key的index去key里找 例子：12dict = &#123;'a': 1, 'b': 2&#125;list(dict.key())[list(dict.value()).index('1')]]]></content>
@@ -15,7 +45,7 @@
   <entry>
     <title><![CDATA[Human Computer Interaction笔记]]></title>
     <url>%2F2019%2F04%2F04%2FHCI%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[Introduction 50% 出勤和 50% report koike森森还有assignment History 1945 Vannevar Bush memex的概念，二战末提出了一种信息机器的设想（个人图书馆） 这种机器内部用微缩胶卷（microfilm）存储信息，也就是自动翻拍，可以不断往里面添加新的信息；桌面上有阅读屏，用来放大阅读微缩胶卷；还有许多个按钮，每一个按钮代表一个主题，只要按一下，相应的微缩胶卷就会显示出来。每一个胶卷内部还记录着相关的其他胶卷的编号，可以方便地切换，形成同主题阅读。在Bush博士的设想中，这种机器还可以与图书馆联网。通过某种机制，将图书馆收藏的胶卷，自动装载到本地机器上。因此，只通过这一个机器，就可以实现海量的信息检索。from 百度百科 as we may think：同时提出了wearable电脑 1946 Eniac 第一个计算机 没有keyboard和display，只能手动 1951 UNIVAC 可以I/O 先在纸条上打孔，然后再放进去读 Ivan Sutherland 1963 SketchPad，display上面有图像了，并且可以对画面进行操作 可以用光笔操作，不是用键盘操作了 CAD鼻祖 第一个VR设备居然也是他做出来的 Sword of Damocles(1968) Douglas Engelbart 居然出现了鼠标，装了rotatory wheels（竖着的那种），可以在两个方向移动（所以装了两个吗？） Alan Kay PC之父 1972 Dynabook，card board做的，因为CPU和GPu太大了，屏幕也没有，并不是真的 1996年东芝做了个叫这个名字的PC 1973 Xerox Alto real working machine 1981 Xerox Star 出现了桌面系统 GUI Ted Nelson Hypertext Editing System -&gt; pen to jumo to another page Steve Jobs &amp; Bill Atkinson HyperCard 1987，同类的信息都在同一张卡上，然后所以的卡都连在一起，可以在卡中间jump。事情就变得非常简单了 Tim Berners-Lee father of WWW （World Wide Web） Richard Bold put that there可以用手势交互，语言交互 非常大的一个display和projector Mark Weiser father of the concept of Ubiquitous conputing(1991) 预言了以后大家家家有电脑 Jaron Lanier VPL data glove &amp; HMD 1989，手套里面有纤维 I/O的硬件如何组合 -&gt; 新的HCI方式]]></content>
+    <content type="text"><![CDATA[Introduction 50% 出勤和 50% report koike森森还有assignment History 1945 Vannevar Bush memex的概念，二战末提出了一种信息机器的设想（个人图书馆） 这种机器内部用微缩胶卷（microfilm）存储信息，也就是自动翻拍，可以不断往里面添加新的信息；桌面上有阅读屏，用来放大阅读微缩胶卷；还有许多个按钮，每一个按钮代表一个主题，只要按一下，相应的微缩胶卷就会显示出来。每一个胶卷内部还记录着相关的其他胶卷的编号，可以方便地切换，形成同主题阅读。在Bush博士的设想中，这种机器还可以与图书馆联网。通过某种机制，将图书馆收藏的胶卷，自动装载到本地机器上。因此，只通过这一个机器，就可以实现海量的信息检索。from 百度百科 as we may think：同时提出了wearable电脑 1946 Eniac 第一个计算机 没有keyboard和display，只能手动 1951 UNIVAC 可以I/O 先在纸条上打孔，然后再放进去读 Ivan Sutherland 1963 SketchPad，display上面有图像了，并且可以对画面进行操作 可以用光笔操作，不是用键盘操作了 CAD鼻祖 第一个VR设备居然也是他做出来的 Sword of Damocles(1968) Douglas Engelbart 居然出现了鼠标，装了rotatory wheels（竖着的那种），可以在两个方向移动（所以装了两个吗？） Alan Kay PC之父 1972 Dynabook，card board做的，因为CPU和GPu太大了，屏幕也没有，并不是真的 1996年东芝做了个叫这个名字的PC 1973 Xerox Alto real working machine 1981 Xerox Star 出现了桌面系统 GUI Ted Nelson Hypertext Editing System -&gt; pen to jumo to another page Steve Jobs &amp; Bill Atkinson HyperCard 1987，同类的信息都在同一张卡上，然后所以的卡都连在一起，可以在卡中间jump。事情就变得非常简单了 Tim Berners-Lee father of WWW （World Wide Web） Richard Bold put that there可以用手势交互，语言交互 非常大的一个display和projector Mark Weiser father of the concept of Ubiquitous conputing(1991) 预言了以后大家家家有电脑 Jaron Lanier VPL data glove &amp; HMD 1989，手套里面有纤维 I/O的硬件如何组合 -&gt; 新的HCI方式 design &amp; evaluationACM SIGCHI What’s HCI CS design 是一个交叉学科 学会 CHI -&gt; 更注重想法，和转化成实现 UIST -&gt; 更注重implement IEEE/ACM Ubicomp CSCM 重要性 保证安全性，提升生活质量 在商业上的产品化 推荐书 The Design of Everyday things 核心思想Affordence: 人想象的这个东西的用途和实际的用途，让用户看到这个东西就知道是干什么用的 比如傻屌的看见按键不知道按哪个的瓦斯炉 方向不同的车座靠背调节 根本不知道哪个是哪个的电灯开关 想法 mapping ui to real layout design is stupid 七个准则 by Norman 8 golden rules by. Shneiderman consistency（一致性） -&gt; 比如mac的pull down最下面都是quit，大家的位置都差不多 Short-term memory 比如菜单里面的个数 7+-2 magic number Bringing Design to software T.Winograd]]></content>
       <categories>
         <category>HCI</category>
         <category>上课笔记</category>
