@@ -104,10 +104,13 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="This part is from the assignment 2018:stanford cs231n assignment2 目标 之前已经实现了两层的fc net，但是在这个网络里面的loss和gradient的计算用的是数学方法 这样的计算可以在两层的网络里实现，但是多层的情况下实现起来太困难了 所以在这里把电脑分成了forward pass和backward pass forward的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-12T08:11:14.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/SGDM.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/adam.jpg">
+<meta property="og:updated_time" content="2019-04-13T07:41:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231Nassignment2FCnet">
 <meta name="twitter:description" content="This part is from the assignment 2018:stanford cs231n assignment2 目标 之前已经实现了两层的fc net，但是在这个网络里面的loss和gradient的计算用的是数学方法 这样的计算可以在两层的网络里实现，但是多层的情况下实现起来太困难了 所以在这里把电脑分成了forward pass和backward pass forward的">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/SGDM.jpg">
 
 
 
@@ -414,7 +417,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-12 17:11:14" itemprop="dateModified" datetime="2019-04-12T17:11:14+09:00">2019-04-12</time>
+                <time title="Modified: 2019-04-13 16:41:44" itemprop="dateModified" datetime="2019-04-13T16:41:44+09:00">2019-04-13</time>
               
             
           </span>
@@ -611,9 +614,9 @@
 </ul>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sgd_momentum</span><span class="params">(w, dw, config=None)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Performs stochastic gradient descent with momentum.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    config format:</span></span><br><span class="line"><span class="string">    - learning_rate: Scalar learning rate.</span></span><br><span class="line"><span class="string">    - momentum: Scalar between 0 and 1 giving the momentum value.</span></span><br><span class="line"><span class="string">      Setting momentum = 0 reduces to sgd.</span></span><br><span class="line"><span class="string">    - velocity: A numpy array of the same shape as w and dw used to store a</span></span><br><span class="line"><span class="string">      moving average of the gradients.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> config <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        config = &#123;&#125;</span><br><span class="line">    config.setdefault(<span class="string">'learning_rate'</span>, <span class="number">1e-2</span>)</span><br><span class="line">    config.setdefault(<span class="string">'momentum'</span>, <span class="number">0.9</span>)</span><br><span class="line">    v = config.get(<span class="string">'velocity'</span>, np.zeros_like(w))</span><br><span class="line"></span><br><span class="line">    next_w = <span class="literal">None</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the momentum update formula. Store the updated value in #</span></span><br><span class="line">    <span class="comment"># the next_w variable. You should also use and update the velocity v.     #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    v = config[<span class="string">'momentum'</span>] * v - config[<span class="string">'learning_rate'</span>] * dw</span><br><span class="line">    w += v</span><br><span class="line">    next_w = w</span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                            #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    config[<span class="string">'velocity'</span>] = v</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_w, config</span><br></pre></td></tr></table></figure>
 <ul>
-<li>可以看出来最终的结果会比普通的SGD上升的更快<br><a href="SGDM.jpg">SGDM</a></li>
+<li>可以看出来最终的结果会比普通的SGD上升的更快<br><img src="/2019/04/11/CS231Nassignment2FCnet/SGDM.jpg" alt="SGDM"></li>
 </ul>
-<h3 id="分别又尝试了RMSProp-and-Adam"><a href="#分别又尝试了RMSProp-and-Adam" class="headerlink" title="分别又尝试了RMSProp and Adam"></a>分别又尝试了RMSProp and Adam</h3><p><a href="adam.jpg">test</a></p>
+<h3 id="分别又尝试了RMSProp-and-Adam"><a href="#分别又尝试了RMSProp-and-Adam" class="headerlink" title="分别又尝试了RMSProp and Adam"></a>分别又尝试了RMSProp and Adam</h3><p><img src="/2019/04/11/CS231Nassignment2FCnet/adam.jpg" alt="test"></p>
 
       
     </div>
