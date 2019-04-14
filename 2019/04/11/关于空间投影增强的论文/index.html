@@ -96,18 +96,20 @@
 
 
 
-  <meta name="description" content="相关介绍链接koike lab roomAlive">
+  <meta name="description" content="相关介绍链接koike lab roomAlive 关于opencv的fisheye calibration：http://ninghang.blogspot.com/2012/08/fish-eye-camera-calibration.html 关于calibration的视角的问题，matlab可以找到全部视角：https://www.mathworks.com/help/vision/ug">
 <meta name="keywords" content="projection mapping,space augumented">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于空间投影增强的论文">
 <meta property="og:url" content="https://bigphess.github.io/2019/04/11/关于空间投影增强的论文/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
-<meta property="og:description" content="相关介绍链接koike lab roomAlive">
+<meta property="og:description" content="相关介绍链接koike lab roomAlive 关于opencv的fisheye calibration：http://ninghang.blogspot.com/2012/08/fish-eye-camera-calibration.html 关于calibration的视角的问题，matlab可以找到全部视角：https://www.mathworks.com/help/vision/ug">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-11T02:17:03.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/11/关于空间投影增强的论文/deepcalib_1.jpg">
+<meta property="og:updated_time" content="2019-04-13T15:39:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于空间投影增强的论文">
-<meta name="twitter:description" content="相关介绍链接koike lab roomAlive">
+<meta name="twitter:description" content="相关介绍链接koike lab roomAlive 关于opencv的fisheye calibration：http://ninghang.blogspot.com/2012/08/fish-eye-camera-calibration.html 关于calibration的视角的问题，matlab可以找到全部视角：https://www.mathworks.com/help/vision/ug">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/04/11/关于空间投影增强的论文/deepcalib_1.jpg">
 
 
 
@@ -397,12 +399,24 @@
                 
               
 
-              <time title="Created: 2019-04-11 11:09:13 / Modified: 11:17:03" itemprop="dateCreated datePublished" datetime="2019-04-11T11:09:13+09:00">2019-04-11</time>
+              <time title="Created: 2019-04-11 11:09:13" itemprop="dateCreated datePublished" datetime="2019-04-11T11:09:13+09:00">2019-04-11</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-14 00:39:44" itemprop="dateModified" datetime="2019-04-14T00:39:44+09:00">2019-04-14</time>
               
             
           </span>
@@ -456,6 +470,126 @@
       
         <p>相关介绍链接<br><a href="https://scrapbox.io/koikelab-papers/OptiSpace:_Automated_Placement_of_Interactive_3D_Projection_Mapping_Content" target="_blank" rel="noopener">koike lab</a></p>
 <p><a href="https://scrapbox.io/koikelab-papers/RoomAlive:_magical_experiences_enabled_by_scalable,_adaptive_projector-camera_units" target="_blank" rel="noopener">roomAlive</a></p>
+<p>关于opencv的fisheye calibration：<a href="http://ninghang.blogspot.com/2012/08/fish-eye-camera-calibration.html" target="_blank" rel="noopener">http://ninghang.blogspot.com/2012/08/fish-eye-camera-calibration.html</a></p>
+<p>关于calibration的视角的问题，matlab可以找到全部视角：<a href="https://www.mathworks.com/help/vision/ug/fisheye-calibration-basics.html" target="_blank" rel="noopener">https://www.mathworks.com/help/vision/ug/fisheye-calibration-basics.html</a></p>
+<a id="more"></a>
+<h2 id="DeepCalib-A-Deep-Learning-Approach-for-Automatic-Intrinsic-Calibration-of-Wide-Field-of-View-Cameras（CVMP-‘18）"><a href="#DeepCalib-A-Deep-Learning-Approach-for-Automatic-Intrinsic-Calibration-of-Wide-Field-of-View-Cameras（CVMP-‘18）" class="headerlink" title="DeepCalib: A Deep Learning Approach for Automatic Intrinsic Calibration of Wide Field-of-View Cameras（CVMP ‘18）"></a>DeepCalib: A Deep Learning Approach for Automatic Intrinsic Calibration of Wide Field-of-View Cameras（CVMP ‘18）</h2><p>使用深度学习对fish eye相机的视野进行补全。</p>
+<p><a href="http://cml.kaist.ac.kr/projects/DeepCalib" target="_blank" rel="noopener">文章中公开的code和其他资料</a></p>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><ul>
+<li>广角相机的calibration在各种各样的地方都有应用<ul>
+<li>3D重建</li>
+<li>image undistortion</li>
+<li>AR</li>
+<li>camera motion estimation</li>
+</ul>
+</li>
+<li>现在存在的calibration都需要多张图片进行校准（chessboard）</li>
+<li>提出了一种完全自动的标定方法，基于CNN</li>
+<li>在网上找了非常多的omnidirectional的图片进行训练，生成了具有100多万张图片的dataset</li>
+</ul>
+<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h3><ul>
+<li>广角相机的calibration最重要的是测量<ul>
+<li>intrinsic parameters</li>
+<li>两个wide FOV的重要参数：focal length &amp; distortion parameter</li>
+</ul>
+</li>
+<li>现存的calibration方法有很多限制：<ul>
+<li>需要一个object的多个角度的观察</li>
+<li>需要观察一个特定的structures</li>
+<li>在多张图片中观察相机的移动</li>
+<li>现在最有名的方法是chessboard</li>
+</ul>
+</li>
+<li>他们提出的方法可以解决上述的问题，并且针对网上下下来的照片也可以用</li>
+</ul>
+<h4 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h4><ul>
+<li>一个CNN with Inception-V3 architecture</li>
+<li>目标<ul>
+<li>收集具有不同intrinsic parameters的图片，然后自动生成具有不同的focal length和distortion的图片（没懂）</li>
+<li>对比不同的CNN结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="related-work"><a href="#related-work" class="headerlink" title="related work"></a>related work</h3><ul>
+<li>以前存在的calibration方法主要可以分成四个不同的部分<ul>
+<li>最常使用的就是棋盘一类的，需要观察一张图片的不同部分，从而得到结果。问题主要是出在比价麻烦，而且无法对野生的照片进行calibration</li>
+<li>基于图片上面的geometric structure，line，消失的点等。不能处理general environments</li>
+<li>self-calibration（自身还有一些容易收到影响的问题）<ul>
+<li>需要多张图片</li>
+<li>需要camera motion estimation</li>
+</ul>
+</li>
+<li>基于DL的，但是都是解决了部分问题<ul>
+<li>没有把参数全都估计出来</li>
+<li>dataset是从prespective的图片生成回来的，会有不完整的部分（但是他们的很完整而且会有很多应用）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Approach"><a href="#Approach" class="headerlink" title="Approach"></a>Approach</h3><p>选择model -&gt; 自动生成large-scale dataset -&gt; network的structure</p>
+<h4 id="Projection-amp-distrotion-model（考虑生成dataset的机器）"><a href="#Projection-amp-distrotion-model（考虑生成dataset的机器）" class="headerlink" title="Projection &amp; distrotion model（考虑生成dataset的机器）"></a>Projection &amp; distrotion model（考虑生成dataset的机器）</h4><ul>
+<li>广角相机需要具体的projection model把3D的世界map到图片里面去 </li>
+<li>考虑了几个model<ul>
+<li>Brown-Conrady’s model(1971)<ul>
+<li>在实际应用里面不适合广角相机的大的distortion</li>
+<li>hardly reversible</li>
+</ul>
+</li>
+<li>division model [Fitzgibbon 2001]<ul>
+<li>只是为了fisheye设计的，对相机没有普适性</li>
+<li>impossible to revert</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>这篇文章里面的model<ul>
+<li>unified spherical model [Barreto 2006; Mei and Rives 2007]</li>
+<li>原因<ul>
+<li>fully reversible</li>
+<li>可以解决很大的distortion</li>
+<li>projection和back-projection都admit closed-form solution -&gt; 计算效率非常高（没怎么看懂）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="generation-dataset"><a href="#generation-dataset" class="headerlink" title="generation dataset"></a>generation dataset</h4><ul>
+<li>因为根本做不到并且还没有那么大的dataset，所以他们打算人工合成一些(synthetically)</li>
+<li>没有选择用prspective的图片生成<ul>
+<li>在普通的图片里面加上distortion会把图片里应该看不到的地方看到（边缘都会变成黑色的） -&gt; 生成的图片不真实</li>
+</ul>
+</li>
+<li>使用panoramas得到图片<ul>
+<li>因为全景图都是360度的，那么多少度的广角都能驾驭</li>
+<li>可以假设把相机放在任何地方</li>
+</ul>
+</li>
+<li>对于给的一张全景图，可以自动生成不同焦距，不同distortion的图片，这样就得到了很大的dataset<br><img src="/2019/04/11/关于空间投影增强的论文/deepcalib_1.jpg" alt="生成data"></li>
+</ul>
+<h4 id="network-architecture"><a href="#network-architecture" class="headerlink" title="network architecture"></a>network architecture</h4><ul>
+<li>Inception-V3 structure</li>
+<li>基于上面的，实践了三种不同的网络<ul>
+<li>一层网络，输出两个不同的结果，一个是f一个是distortion</li>
+<li>DualNet，由两个独立网络组成，一个输出f，一个输出distortion，这两个值是相互独立的。</li>
+<li>SeqNet，两个连在一起的网络，先从A网络里得到f，再把图片和f放进B得到最终的distortion</li>
+</ul>
+</li>
+<li>解决问题：<ul>
+<li>classification</li>
+<li>regression</li>
+</ul>
+</li>
+</ul>
+<h3 id="result"><a href="#result" class="headerlink" title="result"></a>result</h3><h4 id="net的参数"><a href="#net的参数" class="headerlink" title="net的参数"></a>net的参数</h4><ul>
+<li>net在imageNet上面pre-train了，然后再进行了进一步的训练</li>
+</ul>
+<h4 id="evaluation"><a href="#evaluation" class="headerlink" title="evaluation"></a>evaluation</h4><p>对比上面不同三个网络的performance</p>
+<h4 id="user-study"><a href="#user-study" class="headerlink" title="user study"></a>user study</h4><p>估计出来的结果很难说明到底是不是成功的undistort了，所以设计了user study</p>
+<h2 id="Combining-Multiple-Depth-Cameras-and-Projectors-for-Interactions-On-Above-and-Between-Surfaces"><a href="#Combining-Multiple-Depth-Cameras-and-Projectors-for-Interactions-On-Above-and-Between-Surfaces" class="headerlink" title="Combining Multiple Depth Cameras and Projectors for Interactions On, Above, and Between Surfaces"></a>Combining Multiple Depth Cameras and Projectors for Interactions On, Above, and Between Surfaces</h2><p>感觉算是比较最早的SAR的部分</p>
+<h2 id="RoomAlive-Magical-Experiences-Enabled-by-Scalable-Adaptive-Projector-Camera-Units-UIST-‘14"><a href="#RoomAlive-Magical-Experiences-Enabled-by-Scalable-Adaptive-Projector-Camera-Units-UIST-‘14" class="headerlink" title="RoomAlive: Magical Experiences Enabled by Scalable, Adaptive Projector-Camera Units(UIST ‘14)"></a>RoomAlive: Magical Experiences Enabled by Scalable, Adaptive Projector-Camera Units(UIST ‘14)</h2><p>感觉是一个比较完全的屋内投影的例子了</p>
+<h3 id="Abstract-1"><a href="#Abstract-1" class="headerlink" title="Abstract"></a>Abstract</h3><h2 id="Peripheral-Expansion-of-Depth-Information-via-Layout-Estimation-with-Fisheye-Camera-‘16"><a href="#Peripheral-Expansion-of-Depth-Information-via-Layout-Estimation-with-Fisheye-Camera-‘16" class="headerlink" title="Peripheral Expansion of Depth Information via Layout Estimation with Fisheye Camera( ‘16)"></a>Peripheral Expansion of Depth Information via Layout Estimation with Fisheye Camera( ‘16)</h2><p>从RGBD鱼眼相机提取深度信息</p>
+<h2 id="Pedestrian-Detection-in-Fish-eye-Images-using-Deep-Learning-Combine-Faster-R-CNN-with-an-effective-Cutting-Method-SPML-‘18"><a href="#Pedestrian-Detection-in-Fish-eye-Images-using-Deep-Learning-Combine-Faster-R-CNN-with-an-effective-Cutting-Method-SPML-‘18" class="headerlink" title="Pedestrian Detection in Fish-eye Images using Deep Learning: Combine Faster R-CNN with an effective Cutting Method(SPML ‘18)"></a>Pedestrian Detection in Fish-eye Images using Deep Learning: Combine Faster R-CNN with an effective Cutting Method(SPML ‘18)</h2><p>用鱼眼相机和RCNN来检测行人（感觉这个检测的目标比较小）</p>
 
       
     </div>
@@ -550,8 +684,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -723,6 +866,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DeepCalib-A-Deep-Learning-Approach-for-Automatic-Intrinsic-Calibration-of-Wide-Field-of-View-Cameras（CVMP-‘18）"><span class="nav-number">1.</span> <span class="nav-text">DeepCalib: A Deep Learning Approach for Automatic Intrinsic Calibration of Wide Field-of-View Cameras（CVMP ‘18）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract"><span class="nav-number">1.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Intro"><span class="nav-number">1.2.</span> <span class="nav-text">Intro</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主要方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">主要方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#related-work"><span class="nav-number">1.3.</span> <span class="nav-text">related work</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach"><span class="nav-number">1.4.</span> <span class="nav-text">Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Projection-amp-distrotion-model（考虑生成dataset的机器）"><span class="nav-number">1.4.1.</span> <span class="nav-text">Projection &amp; distrotion model（考虑生成dataset的机器）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#generation-dataset"><span class="nav-number">1.4.2.</span> <span class="nav-text">generation dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#network-architecture"><span class="nav-number">1.4.3.</span> <span class="nav-text">network architecture</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#result"><span class="nav-number">1.5.</span> <span class="nav-text">result</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#net的参数"><span class="nav-number">1.5.1.</span> <span class="nav-text">net的参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#evaluation"><span class="nav-number">1.5.2.</span> <span class="nav-text">evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#user-study"><span class="nav-number">1.5.3.</span> <span class="nav-text">user study</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Combining-Multiple-Depth-Cameras-and-Projectors-for-Interactions-On-Above-and-Between-Surfaces"><span class="nav-number">2.</span> <span class="nav-text">Combining Multiple Depth Cameras and Projectors for Interactions On, Above, and Between Surfaces</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RoomAlive-Magical-Experiences-Enabled-by-Scalable-Adaptive-Projector-Camera-Units-UIST-‘14"><span class="nav-number">3.</span> <span class="nav-text">RoomAlive: Magical Experiences Enabled by Scalable, Adaptive Projector-Camera Units(UIST ‘14)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Abstract-1"><span class="nav-number">3.1.</span> <span class="nav-text">Abstract</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peripheral-Expansion-of-Depth-Information-via-Layout-Estimation-with-Fisheye-Camera-‘16"><span class="nav-number">4.</span> <span class="nav-text">Peripheral Expansion of Depth Information via Layout Estimation with Fisheye Camera( ‘16)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pedestrian-Detection-in-Fish-eye-Images-using-Deep-Learning-Combine-Faster-R-CNN-with-an-effective-Cutting-Method-SPML-‘18"><span class="nav-number">5.</span> <span class="nav-text">Pedestrian Detection in Fish-eye Images using Deep Learning: Combine Faster R-CNN with an effective Cutting Method(SPML ‘18)</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
