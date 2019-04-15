@@ -96,18 +96,23 @@
 
 
 
-  <meta name="description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起">
+  <meta name="description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起  slides学习opengl(学习老师的cpp代码风格)">
 <meta name="keywords" content="AR,OpenCV,OpenGL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2019 1Q AR笔记">
 <meta property="og:url" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
-<meta property="og:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起">
+<meta property="og:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起  slides学习opengl(学习老师的cpp代码风格)">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-09T05:37:45.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/1_final.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_3.jpg">
+<meta property="og:updated_time" content="2019-04-15T03:09:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019 1Q AR笔记">
-<meta name="twitter:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起">
+<meta name="twitter:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起  slides学习opengl(学习老师的cpp代码风格)">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/1_final.jpg">
 
 
 
@@ -245,7 +250,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
 
   </li>
         
@@ -264,7 +269,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">26</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
 
   </li>
 
@@ -397,12 +402,24 @@
                 
               
 
-              <time title="Created: 2019-04-09 14:01:58 / Modified: 14:37:45" itemprop="dateCreated datePublished" datetime="2019-04-09T14:01:58+09:00">2019-04-09</time>
+              <time title="Created: 2019-04-09 14:01:58" itemprop="dateCreated datePublished" datetime="2019-04-09T14:01:58+09:00">2019-04-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-15 12:09:17" itemprop="dateModified" datetime="2019-04-15T12:09:17+09:00">2019-04-15</time>
               
             
           </span>
@@ -467,8 +484,9 @@
 <li>render 3D 图片</li>
 <li>把图片和marker组合在一起</li>
 </ul>
+<p><a href="https://drive.google.com/drive/folders/1pbHMGhl_TVLh1jN0HCKjaoGy6V-r45B5" target="_blank" rel="noopener">slides</a><br><a href="https://learnopengl.com/Introduction" target="_blank" rel="noopener">学习opengl</a><br>(学习老师的cpp代码风格)</p>
 <a id="more"></a>
-<h2 id="Ex1"><a href="#Ex1" class="headerlink" title="Ex1"></a>Ex1</h2><h3 id="打开相机"><a href="#打开相机" class="headerlink" title="打开相机"></a>打开相机</h3><ul>
+<h2 id="Ex1-检测marker的四个基础点"><a href="#Ex1-检测marker的四个基础点" class="headerlink" title="Ex1:检测marker的四个基础点"></a>Ex1:检测marker的四个基础点</h2><h3 id="打开相机"><a href="#打开相机" class="headerlink" title="打开相机"></a>打开相机</h3><ul>
 <li>注意初始化 videocapture 应该是在while的循环之前的</li>
 </ul>
 <h3 id="thresholding"><a href="#thresholding" class="headerlink" title="thresholding"></a>thresholding</h3><ul>
@@ -482,7 +500,16 @@
 </li>
 <li>注意binary之前要先 cvtcolor到灰度图！！！</li>
 </ul>
-<h3 id="detect-connected-components"><a href="#detect-connected-components" class="headerlink" title="detect connected components"></a>detect connected components</h3><h4 id="cv-findContours"><a href="#cv-findContours" class="headerlink" title="cv::findContours"></a>cv::findContours</h4><ul>
+<h3 id="cv-adaptiveThreshold-lt-试试这个函数的作用，不用自己设置threshold了"><a href="#cv-adaptiveThreshold-lt-试试这个函数的作用，不用自己设置threshold了" class="headerlink" title="cv::adaptiveThreshold &lt;- 试试这个函数的作用，不用自己设置threshold了"></a>cv::adaptiveThreshold &lt;- 试试这个函数的作用，不用自己设置threshold了</h3><ul>
+<li>并不想set这些hypers manully</li>
+<li>除了寻常需要设置的东西之外，还需要<ul>
+<li>adaptiveMethod</li>
+<li>block size（需要被用来计算threshold的value）</li>
+<li>C：需要被从整体中减去的一个constant</li>
+</ul>
+</li>
+</ul>
+<h3 id="有些变量的地方用到了const-lt-感觉应该学学老师的编程风格"><a href="#有些变量的地方用到了const-lt-感觉应该学学老师的编程风格" class="headerlink" title="有些变量的地方用到了const &lt;- 感觉应该学学老师的编程风格"></a>有些变量的地方用到了const &lt;- 感觉应该学学老师的编程风格</h3><h3 id="detect-connected-components"><a href="#detect-connected-components" class="headerlink" title="detect connected components"></a>detect connected components</h3><h4 id="cv-findContours"><a href="#cv-findContours" class="headerlink" title="cv::findContours"></a>cv::findContours</h4><ul>
 <li>函数<ul>
 <li>图片</li>
 <li>contours <code>vector&lt;std::vector&lt;cv::Point&gt; &gt;</code></li>
@@ -494,17 +521,30 @@
 </li>
 </ul>
 <h4 id="去除过小的contour"><a href="#去除过小的contour" class="headerlink" title="去除过小的contour"></a>去除过小的contour</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;Point&gt;&gt; :: iterator itc = contours.begin();</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">while</span>(itc != contours.end())&#123;</span><br><span class="line">       <span class="keyword">if</span>(itc -&gt; size() &lt; <span class="number">60</span>)&#123;</span><br><span class="line">           itc = contours.erase(itc);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span>&#123;</span><br><span class="line">           itc++;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>老师的代码里面是先进行了估计，计算了bound的面积，然后根据<ul>
+<li>面积大小，占整张图片的百分比</li>
+<li>几个角</li>
+<li><code>cv::isContourConvex</code> ：检查这个marker的凸性，毕竟形状不能是凹的，直接输入这个多边形的array，输出的就是bool</li>
+</ul>
+</li>
+</ul>
 <h4 id="估计contour的多边形"><a href="#估计contour的多边形" class="headerlink" title="估计contour的多边形"></a>估计contour的多边形</h4><ul>
 <li>approxPolyDP<ul>
 <li>被估计的contour</li>
 <li>估计出来的的多边形</li>
-<li>估计的参数，影响估计的精度</li>
+<li>估计的参数，影响估计的精度 -&gt;<ul>
+<li><code>const auto epsilon = 0.05 * cv::arcLength(contour, true);</code></li>
+<li>计算一个curve的长度</li>
+</ul>
+</li>
 <li>closed，估计出来的多边形是不是封闭的</li>
 </ul>
 </li>
 </ul>
 <h4 id="画出来只有四个角的多边形"><a href="#画出来只有四个角的多边形" class="headerlink" title="画出来只有四个角的多边形"></a>画出来只有四个角的多边形</h4><ul>
-<li>drawContours()<ul>
+<li><p>drawContours()</p>
+<ul>
 <li>图片</li>
 <li>需要画的轮廓s （注意这是这张图片里面的所有轮廓）</li>
 <li>需要画的index</li>
@@ -518,6 +558,55 @@
 <li>offset：可选</li>
 </ul>
 </li>
+<li><p>老师用的方法是计算了各个点和计算了各个边，所以可以画出来边上还有好多点的结果</p>
+<ul>
+<li>一种神奇的定义颜色的方式，直接随机出来 <code>const cv::Scalar kEdgeColor(rand() &amp; 255, rand() &amp; 255, rand() &amp; 255);</code> -&gt; 这样的话出来的每一帧的框的颜色都会改变<br>![]</li>
+<li>用<code>cv::polylines</code>来画出来polys的curve，并且要画closed的</li>
+</ul>
+</li>
+<li>画出来图片的delimiters(为下一步做准备)<ul>
+<li>目的：从一个corner到另一个corner的方向vector</li>
+<li>步骤<ul>
+<li>首先在corner上面用circle画出来</li>
+<li>检查每个edge</li>
+<li>每个edge上有6个点，然后计算两个corner之间的dx和dy的方向，除以部分的数量（7）就是每个小块的方向，然后把这个小块重复6次<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const double dx = (<span class="name">double</span>)(<span class="name">contour_approx</span>[(<span class="name">i+1</span>)%kNumOfCorners].x-contour_approx[i].x)/(<span class="name">double</span>)(<span class="name">kNumOfEdgePoints+1</span>)<span class="comment">;</span></span><br><span class="line">const double dy = (<span class="name">double</span>)(<span class="name">contour_approx</span>[(<span class="name">i+1</span>)%kNumOfCorners].y-contour_approx[i].y)/(<span class="name">double</span>)(<span class="name">kNumOfEdgePoints+1</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="第一部分结束后的完整代码"><a href="#第一部分结束后的完整代码" class="headerlink" title="第一部分结束后的完整代码"></a>第一部分结束后的完整代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"ARdetection.hpp"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ARDetection::ARDetection(<span class="keyword">void</span>)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Mat ARDetection:: SearchMarkers(Mat frame)&#123;</span><br><span class="line">    Mat img_gray;</span><br><span class="line">    Mat dst;</span><br><span class="line">    <span class="comment">//        threshold之前要先改成灰度图</span></span><br><span class="line">    cvtColor(frame, img_gray, CV_BGR2GRAY);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    adaptiveThreshold(img_gray, dst, <span class="number">255</span>, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, <span class="number">33</span>, <span class="number">5</span>);</span><br><span class="line"><span class="comment">//    threshold(img_gray, dst, 104, 255, THRESH_BINARY);</span></span><br><span class="line">    imshow(<span class="string">"lalala"</span>, dst);</span><br><span class="line">    waitKey(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">//    每个点，一圈点事是一个contour，一堆kcontours</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;Point&gt;&gt; contours;</span><br><span class="line">    <span class="built_in">vector</span>&lt;Vec4i&gt; hierarchy;</span><br><span class="line">    findContours(dst, contours, hierarchy, RETR_LIST , CHAIN_APPROX_NONE);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment">//    检测图片过小部分</span></span><br><span class="line"><span class="comment">//    vector&lt;vector&lt;Point&gt;&gt; :: iterator itc = contours.begin();</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    while(itc != contours.end())&#123;</span></span><br><span class="line"><span class="comment">//        if(itc -&gt; size() &lt; 60)&#123;</span></span><br><span class="line"><span class="comment">//            itc = contours.erase(itc);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        else&#123;</span></span><br><span class="line"><span class="comment">//            itc++;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;Point&gt;&gt; polys(contours.size());</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; contours.size(); i++ )&#123;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        根据每个轮廓调节这个参数的大小</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> epsilon = <span class="number">0.05</span>*cv::arcLength(contours[i], <span class="literal">true</span>);</span><br><span class="line">        approxPolyDP(contours[i], polys[i], epsilon, <span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        if(polys[i].size() == 4)&#123;</span></span><br><span class="line"><span class="comment">////            用这个函数画不出来斜的东西</span></span><br><span class="line"><span class="comment">////            rectangle(frame, polys[i][0],polys[i][2], Scalar(0,255,0));</span></span><br><span class="line"><span class="comment">//            drawContours(frame, polys, i, Scalar(255,0,0), 5, 8, vector&lt;Vec4i&gt;(), 0, Point());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        Rect rect = boundingRect(polys[i]);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> marker_size = rect.area();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> ImageSize = img_gray.cols * img_gray.rows;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> marker_size_min = <span class="keyword">int</span>(ImageSize * <span class="number">0.02</span>);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> marker_size_max = <span class="keyword">int</span>(ImageSize * <span class="number">0.95</span>);</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> marker_corners_num = <span class="number">4</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">bool</span> is_vaild = (marker_size &gt; marker_size_min) &amp;&amp; (marker_size &lt; marker_size_max) &amp;&amp; (polys[i].size() == marker_corners_num) &amp;&amp; isContourConvex(polys[i]);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (is_vaild == <span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        这样画出来的是随机的颜色的</span></span><br><span class="line">        <span class="function"><span class="keyword">const</span> Scalar <span class="title">EdgeColor</span><span class="params">(rand() &amp; <span class="number">255</span>, rand() &amp; <span class="number">255</span>, rand() &amp; <span class="number">255</span>)</span></span>;</span><br><span class="line">        polylines(frame, polys[i], <span class="literal">true</span>, EdgeColor,<span class="number">5</span>);</span><br><span class="line">        </span><br><span class="line"><span class="comment">//        下面需要把每个边分成6个部分</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; marker_corners_num; ++j)&#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">int</span> edge_point_num = <span class="number">6</span>;</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">int</span> circle_size = <span class="number">5</span>;</span><br><span class="line">            </span><br><span class="line">            circle(frame, polys[i][j], circle_size, Scalar(<span class="number">0</span>,<span class="number">255</span>,<span class="number">0</span>),FILLED);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">double</span> dx = (<span class="keyword">double</span>)(polys[i][(j+<span class="number">1</span>)%marker_corners_num].x - polys[i][j].x)/(<span class="keyword">double</span>)(edge_point_num + <span class="number">1</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">double</span> dy = (<span class="keyword">double</span>)(polys[i][(j+<span class="number">1</span>)%marker_corners_num].y - polys[i][j].y)/(<span class="keyword">double</span>)(edge_point_num + <span class="number">1</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k = <span class="number">0</span>; k&lt; edge_point_num; ++k)&#123;</span><br><span class="line">                <span class="keyword">const</span> <span class="keyword">double</span> edge_point_x = (<span class="keyword">double</span>)(polys[i][j].x) + (<span class="keyword">double</span>)(k+<span class="number">1</span>)*dx;</span><br><span class="line">                <span class="keyword">const</span> <span class="keyword">double</span> edge_point_y = (<span class="keyword">double</span>)(polys[i][j].y) + (<span class="keyword">double</span>)(k+<span class="number">1</span>)*dy;</span><br><span class="line">                </span><br><span class="line">                <span class="function">Point <span class="title">edge_point</span><span class="params">((<span class="keyword">int</span>)edge_point_x,(<span class="keyword">int</span>)edge_point_y)</span></span>;</span><br><span class="line">                circle(frame, edge_point, circle_size, Scalar(<span class="number">0</span>,<span class="number">0</span>,<span class="number">255</span>),<span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> frame;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第一部分运行之后的结果"><a href="#第一部分运行之后的结果" class="headerlink" title="第一部分运行之后的结果"></a>第一部分运行之后的结果</h3><p><img src="/2019/04/09/2019Q1AR笔记/1_final.jpg" alt="final"></p>
+<h2 id="Ex2-find-marker-precisely"><a href="#Ex2-find-marker-precisely" class="headerlink" title="Ex2. find marker precisely"></a>Ex2. find marker precisely</h2><ul>
+<li>现在有corner，corner之间的line，这个line还被分成6个部分（<del>~因为大小是6x6？的= 两个边 + 中间四个格？？</del>~）</li>
+<li>光检测边缘是不够的，想知道这个边缘实际是什么样子的<ul>
+<li>现在只知道虚线的部分是什么样子的</li>
+<li>并且现在已经把每个边都分部分了 -&gt; 画出来垂直的分块的线，找到这个线和颜色突变的交点，重新画出来新的线（实线）</li>
+<li>希望找到颜色突变的地方<ul>
+<li>但是实际上的颜色不是突变的，是白 -&gt; 灰 -&gt; 黑<br><img src="/2019/04/09/2019Q1AR笔记/2_1.jpg" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><ul>
+<li>预准备<ul>
+<li>在每个side找六个点</li>
+<li>在边上提取三个像素宽度的stride</li>
+<li>Sober operator</li>
+</ul>
+</li>
+<li>步骤<ul>
+<li>在每个stripe里找到最高的change</li>
+<li>对这个change和她周围的点（在原来的曲线上），找到一个新的二次曲线</li>
+<li>找到这个曲线的顶点（一阶导数）</li>
+</ul>
+</li>
+</ul>
+<h3 id="如何得到图片的subpixel-color"><a href="#如何得到图片的subpixel-color" class="headerlink" title="如何得到图片的subpixel color"></a>如何得到图片的subpixel color</h3><p>不是原来的方方正正的，而是沿着那个直线方向的新的方方正正<br><img src="/2019/04/09/2019Q1AR笔记/2_2.jpg" alt></p>
+<ul>
+<li>就是取各个颜色在面积上的平均，<br><img src="/2019/04/09/2019Q1AR笔记/2_3.jpg" alt></li>
 </ul>
 
       
@@ -642,7 +731,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -691,7 +780,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -808,7 +899,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体步骤"><span class="nav-number">1.</span> <span class="nav-text">整体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex1"><span class="nav-number">2.</span> <span class="nav-text">Ex1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开相机"><span class="nav-number">2.1.</span> <span class="nav-text">打开相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thresholding"><span class="nav-number">2.2.</span> <span class="nav-text">thresholding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detect-connected-components"><span class="nav-number">2.3.</span> <span class="nav-text">detect connected components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-findContours"><span class="nav-number">2.3.1.</span> <span class="nav-text">cv::findContours</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去除过小的contour"><span class="nav-number">2.3.2.</span> <span class="nav-text">去除过小的contour</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#估计contour的多边形"><span class="nav-number">2.3.3.</span> <span class="nav-text">估计contour的多边形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画出来只有四个角的多边形"><span class="nav-number">2.3.4.</span> <span class="nav-text">画出来只有四个角的多边形</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体步骤"><span class="nav-number">1.</span> <span class="nav-text">整体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex1-检测marker的四个基础点"><span class="nav-number">2.</span> <span class="nav-text">Ex1:检测marker的四个基础点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开相机"><span class="nav-number">2.1.</span> <span class="nav-text">打开相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thresholding"><span class="nav-number">2.2.</span> <span class="nav-text">thresholding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cv-adaptiveThreshold-lt-试试这个函数的作用，不用自己设置threshold了"><span class="nav-number">2.3.</span> <span class="nav-text">cv::adaptiveThreshold &lt;- 试试这个函数的作用，不用自己设置threshold了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有些变量的地方用到了const-lt-感觉应该学学老师的编程风格"><span class="nav-number">2.4.</span> <span class="nav-text">有些变量的地方用到了const &lt;- 感觉应该学学老师的编程风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detect-connected-components"><span class="nav-number">2.5.</span> <span class="nav-text">detect connected components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-findContours"><span class="nav-number">2.5.1.</span> <span class="nav-text">cv::findContours</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去除过小的contour"><span class="nav-number">2.5.2.</span> <span class="nav-text">去除过小的contour</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#估计contour的多边形"><span class="nav-number">2.5.3.</span> <span class="nav-text">估计contour的多边形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画出来只有四个角的多边形"><span class="nav-number">2.5.4.</span> <span class="nav-text">画出来只有四个角的多边形</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分结束后的完整代码"><span class="nav-number">2.6.</span> <span class="nav-text">第一部分结束后的完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分运行之后的结果"><span class="nav-number">2.7.</span> <span class="nav-text">第一部分运行之后的结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex2-find-marker-precisely"><span class="nav-number">3.</span> <span class="nav-text">Ex2. find marker precisely</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">3.1.</span> <span class="nav-text">操作步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何得到图片的subpixel-color"><span class="nav-number">3.2.</span> <span class="nav-text">如何得到图片的subpixel color</span></a></li></ol></li></ol></div>
             
 
           </div>

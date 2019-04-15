@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">26</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
 
   </li>
 
@@ -334,6 +334,478 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/15/CppPrimer笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/15/CppPrimer笔记/" class="post-title-link" itemprop="url">CppPrimer笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-15 12:04:03 / Modified: 12:04:38" itemprop="dateCreated datePublished" datetime="2019-04-15T12:04:03+09:00">2019-04-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Cpp/" itemprop="url" rel="index"><span itemprop="name">Cpp</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一部分-Basics"><a href="#第一部分-Basics" class="headerlink" title="第一部分 Basics"></a>第一部分 Basics</h1><ul>
+<li>C++在编译的时候就会检查类型</li>
+<li>allow programmers to define types that include operations as well as data</li>
+</ul>
+<h1 id="第二章-varibles-and-basic-type"><a href="#第二章-varibles-and-basic-type" class="headerlink" title="第二章 varibles and basic type"></a>第二章 varibles and basic type</h1><h2 id="2-1-bulid-in"><a href="#2-1-bulid-in" class="headerlink" title="2.1 bulid-in"></a>2.1 bulid-in</h2><p>基础类型包括算数类型（arithmtic type）和void类型，void用于没有返回值的函数</p>
+<h3 id="2-1-1-算数类型"><a href="#2-1-1-算数类型" class="headerlink" title="2.1.1 算数类型"></a>2.1.1 算数类型</h3><p><strong>include：intergal（bool&amp; char）/ float</strong></p>
+<hr>
+<p>不同的长度的叫法不同：</p>
+<ul>
+<li>char -&gt; wchar_t, char16_t, char32_t(后面两个for unicode，自然语言里面)</li>
+<li>int -&gt; short, long, long long</li>
+<li>float -&gt; double, long double</li>
+</ul>
+<p>扩展：在储存信息方面，储存在每个byte里面，是最小的计量单位（8bits）。在内存中，每个byte拥有一个address，需要知道地址和类型才知道到底存储的是什么东西。</p>
+<hr>
+<p>signed &amp; unsigned（除了bool）：</p>
+<ul>
+<li>signed：包括0的正数和负数</li>
+<li>unsigned：大于等于零</li>
+<li>没有写unsigned的话就是signed的<ul>
+<li>对于char来说，signed，unsigined和char三种<ul>
+<li>char到底算不算unsigned显示取决于编译器</li>
+<li>unsigned从0-255</li>
+<li>signed一般是-128 ～ 127</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>关于到底怎么用：</p>
+<ul>
+<li>当确定不可能是负值的时候用unisgned</li>
+<li>short太短了，long太长了，平常用int，int不够用long long</li>
+<li>如果用char，为了考虑到不同编译的结果不同，确定好用signed还是unsigned</li>
+<li>用double，float的精度不够，long double小号内存</li>
+</ul>
+<h3 id="2-1-2-类型转换（conversions）"><a href="#2-1-2-类型转换（conversions）" class="headerlink" title="2.1.2 类型转换（conversions）"></a>2.1.2 类型转换（conversions）</h3><p>在把一个东西加到另一个的过程中，支持<strong>自动的</strong>类型转换</p>
+<ul>
+<li>当bool被赋值为非0时，为true，0时为false</li>
+<li>给int赋值double，自动变成整数；给doubl赋值int，变成整数后面.0</li>
+<li>当unsigned超出界限时，the result is the remainder of the value modulo the number of values the target type can hold.</li>
+<li>当signed超出界限的时候，结果是undefined。不知道会发生什么事。</li>
+</ul>
+<hr>
+<p><strong><em>在写代码的时候尽量避免没有定义的，或者在implement中才定义的行为，因为这样容易导致在这个电脑上行得通但是换个地方没准就行不通了</em></strong></p>
+<hr>
+<p>一些引起的问题：</p>
+<ul>
+<li>int和unsigned相加，会引起wrap around</li>
+<li>两个unsigned相减如果小于零会出问题</li>
+<li>在for循环的条件里，unsiged作为变量的话永远不会小于零</li>
+<li><strong>求求你了反正不要混着用</strong></li>
+</ul>
+<h3 id="2-1-3-literals"><a href="#2-1-3-literals" class="headerlink" title="2.1.3 literals"></a>2.1.3 literals</h3><p>每个literal都有一个type，这是由form和value决定的。</p>
+<ul>
+<li>整数类型的<ul>
+<li>0开头的整数是八进制，0x是16进制</li>
+<li>负号不是literal的一部分，比如 -42，42是literal，负号是operator</li>
+</ul>
+</li>
+<li>float类型的<ul>
+<li>十进制带小数点的数字</li>
+<li>用exponent，E或者e，e后面的东西就是十的多少次方</li>
+</ul>
+</li>
+<li>character<ul>
+<li>string的类型是一个char的array，complier会在每个string 后面加上‘\0’（null character）</li>
+</ul>
+</li>
+<li>escape -&gt; 一些带有奇怪意义的\n，\t,\’等等<ul>
+<li>如果在\后面跟着多于三个数字，只会读取前三个</li>
+<li>\x会读取跟在她后面的所有hex digits</li>
+</ul>
+</li>
+<li>单独改变一个literal，在数字后面加后缀suffix<ul>
+<li>U：unsigned type</li>
+<li>L：long</li>
+<li>ULL：unsigned long long</li>
+<li>但是如果你要给1024后面加个f就不行，因为1024是整形（这时候又开始怀念python）</li>
+</ul>
+</li>
+<li>bool</li>
+</ul>
+<h2 id="2-2-变量-Variables"><a href="#2-2-变量-Variables" class="headerlink" title="2.2 变量 Variables"></a>2.2 变量 Variables</h2><p><strong><em>变量提供的是：命名好的存储空间，程序可以对他执行，每个变量都有type（其实也就是class或者object吗）</em></strong></p>
+<h3 id="2-2-1-变量的定义"><a href="#2-2-1-变量的定义" class="headerlink" title="2.2.1 变量的定义"></a>2.2.1 变量的定义</h3><ul>
+<li>assignment(赋值)和initialize(初始化)在c++里面是不一样的，初始化是在创建的时候赋予的值，赋值是之后改变这个变量的值</li>
+<li>list的初始化：尖括号。<ul>
+<li>在使用bulit-in的时候，可能无法list初始化这个变量，因为会丢失一些信息。比如把一个double扔到int里面</li>
+</ul>
+</li>
+<li>是否可以不初始化就使用取决于class的定义。<strong>比如要是int没有初始化的时候是0，string没有初始化的时候是空字符串</strong></li>
+</ul>
+<h3 id="2-2-2-变量declaration（声明？）和定义"><a href="#2-2-2-变量declaration（声明？）和定义" class="headerlink" title="2.2.2 变量declaration（声明？）和定义"></a>2.2.2 变量declaration（声明？）和定义</h3><ul>
+<li>在分开编写代码的时候，需要知道调用的函数从哪里来。<strong><em>注意：不初始化变量容易出问题，建议初始化每个bulit-in</em></strong></li>
+<li>declaration：让程序知道函数的名字<ul>
+<li>在前面加上extern，就可以declare但是不define</li>
+<li>但是如果已经初始化了函数，就不能加extern了，会引起错误</li>
+<li><strong>在其他函数的地方调用的时候（use a varible in multiple files），不需要再define了，但是需要声明</strong></li>
+</ul>
+</li>
+<li>defination：创建相应的实体<ul>
+<li>除了干declaration的事情，他还分配内存，或者提供初始值</li>
+<li>变量被define一次，但是可以被declaration无数次。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-3-identifiers（定义的名字）"><a href="#2-2-3-identifiers（定义的名字）" class="headerlink" title="2.2.3 identifiers（定义的名字）"></a>2.2.3 identifiers（定义的名字）</h3><ul>
+<li>要求<ul>
+<li>数字，字母，下划线underscore</li>
+<li>对大小写有区分</li>
+<li>不能使用C++的关键词</li>
+<li>不能含有两个相连的下划线</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-4-名字的scope"><a href="#2-2-4-名字的scope" class="headerlink" title="2.2.4 名字的scope"></a>2.2.4 名字的scope</h3><ul>
+<li>使用的意义：同一个名字可能会在程序的其他地方被使用，所以要用scope确定这个名字在哪个范围里面有意义（<strong>不是namespace啊啊啊啊啊竟然是大括号我震惊</strong>）</li>
+<li>nested scope<ul>
+<li>在外层被定义的名字可以在内层被重新定义</li>
+<li>温情建议：<strong><em>局部变量和全局变量不要使用一个名字</em></strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-3-compound-types（有范围的类型？）"><a href="#2-3-compound-types（有范围的类型？）" class="headerlink" title="2.3 compound types（有范围的类型？）"></a>2.3 compound types（有范围的类型？）</h2><p>就是定义在其他类型之上的类型。<strong>在c++里面有两个，pointer和reference</strong></p>
+<h3 id="2-3-1-reference（lvalue-reference）"><a href="#2-3-1-reference（lvalue-reference）" class="headerlink" title="2.3.1 reference（lvalue reference）"></a>2.3.1 reference（lvalue reference）</h3><p>在创建的时候，copy的不是对象的值，而是把refer和值绑在了一起，在创建之后不能再和别的东西绑在一起。reference必须初始化。</p>
+<ul>
+<li>不是对象，是一个已经存在的对象的另一个名字<ul>
+<li>给refer赋值的时候，实际上是赋值给refer所绑定的对象</li>
+<li>当给一个refer赋值另一个refer的时候，其实是绑到了同一个对象（但是不应该这么定义）</li>
+</ul>
+</li>
+<li>定义<ul>
+<li>在refer的名字之前加上&amp;，但是在后续使用的时候可以不带了</li>
+<li>refer只能初始化成一个对象，不能是一个具体的值</li>
+<li>类型要正确</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-2-pointer"><a href="#2-3-2-pointer" class="headerlink" title="2.3.2 pointer"></a>2.3.2 pointer</h3><p>和refer不同，指针是一个object，他们可以被assign或者copy，在定义的时候不必须初始化，一个指针可以指向不同的东西。在定义的时候用 * 来表示</p>
+<ul>
+<li>取址<ul>
+<li>pointer可以得到另一个对象的address。&amp;也可以作为取址符号得到一个对象的地址（<strong>和refer不一样！！</strong>）</li>
+<li>类型必须匹配</li>
+</ul>
+</li>
+<li>pointer的值（可以是以下四个之一）<ul>
+<li>指向一个对象</li>
+<li>指向一个在对象中末尾的位置（没有使用的实际意义）</li>
+<li>null指针，表示还没有和其他的绑定</li>
+<li>无效的？？<strong>如果是无效的话是不能访问的</strong></li>
+</ul>
+</li>
+<li>访问对象<ul>
+<li>当一个pointer指向对象的时候，使用dereference（ <em> ）来得到她的值。（pointer p是一个地址， </em> p是他这个地址上的值</li>
+</ul>
+</li>
+<li>空指针NULL<ul>
+<li>使用nullptr定义</li>
+<li>assign一个int变量给pointer是非法的，即使这个数是0（赋值的时候给的是变量的地址，带&amp;的）</li>
+<li>真诚建议：<strong>初始化所有的pointer</strong>，没有初始化的很难分辨出来到底这个地址是有效还是无效</li>
+</ul>
+</li>
+<li>assignment<ul>
+<li>写成 pi = &amp;val的时候，改变的是pi的值，他指向了val</li>
+<li>写成 * pi = 0 的时候，改变的是val的值，val变成了0</li>
+</ul>
+</li>
+<li>void* Pointers<ul>
+<li>void* 是一个很牛逼的指针，可以hold所有对象的地址</li>
+<li>作用：可以传到函数或者作为函数的返回值，可以和其他指针比较，可以赋值给另一个void* 指针，但是不能操控对象的地址</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-3-理解"><a href="#2-3-3-理解" class="headerlink" title="2.3.3 理解"></a>2.3.3 理解</h3><ul>
+<li>定义多个变量<ul>
+<li>虽然在定义指针的时候可以加空格，但是 int* p1，p2之中，p1是指针，p2是int</li>
+</ul>
+</li>
+<li>pointer到pointer<ul>
+<li>写成一串星号可以表示从pointer到pointer</li>
+</ul>
+</li>
+<li>refer到pointer<ul>
+<li>&amp;r可以定义成一个pointer（指针写在=右边）</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-4-修饰词-const"><a href="#2-4-修饰词-const" class="headerlink" title="2.4 修饰词 const"></a>2.4 修饰词 const</h2><ul>
+<li>作用：希望定义一个variable，value不可以被改变，这时候就用上了const。在创建的时候必须初始化</li>
+<li>在实际操作的时候，到底是不是const对数值没有影响，可以用非const来初始化const或者用const来初始化其他的</li>
+<li>在创建之后，编译的时候所有的变量名都会换成变量的值</li>
+<li>const对每个file来说是local的</li>
+<li>如果希望定义一个在所有file里面都可以用的，然后在其他使用的时候声明，这时候用<strong>extern const（在定义和后续声明的时候都需要使用）</strong></li>
+</ul>
+<h3 id="2-4-1-refer-to-const"><a href="#2-4-1-refer-to-const" class="headerlink" title="2.4.1 refer to const"></a>2.4.1 refer to const</h3><ul>
+<li>可以refer到一个const，但是之后就不能通过refer来改变变量的值，也不能把一个const的变量赋值给一个非const的refer</li>
+<li>const refer的意思是这个refer不能被用来改变变量，但是被绑的变量本身可以改变。比如const int &amp;r2 = i，这时候改变i是合法的</li>
+</ul>
+<h3 id="2-4-2-pointer-and-const"><a href="#2-4-2-pointer-and-const" class="headerlink" title="2.4.2 pointer and const"></a>2.4.2 pointer and const</h3><ul>
+<li>pointer to const不能被用于改变指向的东西<ul>
+<li>但是pointer是const的和变量自己改不改没关系。变量是const的话指针必须是const的</li>
+</ul>
+</li>
+<li>const pointer<ul>
+<li>指针本身就是一个对象，所以指针自己也可以是const的</li>
+<li>必须被初始化，一旦初始化了，他的内容（所指向的地址）就不能改变了。</li>
+<li>定义的时候用 int * const cpr = &amp;num （const的位置改变了）</li>
+<li><strong>但是可以用const pointer来改变所指向东西的值！！！只是这两个东西绑定了不能改了而已</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-3-top-level"><a href="#2-4-3-top-level" class="headerlink" title="2.4.3 top-level"></a>2.4.3 top-level</h3><ul>
+<li>可以分开考虑pointer和对象<ul>
+<li>top-level：pointer自己是一个const -&gt; 本身就是const的，可以出现在任何的对象里面</li>
+<li>low-level：指向一个const -&gt; 只出现在refer和pointer里面</li>
+<li>当copy一个对象的时候，top-level是被忽略的<br><strong>常量指针就是一个常量，不能把常量给普通但是可以把普通给常量</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-4-constexpr"><a href="#2-4-4-constexpr" class="headerlink" title="2.4.4 constexpr"></a>2.4.4 constexpr</h3><ul>
+<li>常量表达式是编译的时候不能改变的，const object或者literal都是常量表达式。只有在初始化的时候知道了的值才是常量表达式。如果是个const int但是不确定到底是什么，那么就还不算</li>
+<li>在前面加上 constexpr，这时候只有当后面的变量是常量的时候才能用<ul>
+<li>可以在compile的时候判定</li>
+<li>当这个类型不是literal的时候，不能定义成常量表达式（literal包括算数，pointer和refer）</li>
+<li>在函数内定义的变量一般不会储存在固定的地址，所以这时候指针不能是constexpr（6.1.1）</li>
+</ul>
+</li>
+<li><strong>当使用constexpr的时候，作用在的是指针上而不是指向的东西上</strong><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">int</span> *p = nullptr; // p <span class="keyword">is</span> a <span class="built_in">pointer</span> to a <span class="keyword">const</span> <span class="built_in">int</span> constexpr <span class="built_in">int</span> *q = nullptr; // q <span class="keyword">is</span> a <span class="keyword">const</span> <span class="built_in">pointer</span> to <span class="built_in">int</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2-5-types-类型"><a href="#2-5-types-类型" class="headerlink" title="2.5 types 类型"></a>2.5 types 类型</h2><h3 id="2-5-1-type-aliases"><a href="#2-5-1-type-aliases" class="headerlink" title="2.5.1 type aliases"></a>2.5.1 type aliases</h3><ul>
+<li><p>即为对另一个type的化名 -&gt; 简化比较复杂的type，更好使用</p>
+<ul>
+<li><p>定义方法1： </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> wages; <span class="comment">// wages is a synonym for double</span></span><br><span class="line"><span class="keyword">typedef</span> wages base, *p; <span class="comment">// base is a synonym for double, p for double*</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法2: using SI = Sales_item；</p>
+</li>
+</ul>
+</li>
+<li>和pointer以及const -&gt; 用的时候直接替代会出问题<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="built_in">char</span> *pstring;</span><br><span class="line"><span class="keyword">const</span> pstring cstr = <span class="number">0</span>; // cstr <span class="keyword">is</span> a constant <span class="built_in">pointer</span> to <span class="built_in">char</span></span><br><span class="line"><span class="keyword">const</span> pstring *ps; // ps <span class="keyword">is</span> a <span class="built_in">pointer</span> to a constant <span class="built_in">pointer</span> to <span class="built_in">char</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="2-5-2-auto"><a href="#2-5-2-auto" class="headerlink" title="2.5.2 auto"></a>2.5.2 auto</h3><ul>
+<li>作用：有的时候没法定义变量的type，这时候可以用auto，编译的时候会自动指出变量的类型（从初始化的结果推断出来的）<ul>
+<li>写成一行定义的时候，auto不能包括不同的类型（如int和double）</li>
+</ul>
+</li>
+<li>指针refer，const和auto<ul>
+<li>当用auto然后用一个refer初始化的时候，得到的结果是refer绑定的object</li>
+<li>如果需要auto之后的结果还是const的，需要在auto前面加上const<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">int</span> ci = i, &amp;cr = ci;</span><br><span class="line"><span class="built_in">auto</span> b = ci; // b <span class="keyword">is</span> an <span class="built_in">int</span> (top-level <span class="keyword">const</span> <span class="keyword">in</span> ci <span class="keyword">is</span> dropped)</span><br><span class="line"><span class="built_in">auto</span> c = cr; // c <span class="keyword">is</span> an <span class="built_in">int</span> (cr <span class="keyword">is</span> an alias <span class="keyword">for</span> ci whose <span class="keyword">const</span> <span class="keyword">is</span> top-level) autod=&amp;i; // d isan <span class="built_in">int</span>*(&amp; ofan <span class="built_in">int</span> objectis <span class="built_in">int</span>*)</span><br><span class="line"><span class="built_in">auto</span> e = &amp;ci; // e <span class="keyword">is</span> <span class="keyword">const</span> <span class="built_in">int</span>*(&amp; <span class="keyword">of</span> a <span class="keyword">const</span> <span class="keyword">object</span> <span class="keyword">is</span> low-level <span class="keyword">const</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-3-decltype"><a href="#2-5-3-decltype" class="headerlink" title="2.5.3 decltype"></a>2.5.3 decltype</h3><ul>
+<li>作用：从expr里面推断出来type，但是不用这个expr来初始化的时候。这时候用decltype(fun())，这时候fun用来判断变量的类型，但是不call</li>
+<li>如果是必须初始化的东西（比如pointer或者refer）必须初始化</li>
+<li>decltype(* p) is int&amp;, not plain int</li>
+<li>decltype((variable))肯定是一个refer，但是decltype(variable)只有当variable是refer的时候才是</li>
+</ul>
+<h1 id="第三章-string，vector，array"><a href="#第三章-string，vector，array" class="headerlink" title="第三章 string，vector，array"></a>第三章 string，vector，array</h1><p>第二章说的是c++里面的built-in类型，除此之外还有很多library的类型（标准库），定义了很多高于计算机内部直接访问的数字和字母的类型。</p>
+<h2 id="3-1-namespace声明"><a href="#3-1-namespace声明" class="headerlink" title="3.1 namespace声明"></a>3.1 namespace声明</h2><ul>
+<li>每次都声明函数的namespace比较麻烦，可以在所有的开始之前用using namespace :: name来声明使用的特定的函数的namespace。或者直接用他代表所有的。</li>
+<li>头文件里面不应该用using，因为include的时候就加到所有的东西里面了，那就没有意义了</li>
+</ul>
+<h2 id="3-2-string"><a href="#3-2-string" class="headerlink" title="3.2 string"></a>3.2 string</h2><p>string定义在std的namespace里面</p>
+<h3 id="3-2-1-定义和初始化"><a href="#3-2-1-定义和初始化" class="headerlink" title="3.2.1 定义和初始化"></a>3.2.1 定义和初始化</h3><ul>
+<li>一个不知道的初始化方法： string s(n,’b’)，输出结果是n个b</li>
+<li>使用s(“hiya”)和s=”hiya”一个是direct的初始化方法，另一个是copy的初始化方法。比较容易读的方法是创建： string s = string(10,’b’)</li>
+</ul>
+<h3 id="3-2-2-string的操作"><a href="#3-2-2-string的操作" class="headerlink" title="3.2.2 string的操作"></a>3.2.2 string的操作</h3><ul>
+<li>string的读和写，cout和cin（iostream库）</li>
+<li>当键盘有输入的时候，while(cin &gt;&gt; word)这种感觉的东西当条件，cin是会识别空格然后分开的！！！</li>
+<li>getline()可以读取一整行，存在第二个参数里面，并且帮忙跳到新的一行</li>
+<li>.empty()和.size()可以判定是否为空，以及string里面的char的数量</li>
+<li>string:: size_type<ul>
+<li>size的返回值的类型是size_type</li>
+<li><strong>注意：因为返回值类型不同，所以当比较size的时候，如果和一个int的负数比较，int会被转换成unisgned的一个巨大的数字，从而导致比较的失败 -&gt; 所以在使用size的语句里面，不用int比较好（亲身证明确实如此，换成double就没事了）</strong></li>
+</ul>
+</li>
+<li>比较字符串<ul>
+<li>== 或者 ！= 来比较两个是否相等，需要是相同的长度且包括相同的字母</li>
+<li>比较两个的大小时<ul>
+<li>如果长度不同，如果短的每个的字母都和长的相同，那短的比较小</li>
+<li>如果任何一位上面的char不同，那就是第一个不同的char比较的结果</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>add<ul>
+<li>字符串可以直接相加（指s1+s2）</li>
+<li>可以把string和literal混着加，但是两个带引号的不能<strong>连在一起</strong>直接加（这是什么脑残规则）</li>
+</ul>
+</li>
+<li>练习 <ul>
+<li>可以直接通过索引vector的方法索引string里面的char（但是一个词一个词读取直接用cin&gt;&gt; s也是可以的（我是傻逼吗））</li>
+<li>二择的判断条件可以写成 ((str1.size() &gt; str2.size()) ? str1 : str2)</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-3-string里面的chars"><a href="#3-2-3-string里面的chars" class="headerlink" title="3.2.3 string里面的chars"></a>3.2.3 string里面的chars</h3><ul>
+<li>有时候需要处理每一个字母，有的时候需要处理特殊的一些字母，定义在函数<strong>cctype</strong>里面</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -589,7 +1061,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-13 16:47:03" itemprop="dateModified" datetime="2019-04-13T16:47:03+09:00">2019-04-13</time>
+                <time title="Modified: 2019-04-15 12:57:20" itemprop="dateModified" datetime="2019-04-15T12:57:20+09:00">2019-04-15</time>
               
             
           </span>
@@ -796,7 +1268,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-14 00:39:44" itemprop="dateModified" datetime="2019-04-14T00:39:44+09:00">2019-04-14</time>
+                <time title="Modified: 2019-04-15 08:56:03" itemprop="dateModified" datetime="2019-04-15T08:56:03+09:00">2019-04-15</time>
               
             
           </span>
@@ -961,12 +1433,24 @@
                 
               
 
-              <time title="Created: 2019-04-09 14:01:58 / Modified: 14:37:45" itemprop="dateCreated datePublished" datetime="2019-04-09T14:01:58+09:00">2019-04-09</time>
+              <time title="Created: 2019-04-09 14:01:58" itemprop="dateCreated datePublished" datetime="2019-04-09T14:01:58+09:00">2019-04-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-15 12:09:17" itemprop="dateModified" datetime="2019-04-15T12:09:17+09:00">2019-04-15</time>
               
             
           </span>
@@ -1032,6 +1516,7 @@
 <li>render 3D 图片</li>
 <li>把图片和marker组合在一起</li>
 </ul>
+<p><a href="https://drive.google.com/drive/folders/1pbHMGhl_TVLh1jN0HCKjaoGy6V-r45B5" target="_blank" rel="noopener">slides</a><br><a href="https://learnopengl.com/Introduction" target="_blank" rel="noopener">学习opengl</a><br>(学习老师的cpp代码风格)</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1713,7 +2198,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-11 14:29:30" itemprop="dateModified" datetime="2019-04-11T14:29:30+09:00">2019-04-11</time>
+                <time title="Modified: 2019-04-15 13:59:02" itemprop="dateModified" datetime="2019-04-15T13:59:02+09:00">2019-04-15</time>
               
             
           </span>
@@ -1965,6 +2450,56 @@
 </ul>
 <h3 id="WYSIWYG"><a href="#WYSIWYG" class="headerlink" title="WYSIWYG"></a>WYSIWYG</h3><p><strong>what you see is what you get</strong></p>
 <h3 id="PUI"><a href="#PUI" class="headerlink" title="PUI?"></a>PUI?</h3><p>I: recognization<br>O: large/ small displays</p>
+<h1 id="PUI-perceptual"><a href="#PUI-perceptual" class="headerlink" title="PUI(perceptual)"></a>PUI(perceptual)</h1><h2 id="GUI-gt-PUI"><a href="#GUI-gt-PUI" class="headerlink" title="GUI -&gt; PUI"></a>GUI -&gt; PUI</h2><ul>
+<li>PUI: using various input(sensors)</li>
+<li>GUI: mouse&amp; keyboard, not intuitive</li>
+</ul>
+<h2 id="vision-based-HCI"><a href="#vision-based-HCI" class="headerlink" title="vision-based HCI"></a>vision-based HCI</h2><h3 id="why"><a href="#why" class="headerlink" title="why?"></a>why?</h3><ul>
+<li>natural &amp; intuitive?</li>
+<li>not special device, unwired</li>
+<li>multimodel</li>
+</ul>
+<h3 id="application"><a href="#application" class="headerlink" title="application"></a>application</h3><ul>
+<li>recognition<ul>
+<li>detection &amp; recognition<ul>
+<li>object &lt;-(detect) - object detection system(find the thing in the real world)</li>
+<li>object database &lt;-recognition- objection recognition system(know what it is)</li>
+</ul>
+</li>
+<li>detect the hand<ul>
+<li>colors（shapes?）</li>
+<li>infrared camera<ul>
+<li>near infrared -&gt; vedio cameras(capture near infrared light to the object)</li>
+<li>far infrared -&gt; capture the heat</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>hand location(手指在哪，手在哪)<ul>
+<li>hand regions</li>
+<li>find the centre -&gt; morphlogical operation</li>
+<li>fingers -&gt; pattern matching(有很多不同的方法)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>tracking</li>
+</ul>
+<h3 id="gesture-recognition"><a href="#gesture-recognition" class="headerlink" title="gesture recognition"></a>gesture recognition</h3><ul>
+<li>difficult<ul>
+<li>segmentation of hands/body -&gt; depth camera</li>
+<li>recognition of 3D pose(occlusion)<ul>
+<li>如果用户转身了，手会被其他的东西挡住</li>
+</ul>
+</li>
+<li><strong>detecting begin/end of gestures</strong> 一个非常重要的问题！</li>
+</ul>
+</li>
+<li>high-speed gestures (systems)<ul>
+<li>pac！pac！</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -2173,248 +2708,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/03/关于SVM的理解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/03/关于SVM的理解/" class="post-title-link" itemprop="url">关于SVM的理解</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-03 14:42:03" itemprop="dateCreated datePublished" datetime="2019-04-03T14:42:03+09:00">2019-04-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-04 15:14:17" itemprop="dateModified" datetime="2019-04-04T15:14:17+09:00">2019-04-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Machine-Learning/" itemprop="url" rel="index"><span itemprop="name">Machine Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Machine-Learning/SVM/" itemprop="url" rel="index"><span itemprop="name">SVM</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>本文参考<a href="https://blog.csdn.net/v_JULY_v/article/details/7624837" target="_blank" rel="noopener">支持向量机通俗导论</a></em>内容</p>
-<h1 id="SVM到底是啥"><a href="#SVM到底是啥" class="headerlink" title="SVM到底是啥"></a>SVM到底是啥</h1><p>support vecttor machine，比如在二维平面上，要把一个东西分成两类，SVM就是平面上的一条直线，并且在这两类的正中间，离两边一样远。换句话说，学习策略是把间隔最大化，从而得到凸二次规划问题的解（虽然不是很理解，但是凸问题应该是比较好求解）</p>
-<h2 id="分类标准-logistic-regression"><a href="#分类标准-logistic-regression" class="headerlink" title="分类标准 logistic regression"></a>分类标准 logistic regression</h2><ul>
-<li>线性分类器：x表示数据，y表示类别，分类器则需要在n维找到一个超平面hyper plane，超平面的方程就是W.T</li>
-<li>也就是 W.T.dot(x) + b = 0</li>
-</ul>
-<p>(<em>令人震惊w居然是超平面的方程</em>)</p>
-<h2 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h2><ul>
-<li>逻辑回归就是从特征里面学到一个0/1的分类模型</li>
-<li>模型的线性组合作为自变量，取值范围是负无穷到正无穷，所以使用logistic函数（竟然就是si<br>moid函数把他们投影到（0，1）上面，得到的值就是y = 1的概率</li>
-<li>线性分类器如果把分类的两类改成 -1和1（只是为了方便选了这个数字），其实就是把wx加了b</li>
-<li>这时候的点的位置可以用 f(x) = wx + b表示，如果f(x)等于0，那么这个点在超平面上，如果大于0就是在1的类型里，小于0在-1的类型里</li>
-<li><strong>这时候问题变成了寻找间隔最大的超平面</strong></li>
-</ul>
-<h2 id="function-margin，geometrical-margin"><a href="#function-margin，geometrical-margin" class="headerlink" title="function margin，geometrical margin"></a>function margin，geometrical margin</h2><h3 id="函数距离"><a href="#函数距离" class="headerlink" title="函数距离"></a>函数距离</h3><ul>
-<li>当平面上的点是 wx+b = 0 确定了以后， wx+b的绝对值就是点x到超平面的距离</li>
-<li>同时 wx+b 的符号和 y（分类标签）的符号对比，如果一致的话是一个类别，不一致的话是另一个 -&gt; <em>y(wx+ b)</em>的正负来表示分类的正确与否 （也就是两个东西同号得正分类正确）</li>
-<li>引出函数间隔的定义（这里的y是乘上对应类别的y，所以能得到绝对值）</li>
-</ul>
-<p><img src="/2019/04/03/关于SVM的理解/1_6.jpg" alt="function margin"><br>在训练集中，所有点到超平面的距离的最小点就是function margin</p>
-<h3 id="几何距离"><a href="#几何距离" class="headerlink" title="几何距离"></a>几何距离</h3><ul>
-<li>但是如果单纯这么评定，当w和b成比例改变的时候，函数间隔也会改变，所以还需要几何间隔<br><img src="/2019/04/03/关于SVM的理解/1_8.jpg" alt="function margin"><br>上面的式子乘以y（对应类别的标签）就可以得到绝对值了。</li>
-</ul>
-<p><strong>也就是说几何margin的主要部分就是把之前的内容除了一个w的范数，变成了标准化之后的长度</strong></p>
-<h2 id="最大间隔分类器-max-margin-classifier"><a href="#最大间隔分类器-max-margin-classifier" class="headerlink" title="最大间隔分类器 max margin classifier"></a>最大间隔分类器 max margin classifier</h2><p>对于一组数据来说，超平面和数据点的距离越大，这个数据的分类确信度（confidence）就越高</p>
-<ul>
-<li>最大的间距的目标函数即： max\gama， 其中gama是比所有其他间隔都短的函数间隔</li>
-<li>如果让最小的函数间隔等于1（为了方便计算），然后求几何间隔，可以得知需要的目标函数变为最大化 1/||w||，其中w是超平面</li>
-</ul>
-<h1 id="深入SVM"><a href="#深入SVM" class="headerlink" title="深入SVM"></a>深入SVM</h1><h2 id="线性可分和不可分"><a href="#线性可分和不可分" class="headerlink" title="线性可分和不可分"></a>线性可分和不可分</h2><h3 id="原始问题和对偶问题duality"><a href="#原始问题和对偶问题duality" class="headerlink" title="原始问题和对偶问题duality"></a>原始问题和对偶问题duality</h3><ul>
-<li>之前的目标函数是 <code>1/||w||</code>，所以求这个的最大值，就是求<code>1/2*||w||^2</code>的最小值（这里求最大值就是求倒数的最小值，然后1/2和平方都是为了方便加的）</li>
-<li>目标函数变成二次的，约束条件是线性的，凸二次问题，可以用QP（一个写的差不多的包） -&gt; 目标最优的时候loss</li>
-<li>由于这个问题的结构，可以转换成对偶问题求解<ul>
-<li>给每一个约束条件加上一个拉格朗日乘子 alpha</li>
-<li>把这个融合进入目标函数里面<br><img src="/2019/04/03/关于SVM的理解/2_3.jpg" alt="2_3"></li>
-<li>当所有的约束条件都满足的时候，目标函数的结果就是之前需要求的目标函数。</li>
-<li>再对这个目标函数（新的）求最小值，得到的结果就是本来需要求的最小值<br><img src="/2019/04/03/关于SVM的理解/2_5.jpg" alt="2_5"></li>
-<li>最后，因为上面的问题不是很好求解，把它的max和min交换了一下，先求所有的间隔的最小值，然后再求这里面alpha条件可以满足的最大值，这两个问题就是对偶问题<br><img src="/2019/04/03/关于SVM的理解/2_6.jpg" alt="2_6"></li>
-<li>d<em> &lt;= p</em> ，在某些条件满足的情况下这两个值相等，这时候求出来对偶问题就可以求出来原始问题的解</li>
-</ul>
-</li>
-<li>转换对偶问题的原因：<ul>
-<li>对偶问题更容易求解</li>
-<li>可以引入<em>核函数</em>，这样可以直接引入非线性问题</li>
-</ul>
-</li>
-</ul>
-<h3 id="K-K-T条件"><a href="#K-K-T条件" class="headerlink" title="K.K.T条件"></a>K.K.T条件</h3><ul>
-<li>上一段说的，满足对偶问题的解等价的条件就是KKT条件</li>
-<li>KTT条件的意义：非线性规划问题（nonlinear processing）能有最优化解法的充要条件</li>
-<li>这部分没有写证明，但是上面的求最值的问题可以被证明是满足KKT条件的问题，所以可以用解决对偶问题的方式来求解。</li>
-</ul>
-<h3 id="对偶问题的求解步骤"><a href="#对偶问题的求解步骤" class="headerlink" title="对偶问题的求解步骤"></a>对偶问题的求解步骤</h3><h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ul>
-<li><a href="https://www.zhihu.com/question/21094489" target="_blank" rel="noopener">https://www.zhihu.com/question/21094489</a></li>
-<li><a href="https://blog.csdn.net/v_JULY_v/article/details/7624837" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/7624837</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2463,7 +2756,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2512,7 +2805,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

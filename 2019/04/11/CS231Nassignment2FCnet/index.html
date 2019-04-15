@@ -107,7 +107,7 @@
 <meta property="og:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/vis.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/SGDM.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/adam.jpg">
-<meta property="og:updated_time" content="2019-04-13T07:47:03.000Z">
+<meta property="og:updated_time" content="2019-04-15T03:57:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231Nassignment2FCnet">
 <meta name="twitter:description" content="This part is from the assignment 2018:stanford cs231n assignment2 目标 之前已经实现了两层的fc net，但是在这个网络里面的loss和gradient的计算用的是数学方法 这样的计算可以在两层的网络里实现，但是多层的情况下实现起来太困难了 所以在这里把电脑分成了forward pass和backward pass forward的">
@@ -249,7 +249,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">16</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
 
   </li>
         
@@ -268,7 +268,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">26</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
 
   </li>
 
@@ -418,7 +418,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-13 16:47:03" itemprop="dateModified" datetime="2019-04-13T16:47:03+09:00">2019-04-13</time>
+                <time title="Modified: 2019-04-15 12:57:20" itemprop="dateModified" datetime="2019-04-15T12:57:20+09:00">2019-04-15</time>
               
             
           </span>
@@ -608,7 +608,29 @@
 <li>选择了一个三层的网络，小幅度改变learning rate和init scale</li>
 <li>尝试去overfitting<br><strong>出现了一些问题不是太能overfitting我不知道为什么</strong></li>
 </ul>
-<h2 id="update-rules"><a href="#update-rules" class="headerlink" title="update rules"></a>update rules</h2><h3 id="SGD-momentum"><a href="#SGD-momentum" class="headerlink" title="SGD + momentum"></a>SGD + momentum</h3><p><a href="http://cs231n.github.io/neural-networks-3/#sgd" target="_blank" rel="noopener">http://cs231n.github.io/neural-networks-3/#sgd</a><br><code>cs231n/optim.py</code></p>
+<h2 id="update-rules"><a href="#update-rules" class="headerlink" title="update rules"></a>update rules</h2><p>在得到了back出来的dw之后，就需要用这个dw对w进行update，这里有一些比较常见的update方法</p>
+<h3 id="普通的update"><a href="#普通的update" class="headerlink" title="普通的update"></a>普通的update</h3><ul>
+<li>仅仅沿着gradient改变的反方向进行(反方向是因为计算出来的gradient是上升的方向)<br><code>x += - learning_rate * dx</code></li>
+</ul>
+<h3 id="SGD-momentum"><a href="#SGD-momentum" class="headerlink" title="SGD + momentum"></a>SGD + momentum</h3><p><a href="http://cs231n.github.io/neural-networks-3/#sgd" target="_blank" rel="noopener">http://cs231n.github.io/neural-networks-3/#sgd</a> </p>
+<ul>
+<li><p>是对这个update一点物理上比较直观的理解（其实名字叫做动量）</p>
+<ul>
+<li>可以理解为这个东西是在一个平原上跑的一个球，我们需要求的w是这个球的速度，得到的dw是这个球的加速度，而这个球的初速度是0</li>
+<li>可以理解为这个球找最低点的时候，除了每步按dw update，还在上面加上了前面速度的影响，也就是加上了惯性！<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Momentum update</span></span><br><span class="line">v = mu * v - learning_rate * dx <span class="comment"># integrate velocity</span></span><br><span class="line">x += v <span class="comment"># integrate position</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Nesterov Momentum(NAG)</p>
+<ul>
+<li>在原来的基础上：真实移动方向 = 速度的影响（momentum）+ 梯度的影响 （gradient）</li>
+<li>现在：既然我们已经知道了要往前走到动量的影响的位置，那么我根据那个位置的梯度再进行update，岂不是跑的更快！</li>
+<li>总的来说就是考虑到了前面的坡度（二阶导数），如果前面的坡度缓的话我就再跑快点，如果陡的话就跑慢点<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">v_prev = v <span class="comment"># back this up</span></span><br><span class="line">v = mu * v - learning_rate * dx <span class="comment"># velocity update stays the same</span></span><br><span class="line">x += -mu * v_prev + (1 + mu) * v <span class="comment"># position update changes form</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><code>cs231n/optim.py</code></p>
 <ul>
 <li>加入了新的计算update的方法</li>
 <li>具体的原理还没有看，但是计算就是这样计算的</li>
@@ -737,7 +759,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">26</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -786,7 +808,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -903,7 +927,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-layer：forward"><span class="nav-number">2.</span> <span class="nav-text">Affine layer：forward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input"><span class="nav-number">2.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">2.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement"><span class="nav-number">2.3.</span> <span class="nav-text">implement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-layer-backward"><span class="nav-number">3.</span> <span class="nav-text">Affine layer:backward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-1"><span class="nav-number">3.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return"><span class="nav-number">3.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-1"><span class="nav-number">3.3.</span> <span class="nav-text">implement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReLU-activation"><span class="nav-number">4.</span> <span class="nav-text">ReLU activation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forward"><span class="nav-number">4.1.</span> <span class="nav-text">forward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backward"><span class="nav-number">4.2.</span> <span class="nav-text">backward</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sandwich-layer"><span class="nav-number">5.</span> <span class="nav-text">sandwich layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss-layer-gt-和assignment1里面写的内容是一样的"><span class="nav-number">6.</span> <span class="nav-text">loss layer -&gt; 和assignment1里面写的内容是一样的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-layer-network"><span class="nav-number">7.</span> <span class="nav-text">two-layer network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init"><span class="nav-number">7.1.</span> <span class="nav-text">init__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-1"><span class="nav-number">7.2.</span> <span class="nav-text">forward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backward-1"><span class="nav-number">7.3.</span> <span class="nav-text">backward</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solver"><span class="nav-number">8.</span> <span class="nav-text">Solver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">8.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化这个最终的结果，loss随着epoch的变化和training-acc以及val-acc的变化"><span class="nav-number">8.2.</span> <span class="nav-text">可视化这个最终的结果，loss随着epoch的变化和training acc以及val acc的变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multilayer-network"><span class="nav-number">9.</span> <span class="nav-text">Multilayer network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#现在开始实现有多层的net"><span class="nav-number">9.1.</span> <span class="nav-text">现在开始实现有多层的net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测网络是否overfitting"><span class="nav-number">9.2.</span> <span class="nav-text">检测网络是否overfitting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update-rules"><span class="nav-number">10.</span> <span class="nav-text">update rules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SGD-momentum"><span class="nav-number">10.1.</span> <span class="nav-text">SGD + momentum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分别又尝试了RMSProp-and-Adam"><span class="nav-number">10.2.</span> <span class="nav-text">分别又尝试了RMSProp and Adam</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-layer：forward"><span class="nav-number">2.</span> <span class="nav-text">Affine layer：forward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input"><span class="nav-number">2.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">2.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement"><span class="nav-number">2.3.</span> <span class="nav-text">implement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-layer-backward"><span class="nav-number">3.</span> <span class="nav-text">Affine layer:backward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-1"><span class="nav-number">3.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return"><span class="nav-number">3.2.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement-1"><span class="nav-number">3.3.</span> <span class="nav-text">implement</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReLU-activation"><span class="nav-number">4.</span> <span class="nav-text">ReLU activation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forward"><span class="nav-number">4.1.</span> <span class="nav-text">forward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backward"><span class="nav-number">4.2.</span> <span class="nav-text">backward</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sandwich-layer"><span class="nav-number">5.</span> <span class="nav-text">sandwich layer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#loss-layer-gt-和assignment1里面写的内容是一样的"><span class="nav-number">6.</span> <span class="nav-text">loss layer -&gt; 和assignment1里面写的内容是一样的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#two-layer-network"><span class="nav-number">7.</span> <span class="nav-text">two-layer network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init"><span class="nav-number">7.1.</span> <span class="nav-text">init__</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#forward-1"><span class="nav-number">7.2.</span> <span class="nav-text">forward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backward-1"><span class="nav-number">7.3.</span> <span class="nav-text">backward</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solver"><span class="nav-number">8.</span> <span class="nav-text">Solver</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">8.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化这个最终的结果，loss随着epoch的变化和training-acc以及val-acc的变化"><span class="nav-number">8.2.</span> <span class="nav-text">可视化这个最终的结果，loss随着epoch的变化和training acc以及val acc的变化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multilayer-network"><span class="nav-number">9.</span> <span class="nav-text">Multilayer network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#现在开始实现有多层的net"><span class="nav-number">9.1.</span> <span class="nav-text">现在开始实现有多层的net</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测网络是否overfitting"><span class="nav-number">9.2.</span> <span class="nav-text">检测网络是否overfitting</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#update-rules"><span class="nav-number">10.</span> <span class="nav-text">update rules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通的update"><span class="nav-number">10.1.</span> <span class="nav-text">普通的update</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SGD-momentum"><span class="nav-number">10.2.</span> <span class="nav-text">SGD + momentum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分别又尝试了RMSProp-and-Adam"><span class="nav-number">10.3.</span> <span class="nav-text">分别又尝试了RMSProp and Adam</span></a></li></ol></li></ol></div>
             
 
           </div>
