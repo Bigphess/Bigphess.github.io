@@ -96,25 +96,25 @@
 
 
 
-  <meta name="description" content="关于如何在python中调用其他的文件在cpp里面是使用头文件来导入的，但是提到python突然没想起来是怎么导入的。假设有文件a.py和b.py">
-<meta name="keywords" content="Python">
+  <meta name="description" content="target 之前的内容讲了lr的优化方法，比如Adam，另一种方法是根据改变网络的结构，make it easy to train -&amp;gt; batch normalization 想去掉一些uncorrelated features(不相关的特征)，可以在训练数据之前preprocess，变成0-centered分布，这样第一层是没有问题的，但是后面的层里还是会出问题 所以把normaliz">
+<meta name="keywords" content="DL,Batch Normalization">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在python中调用另外的文件">
-<meta property="og:url" content="https://bigphess.github.io/2019/03/22/在python中调用另外的文件/index.html">
+<meta property="og:title" content="CS231Nassignment2之Batch Normalization">
+<meta property="og:url" content="https://bigphess.github.io/2019/04/15/CS231Nassignment2BN/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
-<meta property="og:description" content="关于如何在python中调用其他的文件在cpp里面是使用头文件来导入的，但是提到python突然没想起来是怎么导入的。假设有文件a.py和b.py">
+<meta property="og:description" content="target 之前的内容讲了lr的优化方法，比如Adam，另一种方法是根据改变网络的结构，make it easy to train -&amp;gt; batch normalization 想去掉一些uncorrelated features(不相关的特征)，可以在训练数据之前preprocess，变成0-centered分布，这样第一层是没有问题的，但是后面的层里还是会出问题 所以把normaliz">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T06:38:02.000Z">
+<meta property="og:updated_time" content="2019-04-16T06:02:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在python中调用另外的文件">
-<meta name="twitter:description" content="关于如何在python中调用其他的文件在cpp里面是使用头文件来导入的，但是提到python突然没想起来是怎么导入的。假设有文件a.py和b.py">
+<meta name="twitter:title" content="CS231Nassignment2之Batch Normalization">
+<meta name="twitter:description" content="target 之前的内容讲了lr的优化方法，比如Adam，另一种方法是根据改变网络的结构，make it easy to train -&amp;gt; batch normalization 想去掉一些uncorrelated features(不相关的特征)，可以在训练数据之前preprocess，变成0-centered分布，这样第一层是没有问题的，但是后面的层里还是会出问题 所以把normaliz">
 
 
 
 
 
 
-  <link rel="canonical" href="https://bigphess.github.io/2019/03/22/在python中调用另外的文件/">
+  <link rel="canonical" href="https://bigphess.github.io/2019/04/15/CS231Nassignment2BN/">
 
 
 
@@ -124,7 +124,7 @@
   };
 </script>
 
-  <title>在python中调用另外的文件 | 今天开始努力学习</title>
+  <title>CS231Nassignment2之Batch Normalization | 今天开始努力学习</title>
   
 
 
@@ -354,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/03/22/在python中调用另外的文件/">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/15/CS231Nassignment2BN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RUOPENG XU">
@@ -371,7 +371,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在python中调用另外的文件
+          <h1 class="post-title" itemprop="name headline">CS231Nassignment2之Batch Normalization
 
               
             
@@ -397,12 +397,24 @@
                 
               
 
-              <time title="Created: 2019-03-22 14:23:43 / Modified: 15:38:02" itemprop="dateCreated datePublished" datetime="2019-03-22T14:23:43+09:00">2019-03-22</time>
+              <time title="Created: 2019-04-15 14:21:16" itemprop="dateCreated datePublished" datetime="2019-04-15T14:21:16+09:00">2019-04-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-16 15:02:24" itemprop="dateModified" datetime="2019-04-16T15:02:24+09:00">2019-04-16</time>
               
             
           </span>
@@ -419,14 +431,21 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
 
                 
                 
@@ -461,26 +480,60 @@
       
 
       
-        <h1 id="关于如何在python中调用其他的文件"><a href="#关于如何在python中调用其他的文件" class="headerlink" title="关于如何在python中调用其他的文件"></a>关于如何在python中调用其他的文件</h1><p>在cpp里面是使用头文件来导入的，但是提到python突然没想起来是怎么导入的。<br>假设有文件a.py和b.py</p>
-<a id="more"></a>
-<h2 id="在同一目录下"><a href="#在同一目录下" class="headerlink" title="在同一目录下"></a>在同一目录下</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import a</span><br><span class="line"><span class="selector-tag">a</span>.func()</span><br></pre></td></tr></table></figure>
-<p>或者引用模块中的函数<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from a import <span class="function"><span class="keyword">func</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">()</span> </span></span><br><span class="line">`</span><br></pre></td></tr></table></figure></p>
-<p><strong>注意</strong>：前面一种方法导入的时候需要加上模块的名称限定，但是后面的导入就不用。如果怕麻烦可以导入的时候使用<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> a <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure></p>
-<h2 id="在不同目录下"><a href="#在不同目录下" class="headerlink" title="在不同目录下"></a>在不同目录下</h2><p>sys.path获取指定模块搜索路径的字符串集合，可以将写好的模块放在得到的某个路径下，就可以在程序中import时正确找到<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">sys<span class="selector-class">.path</span><span class="selector-class">.append</span>(<span class="string">'a所在的路径'</span>)</span><br><span class="line">import a</span><br><span class="line"><span class="selector-tag">a</span>.func()</span><br></pre></td></tr></table></figure></p>
-<h3 id="sys是什么"><a href="#sys是什么" class="headerlink" title="sys是什么"></a>sys是什么</h3><ul>
-<li>sys是python程序用来请求解释器行为的interface，比如调试，实时运行环境等</li>
+        <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><ul>
+<li>之前的内容讲了lr的优化方法，比如Adam，另一种方法是根据改变网络的结构，make it easy to train -&gt; batch normalization</li>
+<li>想去掉一些uncorrelated features(不相关的特征)，可以在训练数据之前preprocess，变成0-centered分布，这样第一层是没有问题的，但是后面的层里还是会出问题</li>
+<li>所以把normalization的部分加入了DN里面，加入了一个BN层，会估计mean和standard deviation of each feature，这样重新centre和normalized</li>
+<li>learnable shift and scale parameters for each feature dimension</li>
 </ul>
-<h4 id="sys-argv"><a href="#sys-argv" class="headerlink" title="sys.argv"></a>sys.argv</h4><ul>
-<li>从外部向程序内部传递参数<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print sys.argv[<span class="number">0</span>]</span><br><span class="line">print sys.argv[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>ref：<a href="https://kratzert.github.io/2016/02/12/understanding-the-gradient-flow-through-the-batch-normalization-layer.html" target="_blank" rel="noopener">https://kratzert.github.io/2016/02/12/understanding-the-gradient-flow-through-the-batch-normalization-layer.html</a><br><a id="more"></a></p>
+<h2 id="Batch-normalization-forward"><a href="#Batch-normalization-forward" class="headerlink" title="Batch normalization: forward"></a>Batch normalization: forward</h2><p><strong>这个东西的要义就是NN里面的一层，不对维度改变，但是会改变这些值的分布</strong></p>
+<p>首先setup，并且载入好了preprocess的数据<br><code>cs231n/layers.py</code> -&gt; <code>batchnorm_forward</code></p>
+<ul>
+<li>keep exp decay 来运行mean &amp; variance of each feature -&gt; 在test的时候去normalize data</li>
+<li>test-time: 计算sample mean和varience的时候用大量的训练数据而不是用所有图片的平均值，但是在作业里面用的是平均值，因为可以省去一步estimate（torch7 也用的是平均值）</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">running_mean</span> = momentum * running_mean + (<span class="number">1</span> - momentum) * sample_mean</span><br><span class="line"><span class="attr">running_var</span> = momentum * running_var + (<span class="number">1</span> - momentum) * sample_var</span><br></pre></td></tr></table></figure>
+<h3 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h3><ul>
+<li>input<ul>
+<li>x，data(N,D)</li>
+<li>gamma：scale parameter(D,)</li>
+<li>beta：shift parameter(D,)</li>
+<li>bn_param: 一个dict<ul>
+<li>mode：‘train’ or ‘test’</li>
+<li>eps：为了数字上的稳定性的一个常数</li>
+<li>momentum：在计算mean和variance上面的一个常数</li>
+<li>running mean：(D,)，是running mean</li>
+<li>running var：(D,)</li>
+</ul>
 </li>
 </ul>
-<p>运行：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">python</span> sys.<span class="keyword">py</span> argv1</span><br><span class="line">sys.<span class="keyword">py</span></span><br><span class="line">argv1</span><br></pre></td></tr></table></figure></p>
-<h4 id="sys-exit"><a href="#sys-exit" class="headerlink" title="sys.exit()"></a>sys.exit()</h4><ul>
-<li>需要中途退出的时候可以调用，可以返回参数（0是正常退出，其他是异常）<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">def exitfunc(value):</span><br><span class="line">    print value</span><br><span class="line">    sys.<span class="keyword">exit</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">print <span class="string">"hello"</span></span><br><span class="line"></span><br><span class="line">try:</span><br><span class="line">    sys.<span class="keyword">exit</span>(<span class="number">1</span>)</span><br><span class="line">except SystemExit,value:</span><br><span class="line">    exitfunc(value)</span><br><span class="line"></span><br><span class="line">print <span class="string">"come?"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>output<ul>
+<li>out：(N,D)</li>
+<li>cache:在back的时候用</li>
+</ul>
 </li>
 </ul>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># <span class="keyword">python</span> <span class="keyword">exit</span>.<span class="keyword">py</span></span><br><span class="line">hello</span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
-
+<h3 id="todo"><a href="#todo" class="headerlink" title="todo"></a>todo</h3><ul>
+<li>用minibatch的统计来计算mean和variance，用这两个值把data normalize，并且用gamma和beta拉伸这个值，以及shift这些值的位置</li>
+<li>在分布的上面，虽然求得是running variance，但是需要normalize的时候考虑的是standard（也就是平方根）</li>
+</ul>
+<h3 id="implement"><a href="#implement" class="headerlink" title="implement"></a>implement</h3><ul>
+<li>其实是和如何计算息息相关的，知道输入，求这个玩意的normal的步骤如下（其中的x就是这个minibatch的全部数据）<ul>
+<li>求mu，也就是x的mean（注意这里要对列求mean，也就是把所有图片的像素均匀分布，最后得到的结果是D个不是N个）</li>
+<li>求var，知道这个东西，可以直接用 np.var(x, axis = 0)来求方差</li>
+<li>求normalize： x - x.mean / np.sqrt(x.var + eps)<ul>
+<li>其中刚开始求出来的var就是方差，也就是标准差的平方</li>
+<li>eps是偏差值，这个值加上方差开方是标准差</li>
+</ul>
+</li>
+<li>scale和shift，乘scale的系数，加shift的系数</li>
+</ul>
+</li>
+<li>最后需要计算什么cache和back的推导息息相关</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -503,7 +556,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
+            <a href="/tags/DL/" rel="tag"># DL</a>
+          
+            <a href="/tags/Batch-Normalization/" rel="tag"># Batch Normalization</a>
           
         </div>
       
@@ -516,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/20/关于hexo和gitpage的博客搭建以及设置/" rel="next" title="关于hexo和gitpage的博客搭建以及设置">
-                <i class="fa fa-chevron-left"></i> 关于hexo和gitpage的博客搭建以及设置
+              <a href="/2019/04/15/CppPrimer笔记/" rel="next" title="CppPrimer笔记">
+                <i class="fa fa-chevron-left"></i> CppPrimer笔记
               </a>
             
           </div>
@@ -525,10 +580,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/22/tuple-array-list的大小问题/" rel="prev" title="tuple,array,list的大小问题">
-                tuple,array,list的大小问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -771,7 +822,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于如何在python中调用其他的文件"><span class="nav-number">1.</span> <span class="nav-text">关于如何在python中调用其他的文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在同一目录下"><span class="nav-number">1.1.</span> <span class="nav-text">在同一目录下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在不同目录下"><span class="nav-number">1.2.</span> <span class="nav-text">在不同目录下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sys是什么"><span class="nav-number">1.2.1.</span> <span class="nav-text">sys是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sys-argv"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">sys.argv</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sys-exit"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">sys.exit()</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-normalization-forward"><span class="nav-number">2.</span> <span class="nav-text">Batch normalization: forward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O"><span class="nav-number">2.1.</span> <span class="nav-text">I/O</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#todo"><span class="nav-number">2.2.</span> <span class="nav-text">todo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement"><span class="nav-number">2.3.</span> <span class="nav-text">implement</span></a></li></ol></li></ol></div>
             
 
           </div>
