@@ -106,9 +106,10 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/1_final.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_4.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_2.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_3.jpg">
-<meta property="og:updated_time" content="2019-04-15T03:09:17.000Z">
+<meta property="og:updated_time" content="2019-04-16T07:14:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019 1Q AR笔记">
 <meta name="twitter:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起  slides学习opengl(学习老师的cpp代码风格)">
@@ -269,7 +270,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">28</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">29</span></a>
 
   </li>
 
@@ -419,7 +420,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-15 12:09:17" itemprop="dateModified" datetime="2019-04-15T12:09:17+09:00">2019-04-15</time>
+                <time title="Modified: 2019-04-16 16:14:38" itemprop="dateModified" datetime="2019-04-16T16:14:38+09:00">2019-04-16</time>
               
             
           </span>
@@ -593,8 +594,23 @@
 <h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><ul>
 <li>预准备<ul>
 <li>在每个side找六个点</li>
-<li>在边上提取三个像素宽度的stride</li>
-<li>Sober operator</li>
+<li>在边上提取三个像素宽度的stride<ul>
+<li><code>cv::GetQuadrangleSubPix()</code></li>
+<li>从输入的array得到四边形<ul>
+<li>src输入图像</li>
+<li>dst提取出来的四边形</li>
+<li>变换的矩阵</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Sober operator<ul>
+<li>图像处理里面的常用算子 -&gt; <strong>主要用于边缘检测</strong>，用来运算与灰度的相似值</li>
+<li>包含两组3x3的矩阵，中间的3x1的0，分别为横向和纵向，另外两面对称</li>
+<li>然后与图片做卷积，分别计算x方向和y方向的灰度值<br><img src="/2019/04/09/2019Q1AR笔记/2_4.jpg" alt></li>
+<li>然后把Gx和Gy求平方和的根，最后得出来这个像素点的灰度值（或者有的时候也可以用绝对值来计算，这样计算的消耗小一点）</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>步骤<ul>
@@ -731,7 +747,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
