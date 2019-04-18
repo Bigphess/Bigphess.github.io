@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Target regularization NN randomly setting some features to 0 during forward pass  Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012">
+<meta name="keywords" content="DL,Drop out">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231nassignment2之Dropout">
+<meta property="og:url" content="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/index.html">
+<meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="Target regularization NN randomly setting some features to 0 during forward pass  Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/1.jpg">
+<meta property="og:updated_time" content="2019-04-18T06:11:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231nassignment2之Dropout">
+<meta name="twitter:description" content="Target regularization NN randomly setting some features to 0 during forward pass  Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CS231nassignment2之Dropout | 今天开始努力学习</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天开始努力学习</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">面向谷歌编程选手许若芃</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">31</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/Bigphess" class="github-corner" title="垃圾代码都在我的github！" aria-label="垃圾代码都在我的github！" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CS231nassignment2之Dropout
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-18 09:51:56 / Modified: 15:11:08" itemprop="dateCreated datePublished" datetime="2019-04-18T09:51:56+09:00">2019-04-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
+<li>regularization NN</li>
+<li>randomly setting some features to 0 during <strong>forward pass</strong></li>
+</ul>
+<p><a href="https://arxiv.org/abs/1207.0580" target="_blank" rel="noopener">Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012</a></p>
+<a id="more"></a>
+<h2 id="Dropout-forward-backward"><a href="#Dropout-forward-backward" class="headerlink" title="Dropout forward + backward"></a>Dropout forward + backward</h2><p>in     <code>cs231n/layers.py</code></p>
+<h3 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h3><ul>
+<li>input<ul>
+<li>x,input data, of any shape</li>
+<li>dropout_params<ul>
+<li>p，每个neuron是不是保留的可能性是p</li>
+<li>mode：’train’的时候会进行dropout，‘test’的时候会直接return input</li>
+<li>seed：用来generate random number for dropout</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>output<ul>
+<li>out, 和x同样大小</li>
+<li>cache, tuple(dropout_params, mask). In training, mask is used to multiply the input</li>
+</ul>
+</li>
+<li>在实现中不推荐用vanilla的方法</li>
+</ul>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NOTE: Please implement **inverted** dropout, <span class="keyword">not</span> <span class="keyword">the</span> vanilla <span class="built_in">version</span> <span class="keyword">of</span> dropout.</span><br><span class="line">See <span class="keyword">http</span>://cs231n.github.io/neural-networks<span class="number">-2</span>/<span class="comment">#reg for more details.</span></span><br><span class="line"></span><br><span class="line">NOTE <span class="number">2</span>: Keep <span class="keyword">in</span> mind that p is <span class="keyword">the</span> probability <span class="keyword">of</span> **keep** <span class="keyword">a</span> neuron</span><br><span class="line">output; this might be contrary <span class="built_in">to</span> some sources, where <span class="keyword">it</span> is referred <span class="built_in">to</span></span><br><span class="line"><span class="keyword">as</span> <span class="keyword">the</span> probability <span class="keyword">of</span> dropping <span class="keyword">a</span> neuron output.</span><br></pre></td></tr></table></figure>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li>在训练的时候在hidd层都drop了一部分，如果愿意的话也可以在input层就drop</li>
+<li>在predict的时候不再drop了！但是需要根据drop的比例对output的数量进行scale -&gt; 所以这样就会变得很麻烦（vanilla的方法）<ul>
+<li>比如比例是p，drop之后剩下了px</li>
+<li>那在test的时候x的大小也应该变成px(x -&gt; px)</li>
+</ul>
+</li>
+<li><p><strong>inverted dropout</strong>，在训练的时候就对大小进行放缩，在test的时候不接触forward pass</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">H1 = np.maximum(0, np.dot(W1, X) + b1)</span><br><span class="line">U1 = (np.random.rand(*H1.shape) &lt; p) / p <span class="comment"># /p!!!</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>back的实现更容易了，如果这个点被drop了的话对再往前的dx就没有影响，如果这个点没有被drop的话对之前的影响就是常数</p>
+</li>
+</ul>
+<h3 id="code"><a href="#code" class="headerlink" title="code"></a>code</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout_forward</span><span class="params">(x, dropout_param)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Performs the forward pass for (inverted) dropout.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: Input data, of any shape</span></span><br><span class="line"><span class="string">    - dropout_param: A dictionary with the following keys:</span></span><br><span class="line"><span class="string">      - p: Dropout parameter. We keep each neuron output with probability p.</span></span><br><span class="line"><span class="string">      - mode: 'test' or 'train'. If the mode is train, then perform dropout;</span></span><br><span class="line"><span class="string">        if the mode is test, then just return the input.</span></span><br><span class="line"><span class="string">      - seed: Seed for the random number generator. Passing seed makes this</span></span><br><span class="line"><span class="string">        function deterministic, which is needed for gradient checking but not</span></span><br><span class="line"><span class="string">        in real networks.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Outputs:</span></span><br><span class="line"><span class="string">    - out: Array of the same shape as x.</span></span><br><span class="line"><span class="string">    - cache: tuple (dropout_param, mask). In training mode, mask is the dropout</span></span><br><span class="line"><span class="string">      mask that was used to multiply the input; in test mode, mask is None.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    NOTE: Please implement **inverted** dropout, not the vanilla version of dropout.</span></span><br><span class="line"><span class="string">    See http://cs231n.github.io/neural-networks-2/#reg for more details.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    NOTE 2: Keep in mind that p is the probability of **keep** a neuron</span></span><br><span class="line"><span class="string">    output; this might be contrary to some sources, where it is referred to</span></span><br><span class="line"><span class="string">    as the probability of dropping a neuron output.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p, mode = dropout_param[<span class="string">'p'</span>], dropout_param[<span class="string">'mode'</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="string">'seed'</span> <span class="keyword">in</span> dropout_param:</span><br><span class="line">        np.random.seed(dropout_param[<span class="string">'seed'</span>])</span><br><span class="line"></span><br><span class="line">    mask = <span class="literal">None</span></span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">'train'</span>:</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement training phase forward pass for inverted dropout.   #</span></span><br><span class="line">        <span class="comment"># Store the dropout mask in the mask variable.                        #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        mask = (np.random.randn(*x.shape) &lt; p) / p</span><br><span class="line">        out = x * mask</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment">#                           END OF YOUR CODE                          #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">'test'</span>:</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement the test phase forward pass for inverted dropout.   #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        out = x</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment">#                            END OF YOUR CODE                         #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line"></span><br><span class="line">    cache = (dropout_param, mask)</span><br><span class="line">    out = out.astype(x.dtype, copy=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Perform the backward pass for (inverted) dropout.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dout: Upstream derivatives, of any shape</span></span><br><span class="line"><span class="string">    - cache: (dropout_param, mask) from dropout_forward.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dropout_param, mask = cache</span><br><span class="line">    mode = dropout_param[<span class="string">'mode'</span>]</span><br><span class="line"></span><br><span class="line">    dx = <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">'train'</span>:</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement training phase backward pass for inverted dropout   #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        dx = dout * mask</span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">        <span class="comment">#                          END OF YOUR CODE                           #</span></span><br><span class="line">        <span class="comment">#######################################################################</span></span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">'test'</span>:</span><br><span class="line">        dx = dout</span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<h2 id="FC-with-DP"><a href="#FC-with-DP" class="headerlink" title="FC with DP"></a>FC with DP</h2><ul>
+<li>应该在每层的relu之后，增加dropout的部分</li>
+<li>在之前定义的function里面加上新的dropout部分，因为倔强的想加在定义好的函数里面，所以产生了一些奇怪的延伸问题<ul>
+<li>如果想要可选参数，在def function里面直接定义好就行了</li>
+<li>如果返回值不需要，直接在返回的时候<code>_</code>就好了</li>
+<li>注意在<code>fc_net</code>里面如果dropout = 1 的话，实际上的flag是没有意义的</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">affine_Normal_relu_dropout_forward</span><span class="params">(self, x, w, b, mode, gamma=None, beta=None, bn_params=None)</span>:</span></span><br><span class="line">    Normal_cache = <span class="literal">None</span></span><br><span class="line">    dp_cache = <span class="literal">None</span></span><br><span class="line">    a, fc_cache = affine_forward(x, w, b)</span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">"batchnorm"</span>:</span><br><span class="line">        mid, Normal_cache = batchnorm_forward(a, gamma, beta, bn_params)</span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">"layernorm"</span>:</span><br><span class="line">        mid, Normal_cache = layernorm_forward(a, gamma, beta, bn_params)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mid = a</span><br><span class="line"></span><br><span class="line">    dp, relu_cache = relu_forward(mid)</span><br><span class="line">    <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">        out, dp_cache = dropout_forward(dp, self.dropout_param)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        out = dp</span><br><span class="line">    cache = (fc_cache, Normal_cache, relu_cache, dp_cache)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">affine_Normal_relu_dropout_backward</span><span class="params">(self, dout, cache, mode)</span>:</span></span><br><span class="line">    fc_cache, Normal_cache, relu_cache, dp_cache = cache</span><br><span class="line">    dgamma = <span class="number">0.0</span></span><br><span class="line">    dbeta = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">        ddp = dropout_backward(dout, dp_cache)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ddp = dout</span><br><span class="line">    da = relu_backward(ddp, relu_cache)</span><br><span class="line">    <span class="keyword">if</span> mode == <span class="string">"batchnorm"</span>:</span><br><span class="line">        dmid, dgamma, dbeta = batchnorm_backward_alt(da, Normal_cache)</span><br><span class="line">    <span class="keyword">elif</span> mode == <span class="string">"layernorm"</span>:</span><br><span class="line">        dmid, dgamma, dbeta = layernorm_backward(da, Normal_cache)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        dmid = da</span><br><span class="line">    dx, dw, db = affine_backward(dmid, fc_cache)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dw, db, dgamma, dbeta</span><br></pre></td></tr></table></figure>
+<h2 id="regularization-experiment"><a href="#regularization-experiment" class="headerlink" title="regularization experiment"></a>regularization experiment</h2><ul>
+<li>训练一个2层的网络，500个training，一个没有dropout，另一个0.25的dp</li>
+<li>并且可视化了最终的结果</li>
+</ul>
+<p><img src="/2019/04/18/CS231nassignment2Dropout/1.jpg" alt="image1"></p>
+<p>从结果上来看感觉，如果epoch比较少的话，dropout的效果会更好</p>
+<h2 id="加上dropout，normalization，的fc网络全部代码"><a href="#加上dropout，normalization，的fc网络全部代码" class="headerlink" title="加上dropout，normalization，的fc网络全部代码"></a>加上dropout，normalization，的fc网络全部代码</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FullyConnectedNet</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A fully-connected neural network with an arbitrary number of hidden layers,</span></span><br><span class="line"><span class="string">    ReLU nonlinearities, and a softmax loss function. This will also implement</span></span><br><span class="line"><span class="string">    dropout and batch/layer normalization as options. For a network with L layers,</span></span><br><span class="line"><span class="string">    the architecture will be</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &#123;affine - [batch/layer norm] - relu - [dropout]&#125; x (L - 1) - affine - softmax</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    where batch/layer normalization and dropout are optional, and the &#123;...&#125; block is</span></span><br><span class="line"><span class="string">    repeated L - 1 times.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Similar to the TwoLayerNet above, learnable parameters are stored in the</span></span><br><span class="line"><span class="string">    self.params dictionary and will be learned using the Solver class.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, hidden_dims, input_dim=<span class="number">3</span> * <span class="number">32</span> * <span class="number">32</span>, num_classes=<span class="number">10</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 dropout=<span class="number">1</span>, normalization=None, reg=<span class="number">0.0</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                 weight_scale=<span class="number">1e-2</span>, dtype=np.float32, seed=None)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Initialize a new FullyConnectedNet.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Inputs:</span></span><br><span class="line"><span class="string">        - hidden_dims: A list of integers giving the size of each hidden layer.</span></span><br><span class="line"><span class="string">        - input_dim: An integer giving the size of the input.</span></span><br><span class="line"><span class="string">        - num_classes: An integer giving the number of classes to classify.</span></span><br><span class="line"><span class="string">        - dropout: Scalar between 0 and 1 giving dropout strength. If dropout=1 then</span></span><br><span class="line"><span class="string">          the network should not use dropout at all.</span></span><br><span class="line"><span class="string">        - normalization: What type of normalization the network should use. Valid values</span></span><br><span class="line"><span class="string">          are "batchnorm", "layernorm", or None for no normalization (the default).</span></span><br><span class="line"><span class="string">        - reg: Scalar giving L2 regularization strength.</span></span><br><span class="line"><span class="string">        - weight_scale: Scalar giving the standard deviation for random</span></span><br><span class="line"><span class="string">          initialization of the weights.</span></span><br><span class="line"><span class="string">        - dtype: A numpy datatype object; all computations will be performed using</span></span><br><span class="line"><span class="string">          this datatype. float32 is faster but less accurate, so you should use</span></span><br><span class="line"><span class="string">          float64 for numeric gradient checking.</span></span><br><span class="line"><span class="string">        - seed: If not None, then pass this random seed to the dropout layers. This</span></span><br><span class="line"><span class="string">          will make the dropout layers deteriminstic so we can gradient check the</span></span><br><span class="line"><span class="string">          model.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        self.normalization = normalization</span><br><span class="line">        self.use_dropout = dropout != <span class="number">1</span></span><br><span class="line">        self.reg = reg</span><br><span class="line">        self.num_layers = <span class="number">1</span> + len(hidden_dims)</span><br><span class="line">        self.dtype = dtype</span><br><span class="line">        self.params = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Initialize the parameters of the network, storing all values in    #</span></span><br><span class="line">        <span class="comment"># the self.params dictionary. Store weights and biases for the first layer #</span></span><br><span class="line">        <span class="comment"># in W1 and b1; for the second layer use W2 and b2, etc. Weights should be #</span></span><br><span class="line">        <span class="comment"># initialized from a normal distribution centered at 0 with standard       #</span></span><br><span class="line">        <span class="comment"># deviation equal to weight_scale. Biases should be initialized to zero.   #</span></span><br><span class="line">        <span class="comment">#                                                                          #</span></span><br><span class="line">        <span class="comment"># When using batch normalization, store scale and shift parameters for the #</span></span><br><span class="line">        <span class="comment"># first layer in gamma1 and beta1; for the second layer use gamma2 and     #</span></span><br><span class="line">        <span class="comment"># beta2, etc. Scale parameters should be initialized to ones and shift     #</span></span><br><span class="line">        <span class="comment"># parameters should be initialized to zeros.                               #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        pr_num = input_dim</span><br><span class="line"></span><br><span class="line">        <span class="comment"># can't use enumerate beacuse I need the number more than the size of hidden_dims</span></span><br><span class="line">        <span class="keyword">for</span> layer <span class="keyword">in</span> range(self.num_layers):</span><br><span class="line">            layer += <span class="number">1</span></span><br><span class="line">            weights = <span class="string">'W'</span> + str(layer)</span><br><span class="line">            bias = <span class="string">'b'</span> + str(layer)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 这时候是最后一层(the last layer)</span></span><br><span class="line">            <span class="keyword">if</span> layer == self.num_layers:</span><br><span class="line">                self.params[weights] = np.random.randn(</span><br><span class="line">                    hidden_dims[len(hidden_dims) - <span class="number">1</span>], num_classes) * weight_scale</span><br><span class="line">                self.params[bias] = np.zeros(num_classes)</span><br><span class="line"></span><br><span class="line">                <span class="comment"># other layers</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                hidd_num = hidden_dims[layer - <span class="number">1</span>]</span><br><span class="line">                self.params[weights] = np.random.randn(</span><br><span class="line">                    pr_num, hidd_num) * weight_scale</span><br><span class="line">                self.params[bias] = np.zeros(hidd_num)</span><br><span class="line">                pr_num = hidd_num</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> self.normalization <span class="keyword">in</span> [<span class="string">"batchnorm"</span>, <span class="string">"layernorm"</span>]:</span><br><span class="line">                    self.params[<span class="string">'gamma'</span> + str(layer)] = np.ones(hidd_num)</span><br><span class="line">                    self.params[<span class="string">'beta'</span> + str(layer)] = np.zeros(hidd_num)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># print(len(self.params))</span></span><br><span class="line">        <span class="comment"># print(self.params)</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment">#                             END OF YOUR CODE                             #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># When using dropout we need to pass a dropout_param dictionary to each</span></span><br><span class="line">        <span class="comment"># dropout layer so that the layer knows the dropout probability and the mode</span></span><br><span class="line">        <span class="comment"># (train / test). You can pass the same dropout_param to each dropout layer.</span></span><br><span class="line">        self.dropout_param = &#123;&#125;</span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            self.dropout_param = &#123;<span class="string">'mode'</span>: <span class="string">'train'</span>, <span class="string">'p'</span>: dropout&#125;</span><br><span class="line">            <span class="keyword">if</span> seed <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                self.dropout_param[<span class="string">'seed'</span>] = seed</span><br><span class="line"></span><br><span class="line">        <span class="comment"># With batch normalization we need to keep track of running means and</span></span><br><span class="line">        <span class="comment"># variances, so we need to pass a special bn_param object to each batch</span></span><br><span class="line">        <span class="comment"># normalization layer. You should pass self.bn_params[0] to the forward pass</span></span><br><span class="line">        <span class="comment"># of the first batch normalization layer, self.bn_params[1] to the forward</span></span><br><span class="line">        <span class="comment"># pass of the second batch normalization layer, etc.</span></span><br><span class="line">        self.bn_params = []</span><br><span class="line">        <span class="keyword">if</span> self.normalization == <span class="string">'batchnorm'</span>:</span><br><span class="line">            self.bn_params = [&#123;<span class="string">'mode'</span>: <span class="string">'train'</span>&#125;</span><br><span class="line">                              <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers - <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">if</span> self.normalization <span class="keyword">in</span> [<span class="string">"batchnorm"</span>, <span class="string">"layernorm"</span>]:</span><br><span class="line">            self.bn_params = [&#123;&#125; <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers - <span class="number">1</span>)]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Cast all parameters to the correct datatype</span></span><br><span class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> self.params.items():</span><br><span class="line">            self.params[k] = v.astype(dtype)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(self, X, y=None)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Compute loss and gradient for the fully-connected net.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Input / output: Same as TwoLayerNet above.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        X = X.astype(self.dtype)</span><br><span class="line">        mode = <span class="string">'test'</span> <span class="keyword">if</span> y <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="string">'train'</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Set train/test mode for batchnorm params and dropout param since they</span></span><br><span class="line">        <span class="comment"># behave differently during training and testing.</span></span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            self.dropout_param[<span class="string">'mode'</span>] = mode</span><br><span class="line">        <span class="keyword">if</span> self.normalization == <span class="string">'batchnorm'</span>:</span><br><span class="line">            <span class="keyword">for</span> bn_param <span class="keyword">in</span> self.bn_params:</span><br><span class="line">                bn_param[<span class="string">'mode'</span>] = mode</span><br><span class="line">        scores = <span class="literal">None</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for the fully-connected net, computing  #</span></span><br><span class="line">        <span class="comment"># the class scores for X and storing them in the scores variable.          #</span></span><br><span class="line">        <span class="comment">#                                                                          #</span></span><br><span class="line">        <span class="comment"># When using dropout, you'll need to pass self.dropout_param to each       #</span></span><br><span class="line">        <span class="comment"># dropout forward pass.                                                    #</span></span><br><span class="line">        <span class="comment">#                                                                          #</span></span><br><span class="line">        <span class="comment"># When using batch normalization, you'll need to pass self.bn_params[0] to #</span></span><br><span class="line">        <span class="comment"># the forward pass for the first batch normalization layer, pass           #</span></span><br><span class="line">        <span class="comment"># self.bn_params[1] to the forward pass for the second batch normalization #</span></span><br><span class="line">        <span class="comment"># layer, etc.                                                              #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        cache = &#123;&#125;</span><br><span class="line">        temp_out = X</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.num_layers):</span><br><span class="line">            w = self.params[<span class="string">'W'</span> + str(i + <span class="number">1</span>)]</span><br><span class="line">            b = self.params[<span class="string">'b'</span> + str(i + <span class="number">1</span>)]</span><br><span class="line">            <span class="keyword">if</span> i == self.num_layers - <span class="number">1</span>:</span><br><span class="line">                scores, cache[<span class="string">'cache'</span> +</span><br><span class="line">                              str(i + <span class="number">1</span>)] = affine_forward(temp_out, w, b)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.normalization <span class="keyword">in</span> [<span class="string">"batchnorm"</span>, <span class="string">"layernorm"</span>]:</span><br><span class="line">                    gamma = self.params[<span class="string">'gamma'</span> + str(i + <span class="number">1</span>)]</span><br><span class="line">                    beta = self.params[<span class="string">'beta'</span> + str(i + <span class="number">1</span>)]</span><br><span class="line">                    temp_out, cache[<span class="string">'cache'</span> + str(i + <span class="number">1</span>)] = self.affine_Normal_relu_dropout_forward(</span><br><span class="line">                        temp_out, w, b, self.normalization, gamma, beta, self.bn_params[i])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="comment"># temp_out, cache['cache' +</span></span><br><span class="line">                    <span class="comment">#                 str(i + 1)] = affine_relu_forward(temp_out, w, b)</span></span><br><span class="line">                    temp_out, cache[<span class="string">'cache'</span> + str(i + <span class="number">1</span>)] = self.affine_Normal_relu_dropout_forward(</span><br><span class="line">                        temp_out, w, b, mode=self.normalization)</span><br><span class="line"></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment">#                             END OF YOUR CODE                             #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># If test mode return early</span></span><br><span class="line">        <span class="keyword">if</span> mode == <span class="string">'test'</span>:</span><br><span class="line">            <span class="keyword">return</span> scores</span><br><span class="line"></span><br><span class="line">        loss, grads = <span class="number">0.0</span>, &#123;&#125;</span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement the backward pass for the fully-connected net. Store the #</span></span><br><span class="line">        <span class="comment"># loss in the loss variable and gradients in the grads dictionary. Compute #</span></span><br><span class="line">        <span class="comment"># data loss using softmax, and make sure that grads[k] holds the gradients #</span></span><br><span class="line">        <span class="comment"># for self.params[k]. Don't forget to add L2 regularization!               #</span></span><br><span class="line">        <span class="comment">#                                                                          #</span></span><br><span class="line">        <span class="comment"># When using batch/layer normalization, you don't need to regularize the scale#</span></span><br><span class="line">        <span class="comment"># and shift parameters.                                                    #</span></span><br><span class="line">        <span class="comment">#                                                                          #</span></span><br><span class="line">        <span class="comment"># <span class="doctag">NOTE:</span> To ensure that your implementation matches ours and you pass the   #</span></span><br><span class="line">        <span class="comment"># automated tests, make sure that your L2 regularization includes a factor #</span></span><br><span class="line">        <span class="comment"># of 0.5 to simplify the expression for the gradient.                      #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        loss, dscores = softmax_loss(scores, y)</span><br><span class="line">        reg_loss = <span class="number">0.0</span></span><br><span class="line">        pre_dx = dscores</span><br><span class="line">        <span class="comment"># dgamma = self.params['gamma']</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> reversed(range(self.num_layers)):</span><br><span class="line">            i = i + <span class="number">1</span></span><br><span class="line">            reg_loss = np.sum(np.square(self.params[<span class="string">'W'</span> + str(i)]))</span><br><span class="line">            loss += reg_loss * <span class="number">0.5</span> * self.reg</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 最后一层</span></span><br><span class="line">            <span class="keyword">if</span> i == self.num_layers:</span><br><span class="line">                pre_dx, dw, db = affine_backward(</span><br><span class="line">                    pre_dx, cache[<span class="string">'cache'</span> + str(i)])</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> self.normalization <span class="keyword">in</span> [<span class="string">"batchnorm"</span>, <span class="string">"layernorm"</span>]:</span><br><span class="line">                    pre_dx, dw, db, dgamma, dbeta = self.affine_Normal_relu_dropout_backward(</span><br><span class="line">                        pre_dx, cache[<span class="string">'cache'</span> + str(i)], self.normalization)</span><br><span class="line">                    grads[<span class="string">'gamma'</span> + str(i)] = dgamma</span><br><span class="line">                    grads[<span class="string">'beta'</span> + str(i)] = dbeta</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    pre_dx, dw, db, _, _ = self.affine_Normal_relu_dropout_backward(</span><br><span class="line">                        pre_dx, cache[<span class="string">'cache'</span> + str(i)], self.normalization)</span><br><span class="line"></span><br><span class="line">            dw += self.reg * self.params[<span class="string">'W'</span> + str(i)]</span><br><span class="line">            db += self.reg * self.params[<span class="string">'b'</span> + str(i)]</span><br><span class="line">            grads[<span class="string">'W'</span> + str(i)] = dw</span><br><span class="line">            grads[<span class="string">'b'</span> + str(i)] = db</span><br><span class="line"></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line">        <span class="comment">#                             END OF YOUR CODE                             #</span></span><br><span class="line">        <span class="comment">############################################################################</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> loss, grads</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">affine_Normal_relu_dropout_forward</span><span class="params">(self, x, w, b, mode, gamma=None, beta=None, bn_params=None)</span>:</span></span><br><span class="line">        Normal_cache = <span class="literal">None</span></span><br><span class="line">        dp_cache = <span class="literal">None</span></span><br><span class="line">        a, fc_cache = affine_forward(x, w, b)</span><br><span class="line">        <span class="keyword">if</span> mode == <span class="string">"batchnorm"</span>:</span><br><span class="line">            mid, Normal_cache = batchnorm_forward(a, gamma, beta, bn_params)</span><br><span class="line">        <span class="keyword">elif</span> mode == <span class="string">"layernorm"</span>:</span><br><span class="line">            mid, Normal_cache = layernorm_forward(a, gamma, beta, bn_params)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            mid = a</span><br><span class="line"></span><br><span class="line">        dp, relu_cache = relu_forward(mid)</span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            out, dp_cache = dropout_forward(dp, self.dropout_param)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            out = dp</span><br><span class="line">        cache = (fc_cache, Normal_cache, relu_cache, dp_cache)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> out, cache</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">affine_Normal_relu_dropout_backward</span><span class="params">(self, dout, cache, mode)</span>:</span></span><br><span class="line">        fc_cache, Normal_cache, relu_cache, dp_cache = cache</span><br><span class="line">        dgamma = <span class="number">0.0</span></span><br><span class="line">        dbeta = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">if</span> self.use_dropout:</span><br><span class="line">            ddp = dropout_backward(dout, dp_cache)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            ddp = dout</span><br><span class="line">        da = relu_backward(ddp, relu_cache)</span><br><span class="line">        <span class="keyword">if</span> mode == <span class="string">"batchnorm"</span>:</span><br><span class="line">            dmid, dgamma, dbeta = batchnorm_backward_alt(da, Normal_cache)</span><br><span class="line">        <span class="keyword">elif</span> mode == <span class="string">"layernorm"</span>:</span><br><span class="line">            dmid, dgamma, dbeta = layernorm_backward(da, Normal_cache)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            dmid = da</span><br><span class="line">        dx, dw, db = affine_backward(dmid, fc_cache)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dx, dw, db, dgamma, dbeta</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DL/" rel="tag"># DL</a>
+          
+            <a href="/tags/Drop-out/" rel="tag"># Drop out</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/16/OpenGL笔记/" rel="next" title="OpenGL笔记">
+                <i class="fa fa-chevron-left"></i> OpenGL笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/18/CS231nassignment2CNN/" rel="prev" title="CS231nassignment2CNN">
+                CS231nassignment2CNN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="RUOPENG XU">
+            
+              <p class="site-author-name" itemprop="name">RUOPENG XU</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Bigphess" title="GitHub &rarr; https://github.com/Bigphess" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:xrp0308@gmail.com" title="E-Mail &rarr; mailto:xrp0308@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Target"><span class="nav-number">1.</span> <span class="nav-text">Target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dropout-forward-backward"><span class="nav-number">2.</span> <span class="nav-text">Dropout forward + backward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IO"><span class="nav-number">2.1.</span> <span class="nav-text">IO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">2.2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#code"><span class="nav-number">2.3.</span> <span class="nav-text">code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FC-with-DP"><span class="nav-number">3.</span> <span class="nav-text">FC with DP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#regularization-experiment"><span class="nav-number">4.</span> <span class="nav-text">regularization experiment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加上dropout，normalization，的fc网络全部代码"><span class="nav-number">5.</span> <span class="nav-text">加上dropout，normalization，的fc网络全部代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RUOPENG XU</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
