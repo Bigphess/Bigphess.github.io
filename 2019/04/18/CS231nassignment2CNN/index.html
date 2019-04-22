@@ -105,7 +105,7 @@
 <meta property="og:description" content="target 之前已经实践了fc的相关东西，但是在实际的使用里大家使用的都是CNN 所以这部分就开始实践CNN了">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/18/CS231nassignment2CNN/1.jpg">
-<meta property="og:updated_time" content="2019-04-18T09:13:28.000Z">
+<meta property="og:updated_time" content="2019-04-20T06:41:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231nassignment2CNN">
 <meta name="twitter:description" content="target 之前已经实践了fc的相关东西，但是在实际的使用里大家使用的都是CNN 所以这部分就开始实践CNN了">
@@ -247,7 +247,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">19</span></a>
 
   </li>
         
@@ -266,7 +266,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">32</span></a>
 
   </li>
 
@@ -399,12 +399,24 @@
                 
               
 
-              <time title="Created: 2019-04-18 15:12:13 / Modified: 18:13:28" itemprop="dateCreated datePublished" datetime="2019-04-18T15:12:13+09:00">2019-04-18</time>
+              <time title="Created: 2019-04-18 15:12:13" itemprop="dateCreated datePublished" datetime="2019-04-18T15:12:13+09:00">2019-04-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 15:41:58" itemprop="dateModified" datetime="2019-04-20T15:41:58+09:00">2019-04-20</time>
               
             
           </span>
@@ -538,12 +550,102 @@
 <li>dw</li>
 <li>db</li>
 </ul>
-<h3 id="实现：conv是怎么求导的？"><a href="#实现：conv是怎么求导的？" class="headerlink" title="实现：conv是怎么求导的？"></a>实现：conv是怎么求导的？</h3><p>其实排除位置的改变之外，只进行了两个操作</p>
+<h3 id="实现：conv是怎么求导的？"><a href="#实现：conv是怎么求导的？" class="headerlink" title="实现：conv是怎么求导的？"></a>实现：conv是怎么求导的？</h3><p>其实排除位置的改变之外，forward只进行了三个操作</p>
 <ul>
-<li>wx（的一部分） + b</li>
-<li>sum （sum的导数求回来是扩展到size是(HH,WW)的矩阵）</li>
+<li>把x padding为x_pad</li>
+<li>wx_pad_conv + b -&gt; 求出一个大小和filter相同的矩阵</li>
+<li><p>把求出来的一个(HH,WW)的矩阵的所有值求sum</p>
+</li>
+<li><p>backward的思路</p>
+<ul>
+<li>首先，每一张图片的每一个channel的，dout的大小和输出图片的大小一样<ul>
+<li>应该是<code>H_out = 1 + (H + 2 * pad - HH) // stride</code>这样求出来的结果</li>
+<li>整个dout的size是(N,F,Hout,Wout)，其中N是之前图片的数量，F是新形成的图片的channel</li>
+<li>所以在for循环中，dout中选中[n,f,hout,wout]，就可以得到这个特点定的值，称为df</li>
 </ul>
-<p>ref:<a href="https://github.com/MahanFathi/CS231/blob/ecab92ed8627ea0ea513a54fc2019516d446c106/assignment2/cs231n/layers.py#L483-L491" target="_blank" rel="noopener">https://github.com/MahanFathi/CS231/blob/ecab92ed8627ea0ea513a54fc2019516d446c106/assignment2/cs231n/layers.py#L483-L491</a></p>
+</li>
+<li>df的得到方法是wx+b得到一个矩阵，然后再对这个矩阵求和<ul>
+<li>因为求和实际就是累加，求导数的时候只要把每一个格子的dx，dw，db导数求出来，然后加在一起就行了</li>
+<li>因为公式就是wx + b，所以dx是w，dw是x，db是常数 -&gt; 然后再把每个格子求出来的加在一起，注意各个矩阵的大小，dx应该是在x矩阵里取做卷积的部分，这部分的导数等于w乘df的和</li>
+</ul>
+</li>
+<li>最后，因为x被padding了，dx应该去dx_pad中没有被padding的部分，也就是从[pad:pad + H]</li>
+</ul>
+</li>
+</ul>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv_backward_naive</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A naive implementation of the backward pass for a convolutional layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dout: Upstream derivatives.</span></span><br><span class="line"><span class="string">    - cache: A tuple of (x, w, b, conv_param) as in conv_forward_naive</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - dx: Gradient with respect to x</span></span><br><span class="line"><span class="string">    - dw: Gradient with respect to w</span></span><br><span class="line"><span class="string">    - db: Gradient with respect to b</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx, dw, db = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the convolutional backward pass.                        #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    x, w, b, conv_param = cache</span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    F, _, HH, WW = w.shape</span><br><span class="line">    _, _, H_dout, W_dout = dout.shape</span><br><span class="line">    stride = conv_param[<span class="string">'stride'</span>]</span><br><span class="line">    pad = conv_param[<span class="string">'pad'</span>]</span><br><span class="line"></span><br><span class="line">    x_pad = np.pad(x, ((<span class="number">0</span>,), (<span class="number">0</span>,), (pad,), (pad,)),</span><br><span class="line">                   <span class="string">'constant'</span>, constant_values=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    db = np.zeros_like(b)</span><br><span class="line">    dw = np.zeros_like(w)</span><br><span class="line">    dx_pad = np.zeros_like(x_pad)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(dx_pad.shape)</span></span><br><span class="line">    <span class="keyword">for</span> pics <span class="keyword">in</span> range(N):</span><br><span class="line">        <span class="keyword">for</span> filters <span class="keyword">in</span> range(F):</span><br><span class="line">            <span class="keyword">for</span> H_move <span class="keyword">in</span> range(H_dout):</span><br><span class="line">                <span class="keyword">for</span> W_move <span class="keyword">in</span> range(W_dout):</span><br><span class="line">                    <span class="comment"># f=sum(wx_pad + b) (df is a number now)</span></span><br><span class="line">                    df = dout[pics, filters, H_move, W_move]</span><br><span class="line">                    <span class="comment"># d for sum, size (HH,WW)</span></span><br><span class="line">                    <span class="comment"># dsum = df * np.ones((HH, WW))</span></span><br><span class="line">                    db[filters] += df</span><br><span class="line">                    dx_pad[pics, :, H_move * stride: H_move * stride + HH,</span><br><span class="line">                           W_move * stride: W_move * stride + WW] += df * w[filters]</span><br><span class="line">                    dw[filters] += x_pad[pics, :, stride * H_move: stride *</span><br><span class="line">                                         H_move + HH, stride * W_move: stride * W_move + WW] * df</span><br><span class="line"></span><br><span class="line">    dx = dx_pad[:, :, pad:pad + H, pad:pad + W]</span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                            #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="keyword">return</span> dx, dw, db</span><br></pre></td></tr></table></figure>
+<h2 id="Max-Pooling：Native-forward"><a href="#Max-Pooling：Native-forward" class="headerlink" title="Max-Pooling：Native forward"></a>Max-Pooling：Native forward</h2><h3 id="input-2"><a href="#input-2" class="headerlink" title="input"></a>input</h3><ul>
+<li>x, (N,C,H,W)</li>
+<li>pool_param -&gt; dict<ul>
+<li>‘pool_height’</li>
+<li>‘pool_width’</li>
+<li>‘stride’</li>
+</ul>
+</li>
+<li>不需要进行padding</li>
+</ul>
+<h3 id="output-2"><a href="#output-2" class="headerlink" title="output"></a>output</h3><ul>
+<li>out, (N,C,H’,W’)<ul>
+<li>H’ = 1 + (H - pool_height) / stride</li>
+<li>W’ = 1 + (W - pool_width) / stride</li>
+</ul>
+</li>
+<li>cache(x,pool_param)</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li>直接找到相应的块然后求max</li>
+<li>注意求max的时候要注意axis,我们需要求得是在一张图片每个channel上面的最大值，在这个式子里面因为已经确定了pics的值，实际上的out其实是一个三维的数组，所以应该求axis = (1,2)上面的最大值，而不是求(2,3上面的)</li>
+</ul>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_pool_forward_naive</span><span class="params">(x, pool_param)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A naive implementation of the forward pass for a max-pooling layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: Input data, of shape (N, C, H, W)</span></span><br><span class="line"><span class="string">    - pool_param: dictionary with the following keys:</span></span><br><span class="line"><span class="string">      - 'pool_height': The height of each pooling region</span></span><br><span class="line"><span class="string">      - 'pool_width': The width of each pooling region</span></span><br><span class="line"><span class="string">      - 'stride': The distance between adjacent pooling regions</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    No padding is necessary here. Output size is given by</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - out: Output data, of shape (N, C, H', W') where H' and W' are given by</span></span><br><span class="line"><span class="string">      H' = 1 + (H - pool_height) / stride</span></span><br><span class="line"><span class="string">      W' = 1 + (W - pool_width) / stride</span></span><br><span class="line"><span class="string">    - cache: (x, pool_param)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    out = <span class="literal">None</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the max-pooling forward pass                            #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    pool_height, pool_width, stride = pool_param[<span class="string">'pool_height'</span>], pool_param[<span class="string">'pool_width'</span>], pool_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    H_out = <span class="number">1</span> + (H - pool_height) // stride</span><br><span class="line">    W_out = <span class="number">1</span> + (W - pool_width) // stride</span><br><span class="line"></span><br><span class="line">    out = np.zeros((N,C,H_out,W_out))</span><br><span class="line">    <span class="keyword">for</span> pics <span class="keyword">in</span> range(N):</span><br><span class="line">        <span class="keyword">for</span> h_out <span class="keyword">in</span> range(H_out):</span><br><span class="line">            <span class="keyword">for</span> w_out <span class="keyword">in</span> range(W_out):</span><br><span class="line">                out[pics,:,h_out,w_out] = np.max(x[pics,:,stride * h_out: stride* h_out + pool_height,stride* w_out: stride*w_out + pool_width],axis = (<span class="number">1</span>,<span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                            #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    cache = (x, pool_param)</span><br><span class="line">    <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+<h2 id="Max-pooling-Native-backward"><a href="#Max-pooling-Native-backward" class="headerlink" title="Max-pooling: Native backward"></a>Max-pooling: Native backward</h2><h3 id="input-3"><a href="#input-3" class="headerlink" title="input"></a>input</h3><ul>
+<li>dout, size = (N,C,W_out,W_out)</li>
+<li>cache</li>
+</ul>
+<h3 id="output-3"><a href="#output-3" class="headerlink" title="output"></a>output</h3><ul>
+<li>dx, size = (N,C,W,H)</li>
+</ul>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><ul>
+<li>max的值在实际上是一个router，local gradient对于最大的值的地方是1，其他值的地方影响是0</li>
+<li>需要找到x里面值等于最大值的坐标，然后把这个坐标的dx改成对应dout的值（因为链式法则应该dout * 1），其他地方的dx都是0</li>
+<li>关于找到这个点的坐标<ul>
+<li>我用了显得很傻的方法，在x的范围里面找到这个范围里最大的坐标，用了很多圈循环</li>
+<li>实际上可以从max的值找到原来的坐标<ul>
+<li>numpy.unravel_index(indices, dims)</li>
+<li>结合np.argmax，返回最大值的坐标 -&gt; ind = np.unravel_index(np.argmax(a, axis=None), a.shape)</li>
+<li>这样的话找到的是在每个max的框框里最大值的坐标，在这个框框的范围里找到这个坐标就是需要改变的地方</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_pool_backward_naive</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A naive implementation of the backward pass for a max-pooling layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dout: Upstream derivatives</span></span><br><span class="line"><span class="string">    - cache: A tuple of (x, pool_param) as in the forward pass.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - dx: Gradient with respect to x</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx = <span class="literal">None</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the max-pooling backward pass                           #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    x, pool_param = cache</span><br><span class="line">    N, C, H, W = x.shape</span><br><span class="line">    pool_height, pool_width, stride = pool_param[<span class="string">'pool_height'</span>], pool_param[<span class="string">'pool_width'</span>], pool_param[<span class="string">'stride'</span>]</span><br><span class="line"></span><br><span class="line">    _,_,H_out,W_out = dout.shape</span><br><span class="line">    dx = np.zeros_like(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> pics <span class="keyword">in</span> range(N):</span><br><span class="line">        <span class="keyword">for</span> channels <span class="keyword">in</span> range(C):</span><br><span class="line">            <span class="keyword">for</span> h_out <span class="keyword">in</span> range(H_out):</span><br><span class="line">                <span class="keyword">for</span> w_out <span class="keyword">in</span> range(W_out):</span><br><span class="line">                    <span class="comment"># for H in range(stride * h_out, stride* h_out + pool_height):</span></span><br><span class="line">                    <span class="comment">#     for W in range(stride * w_out, stride * w_out + pool_width):</span></span><br><span class="line">                    <span class="comment">#         if x[pics,channels,H,W] == np.max(x[pics,channels,stride * h_out: stride* h_out + pool_height,stride* w_out: stride*w_out + pool_width]):</span></span><br><span class="line">                    <span class="comment">#             dx[pics,channels,H,W] = dout[pics,channels,h_out,w_out]</span></span><br><span class="line"></span><br><span class="line">                    ind = np.unravel_index(np.argmax(x[pics,channels,stride * h_out: stride* h_out + pool_height,stride* w_out: stride*w_out + pool_width]), (pool_height,pool_width))</span><br><span class="line">                    dx[pics,channels,stride * h_out: stride* h_out + pool_height,stride* w_out: stride*w_out + pool_width][ind] = dout[pics,channels,h_out,w_out]</span><br><span class="line">                    <span class="comment"># print(ind)</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                            #</span></span><br><span class="line">    <span class="comment">###########################################################################</span></span><br><span class="line">    <span class="keyword">return</span> dx</span><br></pre></td></tr></table></figure>
+<h2 id="Fast-layers"><a href="#Fast-layers" class="headerlink" title="Fast layers"></a>Fast layers</h2><ul>
+<li>在<code>cs231n/fast_layers.py</code>里面直接提供了比较快版本的计算方法</li>
+</ul>
+<p>The fast convolution implementation depends on a Cython extension; to compile it you need to run the following from the <code>cs231n</code> directory:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build_ext --inplace</span><br></pre></td></tr></table></figure>
+<p>记得重启一下jupter</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Testing </span>conv_forward_fast:</span><br><span class="line">Naive: 5.283360s</span><br><span class="line">Fast: 0.014807s</span><br><span class="line">Speedup: 356.809600x</span><br><span class="line">Difference:  4.926407851494105e<span class="string">-11</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Testing </span>conv_backward_fast:</span><br><span class="line">Naive: 9.893734s</span><br><span class="line">Fast: 0.015421s</span><br><span class="line">Speedup: 641.578958x</span><br><span class="line">dx difference:  1.949764775345631e<span class="string">-11</span></span><br><span class="line">dw difference:  5.155328198575201e<span class="string">-13</span></span><br><span class="line">db difference:  3.481354613192702e<span class="string">-14</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Testing </span>pool_forward_fast:</span><br><span class="line">Naive: 0.212025s</span><br><span class="line">fast: 0.002980s</span><br><span class="line">speedup: 71.143680x</span><br><span class="line">difference:  0.0</span><br><span class="line"></span><br><span class="line"><span class="keyword">Testing </span>pool_backward_fast:</span><br><span class="line">Naive: 0.391351s</span><br><span class="line">fast: 0.012568s</span><br><span class="line">speedup: 31.138711x</span><br><span class="line">dx difference:  0.0</span><br></pre></td></tr></table></figure>
+<p>可以发现fast版本conv的速度会快300倍，而pooling也会快几十倍</p>
+<h2 id="conv-sandwich-layer-gt-已经写好了，conv-relu-pool"><a href="#conv-sandwich-layer-gt-已经写好了，conv-relu-pool" class="headerlink" title="conv sandwich layer -&gt; 已经写好了，conv + relu + pool"></a>conv sandwich layer -&gt; 已经写好了，conv + relu + pool</h2><h2 id="Three-layer-ConvNet"><a href="#Three-layer-ConvNet" class="headerlink" title="Three-layer ConvNet"></a>Three-layer ConvNet</h2><p><code>cs231n/classifiers/cnn.py</code>,implement一个三层的CNN结构</p>
+<ul>
+<li>conv - relu - 2x2 maxpool - affine1 - relu - affine2 - softmax</li>
+<li>输入图片的minibatch为(N,C,H,W)</li>
+</ul>
+<h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><ul>
+<li>input_dim: (C,H,W)是每张图片长什么样子</li>
+<li>num_filters: conv层里面filter的个数</li>
+<li>filters_size，直接把高和宽统一成一个数字了，反正都是方形的</li>
+<li>hidden_dim：用<strong>fc</strong>层的数量</li>
+<li>num_classes: 最后输出的class的数量</li>
+<li>weight_scale：初始化的时候的scale</li>
+<li>reg：L2</li>
+<li>dtype：计算所用的datatype（如 np.float32)</li>
+</ul>
+<h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><ul>
+<li>初始化weights（正态分布）和bias（全是0） -&gt; 注意fc和conv层的不一样</li>
+<li>因为在loss中有帮助input的大小保持的操作，所以第二层的图片可以不考虑padding和stride的变化</li>
+</ul>
 
       
     </div>
@@ -591,6 +693,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/22/OpenCVCameracalibration/" rel="prev" title="学习OpenCV十八章_Camera models & calibration">
+                学习OpenCV十八章_Camera models & calibration <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -661,7 +767,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -712,7 +818,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -779,7 +889,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -839,7 +953,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution-Native-forward-pass"><span class="nav-number">2.</span> <span class="nav-text">convolution: Native forward pass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input"><span class="nav-number">2.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">2.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement"><span class="nav-number">2.3.</span> <span class="nav-text">implement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化中间的图像过程"><span class="nav-number">2.4.</span> <span class="nav-text">可视化中间的图像过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convolution-Naive-backward-pass"><span class="nav-number">3.</span> <span class="nav-text">Convolution: Naive backward pass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-1"><span class="nav-number">3.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-1"><span class="nav-number">3.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现：conv是怎么求导的？"><span class="nav-number">3.3.</span> <span class="nav-text">实现：conv是怎么求导的？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convolution-Native-forward-pass"><span class="nav-number">2.</span> <span class="nav-text">convolution: Native forward pass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input"><span class="nav-number">2.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">2.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#implement"><span class="nav-number">2.3.</span> <span class="nav-text">implement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化中间的图像过程"><span class="nav-number">2.4.</span> <span class="nav-text">可视化中间的图像过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Convolution-Naive-backward-pass"><span class="nav-number">3.</span> <span class="nav-text">Convolution: Naive backward pass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-1"><span class="nav-number">3.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-1"><span class="nav-number">3.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现：conv是怎么求导的？"><span class="nav-number">3.3.</span> <span class="nav-text">实现：conv是怎么求导的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下"><span class="nav-number">3.4.</span> <span class="nav-text">代码如下</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Max-Pooling：Native-forward"><span class="nav-number">4.</span> <span class="nav-text">Max-Pooling：Native forward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-2"><span class="nav-number">4.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-2"><span class="nav-number">4.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现"><span class="nav-number">4.3.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">4.4.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Max-pooling-Native-backward"><span class="nav-number">5.</span> <span class="nav-text">Max-pooling: Native backward</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-3"><span class="nav-number">5.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output-3"><span class="nav-number">5.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现-1"><span class="nav-number">5.3.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fast-layers"><span class="nav-number">6.</span> <span class="nav-text">Fast layers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conv-sandwich-layer-gt-已经写好了，conv-relu-pool"><span class="nav-number">7.</span> <span class="nav-text">conv sandwich layer -&gt; 已经写好了，conv + relu + pool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Three-layer-ConvNet"><span class="nav-number">8.</span> <span class="nav-text">Three-layer ConvNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#init"><span class="nav-number">8.1.</span> <span class="nav-text">init</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#操作"><span class="nav-number">8.1.1.</span> <span class="nav-text">操作</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -109,7 +109,8 @@
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_4.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_2.jpg">
 <meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/2_3.jpg">
-<meta property="og:updated_time" content="2019-04-16T07:14:38.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/04/09/2019Q1AR笔记/3_1.jpg">
+<meta property="og:updated_time" content="2019-04-22T01:24:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019 1Q AR笔记">
 <meta name="twitter:description" content="整体步骤 检测marker 为他计算计算6DOF pose render 3D 图片 把图片和marker组合在一起  slides学习opengl(学习老师的cpp代码风格)">
@@ -251,7 +252,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">17</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">19</span></a>
 
   </li>
         
@@ -270,7 +271,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">32</span></a>
 
   </li>
 
@@ -420,7 +421,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-04-16 16:14:38" itemprop="dateModified" datetime="2019-04-16T16:14:38+09:00">2019-04-16</time>
+                <time title="Modified: 2019-04-22 10:24:28" itemprop="dateModified" datetime="2019-04-22T10:24:28+09:00">2019-04-22</time>
               
             
           </span>
@@ -595,7 +596,7 @@
 <li>预准备<ul>
 <li>在每个side找六个点</li>
 <li>在边上提取三个像素宽度的stride<ul>
-<li><code>cv::GetQuadrangleSubPix()</code></li>
+<li><code>cv::GetQuadrangleSubPix()</code> -&gt; 不会用！</li>
 <li>从输入的array得到四边形<ul>
 <li>src输入图像</li>
 <li>dst提取出来的四边形</li>
@@ -623,6 +624,36 @@
 <h3 id="如何得到图片的subpixel-color"><a href="#如何得到图片的subpixel-color" class="headerlink" title="如何得到图片的subpixel color"></a>如何得到图片的subpixel color</h3><p>不是原来的方方正正的，而是沿着那个直线方向的新的方方正正<br><img src="/2019/04/09/2019Q1AR笔记/2_2.jpg" alt></p>
 <ul>
 <li>就是取各个颜色在面积上的平均，<br><img src="/2019/04/09/2019Q1AR笔记/2_3.jpg" alt></li>
+</ul>
+<h3 id="老师的代码"><a href="#老师的代码" class="headerlink" title="老师的代码"></a>老师的代码</h3><ul>
+<li><code>sublixSampleSafe</code> -&gt; <ul>
+<li>这个函数输入测试的图片（gray和已经得到的subpix点</li>
+<li>把这个点求floor，int，得到基准点，然后检查是不是在图片里面（不是的话返回gray，127）</li>
+<li>如果在图片里面的话计算出来实际的坐标</li>
+</ul>
+</li>
+</ul>
+<h2 id="确定marker的id"><a href="#确定marker的id" class="headerlink" title="确定marker的id"></a>确定marker的id</h2><p><img src="/2019/04/09/2019Q1AR笔记/3_1.jpg" alt></p>
+<h3 id="corner-detection"><a href="#corner-detection" class="headerlink" title="corner detection"></a>corner detection</h3><ul>
+<li>exact sides<ul>
+<li>找到沿着刚才计算出来6个点的一条线<code>fitLine</code></li>
+</ul>
+</li>
+<li>precise corner<ul>
+<li>从各个边的交点计算精确的corner（因为各个边已经很精确了）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Marker-Rectification"><a href="#Marker-Rectification" class="headerlink" title="Marker Rectification"></a>Marker Rectification</h3><ul>
+<li>创建一个6x6 pix的ID图片<ul>
+<li>(-0.5,-0.5) to (5.5,5.5)</li>
+</ul>
+</li>
+<li>从原图片的perspective warp到Id image<ul>
+<li><code>cv::getPerspectiveTransform or cv::warpPerspective</code></li>
+<li>需要找到的是linear transformation</li>
+</ul>
+</li>
 </ul>
 
       
@@ -747,7 +778,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -798,7 +829,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -865,7 +900,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -925,7 +964,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体步骤"><span class="nav-number">1.</span> <span class="nav-text">整体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex1-检测marker的四个基础点"><span class="nav-number">2.</span> <span class="nav-text">Ex1:检测marker的四个基础点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开相机"><span class="nav-number">2.1.</span> <span class="nav-text">打开相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thresholding"><span class="nav-number">2.2.</span> <span class="nav-text">thresholding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cv-adaptiveThreshold-lt-试试这个函数的作用，不用自己设置threshold了"><span class="nav-number">2.3.</span> <span class="nav-text">cv::adaptiveThreshold &lt;- 试试这个函数的作用，不用自己设置threshold了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有些变量的地方用到了const-lt-感觉应该学学老师的编程风格"><span class="nav-number">2.4.</span> <span class="nav-text">有些变量的地方用到了const &lt;- 感觉应该学学老师的编程风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detect-connected-components"><span class="nav-number">2.5.</span> <span class="nav-text">detect connected components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-findContours"><span class="nav-number">2.5.1.</span> <span class="nav-text">cv::findContours</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去除过小的contour"><span class="nav-number">2.5.2.</span> <span class="nav-text">去除过小的contour</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#估计contour的多边形"><span class="nav-number">2.5.3.</span> <span class="nav-text">估计contour的多边形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画出来只有四个角的多边形"><span class="nav-number">2.5.4.</span> <span class="nav-text">画出来只有四个角的多边形</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分结束后的完整代码"><span class="nav-number">2.6.</span> <span class="nav-text">第一部分结束后的完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分运行之后的结果"><span class="nav-number">2.7.</span> <span class="nav-text">第一部分运行之后的结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex2-find-marker-precisely"><span class="nav-number">3.</span> <span class="nav-text">Ex2. find marker precisely</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">3.1.</span> <span class="nav-text">操作步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何得到图片的subpixel-color"><span class="nav-number">3.2.</span> <span class="nav-text">如何得到图片的subpixel color</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整体步骤"><span class="nav-number">1.</span> <span class="nav-text">整体步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex1-检测marker的四个基础点"><span class="nav-number">2.</span> <span class="nav-text">Ex1:检测marker的四个基础点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开相机"><span class="nav-number">2.1.</span> <span class="nav-text">打开相机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#thresholding"><span class="nav-number">2.2.</span> <span class="nav-text">thresholding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cv-adaptiveThreshold-lt-试试这个函数的作用，不用自己设置threshold了"><span class="nav-number">2.3.</span> <span class="nav-text">cv::adaptiveThreshold &lt;- 试试这个函数的作用，不用自己设置threshold了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有些变量的地方用到了const-lt-感觉应该学学老师的编程风格"><span class="nav-number">2.4.</span> <span class="nav-text">有些变量的地方用到了const &lt;- 感觉应该学学老师的编程风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#detect-connected-components"><span class="nav-number">2.5.</span> <span class="nav-text">detect connected components</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-findContours"><span class="nav-number">2.5.1.</span> <span class="nav-text">cv::findContours</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去除过小的contour"><span class="nav-number">2.5.2.</span> <span class="nav-text">去除过小的contour</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#估计contour的多边形"><span class="nav-number">2.5.3.</span> <span class="nav-text">估计contour的多边形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#画出来只有四个角的多边形"><span class="nav-number">2.5.4.</span> <span class="nav-text">画出来只有四个角的多边形</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分结束后的完整代码"><span class="nav-number">2.6.</span> <span class="nav-text">第一部分结束后的完整代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一部分运行之后的结果"><span class="nav-number">2.7.</span> <span class="nav-text">第一部分运行之后的结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ex2-find-marker-precisely"><span class="nav-number">3.</span> <span class="nav-text">Ex2. find marker precisely</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#操作步骤"><span class="nav-number">3.1.</span> <span class="nav-text">操作步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何得到图片的subpixel-color"><span class="nav-number">3.2.</span> <span class="nav-text">如何得到图片的subpixel color</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老师的代码"><span class="nav-number">3.3.</span> <span class="nav-text">老师的代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#确定marker的id"><span class="nav-number">4.</span> <span class="nav-text">确定marker的id</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#corner-detection"><span class="nav-number">4.1.</span> <span class="nav-text">corner detection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Marker-Rectification"><span class="nav-number">4.2.</span> <span class="nav-text">Marker Rectification</span></a></li></ol></li></ol></div>
             
 
           </div>
