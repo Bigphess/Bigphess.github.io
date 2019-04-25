@@ -395,12 +395,24 @@
                 
               
 
-              <time title="Created: 2019-04-22 13:25:19 / Modified: 13:26:34" itemprop="dateCreated datePublished" datetime="2019-04-22T13:25:19+09:00">2019-04-22</time>
+              <time title="Created: 2019-04-22 13:25:19" itemprop="dateCreated datePublished" datetime="2019-04-22T13:25:19+09:00">2019-04-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-25 16:51:24" itemprop="dateModified" datetime="2019-04-25T16:51:24+09:00">2019-04-25</time>
               
             
           </span>
@@ -468,7 +480,381 @@
       
         
           
-            
+            <h1 id="camera-models-amp-calibration"><a href="#camera-models-amp-calibration" class="headerlink" title="camera models &amp; calibration"></a>camera models &amp; calibration</h1><p>物体会吸收一部分的光，然后反射一部分的光，反射的光就是他自己的颜色，这个光被我们的眼睛（或者相机）接收，然后投影到我们的视网膜（或者相机的图片）上，这之间的几何关系在CV上面非常重要</p>
+<p>其中一个非常简单的模型就是pinhole camera model。光穿过一面墙上的一个小的aperture，这个是这章的模型的开始，但是真实pinhole模型不是很好因为他不能快速曝光（聚集的光不够）-&gt; 眼睛会更厉害一点，但是len还会distort图片。</p>
+<p>这章的目的：</p>
+<ul>
+<li>如何camera calibration</li>
+<li>纠正普通的pinhole模型的len的偏差</li>
+<li>calibration也同样是获取三维世界的主要方式，因为一个场景不仅仅是三维，他们还有物理的空间和体积，所以获取pixel和三维诗句坐标的关系也很重要</li>
+<li>18章纠正的是len的distortion，19章构建整个3D的结构</li>
+</ul>
+<p>homography transform -&gt; 一个非常重要的要素</p>
+<h2 id="camera-model"><a href="#camera-model" class="headerlink" title="camera model"></a>camera model</h2><ul>
+<li>投影到image plane上面，结果在这个plane上面总是对焦的focus，图片的大小和这个焦距的长度有关</li>
+<li>对于理想的pinhole来说，image plane到pinhole的距离就是准确的焦距</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_1.jpg" alt="pinhole"></p>
+<ul>
+<li>从这个基础的模型上 -&gt; 得到一个计算起来更加简单的模型<ul>
+<li>交换pinhole和projection plane的位置</li>
+<li>现在pinhole的位置变成了projective plane的中心</li>
+<li>每一个离开物体表面（Q）的光线都朝着projection center走</li>
+<li>在横轴和投影面上的交点被定义为principal point</li>
+<li>这个新的平面和以前的projective平面一样，上面投影上的物体也都是和原来一样的尺寸</li>
+<li>换了模型之后没有了负号：x/f = X/Z</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_2.jpg" alt="pinhole2"></p>
+<ul>
+<li>在理想的模型里可能觉得这个principal point就是image的中心，但是实际上中心不会在横轴和投影面的交点上<ul>
+<li>引入了两个新的参数 cx 和 cy</li>
+<li>这两个参数实际上就是中心点的偏差（平面上的偏差），所以得到投影在image plane上面的实际坐标如下</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_3.jpg" alt="pinhole3"></p>
+<ul>
+<li>在上面的公式里面用了两个不同的f，fx和fy，这是因为<ul>
+<li>在实际的图片里来说，其实每个像素格不是正方形而是长方形的<ul>
+<li>fx = 实际的focal length * sx（每个mm里面的像素数量） -&gt; 最终得到的fx是像素格</li>
+</ul>
+</li>
+<li>注意：<ul>
+<li>sx和sy在calibration的时候并<strong>不能</strong>直接测量</li>
+<li>physical focal length也不能被实际测量</li>
+<li>我们只能得到这两个东西的乘积，f</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="basic-of-projective-geometry"><a href="#basic-of-projective-geometry" class="headerlink" title="basic of projective geometry"></a>basic of projective geometry</h2><ul>
+<li>projective transform -&gt; 把physical world里面的一组点Qi（Xi,Yi,Zi）map到一张图片上面(xi,yi)的过程<ul>
+<li>用这个东西的时候，一个比较方便的方法是用homogeneous coordinates<ul>
+<li>associ‐ ated with a point in a projective space of dimension n are typically expressed as an (n + 1)-dimensional vector (e.g., x, y, z becomes x, y, z, w), with the additional restric‐ tion that any two points whose values are proportional are, in fact, equivalent points</li>
+</ul>
+</li>
+<li>投影平面上面的维度是两维，我们可以把它表示成三维的东西 -&gt; 把现在存在维度的数字除以增加的维度的值就可以得到以前的值</li>
+<li>用这种办法，可以把之前的fx，fy,cx,cy重新组织成一个矩阵：<strong>camera intrinsics matrix</strong></li>
+<li>下面这个形式重新乘回来就是之前的关系</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_4.jpg" alt="matrix"></p>
+<ul>
+<li><p>在opencv里面也有得到homogeneous coordinates和由结果反推回来的函数</p>
+</li>
+<li><p>注意，在pinhole里面的成像速度是非常慢的，如果需要更快速地形成图片，我们需要通过lens来聚焦非常广范围里面的光 -&gt; 但是结果就是lens会产生distortion</p>
+</li>
+</ul>
+<h2 id="Rodrigues-Transform"><a href="#Rodrigues-Transform" class="headerlink" title="Rodrigues Transform"></a>Rodrigues Transform</h2><ul>
+<li>在三维的范围里，经常会使用一个3x3的矩阵来表示一个物体的旋转<ul>
+<li>只要把需要旋转的vector乘上这个mat就可以得到相应的结果</li>
+<li>但是不是很好直观的得到这个旋转矩阵</li>
+</ul>
+</li>
+<li>介绍一种在opencv里面的表示方法 -&gt; 更容易直观的理解意思<ul>
+<li>本质上来说就是用一个vector表示每个角度上需要旋转多少</li>
+<li>Rodrigues Transform指的就是矩阵表示法和向量表示法之间的关系</li>
+</ul>
+</li>
+<li>数学原理：余弦定理？（知道两个向量可以求出来他们之间的角度）</li>
+<li>这两个关系之间可以很轻易的互相转化，opencv里面也有相应的库</li>
+</ul>
+<h2 id="lens-distortion"><a href="#lens-distortion" class="headerlink" title="lens distortion"></a>lens distortion</h2><ul>
+<li>在实际使用中因为制造球形的镜头更容易一些，并且很难测量是不是平的，所以lens都会产生distortion</li>
+<li>在这部分介绍了两种主要得distortion，how to model<ul>
+<li>radial distortion -&gt; 镜片的形状产生的</li>
+<li>tangential distortion -&gt; 组装整个相机的时候产生的</li>
+</ul>
+</li>
+</ul>
+<h3 id="radial"><a href="#radial" class="headerlink" title="radial"></a>radial</h3><ul>
+<li>相机的distortion一般都会产生在接近imager边缘的部分（fisheye effect）<ul>
+<li>远离lens中心的部分比起中心部分会折叠更多，所以如果投影一个正方形，边的部分都会鼓起来</li>
+<li>如果相机比较便宜的话（web camera），周围的折叠会更多，而好的相机会更注重减少radial distortion的效果</li>
+</ul>
+</li>
+<li>对于辐射的畸变来说，distortion会随着接近边边而增加</li>
+<li>在实际中这个畸变很小，所以可以用泰勒级数的r=0附近展开来解决<ul>
+<li>对于比较便宜的web camera，可以选用k1或者k2</li>
+<li>对于鱼眼这种畸变很大的，可以用k3</li>
+</ul>
+</li>
+<li>在distort之后的位置可以用以下的公式表示<ul>
+<li>(x,y)是原来的位置，corrected是教政治和的位置</li>
+<li>r是离开中心的半径</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_5.jpg" alt="radial"></p>
+<h3 id="tangential"><a href="#tangential" class="headerlink" title="tangential"></a>tangential</h3><ul>
+<li>在制造相机的时候，lens和image plane没有完全平行导致的，所以投影上去会是一个几何变换</li>
+<li>这个distortion基本是由两个参数组成：p1和p2</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_6.jpg" alt="tangential"></p>
+<ul>
+<li>总结下来，在相机的distortion里一共有五个参数，k1k2k3p1p2，这五个函数构成了一个distortion vector(5x1)</li>
+<li>虽然在图像里面还有一些其他的畸变，但是因为影响没有这两个大所以opencv没有考虑这部分</li>
+</ul>
+<h2 id="calibration"><a href="#calibration" class="headerlink" title="calibration"></a>calibration</h2><ul>
+<li>上一部分得到了如何表示相机的参数以及distortion的参数</li>
+<li>这部分考虑如何计算这些参数</li>
+<li>其中一个函数<code>clibrationCamera()</code><ul>
+<li>用相机去照一个已经知道结构的东西，里面有很多已经定义好了的点</li>
+<li>通过这个可以得到相机的相对位置和角度，同时也可以得到intrinsic parameters</li>
+</ul>
+</li>
+</ul>
+<h3 id="平移矩阵和旋转矩阵"><a href="#平移矩阵和旋转矩阵" class="headerlink" title="平移矩阵和旋转矩阵"></a>平移矩阵和旋转矩阵</h3><ul>
+<li>对于每张照的图片的物体，这个物体的<em>pose</em>可以用一个旋转矩阵+一个平移矩阵描述，也就是用这个矩阵把现实世界中的点转化到投影平面上</li>
+</ul>
+<h4 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h4><ul>
+<li>旋转运动无论在多少维都可以被描述为：一个坐标的vector乘对应大小的方阵 -&gt; 用一个新的坐标系来描述这个点的位置 -&gt; 其实也就是改成了极坐标系？</li>
+<li>三维范围里面的旋转可以用两个角度表示</li>
+<li>绕着x，y，z三个方向旋转的角度以及对应的矩阵是这个样子的</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_7.jpg" alt="rotation"></p>
+<p>这三个方向的R乘在一起就是最后的旋转矩阵<strong>R</strong>，但是这个的方向是反着的，所以还需要一个transpose转回来</p>
+<h4 id="平移矩阵"><a href="#平移矩阵" class="headerlink" title="平移矩阵"></a>平移矩阵</h4><ul>
+<li>平移矩阵用来描述怎么从一个坐标系统shift到另一个坐标系统 -&gt; 也就是一个从第一个坐标系原点到第二个坐标系原点的offset</li>
+<li>在calibration的时候，就是从物体坐标系的原点到了相机坐标系的原点</li>
+<li>平移矩阵： <code>T→ = origin_object − origin_camera.</code></li>
+</ul>
+<h4 id="综合"><a href="#综合" class="headerlink" title="综合"></a>综合</h4><ul>
+<li>结合上面两个矩阵来说，从object上面的一个点投影到camera plane上面的一个点的关系为<ul>
+<li><code>Pc→ =R⋅(Po→ −T→)</code> <strong>注意分清楚这里面的矩阵和向量</strong></li>
+</ul>
+</li>
+<li>把上面的这个公式，再加上camera自己的intrinsic-correction。整体就是opencv里面需要求的所有部分</li>
+<li>所求参数<ul>
+<li>三维的旋转用三个角度表示，三维的平移用三个parameter表示(x,y,z) -&gt; 现在得到了6个参数</li>
+<li>相机的intrinsic mat(fx,fy,cx,cy) -&gt; 一共四个参数</li>
+<li>现在一共需要求10个参数（但是相机的intrinsic是不变的）</li>
+</ul>
+</li>
+<li>求参数 -&gt; <ul>
+<li>在求解的时候，如果使用一个平面物体，那么每张图片都可以得到8个参数（位置的6个会随着图片变化 + 只能用两个参数来求intrinsic）</li>
+<li>至少需要2张图片来得到所有的参数</li>
+</ul>
+</li>
+</ul>
+<h2 id="calibration-boards"><a href="#calibration-boards" class="headerlink" title="calibration boards"></a>calibration boards</h2><ul>
+<li>从原则上来说，任何有特征的东西都可以被用来calibration，包括棋盘，圆格，randpattern，arUco等等,有些方法是基于三维的物体的基础上的，但是二维平面的物体更好操作</li>
+<li>在这里主要选择的是用棋盘进行calibration</li>
+</ul>
+<h3 id="关于chessboard的函数"><a href="#关于chessboard的函数" class="headerlink" title="关于chessboard的函数"></a>关于chessboard的函数</h3><h4 id="cv-findChessboardCorners"><a href="#cv-findChessboardCorners" class="headerlink" title="cv::findChessboardCorners()"></a>cv::findChessboardCorners()</h4><ul>
+<li>可以用这个函数找到棋盘的corners，</li>
+<li>param<ul>
+<li>需要输入8bit图片</li>
+<li>需要输入这个棋盘每行每列应该有的格子数（计算的是内部点）</li>
+<li>输出的是这么corner的坐标</li>
+<li>可选flag决定需不需要多余的filter</li>
+</ul>
+</li>
+</ul>
+<h4 id="cv-cornerSubPix"><a href="#cv-cornerSubPix" class="headerlink" title="cv::cornerSubPix()"></a>cv::cornerSubPix()</h4><ul>
+<li>上面一步找到的只是corner的<strong>大概位置</strong></li>
+<li>在find corner里面自动call了这个函数，为了能得到更精确的结果</li>
+<li>如果需要得到更精确的结果，可以重复的call这个函数，但是会有tighter termination criteria</li>
+</ul>
+<h4 id="cv-drawChessboardCorners"><a href="#cv-drawChessboardCorners" class="headerlink" title="cv::drawChessboardCorners()"></a>cv::drawChessboardCorners()</h4><ul>
+<li>为debug用，更明确的画出来找到的corner</li>
+<li>如果没有找到所有的，会把其他可能的用红色circle画出来，如果找到了，每一行的颜色会不一样</li>
+</ul>
+<p>下一步转到perspective transform，这个transform会形成一个3x3的homography mat</p>
+<!-- br -->
+<h3 id="关于circle-grid的函数"><a href="#关于circle-grid的函数" class="headerlink" title="关于circle grid的函数"></a>关于circle grid的函数</h3><h4 id="cv-findCirclesGrid"><a href="#cv-findCirclesGrid" class="headerlink" title="cv::findCirclesGrid()"></a>cv::findCirclesGrid()</h4><ul>
+<li>和上面的棋盘没有什么本质的区别，主要就是画出来一个是黑白格，另一个是白色的背景上面有黑色的圆点，输出小圆点的位置</li>
+<li>这个方法需要圆点是对称的，上下一组算做一行，竖着一列算一列，怎么数非常重要</li>
+</ul>
+<h2 id="Homography"><a href="#Homography" class="headerlink" title="Homography"></a>Homography</h2><ul>
+<li>planar homography是一个平面到另一个平面的projection mapping，所以从一个2D平面到相机平面的过程就是一个planar homography</li>
+<li>用矩阵的乘法就可以表示这个过程</li>
+</ul>
+<p><img src="/2019/04/22/OpenCVCameracalibration/18_8.jpg" alt="projection mapping"></p>
+<p>其中Q是现实中的点，q是成像器上面的点，整体关系为：<code>q→ = s ⋅ H ⋅ Q→</code></p>
+<ul>
+<li>s，一个随意的scale参数，homography就是由着一个参数决定的</li>
+<li>conventionally factored H, H由两个部分组成<ul>
+<li>physical上面的transformation，实际就是我们看到的这个物体的位置W = [R,t→]</li>
+<li>projection，取决于相机的intrinsic</li>
+</ul>
+</li>
+<li><code>q→ = s ⋅ M ⋅ W ⋅ Q→</code>，其中M是相机的intrinsic mat</li>
+<li><p>我们希望Q不是给所有空间定义的点，而是一个定义在我们看的平面上面的坐标，这样计算起来会方便（三维转二维）</p>
+<ul>
+<li>所以把Q里面的Z的坐标改成了0，这样旋转矩阵就会被简化为一个3x1的列</li>
+<li>并且第三个列乘了Z的0之后就被消掉了</li>
+<li>最后就可以把H表示出来了 -&gt; 3x3 = intrinsic(3x3) x (rota + trans)(1x3)<br><img src="/2019/04/22/OpenCVCameracalibration/18_9.jpg" alt="H"></li>
+</ul>
+</li>
+<li><p>在计算homography mat的时候，用了多张同样内容的东西来计算translation和intrinsic</p>
+</li>
+<li>三个旋转，三个平移 -&gt; 每张图片有6个未知的参数</li>
+<li>每张图片可以得到8个等式<ul>
+<li>把一个正方形mapping成一个四边形可以得到4个不同的(x,y) points</li>
+<li>所以每多一张图片就可以多出来计算两个新的参数的机会</li>
+</ul>
+</li>
+<li>这样看，<code>pdst→ = H * psrc→</code>，反着也可以推回来，这样我们就算不知道M也可以计算H，或者说我们是用H来计算M</li>
+</ul>
+<!-- br -->
+<ul>
+<li>在opencv里面，<code>cv::findHomography()</code>可以用take一堆有关系的点然后返回他们之间的homo mat，点越多计算的越准确</li>
+<li>虽然有其他的方法可以计算结果，但是对测量误差不是很友好</li>
+</ul>
+<h3 id="three-robust-fitting-methods"><a href="#three-robust-fitting-methods" class="headerlink" title="three robust fitting methods"></a>three robust fitting methods</h3><ul>
+<li><code>method to cv::RANSAC</code><ul>
+<li>随机的选择提供的点的subset，然后只用这些subset来计算homo mat</li>
+<li>然后把剩下的数据拿来计算一下靠谱和不靠谱的</li>
+<li>最后保存最有潜力的inliers</li>
+<li>在现实中比较好用，可以过滤掉一部分噪音</li>
+</ul>
+</li>
+<li>LMeDS algorithm<ul>
+<li>减少median error</li>
+<li>不需要更多的info和data来运行</li>
+<li>但是it will perform well only if the inliers constitute at least a majority of the data points</li>
+</ul>
+</li>
+<li>RHO algorithm<ul>
+<li>加权的第一种方法，运行速度更快</li>
+</ul>
+</li>
+</ul>
+<h2 id="camera-calibration"><a href="#camera-calibration" class="headerlink" title="camera calibration"></a>camera calibration</h2><h3 id="棋盘corner个数"><a href="#棋盘corner个数" class="headerlink" title="棋盘corner个数"></a>棋盘corner个数</h3><ul>
+<li>到底有多少参数<ul>
+<li>camera intrinsic 四个</li>
+<li>distortion五个（或者更多）三个辐射（可以增加到6个） + 两个平移<ul>
+<li>这五个参数是从2D -&gt; 2D的</li>
+<li>三个corner points可以得到6个信息，足够处理这五个参数</li>
+<li>所以一张图就够了（只是原则上这么说）</li>
+</ul>
+</li>
+<li>extrinsic parameters，这个东西的实际位置</li>
+</ul>
+</li>
+<li>但是因为intrinsic和extrinsic之间有对应的关系，一张图片并不够 -&gt; 因为在一张图片里还需要计算extrinsic的部分</li>
+<li>假设有N个corner，一共有K个images（不同的position）<ul>
+<li>一共会有 2 <em> N </em> K个，2是x,y的坐标会有两个，然后N个corner，K个图片</li>
+<li>暂时忽略distortion的参数，这样需要4个in和6K个ex（因为每张图片的ex都是不一样的）</li>
+<li>2NK &gt;= 6K + 4<ul>
+<li>如果N = 5，只需要一张图片就可以解决。但是为了得到homo mat，至少需要两个K(之前说到过的)<ul>
+<li>无论检测到多少corner，得到的有用信息就是四个角 -&gt; 由此推测至少两个K</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在实际的应用里面，一般需要7x8，至少十张图，这样受到noise的影响更小</li>
+</ul>
+</li>
+</ul>
+<h3 id="具体的数学计算"><a href="#具体的数学计算" class="headerlink" title="具体的数学计算"></a>具体的数学计算</h3><ul>
+<li>为了简单，首先假设在calibration的时候根本没有distortion</li>
+<li>对于每个view，会得到一个Homo mat，把这个mat拆成一个列向量(3x1)<ul>
+<li>在前面也知道H可以拆成M和一个[r1,r2,t]的向量相乘，再乘上一个scale s</li>
+<li><code>H=[h1,h2,h3] =s⋅M⋅[r1,r2,t],其中landa是1/s:</code><br><img src="/2019/04/22/OpenCVCameracalibration/18_10.jpg" alt="H"></li>
+</ul>
+</li>
+<li>旋转向量的基底(orthogonal)是互相垂直的，因为已经把scale这个参数提出去了，所以可以直接认为r1和r2是基了，这样的话他们的点乘是0<ul>
+<li>把r1和r2用M和h来表示，这样的话r1r2等于0就可以转化成一个hM的公式</li>
+<li>r1和r2的模也相等，所以可以继续得到一个等式</li>
+</ul>
+</li>
+<li>设置一个矩阵B等于M.-T * M-1，这样可以计算出来B的值(B算出来是对称的)<ul>
+<li>把B带回原来的等式，化简，然后把K个等式叠加在一起</li>
+<li>这样就可以推出来几个参数的表达式</li>
+</ul>
+</li>
+</ul>
+<h3 id="calibration的函数"><a href="#calibration的函数" class="headerlink" title="calibration的函数"></a>calibration的函数</h3><p><code>cv::calibrateCamera().</code>来解决calibration的问题</p>
+<ul>
+<li>得到的结果包括in mat, dis_co, 旋转向量和平移向量<ul>
+<li>输出的in mat的大小是3x3</li>
+<li>输出的dis_co的大小取决于用多少级的distortion，一般来说是4，5个的已经对fisheye足够了，8个的话calibration的精度就特别高了<ul>
+<li><strong>如果需要高精度的calibration的话，需要的图片数量也会疯狂增加</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>输入的部分包括<ul>
+<li>物体的坐标，指的是在chessboard上面的坐标点，是二维的点，其实也就是第几个格子？<ul>
+<li>注意这里，统计的单位是格子，所以如果想要得到physical上的距离，需要在calibration board上量出来一个格子的长度，然后乘这个格子的数量</li>
+</ul>
+</li>
+<li>image上面的坐标，corners</li>
+</ul>
+</li>
+<li>一口气计算所有的参数不是很好实现，一般使用的方法是先固定一部分计算另一部分，然后再固定另一部分计算这一部分。当所有的东西都估计的差不多了，再一起计算</li>
+<li>最后还有一个参数是termination criteria，终止的基准 -&gt; epsilon 会根据一个error来计算是否终止</li>
+</ul>
+<h3 id="只计算extrinsic"><a href="#只计算extrinsic" class="headerlink" title="只计算extrinsic"></a>只计算extrinsic</h3><p><code>cv::slovePnP()</code></p>
+<ul>
+<li>有的时候我们已经得到了相机的intrinsic，只希望得到object的位置</li>
+<li>大部分内容和上面都是一样的，除了<ul>
+<li>物体的位置只需要一个view</li>
+<li>distCo和intrinsic都是自己设置好的，不需要计算</li>
+</ul>
+</li>
+</ul>
+<p><code>cv::solvePnPRansac()</code></p>
+<ul>
+<li>上面的函数对于outliers的robust效果不是很好，对于chessboard来说，这个robust不是很重要，因为棋盘自己本身已经很可靠了。但是对于现实世界中的物体来说不是这么可靠</li>
+<li>加入了RANSAC部分？</li>
+</ul>
+<h2 id="Undistortion"><a href="#Undistortion" class="headerlink" title="Undistortion"></a>Undistortion</h2><ul>
+<li>在calibration里面有两个需要解决的事情，一个是distortion，一个是三维表达的正确性</li>
+<li>opencv自己有一个可以用的方法<ul>
+<li><code>cv::undistor()</code> -&gt; 可以一瞬间完成</li>
+<li><code>cv::initUndistortRectifyMap()</code> + <code>cv::remap()</code> -&gt; 在video上面使用的时候效率更高一些</li>
+</ul>
+</li>
+</ul>
+<h3 id="undistortion-map"><a href="#undistortion-map" class="headerlink" title="undistortion map"></a>undistortion map</h3><ul>
+<li>在把一张图片undistort的时候，我们需要把每个像素都对应到output里面对应的地方去，有几种不同的表达方法<ul>
+<li>2-channel float<ul>
+<li>有一个对于NxM的remapping，表示成NxM的array，有两个channel（分别对应X和Y方向的remap），里面是浮点数</li>
+<li>对于每一个输入的像素位置(i,j)，有一个对于这两个位置的向量，来表达这两个量应该哪里去</li>
+<li>如果计算出来的结果不是一个整数，那么用interpolation来计算最后应该占的格子的数量<br><img src="/2019/04/22/OpenCVCameracalibration/18_11.jpg" alt="remap"></li>
+</ul>
+</li>
+<li>第二种表达式是 2-array float，每一个array是一个channel的移动</li>
+<li>第三种是fixed point，计算的速度更快一点，但是需要提供的信息的精确度更高</li>
+</ul>
+</li>
+</ul>
+<h3 id="cv-convertMaps"><a href="#cv-convertMaps" class="headerlink" title="cv::convertMaps()"></a>cv::convertMaps()</h3><ul>
+<li>因为有上面的三种不同的表达形式，所以这个函数用来在各个形式之间转变</li>
+</ul>
+<h3 id="cv-initUndistortRectifyMap"><a href="#cv-initUndistortRectifyMap" class="headerlink" title="cv::initUndistortRectifyMap()"></a>cv::initUndistortRectifyMap()</h3><ul>
+<li>从刚才的部分知道了到底什么是undistortion map，现在开始讨论如何计算这个map</li>
+<li>现在先从单目相机开始monocular，如果双目的话可以直接计算depth（下一章）</li>
+<li>步骤，分开是因为计算map只需要一次<ul>
+<li>先计算undistortion map<ul>
+<li><code>cv::initUndistortRectifyMap()</code></li>
+<li>输入的参数是intrinsic mat和distortion coefficient（从camera calibration得到的）</li>
+<li>可以得到一个新的camera mat，这样的话即使不undistortion也可以得到正确的图片（在多个相机的calibration的时候比较重要）</li>
+<li>最后会输出两张map</li>
+</ul>
+</li>
+<li>然后在图片上undistort</li>
+</ul>
+</li>
+</ul>
+<h3 id="cv-remap"><a href="#cv-remap" class="headerlink" title="cv::remap()"></a>cv::remap()</h3><ul>
+<li>当计算了上面的map之后，就可以用remap这个函数进行校正了</li>
+<li>输入的map的种类也是上面提到的三种都可以</li>
+</ul>
+<h3 id="cv-undistort"><a href="#cv-undistort" class="headerlink" title="cv::undistort()"></a>cv::undistort()</h3><ul>
+<li>如果只有一张图片，或者对于每张图片都需要重新计算map的时候，就需要用这个函数了（所以在项目里面用这个的速度会变慢）</li>
+</ul>
+<h3 id="sparse-undistortion-cv-distortionPoints"><a href="#sparse-undistortion-cv-distortionPoints" class="headerlink" title="sparse undistortion cv::distortionPoints()"></a>sparse undistortion <code>cv::distortionPoints()</code></h3><ul>
+<li>如果我没有整张图片，只有一些图片上的点，然后我只关心这些图片上的点，可以用这个函数计算这张图片上面关注点的位置</li>
+</ul>
+
           
         
       
