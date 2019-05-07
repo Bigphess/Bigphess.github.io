@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[关于python生成动态变量名]]></title>
+    <url>%2F2019%2F05%2F07%2F%E5%85%B3%E4%BA%8Epython%E7%94%9F%E6%88%90%E5%8A%A8%E6%80%81%E5%8F%98%E9%87%8F%E5%90%8D%2F</url>
+    <content type="text"><![CDATA[动态生成变量名如果想要生成一系列的a0，a1，….a20这种变量名，直接手写太麻烦了 localslocal()，以字典的类型返回当前位置的全部局部变量 1234arrange_list = locals()for i in range(10): arrange_list['list_' + str(i)] = [] 调用动态变量，可以用字典的get方法得到变量的值 1234arrange_list = locals()for i in range(10): print(arrange_list.get('var'+str(i)), end = " ") 利用exec进行赋值12for i in range(5): exec('var&#123;&#125; = &#123;&#125;'.format(i, i)) 调用动态变量12for i in range(5): exec('print(var&#123;&#125;, end = " ")'.format(i))]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>动态生成变量名</tag>
+        <tag>变量名</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[关于多维数组的转置和增加新的维度]]></title>
     <url>%2F2019%2F04%2F25%2F%E5%85%B3%E4%BA%8E%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E8%BD%AC%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[在二维转置的时候，a[i][j] = a[j][i]在多维数组转置的时候，需要交换他们的下标比如原来的数组是(X,Y,Z)，转置之后是(Z,X,Y)这时候应该用的是np.transpose(A,(2,0,1)) np.newaxis -&gt; 增加新的维度原来是（6，）的数组，在行上增加维度变成（1,6）的二维数组，在列上增加维度变为(6,1)的二维数组]]></content>
