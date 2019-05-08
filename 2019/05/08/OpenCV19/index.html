@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Chapter 19首先会讨论从3D得到2D信息，然后再讨论从2D推断3D信息如果没有多张图片是很难得到靠谱的3D信息的：  通过stereo vision 通过motion">
+<meta name="keywords" content="OpenCV,Projection">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习OpenCV第19章，投影和3D视觉">
+<meta property="og:url" content="https://bigphess.github.io/2019/05/08/OpenCV19/index.html">
+<meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="Chapter 19首先会讨论从3D得到2D信息，然后再讨论从2D推断3D信息如果没有多张图片是很难得到靠谱的3D信息的：  通过stereo vision 通过motion">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/08/OpenCV19/1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/08/OpenCV19/2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/08/OpenCV19/3.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/08/OpenCV19/4.jpg">
+<meta property="og:updated_time" content="2019-05-08T06:46:16.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习OpenCV第19章，投影和3D视觉">
+<meta name="twitter:description" content="Chapter 19首先会讨论从3D得到2D信息，然后再讨论从2D推断3D信息如果没有多张图片是很难得到靠谱的3D信息的：  通过stereo vision 通过motion">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/05/08/OpenCV19/1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://bigphess.github.io/2019/05/08/OpenCV19/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>学习OpenCV第19章，投影和3D视觉 | 今天开始努力学习</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天开始努力学习</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">面向谷歌编程选手许若芃</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">20</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">36</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/Bigphess" class="github-corner" title="垃圾代码都在我的github！" aria-label="垃圾代码都在我的github！" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/08/OpenCV19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习OpenCV第19章，投影和3D视觉
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-08 11:53:24 / Modified: 15:46:16" itemprop="dateCreated datePublished" datetime="2019-05-08T11:53:24+09:00">2019-05-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/Projection/" itemprop="url" rel="index"><span itemprop="name">Projection</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Chapter-19"><a href="#Chapter-19" class="headerlink" title="Chapter 19"></a>Chapter 19</h1><p>首先会讨论从3D得到2D信息，然后再讨论从2D推断3D信息<br>如果没有多张图片是很难得到靠谱的3D信息的：</p>
+<ul>
+<li>通过stereo vision</li>
+<li>通过motion</li>
+</ul>
+<a id="more"></a>
+<h2 id="Projections"><a href="#Projections" class="headerlink" title="Projections"></a>Projections</h2><ul>
+<li>得到了物体在三维里面的位置之后，因为我们在18章已经calibration了相机，所以可以得到这个点在图片里面的位置</li>
+<li>提供了一个函数projectPoints来投影一系列的点，针对刚体<ul>
+<li>a list of loca‐ tions in the object’s own body-centered coordinate system</li>
+<li>加上了平移和旋转，相机intrinsic和distortion</li>
+<li>最后输出在画面上的店</li>
+</ul>
+</li>
+</ul>
+<h2 id="Affine-and-Perspective-Transformations"><a href="#Affine-and-Perspective-Transformations" class="headerlink" title="Affine and Perspective Transformations"></a>Affine and Perspective Transformations</h2><p>affine是针对一个list或者一整张图片进行的，可以把一个point从图片的一个location移动到另一个location，perspective trans更多的是针对一个矩形图片 -&gt; related to prspective transformation</p>
+<p>总结不同的函数<br><img src="/2019/05/08/OpenCV19/1.jpg" alt="总结不同函数"></p>
+<h3 id="Bird’s-eye-view-trans（p699）"><a href="#Bird’s-eye-view-trans（p699）" class="headerlink" title="Bird’s-eye-view trans（p699）"></a>Bird’s-eye-view trans（p699）</h3><ul>
+<li>在robtic巡航的时间，经常把排到的画面变成从上往下看的bird-view<ul>
+<li>需要相机的intrinsic和distortion （把棋盘放在地上进行calibration）</li>
+</ul>
+</li>
+<li>步骤<ul>
+<li>首先读取相机的参数和distortion model</li>
+<li>找到地面上已知的店（比如chessboard），找到至少四个点</li>
+<li><code>cv::getPerspectiveTransform()</code>计算地面上已知点的homography H</li>
+<li><code>cv::warpPerspective()</code>形成bird-eye-view</li>
+</ul>
+</li>
+</ul>
+<h2 id="three-dim-pose-estimation"><a href="#three-dim-pose-estimation" class="headerlink" title="three-dim pose estimation"></a>three-dim pose estimation</h2><p>物体的三维pose可以从</p>
+<ul>
+<li>一个相机：必须先考虑情况惹</li>
+<li>多个相机捕捉：从多个不同图片来推断，这样即使是不知道的东西都可以操作</li>
+</ul>
+<h3 id="single-camera"><a href="#single-camera" class="headerlink" title="single camera"></a>single camera</h3><ul>
+<li>如果我们知道一个object，我们需要知道这个东西在<strong>他自己坐标系</strong>里面关键点的坐标</li>
+<li>如果现在给了一个新的view point，可以根据关键点的位置来推断</li>
+</ul>
+<h4 id="cv-solvePnP"><a href="#cv-solvePnP" class="headerlink" title="cv::solvePnP()"></a>cv::solvePnP()</h4><ul>
+<li>用来计算一个know object的位置</li>
+<li>从图片里面提取特征点，然后计算不同点的位置，这个问题的解是应该是唯一的</li>
+<li>PNP问题不是每次都有唯一的解<ul>
+<li>如果没有足够的关键点，为了保险起见应该有足够的店</li>
+<li>或者当物体离得特别远（这时候光线接近于平行了，就不好判断了）</li>
+</ul>
+</li>
+</ul>
+<p>总的来说，单目视觉和人自己的眼睛（单只）看东西的感觉差不多，不能获得精确的大小，还会产生一些错觉（比如把大楼的窗户设计的小来显得楼更高）</p>
+<h2 id="Stereo-Imaging"><a href="#Stereo-Imaging" class="headerlink" title="Stereo Imaging"></a>Stereo Imaging</h2><p>在电脑中，通过计算在两张图里面都出现的点的位置来计算，这样就可以计算这个点的三维位置。虽然这样计算的计算量很大，但是可以通过一些方法来压缩搜寻的范围，从而得到相应的结果。<br>主要分为4步：</p>
+<ul>
+<li>在数学上remove掉相机lens的辐射和平移distortion -&gt; undistortion</li>
+<li>调整相机之间的角度和距离 -&gt; rectification。这一步输出之后的两张图片应该是row-aligned的（frontal parallel）</li>
+<li>找到左右两张图相同的feature -&gt; correspondence。这一步的输出是一个disparity map，输出的是两个图中相同特征点的x坐标方向上面的disparity</li>
+<li>最后可以把disparity转换成triangulation，这一步叫做reprojection，这样输出的就是depth map了</li>
+</ul>
+<h3 id="triangulation（找到disparity和depth的关系）"><a href="#triangulation（找到disparity和depth的关系）" class="headerlink" title="triangulation（找到disparity和depth的关系）"></a>triangulation（找到disparity和depth的关系）</h3><p><img src="/2019/05/08/OpenCV19/2.jpg" alt></p>
+<ul>
+<li>整体概念如上图所示，在这张图里我们假设系统已经完全undistort，aligned（两张图片的行和行对上了）了，两个相机的平面完全相同，焦距也相同，并且两个相机的cx已经被calibrated好了（相同）</li>
+<li>这时，这个物体点P的depth和disparity是成正比的，求出来的disparity是：xl - xr（xl和xr都是根据各自的相机中心的坐标）:</li>
+</ul>
+<p><code>T - (xl - xr)/Z - f = T/Z</code></p>
+<ul>
+<li>这个关系虽然是正比但是不是线性的<ul>
+<li>当disparity接近0的时候，小的disparity的差异会引发非常大的depth的差异</li>
+<li>当disparity非常大的时候，disparity的改变不会对depth引起太多的影响</li>
+</ul>
+</li>
+<li>最终，stereo的系统只在比较接近相机的部分有比较高的depth resolution（如下图所示）</li>
+</ul>
+<p><img src="/2019/05/08/OpenCV19/3.jpg" alt></p>
+<ul>
+<li>上面的例子是二维转一维的，实际在OpenCV的系统里面是三维转二维的</li>
+<li>在实际的应用里面相机不是那么理想的共线的，要尽量确保共线，才不会引起太多的distortion。最终的目的是通过math的计算让他共线，而不是在物理上共线</li>
+<li>除此之外，还需要保证相机的拍摄是同步的，避免在拍摄的时候会有东西移动</li>
+</ul>
+<h3 id="Epipolar-Geometry（简化双目模型）"><a href="#Epipolar-Geometry（简化双目模型）" class="headerlink" title="Epipolar Geometry（简化双目模型）"></a>Epipolar Geometry（简化双目模型）</h3><p>stereo image system的模型：</p>
+<ul>
+<li>组合了两个pinhole model</li>
+<li>加入了新的points epipoles</li>
+</ul>
+<p><img src="/2019/05/08/OpenCV19/4.jpg" alt></p>
+<p>主要点：</p>
+<ul>
+<li>对于每个相机都会有一个投影的中心O，并且有两个和这个相关的投影平面</li>
+<li>在现实中的物体P会在两个投影平面上分别有投影pl和pr</li>
+<li>el或者er，定义是另一个相机的中心在这个投影平面上的投影，el和pl可以形成一条epipolar line</li>
+</ul>
+<p>得到要义</p>
+<ul>
+<li>每个三维的点，都会在每个相机上面得到一个epipolar的，这个点和pr/pl的交点就是epipolar line</li>
+<li>一个图片里面的feature，在另一个图片里面必须在相对应的epipolar line上面（epipolar constraint）</li>
+<li>上面那个定义意味着：可以把在图片上寻找特征从二维（图片）降低到一维（线）</li>
+<li>并且图片的order会保存，比如一条线在两张图里面都是水平的</li>
+</ul>
+<h3 id="The-Essential-and-Fundamental-Matrices"><a href="#The-Essential-and-Fundamental-Matrices" class="headerlink" title="The Essential and Fundamental Matrices"></a>The Essential and Fundamental Matrices</h3><ul>
+<li>E Mat：包括了两个相机的translation和rotation</li>
+<li>F Mat：包括了E的信息，以及相机的intrinsic（在pixel的层面上关联两个相机）</li>
+<li>二者的区别<ul>
+<li>E只知道两个相机的关系，不知道任何关于图片的信息，只在物体的层面上关联了两个相机</li>
+<li>F关联了两个照片在各自图片坐标系里面的关系</li>
+</ul>
+</li>
+</ul>
+<h4 id="E-math-F-mat（p713，还没有怎么看）"><a href="#E-math-F-mat（p713，还没有怎么看）" class="headerlink" title="E math + F mat（p713，还没有怎么看）"></a>E math + F mat（p713，还没有怎么看）</h4><ul>
+<li>在左边的相机里，观察到的点是pl，在右边的相机观察到的点是pr</li>
+<li>pr = R（pl - T）</li>
+</ul>
+<h4 id="cv-findFundamentalMat"><a href="#cv-findFundamentalMat" class="headerlink" title="cv::findFundamentalMat"></a><code>cv::findFundamentalMat</code></h4><h3 id="Computing-Epipolar-Lines-计算上面模型里面的那条线"><a href="#Computing-Epipolar-Lines-计算上面模型里面的那条线" class="headerlink" title="Computing Epipolar Lines(计算上面模型里面的那条线)"></a>Computing Epipolar Lines(计算上面模型里面的那条线)</h3><ul>
+<li>有了F Mat之后希望可以计算上面的epipolar line。每一个图片里面的line都会在另一张图片里有一个对应的line</li>
+<li>line用一个三个点的vector来表示</li>
+</ul>
+<p><code>cv::computeCorrespondEpilines</code></p>
+<h2 id="Stereo-Calibration"><a href="#Stereo-Calibration" class="headerlink" title="Stereo Calibration"></a>Stereo Calibration</h2><p>上面已经说了很多的理论知识了所以我们现在就开始calibration吧！</p>
+<ul>
+<li>Stereo calibration是在空间上面计算两个相机的位置。相反，后面要说的rectification才是来保证两张图片行是共线的</li>
+<li>Stereo calibration主要依靠的是找两个相机之间的T和R矩阵，这两个都可以用<code>cv::stereoCalibrate()</code>来计算<ul>
+<li>和单目相机的calibration有些相似，但是单目的相机要寻找一系列相机和chessboard之间的R和T</li>
+<li>双目的calibration在寻找唯一一个能让左右相机匹配上的R和T</li>
+</ul>
+</li>
+<li>可以得到三个等式求解</li>
+<li>因为图片的noise或者rounding error，每组得到的结果可能会有轻微的不同，最后会取中位数</li>
+<li>calibration会把右边的相机放在和左边的相机相同的plane上面，这样这两个相机得到的图片就是parallel的，但是这时候<strong>还不是row-aligned的！！！</strong></li>
+<li>可以直接通过用这一个函数计算相机的intrinsic，extrinsic和Stereo的参数，不用先进行calibration</li>
+</ul>
+<h2 id="Stereo-Rectification"><a href="#Stereo-Rectification" class="headerlink" title="Stereo Rectification"></a>Stereo Rectification</h2><ul>
+<li>如果两个图片aligned了，那么根据上面计算出来的disparity就可以很轻易的得到depth map了。但是在实际中只有相机没有这么容易做到</li>
+<li>目标：我们需要reproject两个image plane，让他们在完全相同的plane里面，可以得到完美的aligned</li>
+<li>我们希望在rectification之后图片的row aliged，这样stereo correspondence（在两个图片里找相同的点）就会变得更可信而且容易计算<ul>
+<li>在另一张照片里只找match一个点的row</li>
+<li>这样的结果会有无限个待选</li>
+<li>我们再人为的加上限制</li>
+</ul>
+</li>
+<li>结果会有八个term，四个给左边的相机，四个给右边的相机（两种计算这些参数的算法）<ul>
+<li>每个相机都会有distCoffs和旋转矩阵R，修正和未修正的相机矩阵（4个）</li>
+<li>用上面这些东西，得到map来确定原图要怎么修改<code>cv::initUndistortRectifyMap()</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Hartley’s-algorithm-Bouguet’s-algorithm（p730）"><a href="#Hartley’s-algorithm-Bouguet’s-algorithm（p730）" class="headerlink" title="Hartley’s algorithm + Bouguet’s algorithm（p730）"></a>Hartley’s algorithm + Bouguet’s algorithm（p730）</h3><h3 id="Rectification-map"><a href="#Rectification-map" class="headerlink" title="Rectification map"></a>Rectification map</h3><h2 id="Stereo-Correspondence"><a href="#Stereo-Correspondence" class="headerlink" title="Stereo Correspondence"></a>Stereo Correspondence</h2><ul>
+<li>在两个图片里面match三维的点，只能在两张图片交叠的地方找到</li>
+<li>两种不同的算法<ul>
+<li>block matching：快，效率高，基于“sum of absolute difference” (SAD）<ul>
+<li>只会找到高度符合的点（highly textured）-&gt; 户外</li>
+</ul>
+</li>
+<li>semi-global block matching (SGBM) ：精确度更高<ul>
+<li>matching is done at subpixel level using the Birchfield-Tomasi metric</li>
+<li>enforce a global smoothness constraint on the computed depth information that it approximates by considering many one-dimensional smoothness constraints through the region of interest</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Block-matching"><a href="#Block-matching" class="headerlink" title="Block matching"></a>Block matching</h3><p>三个步骤</p>
+<ul>
+<li>prefiltering，normal图片的亮度，增强纹理</li>
+<li>用SAD的窗口，搜索水平的epipolar line<ul>
+<li>在rectificatin之后，每行都是一个epipolar line，所以左边的图片肯定在右边的同一行里面有一个对应的部分</li>
+<li>disparity会在一定的pixel范围里进行搜索，不同范围里的disparity代表的是不同的depth。但是超过了最大值的话就找不到depth了 -&gt; Each disparity limit defines a plane at a fixed depth from the cameras </li>
+</ul>
+</li>
+<li>Postfiltering，减少比较差的结果</li>
+</ul>
+<h3 id="Semi-global-block-matching"><a href="#Semi-global-block-matching" class="headerlink" title="Semi-global block matching"></a>Semi-global block matching</h3><h2 id="code-example-（p752）"><a href="#code-example-（p752）" class="headerlink" title="code example （p752）"></a>code example （p752）</h2><h2 id="Structure-from-Motion"><a href="#Structure-from-Motion" class="headerlink" title="Structure from Motion"></a>Structure from Motion</h2><ul>
+<li>从移动中得到构造信息。但是在静止的情况下，一个相机移动得到的信息和两个相机得到的信息没有本质的区别</li>
+<li>但是如果特别大的时候，就需要通过计算frame之间的关系得到最后的结果（SLAM？）</li>
+<li>在附录</li>
+</ul>
+<h2 id="FitLine（直线拟合）"><a href="#FitLine（直线拟合）" class="headerlink" title="FitLine（直线拟合）"></a>FitLine（直线拟合）</h2><ul>
+<li>在三维的分析之中比较常用，所以在这里介绍</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          
+            <a href="/tags/Projection/" rel="tag"># Projection</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/07/CS231nassignment2Pytorch/" rel="next" title="CS231Nassignment2之Pytorch">
+                <i class="fa fa-chevron-left"></i> CS231Nassignment2之Pytorch
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="RUOPENG XU">
+            
+              <p class="site-author-name" itemprop="name">RUOPENG XU</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Bigphess" title="GitHub &rarr; https://github.com/Bigphess" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:xrp0308@gmail.com" title="E-Mail &rarr; mailto:xrp0308@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-19"><span class="nav-number">1.</span> <span class="nav-text">Chapter 19</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Projections"><span class="nav-number">1.1.</span> <span class="nav-text">Projections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Affine-and-Perspective-Transformations"><span class="nav-number">1.2.</span> <span class="nav-text">Affine and Perspective Transformations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bird’s-eye-view-trans（p699）"><span class="nav-number">1.2.1.</span> <span class="nav-text">Bird’s-eye-view trans（p699）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#three-dim-pose-estimation"><span class="nav-number">1.3.</span> <span class="nav-text">three-dim pose estimation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#single-camera"><span class="nav-number">1.3.1.</span> <span class="nav-text">single camera</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-solvePnP"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">cv::solvePnP()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stereo-Imaging"><span class="nav-number">1.4.</span> <span class="nav-text">Stereo Imaging</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#triangulation（找到disparity和depth的关系）"><span class="nav-number">1.4.1.</span> <span class="nav-text">triangulation（找到disparity和depth的关系）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Epipolar-Geometry（简化双目模型）"><span class="nav-number">1.4.2.</span> <span class="nav-text">Epipolar Geometry（简化双目模型）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Essential-and-Fundamental-Matrices"><span class="nav-number">1.4.3.</span> <span class="nav-text">The Essential and Fundamental Matrices</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#E-math-F-mat（p713，还没有怎么看）"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">E math + F mat（p713，还没有怎么看）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cv-findFundamentalMat"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">cv::findFundamentalMat</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Computing-Epipolar-Lines-计算上面模型里面的那条线"><span class="nav-number">1.4.4.</span> <span class="nav-text">Computing Epipolar Lines(计算上面模型里面的那条线)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stereo-Calibration"><span class="nav-number">1.5.</span> <span class="nav-text">Stereo Calibration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stereo-Rectification"><span class="nav-number">1.6.</span> <span class="nav-text">Stereo Rectification</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hartley’s-algorithm-Bouguet’s-algorithm（p730）"><span class="nav-number">1.6.1.</span> <span class="nav-text">Hartley’s algorithm + Bouguet’s algorithm（p730）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rectification-map"><span class="nav-number">1.6.2.</span> <span class="nav-text">Rectification map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stereo-Correspondence"><span class="nav-number">1.7.</span> <span class="nav-text">Stereo Correspondence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-matching"><span class="nav-number">1.7.1.</span> <span class="nav-text">Block matching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Semi-global-block-matching"><span class="nav-number">1.7.2.</span> <span class="nav-text">Semi-global block matching</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code-example-（p752）"><span class="nav-number">1.8.</span> <span class="nav-text">code example （p752）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Structure-from-Motion"><span class="nav-number">1.9.</span> <span class="nav-text">Structure from Motion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FitLine（直线拟合）"><span class="nav-number">1.10.</span> <span class="nav-text">FitLine（直线拟合）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RUOPENG XU</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
