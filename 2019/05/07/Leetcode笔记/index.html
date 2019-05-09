@@ -96,17 +96,17 @@
 
 
 
-  <meta name="description" content="1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use th">
+  <meta name="description" content="#1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Leetcode笔记">
 <meta property="og:url" content="https://bigphess.github.io/2019/05/07/Leetcode笔记/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
-<meta property="og:description" content="1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use th">
+<meta property="og:description" content="#1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-08T06:47:21.152Z">
+<meta property="og:updated_time" content="2019-05-09T09:07:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode笔记">
-<meta name="twitter:description" content="1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use th">
+<meta name="twitter:description" content="#1 twoSumGiven an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use t">
 
 
 
@@ -244,7 +244,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">22</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">23</span></a>
 
   </li>
         
@@ -413,7 +413,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-08 15:47:21" itemprop="dateModified" datetime="2019-05-08T15:47:21+09:00">2019-05-08</time>
+                <time title="Modified: 2019-05-09 18:07:32" itemprop="dateModified" datetime="2019-05-09T18:07:32+09:00">2019-05-09</time>
               
             
           </span>
@@ -472,7 +472,7 @@
       
 
       
-        <h2 id="1-twoSum"><a href="#1-twoSum" class="headerlink" title="1 twoSum"></a>1 twoSum</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+        <h2 id="1-twoSum"><a href="#1-twoSum" class="headerlink" title="#1 twoSum"></a>#1 twoSum</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
 <p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
 <p>Example:</p>
 <p>Given nums = [2, 7, 11, 15], target = 9,</p>
@@ -486,7 +486,7 @@
 <li>这时候突然发现，如果用数字作为索引的话其实dict和list没有本质区别，在list里面操作就行了，而且list的<code>.index()</code>可以直接返回这个值得坐标（找到的是第一个值！！）</li>
 <li>所以直接用enumerate把所有的index和item都列出来就可以解决了，神奇。</li>
 </ul>
-<h2 id="27-remove-element"><a href="#27-remove-element" class="headerlink" title="27 remove element"></a>27 remove element</h2><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
+<h2 id="27-remove-element"><a href="#27-remove-element" class="headerlink" title="#27 remove element"></a>#27 remove element</h2><p>Given an array nums and a value val, remove all instances of that value in-place and return the new length.</p>
 <p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
 <p>The order of elements can be changed. It doesn’t matter what you leave beyond the new length.</p>
 <p>Example 1:</p>
@@ -506,6 +506,155 @@
 <li>看了一些discussion都是memory只比5 % 的人少。。。但是差距都不大应该没问题！</li>
 </ul>
 <p>看到了一个超级牛逼简要写法：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> val <span class="keyword">in</span> nums:</span><br><span class="line">    nums.remove(val)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> len(nums)</span><br></pre></td></tr></table></figure></p>
+<h2 id="80"><a href="#80" class="headerlink" title="#80"></a>#80</h2><p>Given a sorted array nums, remove the duplicates in-place such that duplicates appeared at most twice and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.</p>
+<p>Example 1:</p>
+<p>Given nums = [1,1,1,2,2,3],</p>
+<p>Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.</p>
+<p>It doesn’t matter what you leave beyond the returned length.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">True</span>):</span><br><span class="line">            <span class="keyword">if</span> i &gt;= len(nums) <span class="number">-1</span>:</span><br><span class="line">                <span class="keyword">if</span> len(nums) &gt; <span class="number">2</span> <span class="keyword">and</span> nums[i] == nums[i - <span class="number">2</span>]:</span><br><span class="line">                    nums = nums[:nums.index(nums[i])+<span class="number">2</span>]</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">if</span> nums[i] == nums[i+<span class="number">1</span>]:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                next_num = nums[i+<span class="number">1</span>]</span><br><span class="line">                start_index = nums.index(nums[i])</span><br><span class="line">                next_index = nums.index(next_num)</span><br><span class="line">                <span class="keyword">if</span> next_index - start_index &gt; <span class="number">2</span>:</span><br><span class="line">                    <span class="keyword">for</span> l <span class="keyword">in</span> range(start_index+<span class="number">2</span>, next_index):</span><br><span class="line">                        nums[l] = float(<span class="string">'inf'</span>)</span><br><span class="line">                i = next_index</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> float(<span class="string">'inf'</span>) <span class="keyword">in</span> nums:</span><br><span class="line">            nums.remove(float(<span class="string">'inf'</span>))</span><br><span class="line">        <span class="keyword">return</span> len(nums)</span><br></pre></td></tr></table></figure>
+<p>总结：</p>
+<ul>
+<li>我深信我的方法虽然蠢但是没有问题，但是跑出来就是有问题，分明我return之前的数据还都是对的，但是return之后显示的东西就都有问题了</li>
+<li>主要思路是这样的<ul>
+<li>因为in-place操作，所以就不能直接用remove去掉元素导致下标错乱</li>
+<li>本来是想和上面的思路一样，换成inf，然后再把有inf的部分删除掉（参考了#27的简易解法）</li>
+<li>怎么换成inf呢，我判断的方法是找到下一个值得index，然后计算这个index和上一个之间差多少个数，然后把富裕的数字都替换成inf</li>
+</ul>
+</li>
+<li>忽略的问题：<ul>
+<li>数数数错了很多问题</li>
+<li>最开始没有考虑到什么停止</li>
+<li>然后没有考虑到如果最后一个数字重复了两遍以上要怎么办的问题（这也是我用next_index的一个弊端）</li>
+</ul>
+</li>
+</ul>
+<p><strong>然后看着大佬的代码哭出了声！！！</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">removeDuplicates</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> i &lt; <span class="number">2</span> <span class="keyword">or</span> n != nums[i<span class="number">-2</span>]:</span><br><span class="line">                nums[i] = n</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> i</span><br></pre></td></tr></table></figure></p>
+<p>总结：</p>
+<ul>
+<li>哇这个思路真的牛逼！</li>
+<li>中心思想就是让n来增加但是i不增加，这里已经说了不在意前面项之后list里面的内容，也就是说前n项之后的东西都不用管了。既然如此的话与其用inf来替换这个位置的数字，不如直接用后面的项填在相对应的位置上，只有填成功了才会增加i</li>
+<li>这里需要<strong>先判断i的值是否小于2，然后再计算nums[i-2]，否则会out of range</strong></li>
+<li>i跑的速度没有超过n跑的速度所以没有关系</li>
+<li>合理利用题里面的条件限制真的很重要！！</li>
+</ul>
+<h2 id="189-Rotate-array"><a href="#189-Rotate-array" class="headerlink" title="#189 Rotate array"></a>#189 Rotate array</h2><p>Given an array, rotate the array to the right by k steps, where k is non-negative.</p>
+<p>Example 1:</p>
+<p>Input: [1,2,3,4,5,6,7] and k = 3<br>Output: [5,6,7,1,2,3,4]<br>Explanation:<br>rotate 1 steps to the right: [7,1,2,3,4,5,6]<br>rotate 2 steps to the right: [6,7,1,2,3,4,5]<br>rotate 3 steps to the right: [5,6,7,1,2,3,4]</p>
+<p>Example 2:</p>
+<p>Input: [-1,-100,3,99] and k = 2<br>Output: [3,99,-1,-100]<br>Explanation:<br>rotate 1 steps to the right: [99,-1,-100,3]<br>rotate 2 steps to the right: [3,99,-1,-100]</p>
+<p>Note:</p>
+<p>Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.<br>Could you do it in-place with O(1) extra space?</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li>需不需要注意k = 0的时候</li>
+<li>如果k的个数特别大需不需要简化一下</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rotate</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        Do not return anything, modify nums in-place instead.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        steps = k % len(nums)</span><br><span class="line">        unchange_nums = nums[:len(nums) - steps]</span><br><span class="line">        change_nums = nums[len(nums) - steps : ]</span><br><span class="line">        nums[:steps] = change_nums</span><br><span class="line">        nums[steps:] = unchange_nums</span><br></pre></td></tr></table></figure>
+<p>总结：</p>
+<ul>
+<li>居然第一种就这么写出来了，实际上就是把后面的数字移动到前面去</li>
+<li>注意nums不能直接用change_nums + unchange_nums，大概是他认为这个不是in-place了吧</li>
+</ul>
+<h3 id="另一种方法：in-place"><a href="#另一种方法：in-place" class="headerlink" title="另一种方法：in-place"></a>另一种方法：in-place</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    k = k % len(nums)</span><br><span class="line">    self.reverse_nums(nums,<span class="number">0</span>,len(nums) - <span class="number">1</span>)</span><br><span class="line">    self.reverse_nums(nums,<span class="number">0</span>,k<span class="number">-1</span>)</span><br><span class="line">    self.reverse_nums(nums,k,len(nums) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse_nums</span><span class="params">(self,nums,start,end)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> start &lt; end:</span><br><span class="line">        temp = nums[start]</span><br><span class="line">        nums[start] = nums[end]</span><br><span class="line">        nums[end] = temp</span><br><span class="line">        start += <span class="number">1</span></span><br><span class="line">        end -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>实际上，rotate的另外一种方法是先把整个list反向，然后把前面的k个反向，然后再把后面的(n-k)个反向（这里我是没想到的）</li>
+<li>把一个数组反向的算法就是从两头向中间逼近着交换（我该好好去看看基础的算法了。。）</li>
+<li>最后，还有一种方法是跳着设置值，也就是说k个之后的值就应该是现在这个位置的值</li>
+</ul>
+<h2 id="41-First-Missing-Positive"><a href="#41-First-Missing-Positive" class="headerlink" title="#41 First Missing Positive"></a>#41 First Missing Positive</h2><p>Given an unsorted integer array, find the smallest missing positive integer.</p>
+<p>Example 1:</p>
+<p>Input: [1,2,0]<br>Output: 3<br>Example 2:</p>
+<p>Input: [3,4,-1,1]<br>Output: 2<br>Example 3:</p>
+<p>Input: [7,8,9,11,12]<br>Output: 1<br>Note:</p>
+<p>Your algorithm should run in O(n) time and uses constant extra space.</p>
+<h3 id="第一个思路：时间nlog-n"><a href="#第一个思路：时间nlog-n" class="headerlink" title="第一个思路：时间nlog(n)"></a>第一个思路：时间nlog(n)</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        nums.sort()</span><br><span class="line">        target = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> n == target:</span><br><span class="line">                target += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> target</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这个思路整体建立在先排序的基础上，但是排序的时间复杂度本身就已经是nlog(n)了</li>
+<li>排序 - 找到比0大的数字从这里开始 - 这个数字不符合的话找下一个<ul>
+<li>但是我在找比0大的数字的时候还想着把list切片，切片就又需要考虑0啊，1啊，缺多少个数字的问题，空的list。其实根本不用这么麻烦</li>
+<li>本质上这个方法就是，找到miss的正数，那就从正数的第一个（1）开始找，如果找到了这个数就继续找下一个（target++），总是能找到的嘛，找到的就是缺的数字了</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>自己的方法</strong><br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> nums <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> len(nums) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            target_num = i + <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> nums[i] == target_num:</span><br><span class="line">                <span class="keyword">if</span> i == len(nums) - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">return</span> target_num + <span class="number">1</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> target_num <span class="keyword">in</span> nums:</span><br><span class="line">                temp = nums.index(target_num)</span><br><span class="line">                nums[temp],nums[i] = nums[i], nums[temp]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> target_num</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>桶排序：要把对应的数字放在对应的位置上<ul>
+<li>这道题里应该的样子就是nums[index] = index + 1</li>
+</ul>
+</li>
+<li>大佬的思路 -&gt; 首先判断边界条件！！(学到了学到了)</li>
+<li>看过了上面的提示写出来的第二版<ul>
+<li>判断边界条件</li>
+<li>判断这个数字是不是摆在了正确的位置<ul>
+<li>正确，判断是否是最后一个数字<ul>
+<li>是，输出的是最后一个数字+1</li>
+<li>不是，这个位置的正确了，判断下一个位置</li>
+</ul>
+</li>
+<li>没有，判断nums里面还有没有应该摆在这个位置的数字<ul>
+<li>有，那就和这个位置交换</li>
+<li>没有，那没有的数字就是缺少的数字了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>因为每次都是把数字换到了正确的位置了，所以交换最多进行len(nums)次，时间复杂度是O(n)</li>
+</ul>
+<hr>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">firstMissingPositive</span><span class="params">(self, nums)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(nums)):</span><br><span class="line">        <span class="keyword">while</span> <span class="number">0</span> &lt;= nums[i]<span class="number">-1</span> &lt; len(nums) <span class="keyword">and</span> nums[nums[i]<span class="number">-1</span>] != nums[i]:</span><br><span class="line">            tmp = nums[i]<span class="number">-1</span></span><br><span class="line">            nums[i], nums[tmp] = nums[tmp], nums[i]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(nums)):</span><br><span class="line">        <span class="keyword">if</span> nums[i] != i+<span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> i+<span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> len(nums)+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>大佬的另一个方法，其实思路和上面的差不多，就是把数字换到正确的位置上，但是判断的条件和我的有一点不同，可能因为我的是基于python的功能</li>
+<li>其中，换到正确位置的数字就是在1到len(nums)之间的数字。nums[i]-1是这个数字应该的坐标位置，如果应该的位置和现在的位置的数字不一样，那就交换这两个数字<ul>
+<li>注意这里需要用while换，要一直换到正确的位置才可以</li>
+</ul>
+</li>
+<li>这样的结果就是大家都按正确的填好了，最后不对的那个位置的index+1就是需要的结果</li>
+</ul>
+<h2 id="299"><a href="#299" class="headerlink" title="#299"></a>#299</h2><p>You are playing the following Bulls and Cows game with your friend: You write down a number and ask your friend to guess what the number is. Each time your friend makes a guess, you provide a hint that indicates how many digits in said guess match your secret number exactly in both digit and position (called “bulls”) and how many digits match the secret number but locate in the wrong position (called “cows”). Your friend will use successive guesses and hints to eventually derive the secret number.</p>
+<p>Write a function to return a hint according to the secret number and friend’s guess, use A to indicate the bulls and B to indicate the cows. </p>
+<p>Please note that both secret number and friend’s guess may contain duplicate digits.</p>
+<p>Example 1:</p>
+<p>Input: secret = “1807”, guess = “7810”</p>
+<p>Output: “1A3B”</p>
+<p>Explanation: 1 bull and 3 cows. The bull is 8, the cows are 0, 1 and 7.<br>Example 2:</p>
+<p>Input: secret = “1123”, guess = “0111”</p>
+<p>Output: “1A1B”</p>
+<p>Explanation: The 1st 1 in friend’s guess is a bull, the 2nd or 3rd 1 is a cow.<br>Note: You may assume that the secret number and your friend’s guess only contain digits, and their lengths are always equal.</p>
+<hr>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getHint</span><span class="params">(self, secret: str, guess: str)</span> -&gt; str:</span></span><br><span class="line">        bull = sum(a == b <span class="keyword">for</span> a,b <span class="keyword">in</span> zip(secret,guess))</span><br><span class="line">        cow = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> set(guess):</span><br><span class="line">            cow  += min(secret.count(x),guess.count(x))        </span><br><span class="line">        <span class="keyword">return</span> str(bull) + <span class="string">"A"</span> + str(cow-bull) + <span class="string">"B"</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里自己想了一些比较蠢的想法之后直接参考别人的了<ul>
+<li>其一是比对他们两个位置和数字都相同的东西，想要转换成dict来比较，但是后来发现string就可以直接index了不用这么麻烦</li>
+<li>想过能不能按位做减法，未果</li>
+<li>其二是在得到了bull之后把bull的部分从原来的里面剔除出去然后再比较相似的数字</li>
+</ul>
+</li>
+<li>遇到了主要问题是重复的数字怎么办以及如何剔除出去bull</li>
+<li>主要思路是这样的：<ul>
+<li>其实cow的数量就是bull-cow都是的数量减去bull的数量，也就相当于维恩图里面，只有A的量是A的量 - 同时AB的量。这里是bull就相当于AB都有，两个里面所有重复的数量就相当于A的量<ul>
+<li>这样可以做减法就解决了上面的从bull得到cow的问题！！</li>
+<li>所以说看问题还是要看本质</li>
+</ul>
+</li>
+<li>面对重复的数字，居然可以直接把string转换成set<ul>
+<li>这里复习一下set好吗！！！这个集合居然可以没有重复的元素，平常我忽视你了呀小可爱，转化成set就不会重复了哦，震惊！！</li>
+</ul>
+</li>
+<li>这样问题就变成了：<ul>
+<li>求bull：用<strong>zip</strong>把两个东西一一对应的打包起来（居然还有你小可爱！）直接对比</li>
+<li>求both：guess里面猜的次数就是总体的次数，secret里面的次数是真实的次数，对于每个在guess里面（set）的元素都看看分别在两个里面是多少个，然后小的那个就是both的大小<ul>
+<li>这里介绍<code>.count()</code>小可爱，居然还可以数数！</li>
+</ul>
+</li>
+<li>最后both-bull就是结果了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -680,7 +829,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -821,7 +972,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-twoSum"><span class="nav-number">1.</span> <span class="nav-text">1 twoSum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-remove-element"><span class="nav-number">2.</span> <span class="nav-text">27 remove element</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-twoSum"><span class="nav-number">1.</span> <span class="nav-text">#1 twoSum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#27-remove-element"><span class="nav-number">2.</span> <span class="nav-text">#27 remove element</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#80"><span class="nav-number">3.</span> <span class="nav-text">#80</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#189-Rotate-array"><span class="nav-number">4.</span> <span class="nav-text">#189 Rotate array</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">4.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#另一种方法：in-place"><span class="nav-number">4.2.</span> <span class="nav-text">另一种方法：in-place</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#41-First-Missing-Positive"><span class="nav-number">5.</span> <span class="nav-text">#41 First Missing Positive</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个思路：时间nlog-n"><span class="nav-number">5.1.</span> <span class="nav-text">第一个思路：时间nlog(n)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#299"><span class="nav-number">6.</span> <span class="nav-text">#299</span></a></li></ol></div>
             
 
           </div>
