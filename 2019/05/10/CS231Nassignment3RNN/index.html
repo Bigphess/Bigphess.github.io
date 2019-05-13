@@ -104,10 +104,12 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="assignment3 targetIn this exercise you will implement a vanilla recurrent neural networks and use them it to train a model that can generate novel captions for images.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-10T06:54:27.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/10/CS231Nassignment3RNN/1.jpg">
+<meta property="og:updated_time" content="2019-05-10T07:19:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231Nassignment3RNN">
 <meta name="twitter:description" content="assignment3 targetIn this exercise you will implement a vanilla recurrent neural networks and use them it to train a model that can generate novel captions for images.">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/05/10/CS231Nassignment3RNN/1.jpg">
 
 
 
@@ -397,7 +399,7 @@
                 
               
 
-              <time title="Created: 2019-05-10 15:31:15 / Modified: 15:54:27" itemprop="dateCreated datePublished" datetime="2019-05-10T15:31:15+09:00">2019-05-10</time>
+              <time title="Created: 2019-05-10 15:31:15 / Modified: 16:19:40" itemprop="dateCreated datePublished" datetime="2019-05-10T15:31:15+09:00">2019-05-10</time>
             
 
             
@@ -471,7 +473,15 @@
         <p><a href="http://cs231n.github.io/assignments2019/assignment3/" target="_blank" rel="noopener">assignment3</a></p>
 <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><p>In this exercise you will implement a vanilla recurrent neural networks and use them it to train a model that can generate novel captions for images.</p>
 <a id="more"></a>
-<h2 id="Microsoft-COCO"><a href="#Microsoft-COCO" class="headerlink" title="Microsoft COCO"></a>Microsoft COCO</h2>
+<h2 id="Microsoft-COCO"><a href="#Microsoft-COCO" class="headerlink" title="Microsoft COCO"></a>Microsoft COCO</h2><ul>
+<li>在这次的作业里用的是Microsoft的coco dataset，已经是一个很常用的给文字配上说明文（captioning）的dataset了，有80000个训练和40000个val，每个图片包含一个五个字的注释</li>
+<li>在这个作业里已经preprocess了data，每个图片已经从VGG-16（ImageNet pretrain）layer 7提取了feature，存在了<code>train2014_vgg16_fc7.h5</code>和<code>val2014_vgg16_fc7.h5</code></li>
+<li>为了减少处理的时间和内存，feature的特征从4096降到了512</li>
+<li>真实的图片太大了，所以把图片的url存在了txt里面，这样在vis的时候可以直接下载这些图片（必须联网）</li>
+<li>直接处理string的效率太低了，所以在caption的一个encoded版本上面进行处理，这样可以把string表示成一串int。在dataset里面也有这两个之间转换的信息 -&gt; 在转换的时候也加了更多的tokens</li>
+</ul>
+<h2 id="事先看了一下图片和对应的语句"><a href="#事先看了一下图片和对应的语句" class="headerlink" title="事先看了一下图片和对应的语句"></a>事先看了一下图片和对应的语句</h2><p><img src="/2019/05/10/CS231Nassignment3RNN/1.jpg" alt></p>
+
       
     </div>
 
@@ -792,7 +802,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-COCO"><span class="nav-number">2.</span> <span class="nav-text">Microsoft COCO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-COCO"><span class="nav-number">2.</span> <span class="nav-text">Microsoft COCO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事先看了一下图片和对应的语句"><span class="nav-number">3.</span> <span class="nav-text">事先看了一下图片和对应的语句</span></a></li></ol></div>
             
 
           </div>
