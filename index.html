@@ -395,12 +395,24 @@
                 
               
 
-              <time title="Created: 2019-05-10 15:31:15 / Modified: 16:19:40" itemprop="dateCreated datePublished" datetime="2019-05-10T15:31:15+09:00">2019-05-10</time>
+              <time title="Created: 2019-05-10 15:31:15" itemprop="dateCreated datePublished" datetime="2019-05-10T15:31:15+09:00">2019-05-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-16 14:36:51" itemprop="dateModified" datetime="2019-05-16T14:36:51+09:00">2019-05-16</time>
               
             
           </span>
@@ -779,7 +791,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-13 13:20:03" itemprop="dateModified" datetime="2019-05-13T13:20:03+09:00">2019-05-13</time>
+                <time title="Modified: 2019-05-14 21:36:09" itemprop="dateModified" datetime="2019-05-14T21:36:09+09:00">2019-05-14</time>
               
             
           </span>
@@ -1142,6 +1154,72 @@
 <li>二分法就是这么写的！</li>
 </ul>
 </li>
+</ul>
+<h2 id="217-contains-duplicate"><a href="#217-contains-duplicate" class="headerlink" title="#217 contains duplicate"></a>#217 contains duplicate</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsDuplicate</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> nums.count(n) &gt;= <span class="number">2</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsDuplicate</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        setNums = set(nums)</span><br><span class="line">        <span class="keyword">if</span> len(setNums) == len(nums):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>消耗时间太长了！！</li>
+<li>说明这个count的时间还是不可以</li>
+<li>想到了用set但是没相当怎么用set<ul>
+<li>set可以把有重复内容的变成没有重复内容的！！</li>
+<li>所以set和list的长度是不一样的</li>
+</ul>
+</li>
+</ul>
+<h2 id="219-contains-duplicate2"><a href="#219-contains-duplicate2" class="headerlink" title="#219 contains duplicate2"></a>#219 contains duplicate2</h2><p>Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.</p>
+<p>Example 1:</p>
+<p>Input: nums = [1,2,3,1], k = 3<br>Output: true<br>Example 2:</p>
+<p>Input: nums = [1,0,1,1], k = 1<br>Output: true<br>Example 3:</p>
+<p>Input: nums = [1,2,3,1,2,3], k = 2<br>Output: false</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyDuplicate</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> len(set(nums)) &gt;= len(nums):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        extra = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i,n <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">in</span> extra <span class="keyword">and</span> i-extra[n] &lt;= k:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            extra[n] = i</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意这里需要找到的差的绝对值是最大是k，所以找到一个比k小的很容易！！只要找到就能返回</li>
+<li>判断边界条件</li>
+<li>把元素作为key放进extra里面，val是这个元素的index，因为key是唯一的所以可以一直找到离得最近的index，这样就越来越能确保满足条件，一旦满足条件就返回，如果所有的都不满足就false</li>
+</ul>
+<h2 id="220"><a href="#220" class="headerlink" title="#220"></a>#220</h2><p>Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.</p>
+<p>Example 1:</p>
+<p>Input: nums = [1,2,3,1], k = 3, t = 0<br>Output: true<br>Example 2:</p>
+<p>Input: nums = [1,0,1,1], k = 1, t = 2<br>Output: true<br>Example 3:</p>
+<p>Input: nums = [1,5,9,1,5,9], k = 2, t = 3<br>Output: false</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">containsNearbyAlmostDuplicate</span><span class="params">(self, nums: List[int], k: int, t: int)</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> t &lt; <span class="number">0</span>: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        buckets = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            bucket = nums[i] // (t+<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> bucket <span class="keyword">in</span> buckets:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> bucket - <span class="number">1</span> <span class="keyword">in</span> buckets <span class="keyword">and</span> nums[i] - buckets[bucket<span class="number">-1</span>] &lt;= t:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">elif</span> bucket + <span class="number">1</span> <span class="keyword">in</span> buckets <span class="keyword">and</span> buckets[bucket+<span class="number">1</span>] - nums[i] &lt;=t:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            buckets[bucket] = nums[i]</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> i &gt;= k:</span><br><span class="line">                <span class="keyword">del</span> bucket[nums[i-k] // (t+<span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>运用的是桶排序的思路，每个nums[i]会放在一个桶里，这个桶的宽度是这两个数字的差<ul>
+<li>如果想要这两个数值的差值小于等于t，那么需要这两个数字在一个桶里或者在相邻的桶里（因为后面增加了k的判断条件，所以不用考虑k）</li>
+</ul>
+</li>
+<li><p>思路</p>
+<ul>
+<li>首先考虑了一下k，如果i大于k的时候，就可以直接扔掉i-k之前的数据了，只考虑中间的k+1个数据，这样的话空间复杂度很低。这里的扔掉指的是把bucket里面的值直接扔掉，这样就避免了找到在相同的桶里面却i和j的差值超过k的问题</li>
+<li>首先iterate整个nums，把不同的数字放在不同的桶里，注意桶的个数是t+1</li>
+<li>然后如果在放之前这个桶有东西，或者相邻的桶的值和现在的值的差是小于等于t的，那么就存在，返回true</li>
+<li>如果都不存在的话，把现在的数字放到对应的桶里面</li>
+</ul>
+</li>
+<li><p>另外一个思路考虑的是二叉树的数据结构，用这个结构可以很快的搜索到离这个数最近的数据并且判断这个数据和这个数的差是不是小于t！</p>
+</li>
+</ul>
+<h2 id="55-Jump-game"><a href="#55-Jump-game" class="headerlink" title="#55 Jump game"></a>#55 Jump game</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> nums <span class="keyword">is</span> []: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) == <span class="number">1</span>: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        current = len(nums) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> current &gt;= <span class="number">0</span>:</span><br><span class="line">            flag = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,current):</span><br><span class="line">                <span class="keyword">if</span> current - i &lt;= nums[i] <span class="keyword">and</span> current &gt;= i:</span><br><span class="line">                    flag = <span class="literal">True</span></span><br><span class="line">                    current = i</span><br><span class="line">                    <span class="keyword">if</span> current == <span class="number">0</span>:</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> flag == <span class="literal">False</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>虽然超时了但是写的还不错的iterate</li>
+<li>=。=算了这就是一坨屎！！！</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        current = len(nums) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums))[::<span class="number">-1</span>]:</span><br><span class="line">            <span class="keyword">if</span> current - i &lt;= nums[i]:</span><br><span class="line">                current = i</span><br><span class="line">                <span class="keyword">if</span> current == <span class="number">0</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>我的方法其实思路是没有问题的，主要在于太啰嗦了而且循环太多了，其实直接从后往前找就行了！！！从后往前找不用考虑怎么让他循环起来呀，直接一个一个往前推就可以了</li>
+<li>前面那个的问题在于多叠了一个while，于是时间瞬间爆炸，写前面的那个的时候也在想着如何找回循环里面去，结果还是用了个蠢办法</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i,n <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> j &lt; i: <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            j = max(i+n,j) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>i+n就是从这步开始可以移动的最大距离，j是上一步可以移动的最大距离，这两个哪个大就走哪个</li>
+<li>如果这个距离还赶不上i，那就说明走不到最后了，告辞</li>
+</ul>
+<h2 id="45-Jump-game-2"><a href="#45-Jump-game-2" class="headerlink" title="#45 Jump game 2"></a>#45 Jump game 2</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">jump</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) &lt;= <span class="number">1</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        start, end = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        step,maxend = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            step += <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(start, end+<span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> i+nums[i] &gt;= len(nums) <span class="number">-1</span>: <span class="keyword">return</span> step</span><br><span class="line">                maxend = max(maxend, i + nums[i])</span><br><span class="line">            start = end + <span class="number">1</span></span><br><span class="line">            end = maxend</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实际上来说用的是BFS的思想，但是不是每次都把东西从queue里面拿出来，而是确定了每次寻找的开始的阀内</li>
+<li>start和end分别代表现在可以开始寻找的开始和结束，如果在这个范围里面找到了符合要求的结果，那么直接返回这个步数，如果没找到的话就从下一个范围开始找，下一个范围是上一个范围的end+1 到目前能到的最大的范围</li>
+<li>注意符合的要求是大于等于n-1而不是正好走到这个点</li>
+<li>求maxend和之前的一样     </li>
 </ul>
 
           
