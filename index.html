@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">39</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">40</span></a>
 
   </li>
 
@@ -334,6 +334,256 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/17/CS231nassignment3LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/17/CS231nassignment3LSTM/" class="post-title-link" itemprop="url">CS231nassignment3LSTM</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-17 15:21:46 / Modified: 17:22:20" itemprop="dateCreated datePublished" datetime="2019-05-17T15:21:46+09:00">2019-05-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><p>implement LSTM update rule and use it for image captioning</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><ul>
+<li>在vanilla RNN里面，可以根据vanilla来计算长的sequence，但是同样会因为不停的乘矩阵导致gradient爆炸的问题，LSTM主要就是用了一个其他的update rule解决了这个问题</li>
+<li>和vanilla RNN差不多，现在这个step的x，前一个hidden state。LSTM保持着H-d的cell state，所以也会从前一个接收到前一个的cell state。<ul>
+<li>LSTM会学一个input-to-hidden的矩阵 4HxD， hidden-to-hidden的矩阵 4HxH， bias 4H</li>
+</ul>
+</li>
+<li>在每一部都会先计算被激活之后的函数（4H），然后把这个结果a分成四个部分，每个部分的大小是H<ul>
+<li>根据这四个部分计算input gate，forget gate，output gate，block gate</li>
+<li>前三个都用sigmoid激活，最后一个用tanh激活</li>
+</ul>
+</li>
+<li>然后用上面的四个参数计算下一个cell state和hidden state</li>
+</ul>
+<h2 id="step-forward"><a href="#step-forward" class="headerlink" title="step forward"></a>step forward</h2><ul>
+<li>输入的大小是D，hidden的大小是H，minibatch的大小是N</li>
+<li>input<ul>
+<li>x (N,D)</li>
+<li>prev_h (N,H)</li>
+<li>prev_c (N,H)</li>
+<li>Wx input 2 hidden (D,4H)</li>
+<li>Wh hidden 2 hidden (H,4H)</li>
+<li>bias, (4H)</li>
+</ul>
+</li>
+<li>output<ul>
+<li>next_h (N,H)</li>
+<li>next_c (N,H)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>按照之前给的公式直接计算就行了，其实就是把原来求出来的值分成了四个部分，分别求出来了四个新的值，用这四个新的值的公式可以得到下一个状态的c和h</li>
+</ul>
+<h2 id="step-backward"><a href="#step-backward" class="headerlink" title="step backward"></a>step backward</h2><ul>
+<li>input<ul>
+<li>dnext_h (N,H) 都是上面一个回来的</li>
+<li>dnext_c (N,H)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>output<ul>
+<li>dx(N,D)</li>
+<li>dprev_h (N,H)</li>
+<li>dprev_c (N,H)</li>
+<li>dWx (D,4H)</li>
+<li>dWh (H,4H)</li>
+<li>db (4H)</li>
+</ul>
+</li>
+<li>按着正方向计算的顺序back回去就可以了，注意这里有个问题就是因为next_c被用来计算next h了，所以dnext_c需要再求一下关于next h的导数，并且把求出来的新的值加在以前的东西上面</li>
+<li>后面的矩阵计算尺寸</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_step_forward</span><span class="params">(x, prev_h, prev_c, Wx, Wh, b)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Forward pass for a single timestep of an LSTM.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The input data has dimension D, the hidden state has dimension H, and we use</span></span><br><span class="line"><span class="string">    a minibatch size of N.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Note that a sigmoid() function has already been provided for you in this file.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: Input data, of shape (N, D)</span></span><br><span class="line"><span class="string">    - prev_h: Previous hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - prev_c: previous cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - Wx: Input-to-hidden weights, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - Wh: Hidden-to-hidden weights, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - b: Biases, of shape (4H,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - next_h: Next hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - next_c: Next cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - cache: Tuple of values needed for backward pass.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    next_h, next_c, cache = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for a single timestep of an LSTM.        #</span></span><br><span class="line">    <span class="comment"># You may want to use the numerically stable sigmoid implementation above.  #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, H = prev_h.shape</span><br><span class="line">    <span class="comment">#  -&gt; N,4H</span></span><br><span class="line">    a = x.dot(Wx) + prev_h.dot(Wh) + b</span><br><span class="line">    a_i = a[:, :H]</span><br><span class="line">    a_f = a[:, H:<span class="number">2</span> * H]</span><br><span class="line">    a_o = a[:, <span class="number">2</span> * H:<span class="number">3</span> * H]</span><br><span class="line">    a_g = a[:, <span class="number">3</span> * H:]</span><br><span class="line"></span><br><span class="line">    i = sigmoid(a_i)</span><br><span class="line">    f = sigmoid(a_f)</span><br><span class="line">    o = sigmoid(a_o)</span><br><span class="line">    g = np.tanh(a_g)</span><br><span class="line"></span><br><span class="line">    next_c = f * prev_c + i * g</span><br><span class="line">    next_h = o * np.tanh(next_c)</span><br><span class="line"></span><br><span class="line">    cache = (x, prev_h, prev_c, Wx, Wh, a, i, f, o, g, next_c, next_h)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_h, next_c, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_step_backward</span><span class="params">(dnext_h, dnext_c, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Backward pass for a single timestep of an LSTM.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dnext_h: Gradients of next hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dnext_c: Gradients of next cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - cache: Values from the forward pass</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - dx: Gradient of input data, of shape (N, D)</span></span><br><span class="line"><span class="string">    - dprev_h: Gradient of previous hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dprev_c: Gradient of previous cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dWx: Gradient of input-to-hidden weights, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - dWh: Gradient of hidden-to-hidden weights, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - db: Gradient of biases, of shape (4H,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx, dprev_h, dprev_c, dWx, dWh, db = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the backward pass for a single timestep of an LSTM.       #</span></span><br><span class="line">    <span class="comment">#                                                                           #</span></span><br><span class="line">    <span class="comment"># HINT: For sigmoid and tanh you can compute local derivatives in terms of  #</span></span><br><span class="line">    <span class="comment"># the output value from the nonlinearity.                                   #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, H = dnext_h.shape</span><br><span class="line"></span><br><span class="line">    x, prev_h, prev_c, Wx, Wh, a, i, f, o, g, next_c, next_h = cache</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dnext_h/do -&gt; do</span></span><br><span class="line">    do = np.tanh(next_c) * dnext_h</span><br><span class="line">    <span class="comment"># dnext_h/dnext_c</span></span><br><span class="line">    dnext_c = o * (<span class="number">1</span> - np.tanh(next_c) ** <span class="number">2</span>) * dnext_h + dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/df -&gt; df</span></span><br><span class="line">    df = prev_c * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/dprev_c</span></span><br><span class="line">    dprev_c = f * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/di</span></span><br><span class="line">    di = g * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/dg</span></span><br><span class="line">    dg = i * dnext_c</span><br><span class="line"></span><br><span class="line">    da = np.zeros((N, <span class="number">4</span> * H))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sigmoid i</span></span><br><span class="line">    da[:, :H] = i * (<span class="number">1</span> - i) * di</span><br><span class="line">    da[:, H:<span class="number">2</span> * H] = f * (<span class="number">1</span> - f) * df</span><br><span class="line">    da[:, <span class="number">2</span> * H:<span class="number">3</span> * H] = o * (<span class="number">1</span> - o) * do</span><br><span class="line">    da[:, <span class="number">3</span> * H:] = (<span class="number">1</span> - g * g) * dg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># a = x.dot(Wx) + prev_h.dot(Wh) + b</span></span><br><span class="line">    <span class="comment"># N,4H D,4H</span></span><br><span class="line">    dx = da.dot(Wx.T)</span><br><span class="line">    <span class="comment"># N,D N,4H</span></span><br><span class="line">    dWx = x.T.dot(da)</span><br><span class="line">    <span class="comment"># N,4H H,4H</span></span><br><span class="line">    dprev_h = da.dot(Wh.T)</span><br><span class="line">    <span class="comment"># N,H N,4H</span></span><br><span class="line">    dWh = prev_h.T.dot(da)</span><br><span class="line">    <span class="comment"># da N,4H</span></span><br><span class="line">    db = np.sum(da, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dprev_h, dprev_c, dWx, dWh, db</span><br></pre></td></tr></table></figure>
+<h2 id="forward"><a href="#forward" class="headerlink" title="forward"></a>forward</h2><ul>
+<li>输入了一大串data，假设输入的data包括了T个vector，每个的dim是D，用的hidden的大小是H，在N的minibatch上面进行，返回对于所有time step的hidden state</li>
+<li>初始化的cell是0，不会return cell state，只是LSTM自己的变量</li>
+<li>输入<ul>
+<li>x (N,T,D)</li>
+<li>h0, (N,H)</li>
+<li>Wx (D,4H)</li>
+<li>Wh (H,4H)</li>
+<li>b (4H)</li>
+</ul>
+</li>
+<li>out<ul>
+<li>h (N,T,D)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>注意h是需要初始化为0的，每次for里面拿出来的是h里面的一部分来赋值</li>
+</ul>
+<h2 id="backward"><a href="#backward" class="headerlink" title="backward"></a>backward</h2><ul>
+<li>和之前的差不多，注意W和b都是要积累的，之前都是要初始化的</li>
+<li>而且back的时候要用reversed的顺序</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_forward</span><span class="params">(x, h0, Wx, Wh, b)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Forward pass for an LSTM over an entire sequence of data. We assume an input</span></span><br><span class="line"><span class="string">    sequence composed of T vectors, each of dimension D. The LSTM uses a hidden</span></span><br><span class="line"><span class="string">    size of H, and we work over a minibatch containing N sequences. After running</span></span><br><span class="line"><span class="string">    the LSTM forward, we return the hidden states for all timesteps.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Note that the initial cell state is passed as input, but the initial cell</span></span><br><span class="line"><span class="string">    state is set to zero. Also note that the cell state is not returned; it is</span></span><br><span class="line"><span class="string">    an internal variable to the LSTM and is not accessed from outside.</span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    - x: Input data of shape (N, T, D)</span></span><br><span class="line"><span class="string">    - h0: Initial hidden state of shape (N, H)</span></span><br><span class="line"><span class="string">    - Wx: Weights for input-to-hidden connections, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - Wh: Weights for hidden-to-hidden connections, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - b: Biases of shape (4H,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - h: Hidden states for all timesteps of all sequences, of shape (N, T, H)</span></span><br><span class="line"><span class="string">    - cache: Values needed for the backward pass.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    h, cache = <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for an LSTM over an entire timeseries.   #</span></span><br><span class="line">    <span class="comment"># You should use the lstm_step_forward function that you just defined.      #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, T, D = x.shape</span><br><span class="line">    N, H = h0.shape</span><br><span class="line"></span><br><span class="line">    prev_h = h0</span><br><span class="line">    prev_c = np.zeros((N, H))</span><br><span class="line">    cache = &#123;&#125;</span><br><span class="line">    h = np.zeros((N, T, H))</span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> range(T):</span><br><span class="line">        prev_h, prev_c, cache_step = lstm_step_forward(</span><br><span class="line">            x[:, step, :], prev_h, prev_c, Wx, Wh, b)</span><br><span class="line">        h[:, step, :] = prev_h</span><br><span class="line">        cache[step] = cache_step</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> h, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_backward</span><span class="params">(dh, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Backward pass for an LSTM over an entire sequence of data.]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dh: Upstream gradients of hidden states, of shape (N, T, H)</span></span><br><span class="line"><span class="string">    - cache: Values from the forward pass</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - dx: Gradient of input data of shape (N, T, D)</span></span><br><span class="line"><span class="string">    - dh0: Gradient of initial hidden state of shape (N, H)</span></span><br><span class="line"><span class="string">    - dWx: Gradient of input-to-hidden weight matrix of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - dWh: Gradient of hidden-to-hidden weight matrix of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - db: Gradient of biases, of shape (4H,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx, dh0, dWx, dWh, db = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the backward pass for an LSTM over an entire timeseries.  #</span></span><br><span class="line">    <span class="comment"># You should use the lstm_step_backward function that you just defined.     #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    x = cache[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 注意这是一个step里面的x，大小是N，D</span></span><br><span class="line">    N, D = x.shape</span><br><span class="line">    _, T, H = dh.shape</span><br><span class="line"></span><br><span class="line">    dx = np.zeros((N, T, D))</span><br><span class="line">    dprev_h = np.zeros((N, H))</span><br><span class="line">    dprev_c = np.zeros((N, H))</span><br><span class="line"></span><br><span class="line">    dh0 = np.zeros((N, H))</span><br><span class="line">    dWx = np.zeros((D, <span class="number">4</span> * H))</span><br><span class="line">    dWh = np.zeros((H, <span class="number">4</span> * H))</span><br><span class="line">    db = np.zeros(<span class="number">4</span> * H)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> reversed(range(T)):</span><br><span class="line">        dnext_h = dh[:, step, :] + dprev_h</span><br><span class="line">        dnext_c = dprev_c</span><br><span class="line"></span><br><span class="line">        dx[:, step, :], dprev_h, dprev_c, dWx_temp, dWh_temp, db_temp = lstm_step_backward(</span><br><span class="line">            dnext_h, dnext_c, cache[step])</span><br><span class="line"></span><br><span class="line">        dWx += dWx_temp</span><br><span class="line">        dWh += dWh_temp</span><br><span class="line">        db += db_temp</span><br><span class="line">    dh0 = dprev_h</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dh0, dWx, dWh, db</span><br></pre></td></tr></table></figure>
+<h2 id="剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分"><a href="#剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分" class="headerlink" title="剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分"></a>剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -955,7 +1205,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-14 21:36:09" itemprop="dateModified" datetime="2019-05-14T21:36:09+09:00">2019-05-14</time>
+                <time title="Modified: 2019-05-17 17:38:44" itemprop="dateModified" datetime="2019-05-17T17:38:44+09:00">2019-05-17</time>
               
             
           </span>
@@ -1383,8 +1633,24 @@
 <li>实际上来说用的是BFS的思想，但是不是每次都把东西从queue里面拿出来，而是确定了每次寻找的开始的阀内</li>
 <li>start和end分别代表现在可以开始寻找的开始和结束，如果在这个范围里面找到了符合要求的结果，那么直接返回这个步数，如果没找到的话就从下一个范围开始找，下一个范围是上一个范围的end+1 到目前能到的最大的范围</li>
 <li>注意符合的要求是大于等于n-1而不是正好走到这个点</li>
-<li>求maxend和之前的一样     </li>
+<li>求maxend和之前的一样</li>
 </ul>
+<h2 id="121-Best-Time-to-Buy-and-Sell-Stock"><a href="#121-Best-Time-to-Buy-and-Sell-Stock" class="headerlink" title="#121 Best Time to Buy and Sell Stock"></a>#121 Best Time to Buy and Sell Stock</h2><p>Say you have an array for which the ith element is the price of a given stock on day i.</p>
+<p>If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.</p>
+<p>Note that you cannot sell a stock before you buy one.</p>
+<p>Example 1:</p>
+<p>Input: [7,1,5,3,6,4]<br>Output: 5<br>Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.<br>             Not 7-1 = 6, as selling price needs to be larger than buying price.<br>Example 2:</p>
+<p>Input: [7,6,4,3,1]<br>Output: 0<br>Explanation: In this case, no transaction is done, i.e. max profit = 0.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        minBuy = float(<span class="string">'inf'</span>)</span><br><span class="line">        maxProfit = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> prices:</span><br><span class="line">            <span class="keyword">if</span> i &lt; minBuy:</span><br><span class="line">                minBuy = i</span><br><span class="line">            <span class="keyword">elif</span> i - minBuy &gt; maxProfit:</span><br><span class="line">                maxProfit = i - minBuy</span><br><span class="line">        <span class="keyword">return</span> maxProfit</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用brute的算法会time limit，这里用的方法是用两个变量分别记录最低的价钱和最高的利润，这样的话只需要对数组遍历一次就能得到最终的结果</li>
+<li>因为判断这个价钱低了的话，求这个东西的最大利润也就只能用这个最低价钱之后的东西求了，所以不会冲突</li>
+</ul>
+<h2 id="122"><a href="#122" class="headerlink" title="#122"></a>#122</h2><ul>
+<li>现在可以进行多次交易了，但是每次之间不能重叠</li>
+<li>其实只要后一次比前一次贵，这个profit就可以一直累计，分为一直上涨或者中间掉下来一下再重新买的感觉</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        maxProfit = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(prices)):</span><br><span class="line">            <span class="keyword">if</span> prices[i] &gt; prices[i<span class="number">-1</span>]:</span><br><span class="line">                maxProfit += prices[i] - prices[i<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> maxProfit</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2556,191 +2822,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/CS231nassignment2Dropout/" class="post-title-link" itemprop="url">CS231nassignment2之Dropout</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-18 09:51:56 / Modified: 15:11:08" itemprop="dateCreated datePublished" datetime="2019-04-18T09:51:56+09:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
-<li>regularization NN</li>
-<li>randomly setting some features to 0 during <strong>forward pass</strong></li>
-</ul>
-<p><a href="https://arxiv.org/abs/1207.0580" target="_blank" rel="noopener">Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012</a></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/18/CS231nassignment2Dropout/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2789,7 +2870,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2941,7 +3022,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">37</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
