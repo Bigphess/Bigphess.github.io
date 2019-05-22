@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Network Visualization (PyTorch) 在这部分用了一个已经在ImageNet上面pretrain过的CNN 用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度 back的时候计算这个loss对于每个像素的gradient 保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片  这个作业一共">
+<meta name="keywords" content="可视化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CS231nassignment3Vis">
+<meta property="og:url" content="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/index.html">
+<meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="Network Visualization (PyTorch) 在这部分用了一个已经在ImageNet上面pretrain过的CNN 用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度 back的时候计算这个loss对于每个像素的gradient 保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片  这个作业一共">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/2.jpg">
+<meta property="og:updated_time" content="2019-05-22T04:45:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS231nassignment3Vis">
+<meta name="twitter:description" content="Network Visualization (PyTorch) 在这部分用了一个已经在ImageNet上面pretrain过的CNN 用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度 back的时候计算这个loss对于每个像素的gradient 保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片  这个作业一共">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CS231nassignment3Vis | 今天开始努力学习</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天开始努力学习</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">面向谷歌编程选手许若芃</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">24</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">41</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/Bigphess" class="github-corner" title="垃圾代码都在我的github！" aria-label="垃圾代码都在我的github！" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CS231nassignment3Vis
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-21 16:21:31" itemprop="dateCreated datePublished" datetime="2019-05-21T16:21:31+09:00">2019-05-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-22 13:45:07" itemprop="dateModified" datetime="2019-05-22T13:45:07+09:00">2019-05-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Network-Visualization-PyTorch"><a href="#Network-Visualization-PyTorch" class="headerlink" title="Network Visualization (PyTorch)"></a>Network Visualization (PyTorch)</h2><ul>
+<li>在这部分用了一个已经在ImageNet上面pretrain过的CNN</li>
+<li>用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度</li>
+<li>back的时候计算这个loss对于每个像素的gradient</li>
+<li><strong>保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片</strong></li>
+</ul>
+<p>这个作业一共分成三个部分：</p>
+<ul>
+<li>saliency map：一个比较快的方法来展示这个图片哪个部分影响了net分类的决定</li>
+<li>fooling image：扰乱一个图片，让他看起来跟人似的，但是会被误分类</li>
+<li>class visualization：形成可以得到最大分类得分的图片</li>
+</ul>
+<p><strong>注意这里需要先激活conda，不然在jupter里面torch会报错</strong></p>
+<a id="more"></a>
+<h2 id="事先处理"><a href="#事先处理" class="headerlink" title="事先处理"></a>事先处理</h2><ul>
+<li>事先定义了函数preprocess的部分，因为pretrain的时候也是提前进行好了预处理</li>
+<li>需要下载下来预处理的模型，这里用的是SqueezeNet，因为这样可以直接在CPU上面形成图片</li>
+<li>读取一部分ImageNet里面的图片看一看是什么样子的</li>
+</ul>
+<p><img src="/2019/05/21/CS231nassignment3Vis/1.jpg" alt></p>
+<h2 id="saliency-maps"><a href="#saliency-maps" class="headerlink" title="saliency maps"></a>saliency maps</h2><ul>
+<li>saliency告诉我们每个pixel对分类得分的影响</li>
+<li>为了计算这个东西，我们需要计算没有正则化之前的score对于正确分类的gradient（具体到每个pixel）<ul>
+<li>比如图片的大小是3xHxW，那么得到的gradient的形状也应该是3xHxW</li>
+<li>表示的就是这个pixel改变的话对于整个结果改变的影响</li>
+<li>为了计算，我们取每个gradient的绝对值，然后取三个channel里面的最大值，最后得到的大小是HxW</li>
+</ul>
+</li>
+</ul>
+<h3 id="gather-method"><a href="#gather-method" class="headerlink" title="gather method"></a>gather method</h3><ul>
+<li>就像在assignment1里面选择一个矩阵里面的最大值一样，gather这个方法就是在<code>s.gather(1, y.view(-1, 1)).squeeze()</code>一个N，C的矩阵s里面选择对应的y那个的值然后形成一个行的数组</li>
+</ul>
+<h3 id="compute-saliency-map"><a href="#compute-saliency-map" class="headerlink" title="compute_saliency_map"></a>compute_saliency_map</h3><ul>
+<li>输入：<ul>
+<li>X:输入的图片 (N,3,H,W)</li>
+<li>y:label (N,)</li>
+<li>model:预训练好的模型</li>
+</ul>
+</li>
+<li>输出：<ul>
+<li>saliency，大小是（N，H，W）</li>
+</ul>
+</li>
+<li>注意，因为torch这个对象自己本来就已经带着grad了，所以直接求出来就可以了，但是注意需要定义一下backward之后的大小应该是多少</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_saliency_maps</span><span class="params">(X, y, model)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute a class saliency map using the model for images X and labels y.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">    - X: Input images; Tensor of shape (N, 3, H, W)</span></span><br><span class="line"><span class="string">    - y: Labels for X; LongTensor of shape (N,)</span></span><br><span class="line"><span class="string">    - model: A pretrained CNN that will be used to compute the saliency map.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - saliency: A Tensor of shape (N, H, W) giving the saliency maps for the input</span></span><br><span class="line"><span class="string">    images.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Make sure the model is in "test" mode</span></span><br><span class="line">    model.eval()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Make input tensor require gradient</span></span><br><span class="line">    X.requires_grad_()</span><br><span class="line">    </span><br><span class="line">    saliency = <span class="literal">None</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement this function. Perform a forward and backward pass through #</span></span><br><span class="line">    <span class="comment"># the model to compute the gradient of the correct class score with respect  #</span></span><br><span class="line">    <span class="comment"># to each input image. You first want to compute the loss over the correct   #</span></span><br><span class="line">    <span class="comment"># scores (we'll combine losses across a batch by summing), and then compute  #</span></span><br><span class="line">    <span class="comment"># the gradients with a backward pass.                                        #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#forward</span></span><br><span class="line">    <span class="comment">#NxC</span></span><br><span class="line">    scores = model(X)</span><br><span class="line">    <span class="comment">#N</span></span><br><span class="line">    correct_scores = scores.gather(<span class="number">1</span>,y.view(<span class="number">-1</span>,<span class="number">1</span>)).squeeze()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#backward</span></span><br><span class="line">    correct_scores.backward(torch.ones(correct_scores.size()))</span><br><span class="line">    </span><br><span class="line">    saliency = X.grad</span><br><span class="line">    saliency = saliency.abs()</span><br><span class="line">    saliency,_ = torch.max(saliency, dim = <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                               #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="keyword">return</span> saliency</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/21/CS231nassignment3Vis/2.jpg" alt></p>
+<h2 id="fooling-images"><a href="#fooling-images" class="headerlink" title="fooling images"></a>fooling images</h2><ul>
+<li>可以生成fooling image，给一个image和一个目标class，我们让gradient一直升高，去让目标的score最大，一直到最后的分类是目标的分类</li>
+<li>输入<ul>
+<li>X (1,3,224,224)</li>
+<li>target_y 在0-1000的范围里面</li>
+<li>model 预训练的CNN</li>
+</ul>
+</li>
+<li>输出：<ul>
+<li>x_fooling</li>
+</ul>
+</li>
+<li>TODO<ul>
+<li>When computing an update step, first normalize the gradient:<code>#   dX = learning_rate * g / ||g||_2</code></li>
+<li>需要自己写一个训练的部分</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_fooling_image</span><span class="params">(X, target_y, model)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Generate a fooling image that is close to X, but that the model classifies</span></span><br><span class="line"><span class="string">    as target_y.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - X: Input image; Tensor of shape (1, 3, 224, 224)</span></span><br><span class="line"><span class="string">    - target_y: An integer in the range [0, 1000)</span></span><br><span class="line"><span class="string">    - model: A pretrained CNN</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - X_fooling: An image that is close to X, but that is classifed as target_y</span></span><br><span class="line"><span class="string">    by the model.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Initialize our fooling image to the input image, and make it require gradient</span></span><br><span class="line">    X_fooling = X.clone()</span><br><span class="line">    X_fooling = X_fooling.requires_grad_()</span><br><span class="line">    </span><br><span class="line">    learning_rate = <span class="number">1</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Generate a fooling image X_fooling that the model will classify as   #</span></span><br><span class="line">    <span class="comment"># the class target_y. You should perform gradient ascent on the score of the #</span></span><br><span class="line">    <span class="comment"># target class, stopping when the model is fooled.                           #</span></span><br><span class="line">    <span class="comment"># When computing an update step, first normalize the gradient:               #</span></span><br><span class="line">    <span class="comment">#   dX = learning_rate * g / ||g||_2                                         #</span></span><br><span class="line">    <span class="comment">#                                                                            #</span></span><br><span class="line">    <span class="comment"># You should write a training loop.                                          #</span></span><br><span class="line">    <span class="comment">#                                                                            #</span></span><br><span class="line">    <span class="comment"># HINT: For most examples, you should be able to generate a fooling image    #</span></span><br><span class="line">    <span class="comment"># in fewer than 100 iterations of gradient ascent.                           #</span></span><br><span class="line">    <span class="comment"># You can print your progress over iterations to check your algorithm.       #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">        scores = model(X_fooling)</span><br><span class="line">        index = torch.argmax(scores,dim = <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> index[<span class="number">0</span>] == target_y:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        </span><br><span class="line">        target_score = scores[<span class="number">0</span>,target_y]</span><br><span class="line">        target_score.backward()</span><br><span class="line">        </span><br><span class="line">        grad = X_fooling.grad.data</span><br><span class="line">        </span><br><span class="line">        X_fooling.data += learning_rate * (grad/grad.norm())</span><br><span class="line">        X_fooling.grad.zero_()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                             END OF YOUR CODE                               #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="keyword">return</span> X_fooling</span><br></pre></td></tr></table></figure>
+<h2 id="class-visualization"><a href="#class-visualization" class="headerlink" title="class visualization"></a>class visualization</h2><ul>
+<li>从一个随机的noise开始然后往目标的class上面增加gradient</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_class_visualization</span><span class="params">(target_y, model, dtype, **kwargs)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Generate an image to maximize the score of target_y under a pretrained model.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - target_y: Integer in the range [0, 1000) giving the index of the class</span></span><br><span class="line"><span class="string">    - model: A pretrained CNN that will be used to generate the image</span></span><br><span class="line"><span class="string">    - dtype: Torch datatype to use for computations</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Keyword arguments:</span></span><br><span class="line"><span class="string">    - l2_reg: Strength of L2 regularization on the image</span></span><br><span class="line"><span class="string">    - learning_rate: How big of a step to take</span></span><br><span class="line"><span class="string">    - num_iterations: How many iterations to use</span></span><br><span class="line"><span class="string">    - blur_every: How often to blur the image as an implicit regularizer</span></span><br><span class="line"><span class="string">    - max_jitter: How much to gjitter the image as an implicit regularizer</span></span><br><span class="line"><span class="string">    - show_every: How often to show the intermediate result</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    model.type(dtype)</span><br><span class="line">    l2_reg = kwargs.pop(<span class="string">'l2_reg'</span>, <span class="number">1e-3</span>)</span><br><span class="line">    learning_rate = kwargs.pop(<span class="string">'learning_rate'</span>, <span class="number">25</span>)</span><br><span class="line">    num_iterations = kwargs.pop(<span class="string">'num_iterations'</span>, <span class="number">100</span>)</span><br><span class="line">    blur_every = kwargs.pop(<span class="string">'blur_every'</span>, <span class="number">10</span>)</span><br><span class="line">    max_jitter = kwargs.pop(<span class="string">'max_jitter'</span>, <span class="number">16</span>)</span><br><span class="line">    show_every = kwargs.pop(<span class="string">'show_every'</span>, <span class="number">25</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Randomly initialize the image as a PyTorch Tensor, and make it requires gradient.</span></span><br><span class="line">    img = torch.randn(<span class="number">1</span>, <span class="number">3</span>, <span class="number">224</span>, <span class="number">224</span>).mul_(<span class="number">1.0</span>).type(dtype).requires_grad_()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> range(num_iterations):</span><br><span class="line">        <span class="comment"># Randomly jitter the image a bit; this gives slightly nicer results</span></span><br><span class="line">        ox, oy = random.randint(<span class="number">0</span>, max_jitter), random.randint(<span class="number">0</span>, max_jitter)</span><br><span class="line">        img.data.copy_(jitter(img.data, ox, oy))</span><br><span class="line"></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Use the model to compute the gradient of the score for the     #</span></span><br><span class="line">        <span class="comment"># class target_y with respect to the pixels of the image, and make a   #</span></span><br><span class="line">        <span class="comment"># gradient step on the image using the learning rate. Don't forget the #</span></span><br><span class="line">        <span class="comment"># L2 regularization term!                                              #</span></span><br><span class="line">        <span class="comment"># Be very careful about the signs of elements in your code.            #</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">        scores = model(img)</span><br><span class="line">        target_score = scores[<span class="number">0</span>,target_y]</span><br><span class="line">        </span><br><span class="line">        target_score.backward()</span><br><span class="line">        </span><br><span class="line">        grad = img.grad.data</span><br><span class="line">        grad -= <span class="number">2</span>*l2_reg  * img.data</span><br><span class="line">        </span><br><span class="line">        img.data += learning_rate * (grad/grad.norm())</span><br><span class="line">        </span><br><span class="line">        img.grad.zero_()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment">#                             END OF YOUR CODE                         #</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Undo the random jitter</span></span><br><span class="line">        img.data.copy_(jitter(img.data, -ox, -oy))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># As regularizer, clamp and periodically blur the image</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">            lo = float(-SQUEEZENET_MEAN[c] / SQUEEZENET_STD[c])</span><br><span class="line">            hi = float((<span class="number">1.0</span> - SQUEEZENET_MEAN[c]) / SQUEEZENET_STD[c])</span><br><span class="line">            img.data[:, c].clamp_(min=lo, max=hi)</span><br><span class="line">        <span class="keyword">if</span> t % blur_every == <span class="number">0</span>:</span><br><span class="line">            blur_image(img.data, sigma=<span class="number">0.5</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Periodically show the image</span></span><br><span class="line">        <span class="keyword">if</span> t == <span class="number">0</span> <span class="keyword">or</span> (t + <span class="number">1</span>) % show_every == <span class="number">0</span> <span class="keyword">or</span> t == num_iterations - <span class="number">1</span>:</span><br><span class="line">            plt.imshow(deprocess(img.data.clone().cpu()))</span><br><span class="line">            class_name = class_names[target_y]</span><br><span class="line">            plt.title(<span class="string">'%s\nIteration %d / %d'</span> % (class_name, t + <span class="number">1</span>, num_iterations))</span><br><span class="line">            plt.gcf().set_size_inches(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">            plt.axis(<span class="string">'off'</span>)</span><br><span class="line">            plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> deprocess(img.data.cpu())</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/可视化/" rel="tag"># 可视化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/17/CS231nassignment3LSTM/" rel="next" title="CS231nassignment3LSTM">
+                <i class="fa fa-chevron-left"></i> CS231nassignment3LSTM
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="RUOPENG XU">
+            
+              <p class="site-author-name" itemprop="name">RUOPENG XU</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Bigphess" title="GitHub &rarr; https://github.com/Bigphess" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:xrp0308@gmail.com" title="E-Mail &rarr; mailto:xrp0308@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Visualization-PyTorch"><span class="nav-number">1.</span> <span class="nav-text">Network Visualization (PyTorch)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事先处理"><span class="nav-number">2.</span> <span class="nav-text">事先处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#saliency-maps"><span class="nav-number">3.</span> <span class="nav-text">saliency maps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gather-method"><span class="nav-number">3.1.</span> <span class="nav-text">gather method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compute-saliency-map"><span class="nav-number">3.2.</span> <span class="nav-text">compute_saliency_map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fooling-images"><span class="nav-number">4.</span> <span class="nav-text">fooling images</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class-visualization"><span class="nav-number">5.</span> <span class="nav-text">class visualization</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RUOPENG XU</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

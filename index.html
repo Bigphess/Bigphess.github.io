@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">40</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">41</span></a>
 
   </li>
 
@@ -334,6 +334,211 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/21/CS231nassignment3Vis/" class="post-title-link" itemprop="url">CS231nassignment3Vis</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-21 16:21:31" itemprop="dateCreated datePublished" datetime="2019-05-21T16:21:31+09:00">2019-05-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-22 13:45:07" itemprop="dateModified" datetime="2019-05-22T13:45:07+09:00">2019-05-22</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Network-Visualization-PyTorch"><a href="#Network-Visualization-PyTorch" class="headerlink" title="Network Visualization (PyTorch)"></a>Network Visualization (PyTorch)</h2><ul>
+<li>在这部分用了一个已经在ImageNet上面pretrain过的CNN</li>
+<li>用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度</li>
+<li>back的时候计算这个loss对于每个像素的gradient</li>
+<li><strong>保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片</strong></li>
+</ul>
+<p>这个作业一共分成三个部分：</p>
+<ul>
+<li>saliency map：一个比较快的方法来展示这个图片哪个部分影响了net分类的决定</li>
+<li>fooling image：扰乱一个图片，让他看起来跟人似的，但是会被误分类</li>
+<li>class visualization：形成可以得到最大分类得分的图片</li>
+</ul>
+<p><strong>注意这里需要先激活conda，不然在jupter里面torch会报错</strong></p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/21/CS231nassignment3Vis/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1205,7 +1410,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-17 17:38:44" itemprop="dateModified" datetime="2019-05-17T17:38:44+09:00">2019-05-17</time>
+                <time title="Modified: 2019-05-21 21:27:11" itemprop="dateModified" datetime="2019-05-21T21:27:11+09:00">2019-05-21</time>
               
             
           </span>
@@ -1651,6 +1856,27 @@
 <li>其实只要后一次比前一次贵，这个profit就可以一直累计，分为一直上涨或者中间掉下来一下再重新买的感觉</li>
 </ul>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        maxProfit = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(prices)):</span><br><span class="line">            <span class="keyword">if</span> prices[i] &gt; prices[i<span class="number">-1</span>]:</span><br><span class="line">                maxProfit += prices[i] - prices[i<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">return</span> maxProfit</span><br></pre></td></tr></table></figure>
+<h2 id="123"><a href="#123" class="headerlink" title="#123"></a>#123</h2><ul>
+<li>现在最多进行两次交易,找到最大的利润</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        cost_1 = float(<span class="string">'inf'</span>)</span><br><span class="line">        profit_1 = <span class="number">0</span></span><br><span class="line">        cost_2 = float(<span class="string">'inf'</span>)</span><br><span class="line">        profit_2 = <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> price <span class="keyword">in</span> prices:</span><br><span class="line">            cost_1 = min(cost_1,price)</span><br><span class="line">            profit_1 = max(profit_1, price - cost_1)</span><br><span class="line">            cost_2 = min(cost_2,price - profit_1)</span><br><span class="line">            profit_2 = max(profit_2, price - cost_2)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> profit_2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中，下标带1的是第一次交易之后的结果，下标带2的是第二次交易之后的结果</li>
+<li>从总体上来看，第二次买入之后花掉的钱实际上是<code>第二次买入的实际花费 - 第一次交易之后挣的钱</code>（可以是负数）。而第二次卖出之后的总的收益为 <code>第二次卖出的钱 - 第二次买入之后的实际花费</code></li>
+<li>所以，如果需要利润最大，需要第二次买入的实际花费最小，需要第一次的利润最大，需要第一次买入的花费最小，最终形成了这个代码</li>
+</ul>
+<h2 id="188"><a href="#188" class="headerlink" title="#188"></a>#188</h2><ul>
+<li>现在需要进行最多k次交易，把profit弄到最大</li>
+<li>这部分好像大家都用到了DP</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, k: int, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        n = len(prices)</span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">2</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> k &gt;= n/<span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> sum(i-j <span class="keyword">for</span> i, j <span class="keyword">in</span> zip(prices[<span class="number">1</span>:],prices[: <span class="number">-1</span>]) <span class="keyword">if</span> i &gt; j)</span><br><span class="line">        profits = [<span class="number">0</span>] * n</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(k):</span><br><span class="line">            preprofit = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">                profit = prices[i] - prices[i<span class="number">-1</span>]</span><br><span class="line">                preprofit = max(preprofit + profit, profits[i])</span><br><span class="line">                profits[i] = max(preprofit, profits[i<span class="number">-1</span>])</span><br><span class="line">        <span class="keyword">return</span> profits[<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先考虑边界条件，如果k的数量已经比n/2大了，那么可以直接认为可以进行无限次交易了，就和上面的第二题一样</li>
+<li>主要思路就是现在定义了两个变量，一个变量表示在前i天完成的交易，已经得到的最大利润。另一个变量定义了在第i天卖出的话，这时候得到的最大利润。这两个变量的都是在在第j次交易里。</li>
+<li>用一个长n的list profits来记录这个天数之后获得的利益。在k次交易中一直更新这个profits里面的最大值。所以实际上关于k的变量不需要考虑</li>
+<li>首先分析在第i天得到的利润，就是这一天的价格减去前一天的价格。更新之前i天里面的总利润，就是把最开始的preprfit再加上这一天获得的利润，和本来的preprofit来比大小，更新preprofit</li>
+<li>更新实际上第i天的利润，对比实际上前一天的利润和前i天的利润哪个大</li>
+</ul>
 
           
         
@@ -2626,207 +2852,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/18/CS231nassignment2CNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/CS231nassignment2CNN/" class="post-title-link" itemprop="url">CS231nassignment2CNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-18 15:12:13" itemprop="dateCreated datePublished" datetime="2019-04-18T15:12:13+09:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-25 21:05:41" itemprop="dateModified" datetime="2019-04-25T21:05:41+09:00">2019-04-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><ul>
-<li>之前已经实践了fc的相关东西，但是在实际的使用里大家使用的都是CNN</li>
-<li>所以这部分就开始实践CNN了</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/18/CS231nassignment2CNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2870,7 +2900,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">40</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3026,7 +3056,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                    <span class="site-state-item-count">40</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
