@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">24</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">25</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">41</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">43</span></a>
 
   </li>
 
@@ -334,6 +334,374 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/24/关于动态规划DP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/24/关于动态规划DP/" class="post-title-link" itemprop="url">关于动态规划(dynamic programmin)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-24 16:45:51" itemprop="dateCreated datePublished" datetime="2019-05-24T16:45:51+09:00">2019-05-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-27 11:22:12" itemprop="dateModified" datetime="2019-05-27T11:22:12+09:00">2019-05-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>ref：<a href="https://www.zhihu.com/question/23995189" target="_blank" rel="noopener">https://www.zhihu.com/question/23995189</a></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>在身上带着不同数额的钞票，目标是凑出来某个金额w，使用尽量少的钞票</p>
+<ul>
+<li>如果用贪心算法，实际上就是尽快让w变得更小，有更大面值的就用更大面值的钞票</li>
+<li>但是如果换了一组其他的钞票面值，可能就会出现问题（比如 1，5，11凑15）<ul>
+<li>因为在贪心算法里面，需要先把15降成4，再把4降下来，但是降4的成本很高，需要4张1</li>
+<li>在考虑的时候鼠目寸光，只考虑了眼前的情况，没有考虑后续的发展</li>
+</ul>
+</li>
+<li>如果开始列举，其实这个问题就会变成<code>接下来需要凑出来n，需要f(n)张钞票</code></li>
+<li>这时候，凑15其实就变成了三个情况<ul>
+<li>f(4) + 1</li>
+<li>f(10) + 1</li>
+<li>f(14) +1</li>
+</ul>
+</li>
+<li>可以发现实际上f(15)只和这三个值有关系，也就是只和n-1，n-5，n-11有关系<ul>
+<li><code>f(n) = min(f(n-1),f(n-5),f(n-11))+1</code></li>
+<li>这是一个可以迭代的式子对不对！</li>
+<li>并不关心到底是怎么凑出来的，反正只关心f(w)的值</li>
+</ul>
+</li>
+<li>在代码实现上面，只需从小到大对比所有的cost就可以了，也就是对比新的方案的cost是不是会比以前的方案小。<strong>注意在求的时候可能会需要i-1/-5/-11的值，所以要把从头到尾的值都记录下来</strong><ul>
+<li>比如要求凑15块钱，会先考虑15比1大，那么把1块拿出来，看看取14块钱的时候需要的步骤是多少，然后把5块拿出来，看看比拿1块差多少，最后拿11，看看和之前的cost差多少</li>
+</ul>
+</li>
+</ul>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
+<li>dp和贪心算法的区别就在于，dp会分别算出不同策略的代价，而贪心算法包含着冗余的信息（到底怎么使用）</li>
+<li>所以就是求出来fn -&gt; 得到求fn需要的fc -&gt; 求fc，不停的循环</li>
+<li>也就是把一个问题拆成了不同的子问题</li>
+</ul>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>后无效性<ul>
+<li>一旦fn确定，我们就不需要知道怎么得到的fn了，只在后面直接用就可以了</li>
+</ul>
+</li>
+<li>最优子结构<ul>
+<li>在得到fn的时候本身得到的就是最优的fn了，所以在用的时候才可以放心的用</li>
+</ul>
+</li>
+<li>一旦问题可以拆成子问题，并且满足上面的两个概念，就可以用dp解了</li>
+</ul>
+<h2 id="为什么快"><a href="#为什么快" class="headerlink" title="为什么快"></a>为什么快</h2><ul>
+<li>dp和贪心都是在空间里寻找最优解，但是dp在找解的时候已经找到了子问题的最优解，也就是说他已经把子问题里面不可能的状态排除掉了</li>
+</ul>
+<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><ul>
+<li>把现在面对的局面看做x</li>
+<li>对于x，需要求得答案是fx，目标是求出来fT，找出x和哪些局面p有关，写出一个状态专业方程，来求fp到fx的关系</li>
+<li>也就是考虑现在我是谁，和我从哪里来（或者我到哪里去）</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/22/CS231nAssignment3StyleTransfer/" class="post-title-link" itemprop="url">CS231nAssignment3StyleTransfer</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-22 13:47:39" itemprop="dateCreated datePublished" datetime="2019-05-22T13:47:39+09:00">2019-05-22</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1410,7 +1778,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-21 21:27:11" itemprop="dateModified" datetime="2019-05-21T21:27:11+09:00">2019-05-21</time>
+                <time title="Modified: 2019-05-30 23:07:34" itemprop="dateModified" datetime="2019-05-30T23:07:34+09:00">2019-05-30</time>
               
             
           </span>
@@ -1877,6 +2245,61 @@
 <li>首先分析在第i天得到的利润，就是这一天的价格减去前一天的价格。更新之前i天里面的总利润，就是把最开始的preprfit再加上这一天获得的利润，和本来的preprofit来比大小，更新preprofit</li>
 <li>更新实际上第i天的利润，对比实际上前一天的利润和前i天的利润哪个大</li>
 </ul>
+<h2 id="309-中间带冷却的买股票"><a href="#309-中间带冷却的买股票" class="headerlink" title="#309 中间带冷却的买股票"></a>#309 中间带冷却的买股票</h2><ul>
+<li>每次卖出去之后必须要cooldown一轮</li>
+<li>用了dp和state machine来表示，一共会有三种状态<ul>
+<li>s0(reset) -sell-&gt; s1 -cool-&gt; s2(reset) -buy-&gt; s0</li>
+<li>用一个数组来记录在每天在这个状态里面的最大利润，然后再从最后一天的最大利润里面挑出来一个</li>
+</ul>
+</li>
+<li>注意考虑边界条件</li>
+<li>学会了一个新的初始化list的方法</li>
+<li>感觉自己终于理解了dp呢（并没有）<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxProfit</span><span class="params">(self, prices: List[int])</span> -&gt; int:</span></span><br><span class="line">        n = len(prices)</span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        s0,s1,s2 = [<span class="number">0</span>]*n,[<span class="number">0</span>]*n,[<span class="number">0</span>]*n</span><br><span class="line">        s0[<span class="number">0</span>] = -prices[<span class="number">0</span>]</span><br><span class="line">        s1[<span class="number">0</span>] = float(<span class="string">'-inf'</span>)</span><br><span class="line">        s2[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            price = prices[i]</span><br><span class="line">            s0[i] = max(s0[i<span class="number">-1</span>],s2[i<span class="number">-1</span>] - price)</span><br><span class="line">            s1[i] = s0[i<span class="number">-1</span>] + price</span><br><span class="line">            s2[i] = max(s1[i<span class="number">-1</span>],s2[i<span class="number">-1</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> max(s0[n<span class="number">-1</span>],s1[n<span class="number">-1</span>],s2[n<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="11-装水"><a href="#11-装水" class="headerlink" title="#11 装水"></a>#11 装水</h2><p>Given n non-negative integers a1, a2, …, an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.</p>
+<p>Note: You may not slant the container and n is at least 2.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxArea</span><span class="params">(self, height: List[int])</span> -&gt; int:</span></span><br><span class="line">        n = len(height)</span><br><span class="line">        start, end  = <span class="number">0</span>, n<span class="number">-1</span></span><br><span class="line">        maxArea = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> start &lt; end:</span><br><span class="line">            <span class="keyword">if</span> height[start] &gt;= height[end]:</span><br><span class="line">                maxArea = max(maxArea,height[end] * (end-start))</span><br><span class="line">                end -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                maxArea = max(maxArea,height[start] * (end-start))</span><br><span class="line">                start += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> maxArea</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这道题的重点在这个装水的大小是由比较短的那条边决定的。而且肯定是底边越长越牛逼，所以从底边最长的两边开始找，然后在两个高度里面取比较大的继续找下一个</li>
+<li>需要用一个变量来储存 max area的大小（这个我想到了）</li>
+<li>然后比较快的方法是从两遍开始逼近，这样的话只遍历了这个list一次，时间复杂度是n，好像有个排序算法和这个的想法也差不多</li>
+<li>注意while的判断条件其实就是这个</li>
+</ul>
+<h2 id="42-装水"><a href="#42-装水" class="headerlink" title="#42 装水"></a>#42 装水</h2><p>Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.</p>
+<p><img src="/2019/05/07/Leetcode笔记/42.jpg" alt></p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">trap</span><span class="params">(self, height: List[int])</span> -&gt; int:</span></span><br><span class="line">        n = len(height)</span><br><span class="line">        <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        left_max,right_max = [<span class="number">0</span>]*n,[<span class="number">0</span>]*n</span><br><span class="line">        left_max[<span class="number">0</span>],right_max[<span class="number">-1</span>] = height[<span class="number">0</span>],height[<span class="number">-1</span>]</span><br><span class="line">        maxTrap = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n):</span><br><span class="line">            left_max[i] = max(left_max[i<span class="number">-1</span>],height[i])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> reversed(range(<span class="number">0</span>,n<span class="number">-1</span>)):</span><br><span class="line">            right_max[i] = max(right_max[i+<span class="number">1</span>],height[i])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            maxTrap += min(left_max[i],right_max[i]) - height[i]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> maxTrap</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用dp解决的这个问题</li>
+<li>核心思想在竖着（按列）数每个格子，这个格子可不可以装水和左右两边的最高点有关，这个格子能装多少水和1.最短的高点和2.这个格子本身的高度有关</li>
+<li>所以可以用三个循环搞定这个问题，用空间换时间，在list里面记录下来每个列对应的左边的最高点和右边的最高点，然后再数每个列的容量，大小是（左右最高中间短的那个） - （这个列对应的高度）</li>
+</ul>
+<h2 id="334-升序的三个数字"><a href="#334-升序的三个数字" class="headerlink" title="#334 升序的三个数字"></a>#334 升序的三个数字</h2><p>Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.</p>
+<p>Formally the function should:</p>
+<p>Return true if there exists i, j, k<br>such that arr[i] &lt; arr[j] &lt; arr[k] given 0 ≤ i &lt; j &lt; k ≤ n-1 else return false.<br>Note: Your algorithm should run in O(n) time complexity and O(1) space complexity.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increasingTriplet</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        <span class="keyword">if</span> len(nums) &lt; <span class="number">3</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        first = float(<span class="string">'inf'</span>)</span><br><span class="line">        second = float(<span class="string">'inf'</span>)</span><br><span class="line">        third = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> i,num <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            <span class="keyword">if</span> num &lt;= first:</span><br><span class="line">                first = num</span><br><span class="line">            <span class="keyword">elif</span> num &gt; first <span class="keyword">and</span> num &lt;= second:</span><br><span class="line">                second = num</span><br><span class="line">            <span class="keyword">else</span>: third = num</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> (third != <span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>我最初的思路没有错，需要有变量来保存这三个升序的东西</li>
+<li>其实核心的思路在于，如果现在这个数比第一个升序的数字小，那么这个数字完全就可以成为新的第一个数字，比如 3 2 4 5，那么345和245没有什么本质的区别，而一旦third有了取值，那么就说明肯定已经有了一个结果</li>
+</ul>
+<h2 id="128"><a href="#128" class="headerlink" title="#128"></a>#128</h2><p>Given an unsorted array of integers, find the length of the longest consecutive elements sequence.</p>
+<p>Your algorithm should run in O(n) complexity.</p>
+<p>Example:</p>
+<p>Input: [100, 4, 200, 1, 3, 2]<br>Output: 4<br>Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">longestConsecutive</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line"><span class="comment">#         if nums == []: return 0</span></span><br><span class="line"><span class="comment">#         max_num = max(nums)</span></span><br><span class="line"><span class="comment">#         min_num = min(nums)</span></span><br><span class="line"><span class="comment">#         if max_num &gt; len(nums) or -max</span></span><br><span class="line"><span class="comment">#         if min_num &lt; 0:</span></span><br><span class="line"><span class="comment">#             max_num -= min_num</span></span><br><span class="line"><span class="comment">#         ass_list = [None] * (max_num + 1)</span></span><br><span class="line"><span class="comment">#         for i,num in enumerate(nums):</span></span><br><span class="line"><span class="comment"># #             确保都是正数</span></span><br><span class="line"><span class="comment">#             if min_num &lt; 0:</span></span><br><span class="line"><span class="comment">#                 num = num-min_num</span></span><br><span class="line"><span class="comment">#             ass_list[num] = 1</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">#         max_length = 0</span></span><br><span class="line"><span class="comment">#         prev_length = 0</span></span><br><span class="line"><span class="comment">#         for i in range(len(ass_list)):</span></span><br><span class="line"><span class="comment">#             if ass_list[i] != None:</span></span><br><span class="line"><span class="comment">#                 max_length += 1</span></span><br><span class="line"><span class="comment">#             else:</span></span><br><span class="line"><span class="comment">#                 prev_length = max(max_length,prev_length)</span></span><br><span class="line"><span class="comment">#                 max_length = 0</span></span><br><span class="line"><span class="comment">#         return max(max_length,prev_length)</span></span><br><span class="line">        <span class="keyword">if</span> nums == []: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        current_length,prev_length = <span class="number">1</span>,<span class="number">1</span></span><br><span class="line">        num_set = set(nums)</span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> num_set:</span><br><span class="line">            <span class="keyword">if</span> num - <span class="number">1</span> <span class="keyword">not</span> <span class="keyword">in</span> num_set:</span><br><span class="line">                current_num = num</span><br><span class="line">                <span class="keyword">while</span> current_num+<span class="number">1</span> <span class="keyword">in</span> num_set:</span><br><span class="line">                    current_num += <span class="number">1</span></span><br><span class="line">                    current_length += <span class="number">1</span></span><br><span class="line">                prev_length = max(prev_length,current_length)</span><br><span class="line">                current_length = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> max(current_length, prev_length)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这个问题一开始的思路是错的，已经comment掉了，但是感觉这个想法其实就是更具体化的hash表而已，第一个思路是把所有的数字平均的放在一个list里面，然后每个数字的本身就对应的是他的index，这样的话就可以直接知道有哪些数字是连续的了。但是这种方法在数字特别大的时候空间上就爆炸了，空间复杂度也是和数字大小有关</li>
+<li>这时候又要拿出来快乐的hash表了，记住python自己自带hash表</li>
+<li>每遇到一个数字，需要判断这个数字的下一个数字在不在这个nums里面，如果在的话更新数字和长度，如果不再的话刷新计数器并且开始下一个数字</li>
+<li>但是直接这样算还是会时间爆炸（比如一堆连续的只有一个是跳开的），所以又加进去了一个新的判断条件，这个条件的精髓在于，如果这个数之前的数字在nums里面，那么这个数在算他前面那个数的时候就应该被算上了，所以这部分就可以跳过这个数了，只有当前一个数字不在的时候才需要数长度</li>
+</ul>
+<h2 id="164"><a href="#164" class="headerlink" title="#164"></a>#164</h2><p>Given an unsorted array, find the maximum difference between the successive elements in its sorted form.</p>
+<p>Return 0 if the array contains less than 2 elements.</p>
+<p>Example 1:</p>
+<p>Input: [3,6,9,1]<br>Output: 3<br>Explanation: The sorted form of the array is [1,3,6,9], either<br>             (3,6) or (6,9) has the maximum difference 3.<br>Example 2:</p>
+<p>Input: [10]<br>Output: 0<br>Explanation: The array contains less than 2 elements, therefore return 0.<br>Note:</p>
+<p>You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.<br>Try to solve it in linear time/space.</p>
+<p><img src="/2019/05/07/Leetcode笔记/164.jpg" alt></p>
 
           
         
@@ -2461,397 +2884,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/25/关于多维数组的转置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/25/关于多维数组的转置/" class="post-title-link" itemprop="url">关于多维数组的转置和增加新的维度</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-25 20:35:23" itemprop="dateCreated datePublished" datetime="2019-04-25T20:35:23+09:00">2019-04-25</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-26 13:45:52" itemprop="dateModified" datetime="2019-04-26T13:45:52+09:00">2019-04-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/Numpy/" itemprop="url" rel="index"><span itemprop="name">Numpy</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在二维转置的时候，a[i][j] = a[j][i]<br>在多维数组转置的时候，需要交换他们的下标<br>比如原来的数组是(X,Y,Z)，转置之后是(Z,X,Y)<br>这时候应该用的是np.transpose(A,(2,0,1))</p>
-<!-- br -->
-<p>np.newaxis -&gt; 增加新的维度<br>原来是（6，）的数组，在行上增加维度变成（1,6）的二维数组，在列上增加维度变为(6,1)的二维数组</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/22/OpenCVCameracalibration/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/22/OpenCVCameracalibration/" class="post-title-link" itemprop="url">学习OpenCV十八章_Camera models & calibration</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-22 13:25:19" itemprop="dateCreated datePublished" datetime="2019-04-22T13:25:19+09:00">2019-04-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-25 16:52:36" itemprop="dateModified" datetime="2019-04-25T16:52:36+09:00">2019-04-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/Calibration/" itemprop="url" rel="index"><span itemprop="name">Calibration</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="camera-models-amp-calibration"><a href="#camera-models-amp-calibration" class="headerlink" title="camera models &amp; calibration"></a>camera models &amp; calibration</h1><p>物体会吸收一部分的光，然后反射一部分的光，反射的光就是他自己的颜色，这个光被我们的眼睛（或者相机）接收，然后投影到我们的视网膜（或者相机的图片）上，这之间的几何关系在CV上面非常重要</p>
-<p>其中一个非常简单的模型就是pinhole camera model。光穿过一面墙上的一个小的aperture，这个是这章的模型的开始，但是真实pinhole模型不是很好因为他不能快速曝光（聚集的光不够）-&gt; 眼睛会更厉害一点，但是len还会distort图片。</p>
-<p>这章的目的：</p>
-<ul>
-<li>如何camera calibration</li>
-<li>纠正普通的pinhole模型的len的偏差</li>
-<li>calibration也同样是获取三维世界的主要方式，因为一个场景不仅仅是三维，他们还有物理的空间和体积，所以获取pixel和三维诗句坐标的关系也很重要</li>
-<li>18章纠正的是len的distortion，19章构建整个3D的结构</li>
-</ul>
-<p>homography transform -&gt; 一个非常重要的要素</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/22/OpenCVCameracalibration/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2900,7 +2932,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">41</span>
+                    <span class="site-state-item-count">43</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2965,7 +2997,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3058,7 +3092,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">40</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
