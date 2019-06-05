@@ -96,14 +96,22 @@
 
 
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="target 现在有两张图片，需要产生一些新的图片是一张图片的内容但是是另一张图片的style 首先我们希望可以构建一个loss function，可以连接style和每个不同的image，然后在每个图片的pixel上面降低gradient 在这个里面用squeezeNet（在ImageNet上面pretrain的）来提取图片的feature">
+<meta name="keywords" content="style transfer">
+<meta property="og:type" content="article">
 <meta property="og:title" content="CS231nAssignment3StyleTransfer">
 <meta property="og:url" content="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="target 现在有两张图片，需要产生一些新的图片是一张图片的内容但是是另一张图片的style 首先我们希望可以构建一个loss function，可以连接style和每个不同的image，然后在每个图片的pixel上面降低gradient 在这个里面用squeezeNet（在ImageNet上面pretrain的）来提取图片的feature">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-22T04:47:39.000Z">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/1.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/2.jpg">
+<meta property="og:image" content="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/3.jpg">
+<meta property="og:updated_time" content="2019-05-28T08:13:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CS231nAssignment3StyleTransfer">
+<meta name="twitter:description" content="target 现在有两张图片，需要产生一些新的图片是一张图片的内容但是是另一张图片的style 首先我们希望可以构建一个loss function，可以连接style和每个不同的image，然后在每个图片的pixel上面降低gradient 在这个里面用squeezeNet（在ImageNet上面pretrain的）来提取图片的feature">
+<meta name="twitter:image" content="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/1.jpg">
 
 
 
@@ -241,7 +249,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">25</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">27</span></a>
 
   </li>
         
@@ -260,7 +268,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">46</span></a>
 
   </li>
 
@@ -397,8 +405,56 @@
             
 
             
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-28 17:13:05" itemprop="dateModified" datetime="2019-05-28T17:13:05+09:00">2019-05-28</time>
+              
+            
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -428,7 +484,99 @@
       
 
       
-        
+        <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><ul>
+<li>现在有两张图片，需要产生一些新的图片是一张图片的内容但是是另一张图片的style</li>
+<li>首先我们希望可以构建一个loss function，可以连接style和每个不同的image，然后在每个图片的pixel上面降低gradient</li>
+<li>在这个里面用squeezeNet（在ImageNet上面pretrain的）来提取图片的feature</li>
+</ul>
+<p><img src="/2019/05/22/CS231nAssignment3StyleTransfer/1.jpg" alt></p>
+<a id="more"></a>
+<h2 id="预先设定好的函数"><a href="#预先设定好的函数" class="headerlink" title="预先设定好的函数"></a>预先设定好的函数</h2><ul>
+<li>因为在这部分直接处理的是jpeg的图片而不是cifar-10的图片了，所以在这部分需要对出片进行预处理</li>
+<li>同时需要设定一个dtype = torch.FloatTensor 来设计是用CPU跑还是用GPU跑（GPU的里面会带cuda）</li>
+<li><code>CNN = torchvision.models.squeezenet1_1(pretrained=True).features</code>提取squeezenet的model，并且设定CNN的type等于上面设定好的dtype<ul>
+<li>因为不需要再进行训练了，需要把cnn里面的所有自动计算grad的功能关掉</li>
+</ul>
+</li>
+</ul>
+<h3 id="提取特征"><a href="#提取特征" class="headerlink" title="提取特征"></a>提取特征</h3><ul>
+<li>输入<ul>
+<li>x，一个tensor，大小是(N,C,H,W),里面是一个minibatch的数据</li>
+<li>cnn，刚才载入好的model</li>
+</ul>
+</li>
+<li>输出<ul>
+<li>features，一个list，features[i]的大小是(N,C_i,H_i,W_i)<ul>
+<li>在<strong>不同层</strong>得到的feature会有不同的channel的数量以及H和W的大小</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>实现：<ul>
+<li>在具体的代码实现里面，直接用value得到每一层之后的结果，下一层的输入就是上一层得到的结果<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">extract_features</span><span class="params">(x, cnn)</span>:</span></span><br><span class="line"></span><br><span class="line">    features = []</span><br><span class="line">    prev_feat = x</span><br><span class="line">    <span class="keyword">for</span> i, module <span class="keyword">in</span> enumerate(cnn._modules.values()):</span><br><span class="line">        next_feat = module(prev_feat)</span><br><span class="line">        features.append(next_feat)</span><br><span class="line">        prev_feat = next_feat</span><br><span class="line">    <span class="keyword">return</span> features</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="计算loss"><a href="#计算loss" class="headerlink" title="计算loss"></a>计算loss</h2><p>loss一共由三个部分组成，分别是：图片content的loss + style的loss + total var loss</p>
+<ul>
+<li>我们这个东西的目的是用一张图片的内容和另一个图片的style<ul>
+<li>当内容偏离了content图片的content，style偏离了stype图片的时候就需要penalize（处罚）</li>
+<li>为了实现这个功能，我们需要用hybrid的loss，并且不是在weights上面调参，而是在每张图片的pixel上面调整</li>
+</ul>
+</li>
+</ul>
+<h3 id="content-loss"><a href="#content-loss" class="headerlink" title="content loss"></a>content loss</h3><ul>
+<li>这个函数衡量生成的图片的feature map和原来作为content的图片偏离多少</li>
+<li>我们只关心这个network里面的一层的表示，这一层会有自己特定的channel数量以及filter的大小</li>
+<li>我们需要把这个feature map reshape，把所有的空间位置组合到同一个维度上面</li>
+<li>但是在实际的实现上面，我们不需要再reshape了，因为大小可以直接对应处理了</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">content_loss</span><span class="params">(content_weight, content_current, content_original)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute the content loss for style transfer.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - content_weight: Scalar giving the weighting for the content loss.</span></span><br><span class="line"><span class="string">    - content_current: features of the current image; this is a PyTorch Tensor of shape</span></span><br><span class="line"><span class="string">      (1, C_l, H_l, W_l).</span></span><br><span class="line"><span class="string">    - content_target: features of the content image, Tensor with shape (1, C_l, H_l, W_l).</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - scalar content loss</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> content_weight * torch.sum((content_original - content_current)**<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br></pre></td></tr></table></figure>
+<h3 id="style-loss"><a href="#style-loss" class="headerlink" title="style loss"></a>style loss</h3><p>对于一个给定的层layer，定义loss</p>
+<ul>
+<li>计算Gram Mat，G，表示不同filter的相关性。这个矩阵是个协方差矩阵，我们希望形成的图片的activation 统计和style图片的可以match，计算这两个的协方差就是一个办法（并且经过验证效果比较好）</li>
+<li>给定一个feature map，G矩阵的形状应该是（Cl，Cl）。Cl是这一层的filter的数量。里面的元素应该等于两个filter的乘积</li>
+<li>把生成图片的G和style图片的G做差，平方和就是一层的loss</li>
+<li><p>所有层的loss加在一起就是总共的loss</p>
+</li>
+<li><p>G Mat implement</p>
+<ul>
+<li>view(),形成一个内容相同但是大小不同的tensor</li>
+<li>.matmul 两个tensor相乘</li>
+<li>.permute 给tensor里面的维度换位<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gram_matrix</span><span class="params">(features, normalize=True)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute the Gram matrix from features.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - features: PyTorch Tensor of shape (N, C, H, W) giving features for</span></span><br><span class="line"><span class="string">      a batch of N images.</span></span><br><span class="line"><span class="string">    - normalize: optional, whether to normalize the Gram matrix</span></span><br><span class="line"><span class="string">        If True, divide the Gram matrix by the number of neurons (H * W * C)</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - gram: PyTorch Tensor of shape (N, C, C) giving the</span></span><br><span class="line"><span class="string">      (optionally normalized) Gram matrices for the N input images.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N,C,H,W = features.size()</span><br><span class="line">    </span><br><span class="line"><span class="comment">#     N,C,M</span></span><br><span class="line">    features = features.view(N,C,H*W)</span><br><span class="line">    </span><br><span class="line"><span class="comment">#     N,C,M x N,M,C -&gt; N,C,C</span></span><br><span class="line">    gram = features.matmul(features.permute(<span class="number">0</span>,<span class="number">2</span>,<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> normalize==<span class="literal">True</span>:</span><br><span class="line">        gram /= (H*W*C)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> gram</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>loss implement</p>
+<ul>
+<li>输入<ul>
+<li>feats：现在图片的每一层的feature，从上面的提取特征函数得到</li>
+<li>style_layers：indices</li>
+<li>style_targets：和上面的长度相同，计算的是第i层原图片得到的G Mat</li>
+<li>style_weights：scalar</li>
+</ul>
+</li>
+<li>在计算的时候只需要考虑每一层里面计算出来的现在的G Mat（注意索引不是i）和原图片的G，和上面一样的计算就可以了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Now put it together in the style_loss function...</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">style_loss</span><span class="params">(feats, style_layers, style_targets, style_weights)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Computes the style loss at a set of layers.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - feats: list of the features at every layer of the current image, as produced by</span></span><br><span class="line"><span class="string">      the extract_features function.</span></span><br><span class="line"><span class="string">    - style_layers: List of layer indices into feats giving the layers to include in the</span></span><br><span class="line"><span class="string">      style loss.</span></span><br><span class="line"><span class="string">    - style_targets: List of the same length as style_layers, where style_targets[i] is</span></span><br><span class="line"><span class="string">      a PyTorch Tensor giving the Gram matrix of the source style image computed at</span></span><br><span class="line"><span class="string">      layer style_layers[i].</span></span><br><span class="line"><span class="string">    - style_weights: List of the same length as style_layers, where style_weights[i]</span></span><br><span class="line"><span class="string">      is a scalar giving the weight for the style loss at layer style_layers[i].</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - style_loss: A PyTorch Tensor holding a scalar giving the style loss.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Hint: you can do this with one for loop over the style layers, and should</span></span><br><span class="line">    <span class="comment"># not be very much code (~5 lines). You will need to use your gram_matrix function.</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    loss = torch.tensor(<span class="number">0.</span>).type(dtype)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(style_layers)):</span><br><span class="line">        G_Mat = gram_matrix(feats[style_layers[i]])</span><br><span class="line">        loss_layer = style_weights[i] * torch.sum((style_targets[i] - G_Mat)**<span class="number">2</span>)</span><br><span class="line">        loss += loss_layer</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> loss</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br></pre></td></tr></table></figure>
+<h3 id="total-variation-reg"><a href="#total-variation-reg" class="headerlink" title="total-variation reg"></a>total-variation reg</h3><ul>
+<li>为了让图片显示的内容更加平滑，加入了这个惩罚部分</li>
+<li>计算的方法可以是计算每个像素和它相邻像素的差的平方和（相邻像素分别包括垂直和水平）</li>
+<li>需要让结果vec化，直接用-1把矩阵错位一个</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">tv_loss</span><span class="params">(img, tv_weight)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Compute total variation loss.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - img: PyTorch Variable of shape (1, 3, H, W) holding an input image.</span></span><br><span class="line"><span class="string">    - tv_weight: Scalar giving the weight w_t to use for the TV loss.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - loss: PyTorch Variable holding a scalar giving the total variation loss</span></span><br><span class="line"><span class="string">      for img weighted by tv_weight.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Your implementation should be vectorized and not require any loops!</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    </span><br><span class="line">    H_var = torch.sum((img[:,:,<span class="number">1</span>:,:] - img[:,:,:<span class="number">-1</span>,:])**<span class="number">2</span>)</span><br><span class="line">    W_var = torch.sum((img[:,:,:,<span class="number">1</span>:] - img[:,:,:,:<span class="number">-1</span>])**<span class="number">2</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (H_var + W_var) * tv_weight</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br></pre></td></tr></table></figure>
+<h2 id="已经写好了转化style的函数"><a href="#已经写好了转化style的函数" class="headerlink" title="已经写好了转化style的函数"></a>已经写好了转化style的函数</h2><ul>
+<li>首先提取content和style图片的特征</li>
+<li>然后初始化需要生成的图片，这张图片上面需要打开grad</li>
+<li>设置好hyper，设定好optimizer</li>
+<li>然后在一定的范围里，用cnn提取现在图片的特征</li>
+<li>用现在的特征计算loss，然后改变现在的图片</li>
+</ul>
+<p><img src="/2019/05/22/CS231nAssignment3StyleTransfer/2.jpg" alt><br><img src="/2019/05/22/CS231nAssignment3StyleTransfer/3.jpg" alt></p>
+
       
     </div>
 
@@ -448,6 +596,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/style-transfer/" rel="tag"># style transfer</a>
+          
+        </div>
       
 
       
@@ -514,8 +668,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -532,7 +695,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -599,7 +762,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -696,7 +863,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">42</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -745,6 +924,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#target"><span class="nav-number">1.</span> <span class="nav-text">target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预先设定好的函数"><span class="nav-number">2.</span> <span class="nav-text">预先设定好的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#提取特征"><span class="nav-number">2.1.</span> <span class="nav-text">提取特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算loss"><span class="nav-number">3.</span> <span class="nav-text">计算loss</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#content-loss"><span class="nav-number">3.1.</span> <span class="nav-text">content loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style-loss"><span class="nav-number">3.2.</span> <span class="nav-text">style loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#total-variation-reg"><span class="nav-number">3.3.</span> <span class="nav-text">total-variation reg</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#已经写好了转化style的函数"><span class="nav-number">4.</span> <span class="nav-text">已经写好了转化style的函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
