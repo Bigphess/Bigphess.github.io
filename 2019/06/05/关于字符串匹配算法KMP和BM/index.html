@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="今天开始努力学习">
 <meta property="og:description" content="今天在leetcode终于刷到了string的题，是在一大串字符里面匹配相应的字符。托python的福，居然被我用暴力破解解决了，虽然结果不是很优雅。123456789class Solution:    def strStr(self, haystack: str, needle: str) -&amp;gt; int:        if needle == &quot;&quot;: return 0">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-05T09:55:40.000Z">
+<meta property="og:updated_time" content="2019-06-07T10:27:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于字符串匹配算法KMP和BM">
 <meta name="twitter:description" content="今天在leetcode终于刷到了string的题，是在一大串字符里面匹配相应的字符。托python的福，居然被我用暴力破解解决了，虽然结果不是很优雅。123456789class Solution:    def strStr(self, haystack: str, needle: str) -&amp;gt; int:        if needle == &quot;&quot;: return 0">
@@ -245,7 +245,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">28</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">29</span></a>
 
   </li>
         
@@ -264,7 +264,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">47</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">49</span></a>
 
   </li>
 
@@ -397,12 +397,24 @@
                 
               
 
-              <time title="Created: 2019-06-05 12:03:50 / Modified: 18:55:40" itemprop="dateCreated datePublished" datetime="2019-06-05T12:03:50+09:00">2019-06-05</time>
+              <time title="Created: 2019-06-05 12:03:50" itemprop="dateCreated datePublished" datetime="2019-06-05T12:03:50+09:00">2019-06-05</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-07 19:27:07" itemprop="dateModified" datetime="2019-06-07T19:27:07+09:00">2019-06-07</time>
               
             
           </span>
@@ -495,6 +507,17 @@
 <li>如果这个坏字符包括在单词里面，则需要把这两个对其</li>
 <li><strong>后移位数 = 坏字符的位置 - 搜索词中的上一次出现位置</strong></li>
 <li>如果不包含在搜索词里面，那么上一次的位置是-1</li>
+</ul>
+</li>
+<li>最后一位匹配上了，那么就顺着b往前捋<ul>
+<li>在a里面可以和b后面匹配上的都是good suffix（比如example的e，le，ple等等）</li>
+<li>好后缀的后移：<strong>后移位数 = 好后缀的位置（最后一个字符为准） - 搜索词中的上一次出现位置</strong></li>
+<li>如果没有出现过是 -1 </li>
+<li>如果有多个好后缀，那么除了最长的好后缀，其他的上一次出现位置必须在头部（b的头部）</li>
+</ul>
+</li>
+<li>在上面两个规则里面，选择移动的最大值<ul>
+<li>上面两个规则只和搜索词有关，和原来的字符串没关系，所以可以提前生成坏字符和好后缀表，直接比较移动位数</li>
 </ul>
 </li>
 </ul>
@@ -619,7 +642,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">49</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -692,7 +715,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                    <span class="site-state-item-count">29</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -803,7 +828,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">49</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
