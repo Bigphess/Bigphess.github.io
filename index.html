@@ -350,7 +350,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/20/try/">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/20/一些OpenCV里面之前没用到的函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="RUOPENG XU">
@@ -370,7 +370,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/06/20/try/" class="post-title-link" itemprop="url">try</a>
+                <a href="/2019/06/20/一些OpenCV里面之前没用到的函数/" class="post-title-link" itemprop="url">一些OpenCV里面之前没用到的函数</a>
               
             
           </h1>
@@ -395,12 +395,53 @@
                 
               
 
-              <time title="Created: 2019-06-20 13:44:11" itemprop="dateCreated datePublished" datetime="2019-06-20T13:44:11+09:00">2019-06-20</time>
+              <time title="Created: 2019-06-20 14:01:46" itemprop="dateCreated datePublished" datetime="2019-06-20T14:01:46+09:00">2019-06-20</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-24 11:57:27" itemprop="dateModified" datetime="2019-06-24T11:57:27+09:00">2019-06-24</time>
+              
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -432,7 +473,61 @@
       
         
           
-            
+            <p>看了别人写的代码，感觉好多openCV里面的基础功能我都不知道，当时还是在自己写的，比如降噪啊，减去背景啊等等的</p>
+<h2 id="关于载入模型"><a href="#关于载入模型" class="headerlink" title="关于载入模型"></a>关于载入模型</h2><p>看了一个Github上面的项目，是自己训练了一个五个手势的识别，然后用这些手势来控制自己屋子里面的灯光变化，用keras训练的所以先载入了这个的模型，然后有两个不同的预测的函数</p>
+<ul>
+<li>第一个函数用了<code>model.predict_classes</code>，这个函数预测出来的直接是类别，打印出来的就是类别的编号</li>
+<li>第二个用的是<code>model.predict</code>，这个预测出来的是一个数字，不能直接用，还需要把这个数值<code>argmax(predict_test,axis=1)</code>才可以用（也就是找到最大的）</li>
+</ul>
+<h2 id="createBackgroundSubtractorMOG2"><a href="#createBackgroundSubtractorMOG2" class="headerlink" title="createBackgroundSubtractorMOG2()"></a>createBackgroundSubtractorMOG2()</h2><p>retval = cv.createBackgroundSubtractorMOG2(    [, history[, varThreshold[, detectShadows]]] )</p>
+<ul>
+<li>创建了一个MOG2的background substructor</li>
+<li>参数分别是<ul>
+<li>history的长度</li>
+<li>计算的是曼哈顿距离，这个的阈值</li>
+<li>是否检测影子，如果检测的话速度回慢一点</li>
+</ul>
+</li>
+</ul>
+<h3 id="创建完的模型有很多功能"><a href="#创建完的模型有很多功能" class="headerlink" title="创建完的模型有很多功能"></a><a href="https://docs.opencv.org/4.0.1/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html" target="_blank" rel="noopener">创建完的模型有很多功能</a></h3><ul>
+<li>这里用到了一个apply，就是对一张图进行这个操作，来计算出这张图片的foreground<ul>
+<li>这里有一个参数叫learning rate，指的是你的这个模型会不会随着时间而改变，0的话就是不变，1的话就是完全由上一帧形成，然后负数的话会自动选择一个</li>
+</ul>
+</li>
+</ul>
+<h2 id="bitwise-and"><a href="#bitwise-and" class="headerlink" title="bitwise_and()"></a>bitwise_and()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
+<ul>
+<li>这里计算了每一位的与（and）计算，加上了一个可选的参数mask，这样可以直接计算出来前景去掉背景</li>
+</ul>
+<h2 id="videoCapture-set"><a href="#videoCapture-set" class="headerlink" title="videoCapture.set()"></a>videoCapture.set()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
+<ul>
+<li>这里他的代码没有用属性，直接设置了两个数字，每个数字会代表一个属性，数字的范围是0-18</li>
+<li>也就是说她设置了10这个属性，然后把这个属性的大小设置成了200</li>
+</ul>
+<h2 id="cv2-bilateralFilter-frame-5-50-100"><a href="#cv2-bilateralFilter-frame-5-50-100" class="headerlink" title="cv2.bilateralFilter(frame, 5, 50, 100)"></a>cv2.bilateralFilter(frame, 5, 50, 100)</h2><ul>
+<li>一个叫这个名字的滤镜，可以消除掉图片里面你不想要的噪音</li>
+<li>效果比较好，可以在消除噪音的同时保证图像比较清晰，但是与此同时这个filter的速度会比大多数的慢一些</li>
+</ul>
+<h2 id="图像翻转-flip"><a href="#图像翻转-flip" class="headerlink" title="图像翻转 flip"></a>图像翻转 flip</h2><ul>
+<li>两个参数，翻转的图像以及翻转参数</li>
+<li>0是竖直翻转，1是水平翻转，小于0的时候是旋转180度（先竖直再水平翻转）</li>
+</ul>
+<h2 id="inRange"><a href="#inRange" class="headerlink" title="inRange"></a>inRange</h2><p>dst    =    cv.inRange(    src, lowerb, upperb[, dst]    )</p>
+<ul>
+<li>查看是否有数字在这个范围里面，三个channel都在的话就输出1，不在的话就输出0</li>
+<li>可以给不同的channel赋不同的值</li>
+</ul>
+<h2 id="calcHist"><a href="#calcHist" class="headerlink" title="calcHist"></a>calcHist</h2><p>hist    =    cv.calcHist(    images, channels, mask, histSize, ranges[, hist[, accumulate]]    )</p>
+<ul>
+<li>计算一系列输入的histogram</li>
+<li>原来有这个函数，把这个输入normalize到255个channel上面就能得到，这样就可以得到这张图片里面的分布了</li>
+<li>而且考虑了上面的mask的情况</li>
+</ul>
+<h2 id="calcBackProject（存疑！）"><a href="#calcBackProject（存疑！）" class="headerlink" title="calcBackProject（存疑！）"></a>calcBackProject（存疑！）</h2><p>dst    =    cv.calcBackProject(    images, channels, hist, ranges, scale[, dst]    )</p>
+<ul>
+<li>计算一个hist的back projection</li>
+</ul>
+<h2 id="CamShift"><a href="#CamShift" class="headerlink" title="CamShift()"></a>CamShift()</h2>
           
         
       
@@ -2707,7 +2802,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

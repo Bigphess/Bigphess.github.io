@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[try]]></title>
-    <url>%2F2019%2F06%2F20%2Ftry%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[一些OpenCV里面之前没用到的函数]]></title>
+    <url>%2F2019%2F06%2F20%2F%E4%B8%80%E4%BA%9BOpenCV%E9%87%8C%E9%9D%A2%E4%B9%8B%E5%89%8D%E6%B2%A1%E7%94%A8%E5%88%B0%E7%9A%84%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[看了别人写的代码，感觉好多openCV里面的基础功能我都不知道，当时还是在自己写的，比如降噪啊，减去背景啊等等的 关于载入模型看了一个Github上面的项目，是自己训练了一个五个手势的识别，然后用这些手势来控制自己屋子里面的灯光变化，用keras训练的所以先载入了这个的模型，然后有两个不同的预测的函数 第一个函数用了model.predict_classes，这个函数预测出来的直接是类别，打印出来的就是类别的编号 第二个用的是model.predict，这个预测出来的是一个数字，不能直接用，还需要把这个数值argmax(predict_test,axis=1)才可以用（也就是找到最大的） createBackgroundSubtractorMOG2()retval = cv.createBackgroundSubtractorMOG2( [, history[, varThreshold[, detectShadows]]] ) 创建了一个MOG2的background substructor 参数分别是 history的长度 计算的是曼哈顿距离，这个的阈值 是否检测影子，如果检测的话速度回慢一点 创建完的模型有很多功能 这里用到了一个apply，就是对一张图进行这个操作，来计算出这张图片的foreground 这里有一个参数叫learning rate，指的是你的这个模型会不会随着时间而改变，0的话就是不变，1的话就是完全由上一帧形成，然后负数的话会自动选择一个 bitwise_and()dst = cv.bitwise_and( src1, src2[, dst[, mask]] ) 这里计算了每一位的与（and）计算，加上了一个可选的参数mask，这样可以直接计算出来前景去掉背景 videoCapture.set()dst = cv.bitwise_and( src1, src2[, dst[, mask]] ) 这里他的代码没有用属性，直接设置了两个数字，每个数字会代表一个属性，数字的范围是0-18 也就是说她设置了10这个属性，然后把这个属性的大小设置成了200 cv2.bilateralFilter(frame, 5, 50, 100) 一个叫这个名字的滤镜，可以消除掉图片里面你不想要的噪音 效果比较好，可以在消除噪音的同时保证图像比较清晰，但是与此同时这个filter的速度会比大多数的慢一些 图像翻转 flip 两个参数，翻转的图像以及翻转参数 0是竖直翻转，1是水平翻转，小于0的时候是旋转180度（先竖直再水平翻转） inRangedst = cv.inRange( src, lowerb, upperb[, dst] ) 查看是否有数字在这个范围里面，三个channel都在的话就输出1，不在的话就输出0 可以给不同的channel赋不同的值 calcHisthist = cv.calcHist( images, channels, mask, histSize, ranges[, hist[, accumulate]] ) 计算一系列输入的histogram 原来有这个函数，把这个输入normalize到255个channel上面就能得到，这样就可以得到这张图片里面的分布了 而且考虑了上面的mask的情况 calcBackProject（存疑！）dst = cv.calcBackProject( images, channels, hist, ranges, scale[, dst] ) 计算一个hist的back projection CamShift()]]></content>
+      <categories>
+        <category>图像处理</category>
+        <category>OpenCV</category>
+      </categories>
+      <tags>
+        <tag>OpenCv</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[论文Touch180]]></title>
