@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">31</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">34</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">50</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">54</span></a>
 
   </li>
 
@@ -334,6 +334,810 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/08/Levenshtein/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/08/Levenshtein/" class="post-title-link" itemprop="url">Levenshtein Distance的具体分析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-08 12:56:05 / Modified: 14:55:37" itemprop="dateCreated datePublished" datetime="2019-08-08T12:56:05+09:00">2019-08-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a>编辑距离</h2><ul>
+<li>编辑距离是衡量字符串相似度的距离</li>
+<li>主要应用比如衡量DNA的相似性，衡量什么地方断字，文件的差异等等</li>
+</ul>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
+<li>对于字符串里面的两个<strong>字母</strong>，有三种操作方法能让他们改变<ul>
+<li>插入一个新的字母</li>
+<li>删除一个已经存在的字母</li>
+<li>把现有的字母替换成其他字母</li>
+</ul>
+</li>
+<li>对于两个string，有四种基本的操作<ul>
+<li>第一种，不变 （比如ruopeng和fag）<ul>
+<li>原本的操作 ruopeng[0,6] -&gt; fag[0,2]</li>
+<li>变换之后 ruopen[0,5] -&gt; fa[0,1]</li>
+<li>因为最后一位相同，这个问题可以拆分成最后一个字母，和不包括最后一个字母的substring，这个问题就可以拆分了</li>
+</ul>
+</li>
+<li>第二种，替代 replace （比如 peng 和 zhou）<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 pen[0,2] -&gt; zho[0,2] + replace(g -&gt; u)</li>
+<li>其中，替换的操作是一步，替换之后最后一位的字母相同，这个问题就可以拆分成更小的问题了</li>
+</ul>
+</li>
+<li>第三种，插入 insert<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 peng[0,3] -&gt; zho[0,2] + insert(u)</li>
+<li>首先，直接把这个问题里面的zhou拆分成了更小的问题zho，然后再进行一个插入操作（一步），使zho重新变成了u</li>
+</ul>
+</li>
+<li>第四种，删除 deletion<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 pen[0,2] -&gt; zhou[0,3] + delete(g)</li>
+<li>同时也可以尝试尝试删除掉前一个string里面的最后一个字母g，不再管里面的g，把这个字符串尝试变成pen来进行比较</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
+<li>首先，我们针对这两个string制作一个table<ul>
+<li>对于这个表来说，每一个位置都相当于这个位置对应的两个substring的相似程度，比如E和F对应的就是 ”RUOPE“ 和 ”F“两个substring对应的相似度</li>
+<li>在每个单词开始之前，还有一个空白符号，对应的substring就是空白。比如空白符号这一列对应的就是”“分别和”F“，”FA“，”FAN“等元素的比较<br><img src="/2019/08/08/Levenshtein/1.jpg" alt="1"></li>
+</ul>
+</li>
+<li>对于每个表格里面的位置，从(1,1)开始，这个位置和周围位置的关系如下<ul>
+<li>上面一格是插入，指的是在FANGZHOU这个string的substring里面插入</li>
+<li>左边一格是删除，指的是把RUOPENG这个单词删除一个字母</li>
+<li>左上角一格是替代，指的是把这两个单词的字母分别退一位。如果当前位的字母相同，当前位的值等于退一位之后的值，如果当前不同，是退一位的值+替代花费的操作（也就是1）<br><img src="/2019/08/08/Levenshtein/2.jpg" alt="2"></li>
+</ul>
+</li>
+<li>表格初始化<ul>
+<li>首先需要确定这个表格的边缘情况，也就是横坐标和纵坐标分别是0的部分，这个部分不能用上面总结出来的公式表示</li>
+<li>因为这部分其实就是把不同的substring和空白符号比较，那么需要的最小操作就等于当前字母的位数<br><img src="/2019/08/08/Levenshtein/3.jpg" alt="3"></li>
+</ul>
+</li>
+<li>填表<ul>
+<li>从当前的初始状况出发，逐渐把这个表填完，每一个新的格子的值都取决于上一个格子的值<ul>
+<li>insert = M[i-1][j]+1</li>
+<li>delete = M[i][j-1] + 1</li>
+<li>replace = M[i-1][j-1] + 1</li>
+<li>dont change = M[i-1][j-1] （两个字母匹配）</li>
+</ul>
+</li>
+<li>如果两个字母不匹配的时候，now = min(insert,delete,replace)</li>
+<li>最终结果如下，红色部分为字母相同部分<br><img src="/2019/08/08/Levenshtein/4.jpg" alt="4"></li>
+</ul>
+</li>
+</ul>
+<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">EditDistance</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    m = len(a)</span><br><span class="line">    n = len(b)</span><br><span class="line">    <span class="comment"># 构建表格，注意需要比长度大一格，储存空字符串</span></span><br><span class="line">    M = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(m + <span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> range(n + <span class="number">1</span>)]</span><br><span class="line">    <span class="comment"># 初始化表格，substring分别和空字符串比较</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">        M[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">        M[<span class="number">0</span>][i] = i</span><br><span class="line">    <span class="comment"># DP</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">                <span class="comment"># 判断是否相同，注意这里要减一</span></span><br><span class="line">            <span class="keyword">if</span> b[i - <span class="number">1</span>] == a[j - <span class="number">1</span>]:</span><br><span class="line">                M[i][j] = M[i - <span class="number">1</span>][j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                insert = M[i - <span class="number">1</span>][j] + <span class="number">1</span></span><br><span class="line">                delete = M[i][j - <span class="number">1</span>] + <span class="number">1</span></span><br><span class="line">                replace = M[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span></span><br><span class="line">                M[i][j] = min(insert, delete, replace)</span><br><span class="line">    <span class="keyword">return</span> M[n][m]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意分清矩阵的行和列，在这个实现里a是行，b是列</li>
+<li>考虑到最前面的空字符串<ul>
+<li>注意从string里面读取的时候要记得减1</li>
+<li>注意构建矩阵的时候行数和列数要加一</li>
+</ul>
+</li>
+<li>右下角的结果就是两个完整字符串对比的结果</li>
+</ul>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
+<li>这个方法需要遍历左右的substring的组合，并且把所有的结果都存在一个矩阵里</li>
+<li>如果两个string的长度分别是m和n，那么时间复杂度O(mn),空间复杂度O(mn)</li>
+</ul>
+<h2 id="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐"><a href="#最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐" class="headerlink" title="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐"></a>最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/07/16/SVD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/16/SVD/" class="post-title-link" itemprop="url">SVD</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-07-16 15:47:53" itemprop="dateCreated datePublished" datetime="2019-07-16T15:47:53+09:00">2019-07-16</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/26/fusion360/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/26/fusion360/" class="post-title-link" itemprop="url">fusion360</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-26 17:06:34" itemprop="dateCreated datePublished" datetime="2019-06-26T17:06:34+09:00">2019-06-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-27 14:57:40" itemprop="dateModified" datetime="2019-06-27T14:57:40+09:00">2019-06-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CAD/" itemprop="url" rel="index"><span itemprop="name">CAD</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CAD/Fusion360/" itemprop="url" rel="index"><span itemprop="name">Fusion360</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="给予特征"><a href="#给予特征" class="headerlink" title="给予特征"></a>给予特征</h2><ul>
+<li>拉伸指令</li>
+</ul>
+<h2 id="修饰外形"><a href="#修饰外形" class="headerlink" title="修饰外形"></a>修饰外形</h2><ul>
+<li>修改边缘<ul>
+<li>圆角</li>
+<li>倒角</li>
+</ul>
+</li>
+<li>外观处理<ul>
+<li>选择贴图</li>
+<li>右键选择外观</li>
+<li>可以选择加到面上面或者加到所有东西上面</li>
+</ul>
+</li>
+</ul>
+<h2 id="render（3D模型2D化）"><a href="#render（3D模型2D化）" class="headerlink" title="render（3D模型2D化）"></a>render（3D模型2D化）</h2><ul>
+<li>从model改成渲染</li>
+<li>点那个台灯，修改图片的场景设置，比如高宽比</li>
+<li>所有东西都弄好了之后直接渲染，渲染到自己满意的地方</li>
+</ul>
+<h2 id="画草图"><a href="#画草图" class="headerlink" title="画草图"></a>画草图</h2><ul>
+<li>可以把参考的图放在平面上来，这样画起来比较轻松（插入）</li>
+<li>需要校准加进去图片的比例</li>
+<li>修建偏移之类的对标CAD</li>
+<li>画曲线<ul>
+<li>直接关键点画曲线，可以再调整</li>
+</ul>
+</li>
+<li>几何关系靠计算来</li>
+</ul>
+<h2 id="咖啡杯"><a href="#咖啡杯" class="headerlink" title="咖啡杯"></a>咖啡杯</h2><ul>
+<li>杯身<ul>
+<li>旋转体成型</li>
+</ul>
+</li>
+<li>杯盖<ul>
+<li>新建新的零部件</li>
+<li>修改 – 合并（相交运算</li>
+<li>草图 – 投影，可以把其他的东西投影到现在的平面</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/25/libProCam笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/25/libProCam笔记/" class="post-title-link" itemprop="url">libProCam笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-25 17:49:57 / Modified: 19:01:15" itemprop="dateCreated datePublished" datetime="2019-06-25T17:49:57+09:00">2019-06-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/研究室/" itemprop="url" rel="index"><span itemprop="name">研究室</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Binarizer-cpp"><a href="#Binarizer-cpp" class="headerlink" title="Binarizer.cpp"></a>Binarizer.cpp</h1><p>这个部分是来计算图像的binary的，包括</p>
+<ul>
+<li>计算这个图片的threshold</li>
+<li>做背景substract</li>
+</ul>
+<h2 id="Cpp相关"><a href="#Cpp相关" class="headerlink" title="Cpp相关"></a>Cpp相关</h2><ul>
+<li>构造函数<ul>
+<li>构造一个类的时候使用的函数，这个函数的名字和类名相同，默认是没有参数的，可以自己加上参数，这样创建对象的时候就需要给参数</li>
+<li>对标python里面的init</li>
+</ul>
+</li>
+<li>析构函数<ul>
+<li>名字和构造函数完全相同，但是在前面增加了一个波浪线，没有返回值也没有参数，只是用来在关闭程序的时候释放资源</li>
+</ul>
+</li>
+<li><p>虚函数</p>
+<ul>
+<li>借助指针来达到多态的效果</li>
+<li>定义一个函数是虚函数，不代表这个函数不被实现，而是代表基类的指针可以调用子类的这个函数</li>
+<li>如果定义为纯虚函数，才说明不会实现</li>
+<li>比如下面的例子里面，B是子类，A是基类，创建的是A的指针，但是调用的却是B的函数，这说明这个函数的调用不是在编译的时候被确定的，而是在运行的时候被确定的<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"A::foo() is called"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span><span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"B::foo() is called"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    A *a = <span class="keyword">new</span> B();</span><br><span class="line">    a-&gt;foo();   <span class="comment">// 在这里，a虽然是指向A的指针，但是被调用的函数(foo)却是B的!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>纯虚函数，在函数的定义后面加上 =0</p>
+<ul>
+<li>经常会在定义基类的时候用纯虚函数，因为基类可能有很多的派生，但是基类本身生成的对象可能是不合理的<ul>
+<li>比如动物可以派生狮子老虎，但是动物本身不是很合理</li>
+</ul>
+</li>
+<li>在子类里面必须重新声明这个函数，也就是说在子类的时候必须提供一个这个函数的实现，但是基类的作者不知道你怎么实现它</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1752,817 +2556,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/03/关于python的threading/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/03/关于python的threading/" class="post-title-link" itemprop="url">关于python的threading</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-03 14:53:30 / Modified: 16:19:20" itemprop="dateCreated datePublished" datetime="2019-06-03T14:53:30+09:00">2019-06-03</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h2><p>多线程类似于同时执行多个任务</p>
-<ul>
-<li>可以把占用时间长的程序放到后台去处理</li>
-<li>可以使用户界面更加吸引人（比如点击按钮，会出现进度条）</li>
-<li>处理速度更快</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/24/关于动态规划DP/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/24/关于动态规划DP/" class="post-title-link" itemprop="url">关于动态规划(dynamic programmin)</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-24 16:45:51" itemprop="dateCreated datePublished" datetime="2019-05-24T16:45:51+09:00">2019-05-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-27 11:22:12" itemprop="dateModified" datetime="2019-05-27T11:22:12+09:00">2019-05-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>ref：<a href="https://www.zhihu.com/question/23995189" target="_blank" rel="noopener">https://www.zhihu.com/question/23995189</a></p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>在身上带着不同数额的钞票，目标是凑出来某个金额w，使用尽量少的钞票</p>
-<ul>
-<li>如果用贪心算法，实际上就是尽快让w变得更小，有更大面值的就用更大面值的钞票</li>
-<li>但是如果换了一组其他的钞票面值，可能就会出现问题（比如 1，5，11凑15）<ul>
-<li>因为在贪心算法里面，需要先把15降成4，再把4降下来，但是降4的成本很高，需要4张1</li>
-<li>在考虑的时候鼠目寸光，只考虑了眼前的情况，没有考虑后续的发展</li>
-</ul>
-</li>
-<li>如果开始列举，其实这个问题就会变成<code>接下来需要凑出来n，需要f(n)张钞票</code></li>
-<li>这时候，凑15其实就变成了三个情况<ul>
-<li>f(4) + 1</li>
-<li>f(10) + 1</li>
-<li>f(14) +1</li>
-</ul>
-</li>
-<li>可以发现实际上f(15)只和这三个值有关系，也就是只和n-1，n-5，n-11有关系<ul>
-<li><code>f(n) = min(f(n-1),f(n-5),f(n-11))+1</code></li>
-<li>这是一个可以迭代的式子对不对！</li>
-<li>并不关心到底是怎么凑出来的，反正只关心f(w)的值</li>
-</ul>
-</li>
-<li>在代码实现上面，只需从小到大对比所有的cost就可以了，也就是对比新的方案的cost是不是会比以前的方案小。<strong>注意在求的时候可能会需要i-1/-5/-11的值，所以要把从头到尾的值都记录下来</strong><ul>
-<li>比如要求凑15块钱，会先考虑15比1大，那么把1块拿出来，看看取14块钱的时候需要的步骤是多少，然后把5块拿出来，看看比拿1块差多少，最后拿11，看看和之前的cost差多少</li>
-</ul>
-</li>
-</ul>
-<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul>
-<li>dp和贪心算法的区别就在于，dp会分别算出不同策略的代价，而贪心算法包含着冗余的信息（到底怎么使用）</li>
-<li>所以就是求出来fn -&gt; 得到求fn需要的fc -&gt; 求fc，不停的循环</li>
-<li>也就是把一个问题拆成了不同的子问题</li>
-</ul>
-<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
-<li>后无效性<ul>
-<li>一旦fn确定，我们就不需要知道怎么得到的fn了，只在后面直接用就可以了</li>
-</ul>
-</li>
-<li>最优子结构<ul>
-<li>在得到fn的时候本身得到的就是最优的fn了，所以在用的时候才可以放心的用</li>
-</ul>
-</li>
-<li>一旦问题可以拆成子问题，并且满足上面的两个概念，就可以用dp解了</li>
-</ul>
-<h2 id="为什么快"><a href="#为什么快" class="headerlink" title="为什么快"></a>为什么快</h2><ul>
-<li>dp和贪心都是在空间里寻找最优解，但是dp在找解的时候已经找到了子问题的最优解，也就是说他已经把子问题里面不可能的状态排除掉了</li>
-</ul>
-<h2 id="算法设计"><a href="#算法设计" class="headerlink" title="算法设计"></a>算法设计</h2><ul>
-<li>把现在面对的局面看做x</li>
-<li>对于x，需要求得答案是fx，目标是求出来fT，找出x和哪些局面p有关，写出一个状态专业方程，来求fp到fx的关系</li>
-<li>也就是考虑现在我是谁，和我从哪里来（或者我到哪里去）</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/22/CS231nAssignment3StyleTransfer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/22/CS231nAssignment3StyleTransfer/" class="post-title-link" itemprop="url">CS231nAssignment3StyleTransfer</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-22 13:47:39" itemprop="dateCreated datePublished" datetime="2019-05-22T13:47:39+09:00">2019-05-22</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-28 17:13:05" itemprop="dateModified" datetime="2019-05-28T17:13:05+09:00">2019-05-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><ul>
-<li>现在有两张图片，需要产生一些新的图片是一张图片的内容但是是另一张图片的style</li>
-<li>首先我们希望可以构建一个loss function，可以连接style和每个不同的image，然后在每个图片的pixel上面降低gradient</li>
-<li>在这个里面用squeezeNet（在ImageNet上面pretrain的）来提取图片的feature</li>
-</ul>
-<p><img src="/2019/05/22/CS231nAssignment3StyleTransfer/1.jpg" alt></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/22/CS231nAssignment3StyleTransfer/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/21/CS231nassignment3Vis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/21/CS231nassignment3Vis/" class="post-title-link" itemprop="url">CS231nassignment3Vis</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-21 16:21:31" itemprop="dateCreated datePublished" datetime="2019-05-21T16:21:31+09:00">2019-05-21</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-22 13:45:07" itemprop="dateModified" datetime="2019-05-22T13:45:07+09:00">2019-05-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Network-Visualization-PyTorch"><a href="#Network-Visualization-PyTorch" class="headerlink" title="Network Visualization (PyTorch)"></a>Network Visualization (PyTorch)</h2><ul>
-<li>在这部分用了一个已经在ImageNet上面pretrain过的CNN</li>
-<li>用这个CNN来定义一个loss function，然后用这个loss来测量现在的不高兴程度</li>
-<li>back的时候计算这个loss对于每个像素的gradient</li>
-<li><strong>保持这个model不变，但是在图片上面展示出来gradients的下降，形成让loss最小的图片</strong></li>
-</ul>
-<p>这个作业一共分成三个部分：</p>
-<ul>
-<li>saliency map：一个比较快的方法来展示这个图片哪个部分影响了net分类的决定</li>
-<li>fooling image：扰乱一个图片，让他看起来跟人似的，但是会被误分类</li>
-<li>class visualization：形成可以得到最大分类得分的图片</li>
-</ul>
-<p><strong>注意这里需要先激活conda，不然在jupter里面torch会报错</strong></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/21/CS231nassignment3Vis/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -2606,7 +2604,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2685,7 +2683,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">31</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>

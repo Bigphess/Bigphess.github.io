@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Levenshtein Distance的具体分析]]></title>
+    <url>%2F2019%2F08%2F08%2FLevenshtein%2F</url>
+    <content type="text"><![CDATA[编辑距离 编辑距离是衡量字符串相似度的距离 主要应用比如衡量DNA的相似性，衡量什么地方断字，文件的差异等等 基本操作 对于字符串里面的两个字母，有三种操作方法能让他们改变 插入一个新的字母 删除一个已经存在的字母 把现有的字母替换成其他字母 对于两个string，有四种基本的操作 第一种，不变 （比如ruopeng和fag） 原本的操作 ruopeng[0,6] -&gt; fag[0,2] 变换之后 ruopen[0,5] -&gt; fa[0,1] 因为最后一位相同，这个问题可以拆分成最后一个字母，和不包括最后一个字母的substring，这个问题就可以拆分了 第二种，替代 replace （比如 peng 和 zhou） 原本操作 peng[0,3] -&gt; zhou[0,3] 变换之后 pen[0,2] -&gt; zho[0,2] + replace(g -&gt; u) 其中，替换的操作是一步，替换之后最后一位的字母相同，这个问题就可以拆分成更小的问题了 第三种，插入 insert 原本操作 peng[0,3] -&gt; zhou[0,3] 变换之后 peng[0,3] -&gt; zho[0,2] + insert(u) 首先，直接把这个问题里面的zhou拆分成了更小的问题zho，然后再进行一个插入操作（一步），使zho重新变成了u 第四种，删除 deletion 原本操作 peng[0,3] -&gt; zhou[0,3] 变换之后 pen[0,2] -&gt; zhou[0,3] + delete(g) 同时也可以尝试尝试删除掉前一个string里面的最后一个字母g，不再管里面的g，把这个字符串尝试变成pen来进行比较 核心思想 首先，我们针对这两个string制作一个table 对于这个表来说，每一个位置都相当于这个位置对应的两个substring的相似程度，比如E和F对应的就是 ”RUOPE“ 和 ”F“两个substring对应的相似度 在每个单词开始之前，还有一个空白符号，对应的substring就是空白。比如空白符号这一列对应的就是”“分别和”F“，”FA“，”FAN“等元素的比较 对于每个表格里面的位置，从(1,1)开始，这个位置和周围位置的关系如下 上面一格是插入，指的是在FANGZHOU这个string的substring里面插入 左边一格是删除，指的是把RUOPENG这个单词删除一个字母 左上角一格是替代，指的是把这两个单词的字母分别退一位。如果当前位的字母相同，当前位的值等于退一位之后的值，如果当前不同，是退一位的值+替代花费的操作（也就是1） 表格初始化 首先需要确定这个表格的边缘情况，也就是横坐标和纵坐标分别是0的部分，这个部分不能用上面总结出来的公式表示 因为这部分其实就是把不同的substring和空白符号比较，那么需要的最小操作就等于当前字母的位数 填表 从当前的初始状况出发，逐渐把这个表填完，每一个新的格子的值都取决于上一个格子的值 insert = M[i-1][j]+1 delete = M[i][j-1] + 1 replace = M[i-1][j-1] + 1 dont change = M[i-1][j-1] （两个字母匹配） 如果两个字母不匹配的时候，now = min(insert,delete,replace) 最终结果如下，红色部分为字母相同部分 python代码实现12345678910111213141516171819202122def EditDistance(a, b): m = len(a) n = len(b) # 构建表格，注意需要比长度大一格，储存空字符串 M = [[0 for i in range(m + 1)] for j in range(n + 1)] # 初始化表格，substring分别和空字符串比较 for i in range(1, n + 1): M[i][0] = i for i in range(1, m + 1): M[0][i] = i # DP for i in range(1, n + 1): for j in range(1, m + 1): # 判断是否相同，注意这里要减一 if b[i - 1] == a[j - 1]: M[i][j] = M[i - 1][j - 1] else: insert = M[i - 1][j] + 1 delete = M[i][j - 1] + 1 replace = M[i - 1][j - 1] + 1 M[i][j] = min(insert, delete, replace) return M[n][m] 注意分清矩阵的行和列，在这个实现里a是行，b是列 考虑到最前面的空字符串 注意从string里面读取的时候要记得减1 注意构建矩阵的时候行数和列数要加一 右下角的结果就是两个完整字符串对比的结果 时间复杂度 这个方法需要遍历左右的substring的组合，并且把所有的结果都存在一个矩阵里 如果两个string的长度分别是m和n，那么时间复杂度O(mn),空间复杂度O(mn) 最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐]]></content>
+      <categories>
+        <category>算法</category>
+        <category>动态规划</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[SVD]]></title>
+    <url>%2F2019%2F07%2F16%2FSVD%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[fusion360]]></title>
+    <url>%2F2019%2F06%2F26%2Ffusion360%2F</url>
+    <content type="text"><![CDATA[给予特征 拉伸指令 修饰外形 修改边缘 圆角 倒角 外观处理 选择贴图 右键选择外观 可以选择加到面上面或者加到所有东西上面 render（3D模型2D化） 从model改成渲染 点那个台灯，修改图片的场景设置，比如高宽比 所有东西都弄好了之后直接渲染，渲染到自己满意的地方 画草图 可以把参考的图放在平面上来，这样画起来比较轻松（插入） 需要校准加进去图片的比例 修建偏移之类的对标CAD 画曲线 直接关键点画曲线，可以再调整 几何关系靠计算来 咖啡杯 杯身 旋转体成型 杯盖 新建新的零部件 修改 – 合并（相交运算 草图 – 投影，可以把其他的东西投影到现在的平面]]></content>
+      <categories>
+        <category>CAD</category>
+        <category>Fusion360</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[libProCam笔记]]></title>
+    <url>%2F2019%2F06%2F25%2FlibProCam%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[Binarizer.cpp这个部分是来计算图像的binary的，包括 计算这个图片的threshold 做背景substract Cpp相关 构造函数 构造一个类的时候使用的函数，这个函数的名字和类名相同，默认是没有参数的，可以自己加上参数，这样创建对象的时候就需要给参数 对标python里面的init 析构函数 名字和构造函数完全相同，但是在前面增加了一个波浪线，没有返回值也没有参数，只是用来在关闭程序的时候释放资源 虚函数 借助指针来达到多态的效果 定义一个函数是虚函数，不代表这个函数不被实现，而是代表基类的指针可以调用子类的这个函数 如果定义为纯虚函数，才说明不会实现 比如下面的例子里面，B是子类，A是基类，创建的是A的指针，但是调用的却是B的函数，这说明这个函数的调用不是在编译的时候被确定的，而是在运行的时候被确定的12345678910111213141516171819202122class A&#123;public: virtual void foo() &#123; cout&lt;&lt;"A::foo() is called"&lt;&lt;endl; &#125;&#125;;class B:public A&#123;public: void foo() &#123; cout&lt;&lt;"B::foo() is called"&lt;&lt;endl; &#125;&#125;;int main(void)&#123; A *a = new B(); a-&gt;foo(); // 在这里，a虽然是指向A的指针，但是被调用的函数(foo)却是B的! return 0;&#125; 纯虚函数，在函数的定义后面加上 =0 经常会在定义基类的时候用纯虚函数，因为基类可能有很多的派生，但是基类本身生成的对象可能是不合理的 比如动物可以派生狮子老虎，但是动物本身不是很合理 在子类里面必须重新声明这个函数，也就是说在子类的时候必须提供一个这个函数的实现，但是基类的作者不知道你怎么实现它]]></content>
+      <categories>
+        <category>研究室</category>
+      </categories>
+      <tags>
+        <tag>OpenCV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[一些OpenCV里面之前没用到的函数]]></title>
     <url>%2F2019%2F06%2F20%2F%E4%B8%80%E4%BA%9BOpenCV%E9%87%8C%E9%9D%A2%E4%B9%8B%E5%89%8D%E6%B2%A1%E7%94%A8%E5%88%B0%E7%9A%84%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[看了别人写的代码，感觉好多openCV里面的基础功能我都不知道，当时还是在自己写的，比如降噪啊，减去背景啊等等的 关于载入模型看了一个Github上面的项目，是自己训练了一个五个手势的识别，然后用这些手势来控制自己屋子里面的灯光变化，用keras训练的所以先载入了这个的模型，然后有两个不同的预测的函数 第一个函数用了model.predict_classes，这个函数预测出来的直接是类别，打印出来的就是类别的编号 第二个用的是model.predict，这个预测出来的是一个数字，不能直接用，还需要把这个数值argmax(predict_test,axis=1)才可以用（也就是找到最大的） createBackgroundSubtractorMOG2()retval = cv.createBackgroundSubtractorMOG2( [, history[, varThreshold[, detectShadows]]] ) 创建了一个MOG2的background substructor 参数分别是 history的长度 计算的是曼哈顿距离，这个的阈值 是否检测影子，如果检测的话速度回慢一点 创建完的模型有很多功能 这里用到了一个apply，就是对一张图进行这个操作，来计算出这张图片的foreground 这里有一个参数叫learning rate，指的是你的这个模型会不会随着时间而改变，0的话就是不变，1的话就是完全由上一帧形成，然后负数的话会自动选择一个 bitwise_and()dst = cv.bitwise_and( src1, src2[, dst[, mask]] ) 这里计算了每一位的与（and）计算，加上了一个可选的参数mask，这样可以直接计算出来前景去掉背景 videoCapture.set()dst = cv.bitwise_and( src1, src2[, dst[, mask]] ) 这里他的代码没有用属性，直接设置了两个数字，每个数字会代表一个属性，数字的范围是0-18 也就是说她设置了10这个属性，然后把这个属性的大小设置成了200 cv2.bilateralFilter(frame, 5, 50, 100) 一个叫这个名字的滤镜，可以消除掉图片里面你不想要的噪音 效果比较好，可以在消除噪音的同时保证图像比较清晰，但是与此同时这个filter的速度会比大多数的慢一些 图像翻转 flip 两个参数，翻转的图像以及翻转参数 0是竖直翻转，1是水平翻转，小于0的时候是旋转180度（先竖直再水平翻转） inRangedst = cv.inRange( src, lowerb, upperb[, dst] ) 查看是否有数字在这个范围里面，三个channel都在的话就输出1，不在的话就输出0 可以给不同的channel赋不同的值 calcHisthist = cv.calcHist( images, channels, mask, histSize, ranges[, hist[, accumulate]] ) 计算一系列输入的histogram 原来有这个函数，把这个输入normalize到255个channel上面就能得到，这样就可以得到这张图片里面的分布了 而且考虑了上面的mask的情况 calcBackProject（存疑！）dst = cv.calcBackProject( images, channels, hist, ranges, scale[, dst] ) 计算一个hist的back projection CamShift()]]></content>
