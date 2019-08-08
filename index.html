@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">34</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">35</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">54</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">55</span></a>
 
   </li>
 
@@ -545,6 +545,476 @@
 <li>如果两个string的长度分别是m和n，那么时间复杂度O(mn),空间复杂度O(mn)</li>
 </ul>
 <h2 id="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐"><a href="#最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐" class="headerlink" title="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐"></a>最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/06/算法图解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/06/算法图解/" class="post-title-link" itemprop="url">算法图解笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-06 14:37:32" itemprop="dateCreated datePublished" datetime="2019-08-06T14:37:32+09:00">2019-08-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-08 14:56:10" itemprop="dateModified" datetime="2019-08-08T14:56:10+09:00">2019-08-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/算法图解/" itemprop="url" rel="index"><span itemprop="name">算法图解</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第一章-算法简介"><a href="#第一章-算法简介" class="headerlink" title="第一章 算法简介"></a>第一章 算法简介</h1><h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><ul>
+<li>必须是有序的数组</li>
+<li>对于n个元素的列表，使用二分查找最多需要 log2 n步，用普通的查找最多需要n步<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(l, item)</span>:</span></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = len(l) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        mid = int((low + high) / <span class="number">2</span>)  <span class="comment"># 这里需要转成int，不然没办法做index</span></span><br><span class="line">        <span class="keyword">if</span> l[mid] == item:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> l[mid] &lt; item:</span><br><span class="line">            low = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high = mid - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="运行时间"><a href="#运行时间" class="headerlink" title="运行时间"></a>运行时间</h2><ul>
+<li>大O表示法表示了操作数，表示的是这个算法的增量</li>
+<li>大O表示了在最糟情况下的运行时间 -&gt; 但是也是需要讨论平均时间的</li>
+<li>常见的大O时间<ul>
+<li>logN 对数时间 Logarithmic</li>
+<li>N 线性时间 Linear</li>
+<li>N * logN 包括快速排序等，速度较快</li>
+<li>N ^ 2 选择排序等，速度较慢</li>
+<li>N！ Factorial time 非常慢</li>
+</ul>
+</li>
+</ul>
+<h2 id="旅行商问题-travelling-salesman-problem-TSP"><a href="#旅行商问题-travelling-salesman-problem-TSP" class="headerlink" title="旅行商问题 travelling salesman problem, TSP"></a>旅行商问题 travelling salesman problem, TSP</h2><ul>
+<li>一个搞不好可以用n！来解决的问题</li>
+<li>你要去五个不同的地方，需要规划怎么样路线最短，最开始的思路就是把每种可能性都列出来，然后对每种路线进行计算。这样的话五个地方就是120种，地方越多越呈阶乘增长</li>
+</ul>
+<h1 id="第二章-选择排序"><a href="#第二章-选择排序" class="headerlink" title="第二章 选择排序"></a>第二章 选择排序</h1><h2 id="数组和链表"><a href="#数组和链表" class="headerlink" title="数组和链表"></a>数组和链表</h2><ul>
+<li>数组需要的空间是固定的（也就是说必须连在一起），所以如果后面加进去了其他东西的话就不行了，需要转移位置，或者预留空间</li>
+<li>链表的每一个位置都会有到下一个位置的指针，所以不需要移动元素。<ul>
+<li>但是链表的问题在于，如果想直接找后面的东西的时候需要一个接着一个读取</li>
+</ul>
+</li>
+<li><strong>需要读取整个数据的时候链表效率很高，需要跳跃的时候链表效率很低。而数组在读取随机元素的时候效率很高</strong><ul>
+<li>数组插入 / 删除线性，读取常数。</li>
+<li>链表读取线性，插入 / 删除常数。</li>
+</ul>
+</li>
+<li>在实际中，因为数组支持随机访问（但是链表只支持顺序访问），所以数组的适用范围大一些</li>
+</ul>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><ul>
+<li>实现方法：每次都从所有的里面选出最大 / 最小，然后放在最开头</li>
+<li>时间复杂度 n ^ 2<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(l)</span>:</span></span><br><span class="line">    newArr = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(l)):</span><br><span class="line">        smallest = float(<span class="string">'inf'</span>)</span><br><span class="line">        index = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> i, item <span class="keyword">in</span> enumerate(l):</span><br><span class="line">            <span class="keyword">if</span> item &lt; smallest:</span><br><span class="line">                smallest = item</span><br><span class="line">                index = i</span><br><span class="line">        newArr.append(l.pop(index))  <span class="comment"># 注意这里需要把l的大小改变了</span></span><br><span class="line">        <span class="comment"># 但是是在带l的loop外面变得所以没有关系</span></span><br><span class="line">    <span class="keyword">return</span> newArr</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="第三章-递归-recursion"><a href="#第三章-递归-recursion" class="headerlink" title="第三章 递归 recursion"></a>第三章 递归 recursion</h1><h2 id="何为递归"><a href="#何为递归" class="headerlink" title="何为递归"></a>何为递归</h2><ul>
+<li>函数自己调用自己</li>
+<li>递归和循环的作用效果是相同的，没有性能上的优势，但是可以让方案更加清晰<ul>
+<li>base case：告诉函数什么时候不再调用自己，停止循环</li>
+<li>recursive case：函数调用自己</li>
+</ul>
+</li>
+</ul>
+<h2 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈 stack"></a>栈 stack</h2><ul>
+<li>先进后出的数据结构，push（压入）和pop（读取和删除）</li>
+<li>在调用另一个函数的时候，当前函数暂停并且处于未完成状态，函数的所有变量都储存在内存里</li>
+<li>使用递归的一个问题：如果调用栈的时候很长，会占据大量内存<ul>
+<li>这种时候需要重新编写代码使用循环</li>
+<li>或者使用尾递归（并不是所有语言都支持）</li>
+</ul>
+</li>
+</ul>
+<h1 id="第四章-快速排序（分而治之-divide-and-conquer）"><a href="#第四章-快速排序（分而治之-divide-and-conquer）" class="headerlink" title="第四章 快速排序（分而治之 divide and conquer）"></a>第四章 快速排序（分而治之 divide and conquer）</h1><h2 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h2><ul>
+<li>核心：把一个问题分成子问题，再把子问题分成更小的子问题，最后的子问题可以直接求解，这样的话原问题的解就是子问题的解的合并<ul>
+<li>比如把n规模的问题分成k份，然后在k个问题里面分别再分开</li>
+</ul>
+</li>
+<li>特征<ul>
+<li>问题缩小规模可以轻松解决</li>
+<li>可以分解成若干个小问题</li>
+<li>分解出的子问题可以再合并（如果不满足这条，应该考虑贪心或者DP）</li>
+<li>分解出的各个子问题是独立的（不满足应该考虑DP）</li>
+</ul>
+</li>
+<li>不用循环而用递归：函数式编程里面没有循环（Haskell）</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RecursiveSum</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> l == []:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] + RecursiveSum(l[<span class="number">1</span>:])  <span class="comment"># 这里不能改变l本身的大小</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MaxNum</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(l) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] <span class="keyword">if</span> l[<span class="number">0</span>] &gt; l[<span class="number">1</span>] <span class="keyword">else</span> l[<span class="number">1</span>]</span><br><span class="line">    submax = MaxNum(l[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> l[<span class="number">0</span>] <span class="keyword">if</span> l[<span class="number">0</span>] &gt; submax <span class="keyword">else</span> submax</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意：<ul>
+<li>需要找好基本条件，如果找最大值的base就是还剩下两个值</li>
+<li>注意return的内容</li>
+</ul>
+</li>
+</ul>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul>
+<li>比选择排序速度快很多</li>
+<li>base条件，一个元素或者空的数组就不需要排序了</li>
+<li>需要设定一个基本值（比如取第一个值，根据这个值把原数组分成两部分），这样这三个大块就分类完成了。然后对于每个小块，再继续分组<ul>
+<li>比基准小的子数组</li>
+<li>基准</li>
+<li>比基准大的子数组<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(l) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        piv = l[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 这里是快读得到比他大和比他小的写法，主要从l[1:]开始</span></span><br><span class="line">        less_part = [i <span class="keyword">for</span> i <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> i &lt; piv]</span><br><span class="line">        more_part = [i <span class="keyword">for</span> i <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; piv]</span><br><span class="line">        <span class="keyword">return</span> QuickSort(less_part) + [piv] + QuickSort(more_part)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注意这里piv是个int，所以连接的时候需要改成list</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
+<li>快速排序的速度取决于选择的piv的值的大小，也就是说如果完全排好的情况下，复杂度是n2</li>
+<li>合并排序的速度是 nlogn，快速排序的平均速度是 nlogn，最佳情况是 logn<ul>
+<li>快速排序需要logn层，每层需要把n个元素全都遍历一次，所以最终的结果是nlogn</li>
+</ul>
+</li>
+<li>在计算复杂度的时候，复杂度是操作的次数，而这个次数需要乘一个每次操作的常量，在快速排序的时候常量更小，而且快速排序没那么容易遇到最糟情况</li>
+</ul>
+<h1 id="第五章-散列表（hash表）"><a href="#第五章-散列表（hash表）" class="headerlink" title="第五章 散列表（hash表）"></a>第五章 散列表（hash表）</h1><h2 id="hash函数"><a href="#hash函数" class="headerlink" title="hash函数"></a>hash函数</h2><ul>
+<li>最终的目的是查找的时候时间复杂度是 1</li>
+<li>函数构造：把输入映射到一个数字<ul>
+<li>无论你什么时候输入，输出的数字是一致的</li>
+<li>将不同的输入映射到不同的数字</li>
+<li>知道整个存储的范围有多大，不会返回超过这个大小的数字</li>
+</ul>
+</li>
+</ul>
+<h2 id="应用：缓存"><a href="#应用：缓存" class="headerlink" title="应用：缓存"></a>应用：缓存</h2><ul>
+<li>网站的缓存数据就存在hash表里面，这样访问速度更快，网站本身需要做的工作更少</li>
+<li>访问一个网页 -&gt; 是否在缓存里 -&gt; 有的话调用缓存 -&gt; 没有的话存进缓存</li>
+</ul>
+<h2 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h2><ul>
+<li>虽然假设的时候认为每个东西都被映射到不同地方，其实会产生冲突</li>
+<li>这种情况下要在hash后面加上list<ul>
+<li>hash函数需要把内容比较平均分分配</li>
+<li>如果储存的链表很长，那么性能就会急剧下降</li>
+</ul>
+</li>
+</ul>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><ul>
+<li>最佳性能，1</li>
+<li>最糟性能，插入，删除，查询全都是n</li>
+<li>装填因子： 装填的元素数 / 元素总数<ul>
+<li>一旦超过0.7就需要调整hash的长度了</li>
+</ul>
+</li>
+</ul>
+<h1 id="第六章-BFS：最短路径问题"><a href="#第六章-BFS：最短路径问题" class="headerlink" title="第六章 BFS：最短路径问题"></a>第六章 BFS：最短路径问题</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><ul>
+<li>用于图的查找算法，可以解决两种问题<ul>
+<li>从A出发有前往B的路径吗</li>
+<li>从A出发到B的路径最短是什么</li>
+</ul>
+</li>
+<li>实现图 -&gt; hash表，需要将node映射到所有的邻居</li>
+<li>在python里面使用deque创建双端队列</li>
+<li>算法实现（广度搜索）：<ul>
+<li>创建一个队列，储存用于查找的人</li>
+<li>首先把初始化的人载入队列</li>
+<li>从队列里弹出一个人，查找他是不是（查过之后标记成已检查，列表记录），不是的话把这个人的相邻加入队列（一直重复）<ul>
+<li>标记成已检查非常重要，因为不标记的话可能会陷入无限循环</li>
+</ul>
+</li>
+<li>如果最后队列空了还没找到，那就是没有</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BFS</span><span class="params">(name, graph)</span>:</span></span><br><span class="line">    search_queue = deque()</span><br><span class="line">    search_queue += graph[name]</span><br><span class="line">    searched = [name]  <span class="comment"># 用来储存已经探索过的人数</span></span><br><span class="line">    <span class="keyword">while</span> search_queue:</span><br><span class="line">        person = search_queue.popleft()</span><br><span class="line">        <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:</span><br><span class="line">            <span class="keyword">if</span> person[<span class="number">-1</span>] == <span class="string">"m"</span>:  <span class="comment"># 只是一个判断是不是这个人的办法</span></span><br><span class="line">                <span class="keyword">return</span> person</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_queue += graph[person]</span><br><span class="line">                searched.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<h2 id="更新版本，不但可以搜索还可以计算长度"><a href="#更新版本，不但可以搜索还可以计算长度" class="headerlink" title="更新版本，不但可以搜索还可以计算长度"></a>更新版本，不但可以搜索还可以计算长度</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BFS</span><span class="params">(name, graph)</span>:</span></span><br><span class="line">    search_queue = deque()</span><br><span class="line">    search_queue.append(name)</span><br><span class="line">    searched = [name]  <span class="comment"># 用来储存已经探索过的人数</span></span><br><span class="line">    distance = &#123;name: <span class="number">0</span>&#125;</span><br><span class="line">    <span class="keyword">while</span> search_queue:</span><br><span class="line">        current = search_queue.popleft()</span><br><span class="line">        <span class="keyword">for</span> person <span class="keyword">in</span> graph[current]:</span><br><span class="line">            <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:</span><br><span class="line">                searched.append(person)</span><br><span class="line">                distance[person] = distance[current] + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> person[<span class="number">-1</span>] == <span class="string">"m"</span>:</span><br><span class="line">                    <span class="keyword">return</span> person, distance[person]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    search_queue.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, <span class="literal">None</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意点：<ul>
+<li>增加了distance这个dict来储存开始点到这个点的距离</li>
+<li>在初始化的时候只在已搜索队列里添加了第一个点的信息，在后面的循环里才添加后面的点</li>
+<li>对于每个从queue里面拿出来的点，如果不在已经查找的点里就一定需要加进去，并且计算距离，距离即是和上一点的距离+1</li>
+<li>计算过距离之后再判断是不是要找的点</li>
+</ul>
+</li>
+<li><p>运行时间</p>
+<ul>
+<li>需要沿着每条边前进，所以在边上的运行时间是 O(E)</li>
+<li>把每个人加到queue里面也需要时间，每个人的时间是常数，所以人数的时间是 O(V)</li>
+<li>总的运行时间 E + V</li>
+</ul>
+</li>
+<li><p>拓扑排序</p>
+<ul>
+<li>如果任务A依赖于任务B，那么任务A就必须排在B的后面，这种就是拓扑排序</li>
+</ul>
+</li>
+</ul>
+<h1 id="第七章-狄克斯特拉算法"><a href="#第七章-狄克斯特拉算法" class="headerlink" title="第七章 狄克斯特拉算法"></a>第七章 狄克斯特拉算法</h1><ul>
+<li>之前的图找的是最短路径，现在需要给图加权，找加权之后的最短路径</li>
+<li>加权之后的最短不一定是边数最短</li>
+<li><strong>负的权重不顶用</strong>，因为负权重不能确定没有比目前消耗更小的</li>
+<li>书里写的错的地方：可以有环，没环都是树了！有向无环图可以直接拓扑排序</li>
+<li>核心思想：找到到这个点消耗最少的路径，并且确保没有路径比这个小了</li>
+</ul>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><ul>
+<li>找出消耗最低的点</li>
+<li>更新这个点相邻点的开销</li>
+<li>重复这个过程，直到对所有点都做了（即A点最小之后更新B点，然后更新C点，以此类推）</li>
+<li>计算最终流程</li>
+</ul>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><ul>
+<li>创建一个表格<ul>
+<li>包含了每一项和每一项的具体开销，目前不知道的开销标记成inf</li>
+<li>需要包含每个点的父节点，才能保证最后可以计算流程</li>
+</ul>
+</li>
+<li>不停的更新这个表，从开销最低的一直更新到开销最高的，如果更新了开销的话同样需要更新父节点</li>
+<li>在确定路径的时候，从结尾的地方开始找，然后一路找到开头</li>
+</ul>
+<h2 id="一个问题：关于图在python里面的表示"><a href="#一个问题：关于图在python里面的表示" class="headerlink" title="一个问题：关于图在python里面的表示"></a>一个问题：关于图在python里面的表示</h2><ul>
+<li>实际就是一个dict叠dict，如果直接访问<strong>G[a][b]</strong>就可以直接得到这两个点的距离</li>
+<li><p>如果没有加权的话，可以直接dict叠list，因为不需要记录距离了</p>
+</li>
+<li><p>注意点</p>
+<ul>
+<li>最好是最开始指定了第一个消耗最低点，然后再循环里面最后找消耗最低点</li>
+<li>初始化的时候注意：cost里面初始为0，father里面去掉这个点，Node（cost最低点）初始化成这个点，循环的条件是Node不是空<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dijkstra</span><span class="params">(graph, src, target)</span>:</span></span><br><span class="line">    <span class="comment"># 需要创建一个cost表和一个父节点表</span></span><br><span class="line">    cost = &#123;&#125;</span><br><span class="line">    father = &#123;&#125;</span><br><span class="line">    visited = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> graph.keys():  <span class="comment"># 访问这个图里面所有的key，就是所有的店</span></span><br><span class="line">        cost[i] = float(<span class="string">'inf'</span>)</span><br><span class="line">        father[i] = <span class="literal">None</span></span><br><span class="line">    cost[src] = <span class="number">0</span>  <span class="comment"># 起始点的cost是0</span></span><br><span class="line">    father.pop(src)  <span class="comment"># 起始点不需要父节点</span></span><br><span class="line"></span><br><span class="line">    Node = src</span><br><span class="line">    <span class="comment"># 最小开销点还存在的时候更新所有的点</span></span><br><span class="line">    <span class="keyword">while</span> Node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">for</span> near <span class="keyword">in</span> graph[Node]:</span><br><span class="line">            new_distance = cost[Node] + graph[Node][near]</span><br><span class="line">            <span class="keyword">if</span> new_distance &lt; cost[near]:</span><br><span class="line">                cost[near] = new_distance</span><br><span class="line">                father[near] = Node</span><br><span class="line">        visited.append(Node)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 找到最小开销的点(放在循环里面好一点)</span></span><br><span class="line">        Node = <span class="literal">None</span></span><br><span class="line">        smallest = float(<span class="string">'inf'</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> cost:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                <span class="keyword">if</span> cost[i] &lt; smallest:</span><br><span class="line">                    smallest = cost[i]</span><br><span class="line">                    Node = i</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 跳出循环，得到结果</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">N = &#123;</span><br><span class="line">    <span class="string">"start"</span>: &#123;<span class="string">"a"</span>: <span class="number">2</span>, <span class="string">"b"</span>: <span class="number">6</span>&#125;,</span><br><span class="line">    <span class="string">"a"</span>: &#123;<span class="string">"fin"</span>: <span class="number">1</span>&#125;,</span><br><span class="line">    <span class="string">"b"</span>: &#123;<span class="string">"a"</span>: <span class="number">3</span>, <span class="string">"fin"</span>: <span class="number">5</span>&#125;,</span><br><span class="line">    <span class="string">"fin"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># print(N["start"]["a"])</span></span><br><span class="line">dijkstra(N, <span class="string">"start"</span>, <span class="string">"fin"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><ul>
+<li>处理npc问题，即没有快速算法的解法的问题</li>
+<li>对NPC问题找到近似解</li>
+</ul>
+<h2 id="例子问题"><a href="#例子问题" class="headerlink" title="例子问题"></a>例子问题</h2><ul>
+<li>课表问题：<ul>
+<li>希望尽可能多的课在这个屋子里面上，但是上课时间冲突，如何排课</li>
+<li>先找到这个教室里最早开始的课，然后找到这节课结束之后最早开始的课</li>
+</ul>
+</li>
+<li>装东西<ul>
+<li>背着包去装东西，容量有限，如何装到最大价值的</li>
+<li>从最大的开始装，但是得到的不是最优解，最优解应该动态规划</li>
+</ul>
+</li>
+<li>核心思想：每一步都用局部最优解，得到的结果就是全局最优解。即使得不到最优解，也可以得到近似最优解</li>
+</ul>
+<h2 id="只能用贪心的问题"><a href="#只能用贪心的问题" class="headerlink" title="只能用贪心的问题"></a>只能用贪心的问题</h2><ul>
+<li>集合覆盖问题，比如想在全部区域广播，但是每家电台只覆盖特定区域，如果才能花费最小的计划</li>
+<li>列出所有的可能性的话，复杂度是 2^n</li>
+<li>近似算法：从覆盖最多地方的电台开始找，一直到覆盖所有地方</li>
+<li>贪心算法的复杂度是 n^2，n是广播台的数量<ul>
+<li>因为每次都需要遍历一次找出最需要的那个（n)，这样的操作需要进行最多n次（万一每次都覆盖不上）</li>
+</ul>
+</li>
+</ul>
+<h2 id="NPC问题：从旅行商问题详解"><a href="#NPC问题：从旅行商问题详解" class="headerlink" title="NPC问题：从旅行商问题详解"></a>NPC问题：从旅行商问题详解</h2><ul>
+<li>旅行商问题和求路径问题的区别在于，旅行商问题需要访问一遍所有的地方，找到最短路线</li>
+<li>旅行商问题需要查看所有的可能的路线</li>
+<li>从简单问题出发<ul>
+<li>两个地方的时候，可能的路线有两条（一来一回）</li>
+<li>三个地方的时候 6条</li>
+</ul>
+</li>
+<li>需要计算出所有的解才有可能从中选出最短的路线 -&gt; NPC问题</li>
+<li>近似方法：每次都去离得最近的地方</li>
+</ul>
+<h2 id="识别问题"><a href="#识别问题" class="headerlink" title="识别问题"></a>识别问题</h2><ul>
+<li>元素较少的时候速度快，随着元素增加非常慢</li>
+<li>涉及所有组合</li>
+<li>不能分成小问题，必须考虑所有情况</li>
+<li>涉及序列（比如旅行商中的城市序列），集合（集合覆盖问题）且难以解决。或者可以转换成这种问题的</li>
+</ul>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
+<li>把一个大的问题拆分成很多小问题的解的合并</li>
+<li>最终的结果其实类似一个表，每次再得到新的结果的时候，其实是在比较<ul>
+<li>同等大小下上一个的值（即上一行的值，这个值已经是之前储存下来的最大的值了）</li>
+<li>当前放新的东西的价值+放完这个东西之后剩下空间可以放的东西的最大价值（这个最大价值同样也被记录了）</li>
+</ul>
+</li>
+<li>DP处理问题的时候只能整件的处理，也就是说分布应该是离散的而不是连续的</li>
+<li>而且DP处理问题的时候各个子问题之间不能互相依赖，如果互相依赖了就很复杂了</li>
+</ul>
+<h2 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h2><ul>
+<li>比如搜索引擎误输入，怎么判断相近词</li>
+<li>每种动态规划都涉及网络，每个网格里面的值就是我需要优化的值<ul>
+<li>每个单元格里是什么<ul>
+<li>每个单元格是这个格子之前相同的字母数量</li>
+</ul>
+</li>
+<li>如何把这个问题分成子问题<ul>
+<li>如果相同，就是前一个的字母数+1，如果不同就是0</li>
+</ul>
+</li>
+<li>网络的坐标轴是什么<ul>
+<li>在这个问题中，是两个单词的各个字母</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意在这个问题里面，最终答案不是在最后出现的</li>
+<li>最长公共字序列！！和子串不一样，对比的是序列而不是字母的个数<ul>
+<li>当字母不同的时候，选择上边或者左边最大的那个</li>
+</ul>
+</li>
+</ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>levenshtein distance（字符串的相似程度，也就是上面的公共子序列）</li>
+<li>指出文件的差异，DNA的相似性，确定什么地方断字</li>
+<li>核心思想：需要把两个str里面所有的substr的combination都计算一下</li>
+<li>实现<ul>
+<li>初始化条件：插入</li>
+<li>实际上来说一个格子有三种操作，删除，插入和置换，这个格子需要改变的操作是这三个操作的最小值</li>
+<li>删除 = d[i - 1][j] + 1 </li>
+<li>插入 = d[i][j - 1] + 1 （相当于这个单词的前一个字母，加上一个插入，这两个没有本质区别）</li>
+<li>替换 = d[i - 1][j - 1] + cost，其中这个cost，如果两个相同就是0，两个不同就是1</li>
+</ul>
+</li>
+</ul>
+
           
         
       
@@ -2329,233 +2799,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/05/关于字符串匹配算法KMP和BM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/05/关于字符串匹配算法KMP和BM/" class="post-title-link" itemprop="url">关于字符串匹配算法KMP和BM</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-05 12:03:50" itemprop="dateCreated datePublished" datetime="2019-06-05T12:03:50+09:00">2019-06-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-07 19:27:07" itemprop="dateModified" datetime="2019-06-07T19:27:07+09:00">2019-06-07</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/字符串处理/" itemprop="url" rel="index"><span itemprop="name">字符串处理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天在leetcode终于刷到了string的题，是在一大串字符里面匹配相应的字符。<br>托python的福，居然被我用暴力破解解决了，虽然结果不是很优雅。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span><span class="params">(self, haystack: str, needle: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> needle == <span class="string">""</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i, ch <span class="keyword">in</span> enumerate(haystack):</span><br><span class="line">            <span class="keyword">if</span> ch == needle[<span class="number">0</span>]:</span><br><span class="line">                <span class="keyword">if</span> needle == haystack[i:i+len(needle)]:</span><br><span class="line">                    <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><ul>
-<li>首先，把这个需要检测的string（a）的第一个和目标string（t）的第一个进行对比，如果不匹配，后移一位</li>
-<li>直到找到第一个相同的字母，然后把a和b同时后移一位<ul>
-<li>还是相同，继续后移</li>
-<li>不同（<strong>这部分是这个代码的精髓</strong>）<ul>
-<li>一般的思路是把b全都后移一位，但是这样其实消耗挺大的</li>
-<li>KMP的思路是，既然b的前n位都已经比较过了，那就不要放弃这个信息，不要移动回之前比较过的n位了，继续后移移动到全新的位置</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要移动的位数 = 已经匹配到的字数 - 对应最后一位匹配上的东西的匹配值（由partial match table得出）</li>
-</ul>
-<h3 id="如何产生这张表"><a href="#如何产生这张表" class="headerlink" title="如何产生这张表"></a>如何产生这张表</h3><p>比如一个单词 bread</p>
-<ul>
-<li>前缀：b,br,bre,brea</li>
-<li>后缀：read,ead,ad,d<br>部分匹配值就是前缀和后缀最长的共有元素长度</li>
-<li>比如ABCDABD这个string<ul>
-<li>A前后缀都是空的，长度0</li>
-<li>AB，前缀A，后缀B，共有长度0</li>
-<li>ABC，[A, AB]，后缀为[BC, C]，共有元素的长度0</li>
-<li>ABCD，[A,AB,ABC],[B,BC,BCD] -&gt; 0</li>
-<li>ABCDA, [A,AB,ABC,ABCD],[BCDA,CDA,DA,A] -&gt; 有一个共有元素A，长度为1</li>
-<li>ABCDAB,[A, AB, ABC, ABCD, ABCDA],[BCDAB, CDAB, DAB, AB, B] -&gt; 共有元素AB，长度为2</li>
-<li>“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。<br>（难点：怎么得到上面的这个长度）</li>
-</ul>
-</li>
-</ul>
-<h2 id="BM"><a href="#BM" class="headerlink" title="BM"></a>BM</h2><ul>
-<li>首先将a和b的头对其开始，然后从尾部开始比较。因为如果尾部不匹配的话，这整个一串都不匹配了。知道了这个不匹配的字符之后，这个字符就被称为坏字符<ul>
-<li>如果这个坏字符包括在单词里面，则需要把这两个对其</li>
-<li><strong>后移位数 = 坏字符的位置 - 搜索词中的上一次出现位置</strong></li>
-<li>如果不包含在搜索词里面，那么上一次的位置是-1</li>
-</ul>
-</li>
-<li>最后一位匹配上了，那么就顺着b往前捋<ul>
-<li>在a里面可以和b后面匹配上的都是good suffix（比如example的e，le，ple等等）</li>
-<li>好后缀的后移：<strong>后移位数 = 好后缀的位置（最后一个字符为准） - 搜索词中的上一次出现位置</strong></li>
-<li>如果没有出现过是 -1 </li>
-<li>如果有多个好后缀，那么除了最长的好后缀，其他的上一次出现位置必须在头部（b的头部）</li>
-</ul>
-</li>
-<li>在上面两个规则里面，选择移动的最大值<ul>
-<li>上面两个规则只和搜索词有关，和原来的字符串没关系，所以可以提前生成坏字符和好后缀表，直接比较移动位数</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2604,7 +2847,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2689,7 +2932,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">34</span>
+                      
+                    
+                    <span class="site-state-item-count">35</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
