@@ -395,7 +395,7 @@
                 
               
 
-              <time title="Created: 2019-08-08 12:56:05 / Modified: 14:55:37" itemprop="dateCreated datePublished" datetime="2019-08-08T12:56:05+09:00">2019-08-08</time>
+              <time title="Created: 2019-08-08 12:56:05 / Modified: 15:00:44" itemprop="dateCreated datePublished" datetime="2019-08-08T12:56:05+09:00">2019-08-08</time>
             
 
             
@@ -662,7 +662,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-08 14:56:10" itemprop="dateModified" datetime="2019-08-08T14:56:10+09:00">2019-08-08</time>
+                <time title="Modified: 2019-08-19 14:49:23" itemprop="dateModified" datetime="2019-08-19T14:49:23+09:00">2019-08-19</time>
               
             
           </span>
@@ -925,7 +925,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h1><ul>
+<h1 id="第八章-贪心算法"><a href="#第八章-贪心算法" class="headerlink" title="第八章 贪心算法"></a>第八章 贪心算法</h1><ul>
 <li>处理npc问题，即没有快速算法的解法的问题</li>
 <li>对NPC问题找到近似解</li>
 </ul>
@@ -968,7 +968,7 @@
 <li>不能分成小问题，必须考虑所有情况</li>
 <li>涉及序列（比如旅行商中的城市序列），集合（集合覆盖问题）且难以解决。或者可以转换成这种问题的</li>
 </ul>
-<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
+<h1 id="第九章-动态规划"><a href="#第九章-动态规划" class="headerlink" title="第九章 动态规划"></a>第九章 动态规划</h1><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
 <li>把一个大的问题拆分成很多小问题的解的合并</li>
 <li>最终的结果其实类似一个表，每次再得到新的结果的时候，其实是在比较<ul>
 <li>同等大小下上一个的值（即上一行的值，这个值已经是之前储存下来的最大的值了）</li>
@@ -1013,6 +1013,61 @@
 <li>替换 = d[i - 1][j - 1] + cost，其中这个cost，如果两个相同就是0，两个不同就是1</li>
 </ul>
 </li>
+<li>具体说明见<a href="https://bigphess.github.io/2019/08/08/Levenshtein/">levenshtein distance说明</a></li>
+</ul>
+<h1 id="第十章-K最近邻"><a href="#第十章-K最近邻" class="headerlink" title="第十章 K最近邻"></a>第十章 K最近邻</h1><h2 id="创建推荐系统"><a href="#创建推荐系统" class="headerlink" title="创建推荐系统"></a>创建推荐系统</h2><ul>
+<li>向这个人推荐电影，找到离这个人最近的五个用户</li>
+<li>如何判断最近：特征抽取</li>
+</ul>
+<h1 id="第十一章-接下来如何"><a href="#第十一章-接下来如何" class="headerlink" title="第十一章 接下来如何"></a>第十一章 接下来如何</h1><h2 id="树（数据库-高级数据结构）"><a href="#树（数据库-高级数据结构）" class="headerlink" title="树（数据库 + 高级数据结构）"></a>树（数据库 + 高级数据结构）</h2><ul>
+<li>二叉查找树：对于每一个节点，左节点都比他小，右节点都比他大<ul>
+<li>时间复杂度 logn</li>
+<li>平衡问题</li>
+</ul>
+</li>
+<li>延伸： B树，红黑树，堆，延展树</li>
+</ul>
+<h2 id="反向索引"><a href="#反向索引" class="headerlink" title="反向索引"></a>反向索引</h2><ul>
+<li>搜索引擎的工作原理</li>
+<li>把网页创建hash表，key是单词，value是包含单词的页面</li>
+</ul>
+<h2 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h2><ul>
+<li>信号处理</li>
+</ul>
+<h2 id="并行算法（提高速度）"><a href="#并行算法（提高速度）" class="headerlink" title="并行算法（提高速度）"></a>并行算法（提高速度）</h2><ul>
+<li>对速度的提升是非线性的<ul>
+<li>并行管理开销</li>
+<li>负载均匀</li>
+</ul>
+</li>
+</ul>
+<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><ul>
+<li>分布式算法<ul>
+<li>把一台电脑上面处理的工作分布到多台电脑，处理大量数据</li>
+</ul>
+</li>
+<li>分布+归并</li>
+</ul>
+<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><ul>
+<li>概率型数据结构：可能出现错报，但是不可能出现漏报<ul>
+<li>储存空间很少</li>
+</ul>
+</li>
+</ul>
+<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><ul>
+<li>类似于布隆过滤器的算法，不能给出准确的答案但是占据的空间很小</li>
+</ul>
+<h2 id="SHA"><a href="#SHA" class="headerlink" title="SHA"></a>SHA</h2><ul>
+<li>另一种hash，安全散列算法，给定一个字符串返回hash</li>
+<li>比较大型文件</li>
+<li>检查密码</li>
+<li>局部不敏感，修改其中一个字符，会改变很多</li>
+</ul>
+<h2 id="Diffie-Hellman-密钥交换"><a href="#Diffie-Hellman-密钥交换" class="headerlink" title="Diffie-Hellman 密钥交换"></a>Diffie-Hellman 密钥交换</h2><ul>
+<li>如何对消息加密，让只有收件人看得懂</li>
+</ul>
+<h2 id="线性规划"><a href="#线性规划" class="headerlink" title="线性规划"></a>线性规划</h2><ul>
+<li>在给定的约束条件下最大限度的改善指定的指标</li>
 </ul>
 
           
@@ -3053,7 +3108,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
