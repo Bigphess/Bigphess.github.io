@@ -628,12 +628,24 @@
                 
               
 
-              <time title="Created: 2019-08-20 16:55:35 / Modified: 17:56:14" itemprop="dateCreated datePublished" datetime="2019-08-20T16:55:35+09:00">2019-08-20</time>
+              <time title="Created: 2019-08-20 16:55:35" itemprop="dateCreated datePublished" datetime="2019-08-20T16:55:35+09:00">2019-08-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-23 12:59:02" itemprop="dateModified" datetime="2019-08-23T12:59:02+09:00">2019-08-23</time>
               
             
           </span>
@@ -726,6 +738,120 @@
 <li>时间和空间的trade off</li>
 <li>简单设计</li>
 </ul>
+<h1 id="第二章-算法"><a href="#第二章-算法" class="headerlink" title="第二章 算法"></a>第二章 算法</h1><h2 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h2><ul>
+<li>如果有最多40亿个排好序的32位浮点数，其中有遗漏的数据，如何找到遗漏的数据。考虑内存足够的时候和内存不够的时候的情况<ul>
+<li>如果内存足够，可以像第一章说的一样，用位图来表示这些数据，然后看哪些没有</li>
+</ul>
+</li>
+</ul>
+<h3 id="如果内存不够？"><a href="#如果内存不够？" class="headerlink" title="如果内存不够？"></a>如果内存不够？</h3><ul>
+<li>二分查找<ul>
+<li>必须定义范围，范围里面每个数字的表示方法和探测方法</li>
+<li>比如如果把这些数据分成两部分，比如1-10里面取中位数，因为缺数据的原因，总是会有一边的个数少，那么缺的数据就肯定在少的这边</li>
+</ul>
+</li>
+</ul>
+<h2 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：</h2><ul>
+<li>将具有n个元素的向量x左旋i个位置，时间上与n成正比，有十几字节的额外空间</li>
+<li>直接方法<ul>
+<li>储存到额外数组 -&gt; 太浪费空间了</li>
+<li>定义一个函数将数组每次移动一个位置 -&gt; 太浪费时间了（虽然时间上和n成正比）</li>
+</ul>
+</li>
+<li>另一个思考<ul>
+<li>把一个数组分成不同的组，每次把对应组的内容转移，直到所有内容都转移成功。比如把x[0]挪出去，x[3]诺到x[0],x[6]挪到3，然后0挪到6。然后再挪x[1]和他的对应的内容们</li>
+</ul>
+</li>
+<li>另一种思考方法：旋转x实际就是把ab转换成ba<ul>
+<li>如果a是前i个元素，a比b短，把b分割成b1和b2，让b2和a的长度一样</li>
+<li>那么可以先交换a和b2 -&gt; b2 a b1</li>
+<li>然后再集中精力交换b1和b2里的元素，也就是说这可以是一个recursive的表示方法</li>
+</ul>
+</li>
+<li><strong>转置</strong>：这个看起来在写Leetcode的时候非常好用啊！！！<strong>但是注意在python里面reverse要自己写</strong><ul>
+<li>如果把问题看成转置，实际上数组ab可以<ul>
+<li>先转置a：aTb</li>
+<li>再转置b：aTbT</li>
+<li>再转置整个数组：（aTbT）T = ba</li>
+</ul>
+</li>
+<li>也就是说，如果abcdefg想让他旋转三位，实际上可以做到的是<ul>
+<li>reverse（0，2）：<strong>cba</strong>defg</li>
+<li>reverse（3，6）：cba<strong>gfed</strong></li>
+<li>reverse（0，6）：<strong>defgabc</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h2><ul>
+<li>找到一个单词的变位词：比如pots和stop</li>
+</ul>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li>注意，找到所有的可能性是很愚蠢的，比如一个22个字母的词，所有的变位22！大概是10e21，时间爆炸了</li>
+<li>核心思想 -&gt; 排序，排序之后的变位词就都一样了</li>
+<li>leetcode 242,49<ul>
+<li>这个题的核心思路就是，每个单词按字母顺序排序之后的答案就是这个单词的key，如果两个单词的key一样的话这两个单词就是变位词，如果不一样的话就是新的词</li>
+<li>在python里面直接用字典可以很好的储存变位词</li>
+</ul>
+</li>
+</ul>
+<h1 id="第三章-数据结构"><a href="#第三章-数据结构" class="headerlink" title="第三章 数据结构"></a>第三章 数据结构</h1><p>数据结构的意义就是让代码可以更加简短整洁 -&gt; 比如用数组代替循环</p>
+<ul>
+<li>原则：能用小程序解决的就不要用大程序<ul>
+<li>把重复性代码改写</li>
+<li>封装复杂的结构</li>
+<li>尽可能使用高级工具</li>
+<li>让数据去构造程序</li>
+</ul>
+</li>
+</ul>
+<h1 id="第四章-正确编写程序"><a href="#第四章-正确编写程序" class="headerlink" title="第四章 正确编写程序"></a>第四章 正确编写程序</h1><h2 id="写一个完全正确的binary-search吧！"><a href="#写一个完全正确的binary-search吧！" class="headerlink" title="写一个完全正确的binary search吧！"></a>写一个完全正确的binary search吧！</h2><ul>
+<li>注意点<ul>
+<li>求中位数的时候是前后相加，除以二</li>
+<li>注意跳出循环的条件是 start&gt; end</li>
+<li>为了满足上面的循环条件，需要每次判断完mid之后，把start或者end移动一位，不然会陷入死循环</li>
+</ul>
+</li>
+<li>后面的9，11，14会用到程序的<strong>验证技术</strong><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        end = len(nums) - <span class="number">1</span></span><br><span class="line">        mid = (start + end) // <span class="number">2</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> start &lt;= end:</span><br><span class="line">            <span class="keyword">if</span> target == nums[mid]:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">elif</span> target &gt; nums[mid]:</span><br><span class="line">                start = mid + <span class="number">1</span></span><br><span class="line">                mid = (end + start) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> target &lt; nums[mid]:</span><br><span class="line">                end = mid - <span class="number">1</span> </span><br><span class="line">                mid = (start + end) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="第五章-次要问题"><a href="#第五章-次要问题" class="headerlink" title="第五章 次要问题"></a>第五章 次要问题</h1><ul>
+<li>虽然每次写完了程序，大家基本都会选择把它直接插入系统，然后强烈的希望他能运行</li>
+<li>（哭了，写的也太真实了）</li>
+</ul>
+<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><ul>
+<li>设置极小的测试用例（比如0个，1个，2个元素等等）</li>
+<li>设置可以自动生成的测试用例</li>
+<li>计时，测试不同方法的时间</li>
+</ul>
+<h2 id="调试-gt-引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题"><a href="#调试-gt-引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题" class="headerlink" title="调试 -&gt; 引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题"></a>调试 -&gt; 引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题</h2><hr>
+<h1 id="第六章-性能透视"><a href="#第六章-性能透视" class="headerlink" title="第六章 性能透视"></a>第六章 性能透视</h1><p>在后面的三章会说到提高运行效率的三个方法，在第六章主要讲的是各个层次如何组合为一个整体</p>
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ul>
+<li>一个模拟天体间受力关系，来模拟运动的程序，通过对程序的改进，在n=1000的程度下，把速度从一年提升到了不到一天，速度提升系数约为400</li>
+<li>改进方法<ul>
+<li>算法和数据结构，把时间复杂度n2 -&gt; nlogn（二叉树）</li>
+<li>算法优化，优化了两个粒子靠的很近的情况</li>
+<li>数据结构重组，减少了局部计算的次数</li>
+<li>代码优化：64位浮点数改为32位，计算时间减半。用汇编重写了某个函数，给缓慢的函数加速</li>
+<li>硬件，提升了硬件</li>
+</ul>
+</li>
+<li>算法加速不一定是独立于硬件的，比如在超级计算机上，树形结构对时间的影响就很小</li>
+</ul>
+<h2 id="设计层次"><a href="#设计层次" class="headerlink" title="设计层次"></a>设计层次</h2><ul>
+<li>问题的定义</li>
+<li>系统结构 -&gt; 第七章，封底估计</li>
+<li>算法和数据结构 -&gt; 2,8章</li>
+<li>代码优化 -&gt; 9</li>
+<li>系统软件</li>
+<li>硬件：比如实现某个功能的专门硬件</li>
+</ul>
+<h2 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h2><ul>
+<li>如果需要少量加速，研究最好的层次。虽然修改算法是非常常见的答案，但是在研究之前最好考虑一下所有可能的层次。比如硬件？这种的，最好能找到一个得到最大加速，又所需精力最少的层次</li>
+<li>如果需要大量加速，需要研究多个层次。就像上面的案例一样</li>
+</ul>
+<h1 id="封底计算"><a href="#封底计算" class="headerlink" title="封底计算"></a>封底计算</h1><p>在处理问题之前，需要对这个问题的规模有一个大概的估计，才能更好的处理问题</p>
 
           
         
