@@ -350,6 +350,233 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/03/十大经典排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/03/十大经典排序/" class="post-title-link" itemprop="url">十大经典排序</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-03 15:36:21 / Modified: 16:28:27" itemprop="dateCreated datePublished" datetime="2019-09-03T15:36:21+09:00">2019-09-03</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考出自：<a href="https://mp.weixin.qq.com/s/vn3KiV-ez79FmbZ36SX9lg" target="_blank" rel="noopener">五分钟学算法</a></p>
+<ul>
+<li>时间复杂度<ul>
+<li>最好情况</li>
+<li>最坏情况</li>
+</ul>
+</li>
+<li>空间复杂度: 需不需要开辟新的空间</li>
+<li>排序方式：in-place还是不是in-place</li>
+<li>排序稳定性: 也就是之前顺序的东西在排序之后是否还顺序</li>
+</ul>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><ul>
+<li>前面一个数和后面一个比，如果前面的数比后面的大(或者小)，就交换他们两个<ul>
+<li>这样交换一次之后的最后一个数就是所有数字里面的最大数</li>
+<li>也就相当于最大的数像冒泡一样冒出来了，第一轮过后，第二轮可以直接冒倒数第二个数，也就是说每一轮的内循环次数可以逐渐减少</li>
+</ul>
+</li>
+<li>需要重复n次（但是每次对越来越少的数字进行上述操作），以确保所有的交换都已经完毕了。</li>
+<li><p>增加了一个flag的判断，如果在一轮里面没有任何交换产生，那就说明所有的元素都已经排序完毕了（因为如果还有数字往上冒必然会在前面有交换</p>
+<ul>
+<li>这样如果是正序排列的话，可以直接跳出循环，不用进行比较，时间复杂度是n<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(num)</span>:</span></span><br><span class="line">    n = len(num)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        flag = <span class="literal">True</span> <span class="comment">#如果在这轮没有任何交换，就可以说明排序已经完成了</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n - j):</span><br><span class="line">            <span class="keyword">if</span> num[i] &gt; num[i + <span class="number">1</span>]:</span><br><span class="line">                temp = num[i]</span><br><span class="line">                num[i] = num[i + <span class="number">1</span>]</span><br><span class="line">                num[i + <span class="number">1</span>] = temp</span><br><span class="line">                flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> flag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li>当正序排列的时候，因为可以直接跳出循环，所以只需要遍历一次所有的数保证他们排列正常，所以时间复杂度是n</li>
+<li>当倒序排列的时候，需要把所有都移动一遍，所以时间复杂度是 n^2</li>
+<li>平均的复杂度是n方</li>
+</ul>
+</li>
+<li>空间复杂度：<ul>
+<li>因为交换只需要一个额外的temp来储存临时变量，空间复杂度是1</li>
+</ul>
+</li>
+<li>in-place：是的</li>
+<li>稳定性：稳定，因为一次换过来的东西就不动了，在判断大小的时候也是判断的大于而不是大于等于，也就是说前面换到后面的大数永远会在后面的数的前面<ul>
+<li>比如 [0,8,1,8,2]。首先会把第一个8换到第二个8的前面，因为判断条件没有等于，所以越不过去。</li>
+</ul>
+</li>
+</ul>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><ul>
+<li>从所有元素中找到最小（或者最大）元素，然后放到数组的第一个（也就是和数组的第一个交换位置），然后这个就算是固定住了</li>
+<li>然后从第二个到最后一个中选择现在最小的，和数组的第二个交换位置，前两个就固定住了</li>
+<li><p>以此类推</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SelectSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        Min = float(<span class="string">"inf"</span>)</span><br><span class="line">        index = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, n):</span><br><span class="line">            <span class="keyword">if</span> nums[j] &lt; Min:</span><br><span class="line">                Min = nums[j]</span><br><span class="line">                index = j</span><br><span class="line">        <span class="keyword">if</span> index != i: <span class="comment">#这样可以减少一些根本不用交换的情况，下一个位置上本来就是最小的</span></span><br><span class="line">            temp = nums[i]</span><br><span class="line">            nums[i] = nums[index]</span><br><span class="line">            nums[index] = temp</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li>最好情况和最坏情况都不能避免走两个循环，都是n^2</li>
+</ul>
+</li>
+<li>空间复杂度:1,来储存temp的值和暂时的最大值的变量</li>
+<li>in-place：是的，换位置就可以，不需要单拿出来</li>
+<li>稳定：<ul>
+<li>不稳定，因为在交换位置的时候，并不知道现在的东西被交换到哪里去了</li>
+<li>比如：[3,3,0,9]，当0和3交换位置的时候，把第一个3交换到第二个3后面去了</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/22/unity显示相机画面/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -645,7 +872,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-08-23 12:59:02" itemprop="dateModified" datetime="2019-08-23T12:59:02+09:00">2019-08-23</time>
+                <time title="Modified: 2019-09-02 12:25:21" itemprop="dateModified" datetime="2019-09-02T12:25:21+09:00">2019-09-02</time>
               
             
           </span>
@@ -852,7 +1079,13 @@
 <li>如果需要大量加速，需要研究多个层次。就像上面的案例一样</li>
 </ul>
 <h1 id="封底计算"><a href="#封底计算" class="headerlink" title="封底计算"></a>封底计算</h1><p>在处理问题之前，需要对这个问题的规模有一个大概的估计，才能更好的处理问题</p>
-
+<h2 id="帮助封底计算"><a href="#帮助封底计算" class="headerlink" title="帮助封底计算"></a>帮助封底计算</h2><ul>
+<li>两个不同方面的答案对比</li>
+<li>量纲检测</li>
+<li>经验法则</li>
+<li>实践</li>
+</ul>
+<h2 id="性能估计-安全系数"><a href="#性能估计-安全系数" class="headerlink" title="性能估计 + 安全系数"></a>性能估计 + 安全系数</h2>
           
         
       
@@ -2667,239 +2900,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/20/一些OpenCV里面之前没用到的函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/20/一些OpenCV里面之前没用到的函数/" class="post-title-link" itemprop="url">一些OpenCV里面之前没用到的函数</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-20 14:01:46" itemprop="dateCreated datePublished" datetime="2019-06-20T14:01:46+09:00">2019-06-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-24 11:57:27" itemprop="dateModified" datetime="2019-06-24T11:57:27+09:00">2019-06-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>看了别人写的代码，感觉好多openCV里面的基础功能我都不知道，当时还是在自己写的，比如降噪啊，减去背景啊等等的</p>
-<h2 id="关于载入模型"><a href="#关于载入模型" class="headerlink" title="关于载入模型"></a>关于载入模型</h2><p>看了一个Github上面的项目，是自己训练了一个五个手势的识别，然后用这些手势来控制自己屋子里面的灯光变化，用keras训练的所以先载入了这个的模型，然后有两个不同的预测的函数</p>
-<ul>
-<li>第一个函数用了<code>model.predict_classes</code>，这个函数预测出来的直接是类别，打印出来的就是类别的编号</li>
-<li>第二个用的是<code>model.predict</code>，这个预测出来的是一个数字，不能直接用，还需要把这个数值<code>argmax(predict_test,axis=1)</code>才可以用（也就是找到最大的）</li>
-</ul>
-<h2 id="createBackgroundSubtractorMOG2"><a href="#createBackgroundSubtractorMOG2" class="headerlink" title="createBackgroundSubtractorMOG2()"></a>createBackgroundSubtractorMOG2()</h2><p>retval = cv.createBackgroundSubtractorMOG2(    [, history[, varThreshold[, detectShadows]]] )</p>
-<ul>
-<li>创建了一个MOG2的background substructor</li>
-<li>参数分别是<ul>
-<li>history的长度</li>
-<li>计算的是曼哈顿距离，这个的阈值</li>
-<li>是否检测影子，如果检测的话速度回慢一点</li>
-</ul>
-</li>
-</ul>
-<h3 id="创建完的模型有很多功能"><a href="#创建完的模型有很多功能" class="headerlink" title="创建完的模型有很多功能"></a><a href="https://docs.opencv.org/4.0.1/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html" target="_blank" rel="noopener">创建完的模型有很多功能</a></h3><ul>
-<li>这里用到了一个apply，就是对一张图进行这个操作，来计算出这张图片的foreground<ul>
-<li>这里有一个参数叫learning rate，指的是你的这个模型会不会随着时间而改变，0的话就是不变，1的话就是完全由上一帧形成，然后负数的话会自动选择一个</li>
-</ul>
-</li>
-</ul>
-<h2 id="bitwise-and"><a href="#bitwise-and" class="headerlink" title="bitwise_and()"></a>bitwise_and()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
-<ul>
-<li>这里计算了每一位的与（and）计算，加上了一个可选的参数mask，这样可以直接计算出来前景去掉背景</li>
-</ul>
-<h2 id="videoCapture-set"><a href="#videoCapture-set" class="headerlink" title="videoCapture.set()"></a>videoCapture.set()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
-<ul>
-<li>这里他的代码没有用属性，直接设置了两个数字，每个数字会代表一个属性，数字的范围是0-18</li>
-<li>也就是说她设置了10这个属性，然后把这个属性的大小设置成了200</li>
-</ul>
-<h2 id="cv2-bilateralFilter-frame-5-50-100"><a href="#cv2-bilateralFilter-frame-5-50-100" class="headerlink" title="cv2.bilateralFilter(frame, 5, 50, 100)"></a>cv2.bilateralFilter(frame, 5, 50, 100)</h2><ul>
-<li>一个叫这个名字的滤镜，可以消除掉图片里面你不想要的噪音</li>
-<li>效果比较好，可以在消除噪音的同时保证图像比较清晰，但是与此同时这个filter的速度会比大多数的慢一些</li>
-</ul>
-<h2 id="图像翻转-flip"><a href="#图像翻转-flip" class="headerlink" title="图像翻转 flip"></a>图像翻转 flip</h2><ul>
-<li>两个参数，翻转的图像以及翻转参数</li>
-<li>0是竖直翻转，1是水平翻转，小于0的时候是旋转180度（先竖直再水平翻转）</li>
-</ul>
-<h2 id="inRange"><a href="#inRange" class="headerlink" title="inRange"></a>inRange</h2><p>dst    =    cv.inRange(    src, lowerb, upperb[, dst]    )</p>
-<ul>
-<li>查看是否有数字在这个范围里面，三个channel都在的话就输出1，不在的话就输出0</li>
-<li>可以给不同的channel赋不同的值</li>
-</ul>
-<h2 id="calcHist"><a href="#calcHist" class="headerlink" title="calcHist"></a>calcHist</h2><p>hist    =    cv.calcHist(    images, channels, mask, histSize, ranges[, hist[, accumulate]]    )</p>
-<ul>
-<li>计算一系列输入的histogram</li>
-<li>原来有这个函数，把这个输入normalize到255个channel上面就能得到，这样就可以得到这张图片里面的分布了</li>
-<li>而且考虑了上面的mask的情况</li>
-</ul>
-<h2 id="calcBackProject（存疑！）"><a href="#calcBackProject（存疑！）" class="headerlink" title="calcBackProject（存疑！）"></a>calcBackProject（存疑！）</h2><p>dst    =    cv.calcBackProject(    images, channels, hist, ranges, scale[, dst]    )</p>
-<ul>
-<li>计算一个hist的back projection</li>
-</ul>
-<h2 id="CamShift"><a href="#CamShift" class="headerlink" title="CamShift()"></a>CamShift()</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3170,7 +3170,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">58</span>
+                      
+                    
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
