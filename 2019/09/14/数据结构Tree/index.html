@@ -96,14 +96,18 @@
 
 
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构Tree">
+  <meta name="description" content="基本作用 树是图的一种，但是不是首尾连在一起的 树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用） 另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处  二叉树，最基础的结构定义 每个数的节点最多只有两个子节点 子节点分左右，必须不能颠倒  应用环境">
+<meta name="keywords" content="Tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之Tree">
 <meta property="og:url" content="https://bigphess.github.io/2019/09/14/数据结构Tree/index.html">
 <meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="基本作用 树是图的一种，但是不是首尾连在一起的 树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用） 另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处  二叉树，最基础的结构定义 每个数的节点最多只有两个子节点 子节点分左右，必须不能颠倒  应用环境">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-14T06:54:11.000Z">
+<meta property="og:updated_time" content="2019-09-14T07:44:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构Tree">
+<meta name="twitter:title" content="数据结构之Tree">
+<meta name="twitter:description" content="基本作用 树是图的一种，但是不是首尾连在一起的 树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用） 另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处  二叉树，最基础的结构定义 每个数的节点最多只有两个子节点 子节点分左右，必须不能颠倒  应用环境">
 
 
 
@@ -120,7 +124,7 @@
   };
 </script>
 
-  <title>数据结构Tree | 今天开始努力学习</title>
+  <title>数据结构之Tree | 今天开始努力学习</title>
   
 
 
@@ -241,7 +245,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">41</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">44</span></a>
 
   </li>
         
@@ -260,7 +264,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">63</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">64</span></a>
 
   </li>
 
@@ -367,7 +371,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据结构Tree
+          <h1 class="post-title" itemprop="name headline">数据结构之Tree
 
               
             
@@ -393,12 +397,41 @@
                 
               
 
-              <time title="Created: 2019-09-14 15:54:11" itemprop="dateCreated datePublished" datetime="2019-09-14T15:54:11+09:00">2019-09-14</time>
+              <time title="Created: 2019-09-14 15:54:11 / Modified: 16:44:52" itemprop="dateCreated datePublished" datetime="2019-09-14T15:54:11+09:00">2019-09-14</time>
             
 
+            
+              
+
+              
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/树/" itemprop="url" rel="index"><span itemprop="name">树</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -428,7 +461,93 @@
       
 
       
-        
+        <h1 id="基本作用"><a href="#基本作用" class="headerlink" title="基本作用"></a><a href="https://www.zhihu.com/question/20176446" target="_blank" rel="noopener">基本作用</a></h1><ul>
+<li>树是图的一种，但是不是首尾连在一起的</li>
+<li>树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用）</li>
+<li>另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处</li>
+</ul>
+<h1 id="二叉树，最基础的结构"><a href="#二叉树，最基础的结构" class="headerlink" title="二叉树，最基础的结构"></a>二叉树，最基础的结构</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>每个数的节点<strong>最多</strong>只有两个子节点</li>
+<li>子节点分左右，必须不能颠倒</li>
+</ul>
+<h2 id="应用环境"><a href="#应用环境" class="headerlink" title="应用环境"></a>应用环境</h2><ul>
+<li>hash表，sets</li>
+<li>数据库，优先队列</li>
+<li>LDAP查找信息，在XML/HTML中进行搜索</li>
+</ul>
+<h2 id="不同分支："><a href="#不同分支：" class="headerlink" title="不同分支："></a>不同分支：</h2><ul>
+<li>full binary tree：除了叶节点（也就是一个子节点都没有的点），其他的都有两个子节点</li>
+<li>complete binary tree：除了最后一层外，其他层的节点都有两个子节点，最后一层的子节点必须是左对齐</li>
+<li>perfect binary tree：形成完美的三角形</li>
+</ul>
+<h1 id="BST-二叉搜索树"><a href="#BST-二叉搜索树" class="headerlink" title="BST 二叉搜索树"></a>BST 二叉搜索树</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>两个子节点里面，左边的必须小于父节点，右边的必须大于父节点</li>
+</ul>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
+<li>插入：<ul>
+<li>如果没有任何点，作为root</li>
+<li>如果大放到右边的子树，小放到左边的子树</li>
+<li>重复2直到找到空位</li>
+</ul>
+</li>
+<li>删除：<ul>
+<li>删除叶节点：断掉这个点和父节点的联系</li>
+<li>删除只有一个子节点的点：把父节点对待删除点的reference改为父节点对待删除点子节点的reference</li>
+<li>两个子节点的点：左节点不动，右边的换到父节点的位置上/右节点不同，左节点换到父节点</li>
+<li>删除root：需要更改对root的reference</li>
+</ul>
+</li>
+<li>遍历<ul>
+<li>顺序：左-&gt; 中 -&gt; 右</li>
+<li>反序：左 -&gt; 右 -&gt; 中</li>
+<li>DFS：中 -&gt; 左 -&gt; 右</li>
+</ul>
+</li>
+</ul>
+<h1 id="平衡二叉树-AVL树"><a href="#平衡二叉树-AVL树" class="headerlink" title="平衡二叉树 AVL树"></a>平衡二叉树 AVL树</h1><ul>
+<li>左右两个子树的高度差不超过1</li>
+<li>且子树本身也是平衡树</li>
+<li>在构建平衡树的时候确保他们平衡，从而导致最差的时间复杂度也是 logN</li>
+<li>虽然在插入或者删除的时候，可能会在旋转上花费时间，但是整体性能更加稳定</li>
+</ul>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><ul>
+<li>对于需要旋转的情况来说，一共有四种基本状况</li>
+<li>对于左左或者右右：但旋转</li>
+<li>对于左右或者右左：双旋转</li>
+</ul>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><ul>
+<li>节点是红色或黑色</li>
+<li>叶节点都是黑色的</li>
+<li>root是黑色的</li>
+<li>每个红节点必须有两个黑子节点，也就是说不能路径上有两个连续的红色</li>
+<li>从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点</li>
+</ul>
+<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>用来处理排序后的数据，查找，插入，删除，循序存取都在对数时间完成</li>
+<li>对于普通的二叉树，可以有多于两个的节点</li>
+<li>优化大块数据的读写操作，加快存取速度</li>
+</ul>
+<h2 id="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"><a href="#在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开" class="headerlink" title="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"></a>在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开</h2><h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><ul>
+<li>只有达到叶节点才算命中，B树可以在非叶命中</li>
+<li>更适合文件索引系统</li>
+</ul>
+<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B * 树"></a>B * 树</h2><ul>
+<li>节点利用率从 1/2变成了 2/3</li>
+</ul>
+<h1 id="Trie树-字典树"><a href="#Trie树-字典树" class="headerlink" title="Trie树 字典树"></a>Trie树 字典树</h1><ul>
+<li>hash树的变种，保存大量字符串</li>
+<li>利用公共前缀减少查找时间</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>根节点不包括字符，除了根节点都只包含一个字符</li>
+<li>从根节点到某一节点，一路连过去就是相关的字符串</li>
+<li>每个节点的子节点的字符都不相同</li>
+</ul>
+<h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><ul>
+<li><a href="https://www.cnblogs.com/maybe2030/p/4732377.html" target="_blank" rel="noopener">[Data Structure] 数据结构中各种树</a></li>
+<li><a href="https://juejin.im/post/5b66d987e51d4519475f764c" target="_blank" rel="noopener">初学者应该了解的数据结构： Tree</a></li>
+</ul>
+
       
     </div>
 
@@ -448,6 +567,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tree/" rel="tag"># Tree</a>
+          
+        </div>
       
 
       
@@ -514,8 +639,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -532,7 +666,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -631,7 +765,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">41</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -766,7 +906,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">61</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -815,6 +959,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本作用"><span class="nav-number">1.</span> <span class="nav-text">基本作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树，最基础的结构"><span class="nav-number">2.</span> <span class="nav-text">二叉树，最基础的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用环境"><span class="nav-number">2.2.</span> <span class="nav-text">应用环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不同分支："><span class="nav-number">2.3.</span> <span class="nav-text">不同分支：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BST-二叉搜索树"><span class="nav-number">3.</span> <span class="nav-text">BST 二叉搜索树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-1"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作"><span class="nav-number">3.2.</span> <span class="nav-text">操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#平衡二叉树-AVL树"><span class="nav-number">4.</span> <span class="nav-text">平衡二叉树 AVL树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#旋转"><span class="nav-number">4.1.</span> <span class="nav-text">旋转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树"><span class="nav-number">4.2.</span> <span class="nav-text">红黑树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B树"><span class="nav-number">5.</span> <span class="nav-text">B树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义-2"><span class="nav-number">5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"><span class="nav-number">5.2.</span> <span class="nav-text">在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">5.3.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树-1"><span class="nav-number">5.4.</span> <span class="nav-text">B * 树</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Trie树-字典树"><span class="nav-number">6.</span> <span class="nav-text">Trie树 字典树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">6.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考来源"><span class="nav-number">7.</span> <span class="nav-text">参考来源</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
