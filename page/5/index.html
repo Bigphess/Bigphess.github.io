@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">44</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">45</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">64</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">65</span></a>
 
   </li>
 
@@ -334,6 +334,213 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/11/CS231Nassignment2FCnet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/11/CS231Nassignment2FCnet/" class="post-title-link" itemprop="url">CS231Nassignment2之FCnet</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-11 11:58:43" itemprop="dateCreated datePublished" datetime="2019-04-11T11:58:43+09:00">2019-04-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-07 13:26:38" itemprop="dateModified" datetime="2019-05-07T13:26:38+09:00">2019-05-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>This part is from the assignment 2018:<br><a href="https://github.com/haofeixu/standford-cs231n-2018/tree/master/assignment2" target="_blank" rel="noopener">stanford cs231n assignment2</a></p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>之前已经实现了两层的fc net，但是在这个网络里面的loss和gradient的计算用的是数学方法</li>
+<li>这样的计算可以在两层的网络里实现，但是多层的情况下实现起来太困难了</li>
+<li>所以在这里把电脑分成了forward pass和backward pass</li>
+<li><p>forward的过程中，接受所有的input，weights，和其他的参数，返回output和cache（存储back的时候需要的东西）</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">layer_forward</span><span class="params">(x, w)</span>:</span></span><br><span class="line">  <span class="string">""" Receive inputs x and weights w """</span></span><br><span class="line">  <span class="comment"># Do some computations ...</span></span><br><span class="line">  z = <span class="comment"># ... some intermediate value</span></span><br><span class="line">  <span class="comment"># Do some more computations ...</span></span><br><span class="line">  out = <span class="comment"># the output</span></span><br><span class="line"></span><br><span class="line">  cache = (x, w, z, out) <span class="comment"># Values we need to compute gradients</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> out, cache</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>back的时候会接受derivative和之前存储的cache，然后计算最后的gradient</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">layer_backward</span><span class="params">(dout, cache)</span>:</span></span><br><span class="line">  <span class="string">"""</span></span><br><span class="line"><span class="string">  Receive dout (derivative of loss with respect to outputs) and cache,</span></span><br><span class="line"><span class="string">  and compute derivative with respect to inputs.</span></span><br><span class="line"><span class="string">  """</span></span><br><span class="line">  <span class="comment"># Unpack cache values</span></span><br><span class="line">  x, w, z, out = cache</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Use values in cache to compute derivatives</span></span><br><span class="line">  dx = <span class="comment"># Derivative of loss with respect to x</span></span><br><span class="line">  dw = <span class="comment"># Derivative of loss with respect to w</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> dx, dw</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样就可以组合各个部分达到最终需要的效果了，无论多深都可以实现了</p>
+</li>
+<li>还需要一部分的优化部分，包括Dropout，Batch/Layer的Normalization</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/11/CS231Nassignment2FCnet/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2418,190 +2625,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/02/CS231Nassignment1twolayernet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/02/CS231Nassignment1twolayernet/" class="post-title-link" itemprop="url">CS231Nassignment1之two_layer_net</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-02 11:12:12 / Modified: 21:49:23" itemprop="dateCreated datePublished" datetime="2019-04-02T11:12:12+09:00">2019-04-02</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
-<li>Implement a neural network with <strong>fc</strong> layers for classifiction</li>
-<li>Test it on CIFAR-10 dataset</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/02/CS231Nassignment1twolayernet/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2650,7 +2673,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-count">65</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2755,7 +2778,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">44</span>
+                      
+                    
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2894,7 +2919,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">63</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">65</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
