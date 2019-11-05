@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">68</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">69</span></a>
 
   </li>
 
@@ -334,6 +334,353 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/16/OpenGL笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/16/OpenGL笔记/" class="post-title-link" itemprop="url">OpenGL笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-04-16 15:57:45" itemprop="dateCreated datePublished" datetime="2019-04-16T15:57:45+09:00">2019-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-31 13:04:14" itemprop="dateModified" datetime="2019-05-31T13:04:14+09:00">2019-05-31</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OpenGl/" itemprop="url" rel="index"><span itemprop="name">OpenGl</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://learnopengl.com/" target="_blank" rel="noopener">Learn OpenGl</a></p>
+<p>on Modern OpenGL. -&gt; 从graphics的programming开始讲的</p>
+<h1 id="Getting-Start"><a href="#Getting-Start" class="headerlink" title="Getting Start"></a>Getting Start</h1><h2 id="OPENGL"><a href="#OPENGL" class="headerlink" title="OPENGL"></a>OPENGL</h2><ul>
+<li>是一个进行图像处理的工具</li>
+<li>可以被认为是API，但是实际上是specification<ul>
+<li>明确说明了每个function应该的输入和输出，以及如何perform</li>
+<li>用户在用这个说明来解决问题，因为没有给出明确的implement的过程，所以只要结果符合规则，怎么implement都可以</li>
+</ul>
+</li>
+</ul>
+<h3 id="Core-profile-vs-Immediate-mode"><a href="#Core-profile-vs-Immediate-mode" class="headerlink" title="Core-profile vs Immediate mode"></a>Core-profile vs Immediate mode</h3><ul>
+<li>以前的版本用的是immediate mode<ul>
+<li>比较好用来画图</li>
+<li>具体的是实现都在lib里面，developer不是很好的能看到如何计算</li>
+<li>效率越来越低</li>
+</ul>
+</li>
+<li>Core-profile<ul>
+<li>在3.2版本之后改成了这个</li>
+<li>强制使用modern practices，如果想要用被分出去的function就会直接报错</li>
+<li>效率高，更灵活，更难学</li>
+</ul>
+</li>
+</ul>
+<h3 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h3><ul>
+<li>支持extensions，只要检查支不支持graphic card就可以知道能不能用</li>
+<li>可以直接用比较新的东西，不用等着OPENGL更新新的功能</li>
+<li>需要在用之前判断他是不是available的，如果不是需要用原来的方法搞</li>
+</ul>
+<h3 id="State-Machine"><a href="#State-Machine" class="headerlink" title="State Machine"></a>State Machine</h3><ul>
+<li>OpenGL自己就是一个State Machine：一个var的集合，来判断他现在应该如何操作</li>
+<li>state -&gt; context<ul>
+<li>改变state：设定一些options，操作一些buffer，在现在的context来render</li>
+</ul>
+</li>
+<li>例子：<ul>
+<li>如果我想画三角形，而不是画线了，就改变draw的state</li>
+<li>只要这个改变传达到了，下一条线就画的是三角形了</li>
+</ul>
+</li>
+<li><code>state-changing</code>用来改变context，<code>state-using</code>在现在的state上面开始进行操作</li>
+</ul>
+<h3 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h3><ul>
+<li>一个集合来表现OpenGL的subset的state<ul>
+<li>比如可以用一个object来表示对window的设定，可以设置大小，设置支持的颜色等等<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The State of OpenGL</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">OpenGL_Context</span> &#123;</span></span><br><span class="line">  	...</span><br><span class="line">  	object_name* object_Window_Target;</span><br><span class="line">  	...  	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create object</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> objectId = <span class="number">0</span>;</span><br><span class="line">glGenObject(<span class="number">1</span>, &amp;objectId);</span><br><span class="line"><span class="comment">// bind object to context</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, objectId);</span><br><span class="line"><span class="comment">// set options of object currently bound to GL_WINDOW_TARGET</span></span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH, <span class="number">800</span>);</span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, <span class="number">600</span>);</span><br><span class="line"><span class="comment">// set context target back to default</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>流程<ul>
+<li>首先创建了一个object，里面存了一个ref是这个object的id</li>
+<li>然后把这个object和context的目标位置bind在了一起</li>
+<li>设置了这些window的参数</li>
+<li>最后un-bind这两个东西，把window target改回原来的值</li>
+</ul>
+</li>
+<li>这样的话我们可以创建很多object，提前设置好里面的量，等到需要用的时候就直接bind就可以用了<ul>
+<li>比如我们有一堆object包含了小人，小马，小鹿</li>
+<li>想画哪个就把哪个绑定到draw里面，就可以直接画出来了</li>
+</ul>
+</li>
+</ul>
+<h2 id="Crateing-a-window"><a href="#Crateing-a-window" class="headerlink" title="Crateing a window"></a>Crateing a window</h2><p>因为操作系统的问题，所有操作系统上面不是很一样。但是已经有一些提供这些功能的函数了，这里用的是GLFW</p>
+<h3 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h3><ul>
+<li>一个lib，用C写的，主要目的是提供把东西渲染到屏幕的功能</li>
+<li>可以创建一个context，定义窗口的params，处理用户的输入</li>
+</ul>
+<p>已经一口气配置好了这些！<br><a href="https://www.jianshu.com/p/25d5fbf792a2" target="_blank" rel="noopener">https://www.jianshu.com/p/25d5fbf792a2</a><br><strong>记得在link lib里面把openGL的framework加进去！！！！！</strong></p>
+<h3 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h3><ul>
+<li>因为openGL还需要不同版本的driver的支持，需要有东西来处理这部分的内容</li>
+<li>和其他的东西不同，GLAD用的是<a href="https://glad.dav1d.de/" target="_blank" rel="noopener">web service</a><ul>
+<li>在这个网页上选择好语言，版本号，确保profile是core，然后生成</li>
+<li>直接下载下来对应的zip，然后把include放进include里面，.c文件放在project里面</li>
+</ul>
+</li>
+<li>莫名其妙并不需要这一步，神奇，可能是我在include里面已经搞进来了！！</li>
+</ul>
+<h2 id="Hello-Window"><a href="#Hello-Window" class="headerlink" title="Hello Window"></a>Hello Window</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    glfwInit();</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</span><br><span class="line">    <span class="comment">//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先进行了初始化</li>
+<li>然后configure了GLFW，设置了a large enum of possible options prefixed with GLFW_. （第三行就是最小） -&gt; 大概是设置要用GLFW的版本号</li>
+<li>然后也告诉了他想用core</li>
+</ul>
+<hr>
+<ul>
+<li>然后需要使用<code>glfwCreateWindow</code>这个函数，来创建这个<code>GLFWwindow* window</code>的变量<ul>
+<li>创建的函数需要窗口的长宽</li>
+<li>窗口名</li>
+</ul>
+</li>
+<li>创建完之后就可以把这个窗口设置成<code>glfwMakeContextCurrent(window);</code>也就是说设置成了现在的thread里面<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GLFWwindow* window = glfwCreateWindow(<span class="number">800</span>, <span class="number">600</span>, <span class="string">"LearnOpenGL"</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">if</span> (window == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to create GLFW window"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    glfwTerminate();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line">glfwMakeContextCurrent(window);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="GLAD-1"><a href="#GLAD-1" class="headerlink" title="GLAD"></a>GLAD</h3><ul>
+<li>GLAD是为OpenGL来管理这些函数的，在使用这些函数之前需要初始化GLAD<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to initialize GLAD"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="viewpoint"><a href="#viewpoint" class="headerlink" title="viewpoint"></a>viewpoint</h3><ul>
+<li>在开始render之前我们还需要告诉GL渲染窗口的大小，用到了<code>glViewport</code>这个函数<ul>
+<li>前面两个参数定义了这个窗口左下角的坐标</li>
+<li>后面两个参数定义了需要render的窗口的大小</li>
+</ul>
+</li>
+<li>每次调整window的大小的时候viewport也需要被调整</li>
+</ul>
+<h3 id="engines"><a href="#engines" class="headerlink" title="engines"></a>engines</h3><ul>
+<li><p>我们希望这个engine可以一直持续画图，直到最后我们告诉这个窗口要关闭，所以要建立一个循环</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">    glfwPollEvents();    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在这个循环里面，pollevent是来检查是不是有trigger进来的事情（比如键盘输入），更新窗口的状态，并且call相应的函数</p>
+</li>
+<li>swapbuffer，会交换color buffer（包括每个像素点颜色的buffer），然后show在窗口里面</li>
+</ul>
+<h3 id="last-thing"><a href="#last-thing" class="headerlink" title="last thing"></a>last thing</h3><ul>
+<li><code>glfwTerminate</code>退出这个循环之后，需要清除这些相关的资源，用这个函数放在最底下</li>
+</ul>
+<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><ul>
+<li>需要一些键盘上的操作来调整的时候，写了一个processInput的函数</li>
+<li>比如下面这个函数就是检测了有没有按下去esc，如果按了的话就关闭窗口</li>
+<li>写完之后把这个函数在while循环里面调用<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processInput</span><span class="params">(GLFWwindow *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)</span><br><span class="line">        glfwSetWindowShouldClose(window, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="rendering"><a href="#rendering" class="headerlink" title="rendering"></a>rendering</h3><ul>
+<li>希望在一个loop里面放上去所有的rendering的命令，整个循环看起来应该是这个样子的<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// render loop</span></span><br><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// input</span></span><br><span class="line">    processInput(window);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rendering commands here</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check and call events and swap the buffers</span></span><br><span class="line">    glfwPollEvents();</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="hello-triangle"><a href="#hello-triangle" class="headerlink" title="hello triangle"></a>hello triangle</h2><p><img src="/2019/04/16/OpenGL笔记/1.jpg" alt><br>opengl里面所有东西都是在3D的空间里的，但是屏幕上显示的东西是2D的。整个这个转换的过程叫做<strong>graphics pipeline</strong>，可以分成两个步骤：第一个是把物体的3D坐标转化成2D的坐标，第二个是把2D的坐标转化成pixel上面的具体值</p>
+<h3 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h3><ul>
+<li>所有的转化步骤都可以parallel的进行，现在的显卡有很多小的core来进行 -&gt; shaders</li>
+<li>在最开始的时候pass进去了一个list的3D坐标 （Vertex Data）</li>
+<li>第一步：vertex shader<ul>
+<li>把3D的坐标转化成不同的3D坐标（相当于把数据转化成点？）</li>
+</ul>
+</li>
+<li>primitive assembly<ul>
+<li>从上一步得到的左右的点得到输入</li>
+<li>然后形成一个基本的图形</li>
+</ul>
+</li>
+<li>geometry shader<ul>
+<li>根据新给的点，形成新的不同的形状，比如在例子里面形成了新的一条线</li>
+</ul>
+</li>
+<li>rasterization stage<ul>
+<li>把上面得到的primitives map到最后的屏幕上面的相应的pixel上面</li>
+</ul>
+</li>
+<li>Clipping<ul>
+<li>这一步丢掉了所有在视线外面的fragments，提升性能</li>
+</ul>
+</li>
+<li>fragment shader<ul>
+<li>计算这个pixel最后的颜色，会在这一步计算光影，以及光线的颜色等等东西</li>
+</ul>
+</li>
+<li>当每个像素的颜色决定了以后，这个object会被送到alpha test和blending<ul>
+<li>这一步会测试深度原因，判断fragment是在物体的前面还是后面</li>
+<li>还会考虑透明度的问题<br>虽然上面的东西很复杂，但是在实际应用的时候只需要要考虑vertex和fragment shader</li>
+</ul>
+</li>
+</ul>
+<h3 id="vertex-input"><a href="#vertex-input" class="headerlink" title="vertex input"></a>vertex input</h3><ul>
+<li>openGL是3D的东西，所有的点设置input的时候都需要设置三维的坐标 xyz</li>
+<li>只有在坐标在 -1 到 1 中间的时候，才会处理这些坐标，这个范围里面的数字是根据屏幕的比例得出来的<code>normalized device coordinates</code></li>
+<li><p>比如在这个例子里面，需要的渲染一个三角形，那么需要这个三角形的三个点的坐标。注意这个例子里面根本没有考虑深度，而是直接画在了平面上面</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.0f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在定义好坐标之后需要把这个东西放进vertex shader里面，需要在GPU里面创建一部分内存来存储这个数据，并且需要在GPU里面存储大量的数据（这样不用每次都送了）</p>
+</li>
+<li>每个部分的object都会有一个自己的buffer id，可以通过下面的方法生成一个id。也可以把一串array绑到这个id上面<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> VBO;</span><br><span class="line">glGenBuffers(<span class="number">1</span>, &amp;VBO);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/2019/04/16/OpenGL笔记/2.jpg" alt></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2057,554 +2404,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/04/HCI笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/04/HCI笔记/" class="post-title-link" itemprop="url">Human Computer Interaction笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-04 13:18:51" itemprop="dateCreated datePublished" datetime="2019-04-04T13:18:51+09:00">2019-04-04</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-09 14:43:43" itemprop="dateModified" datetime="2019-05-09T14:43:43+09:00">2019-05-09</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HCI/" itemprop="url" rel="index"><span itemprop="name">HCI</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/HCI/上课笔记/" itemprop="url" rel="index"><span itemprop="name">上课笔记</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <a id="more"></a>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><ul>
-<li>50% 出勤和 50% report</li>
-<li>koike森森还有assignment</li>
-</ul>
-<h2 id="History"><a href="#History" class="headerlink" title="History"></a>History</h2><ul>
-<li>1945 Vannevar Bush<ul>
-<li>memex的概念，二战末提出了一种信息机器的设想（个人图书馆）<ul>
-<li><em>这种机器内部用微缩胶卷（microfilm）存储信息，也就是自动翻拍，可以不断往里面添加新的信息；桌面上有阅读屏，用来放大阅读微缩胶卷；还有许多个按钮，每一个按钮代表一个主题，只要按一下，相应的微缩胶卷就会显示出来。每一个胶卷内部还记录着相关的其他胶卷的编号，可以方便地切换，形成同主题阅读。在Bush博士的设想中，这种机器还可以与图书馆联网。通过某种机制，将图书馆收藏的胶卷，自动装载到本地机器上。因此，只通过这一个机器，就可以实现海量的信息检索。from 百度百科</em></li>
-</ul>
-</li>
-<li>as we may think：同时提出了wearable电脑</li>
-</ul>
-</li>
-<li>1946 Eniac<ul>
-<li>第一个计算机</li>
-<li>没有keyboard和display，只能手动</li>
-</ul>
-</li>
-<li>1951 UNIVAC<ul>
-<li>可以I/O</li>
-<li>先在纸条上打孔，然后再放进去读</li>
-</ul>
-</li>
-<li>Ivan Sutherland<ul>
-<li>1963 SketchPad，display上面有图像了，并且可以对画面进行操作</li>
-<li>可以用光笔操作，不是用键盘操作了</li>
-<li>CAD鼻祖</li>
-<li>第一个VR设备居然也是他做出来的 Sword of Damocles(1968)</li>
-</ul>
-</li>
-<li>Douglas Engelbart<ul>
-<li>居然出现了鼠标，装了rotatory wheels（竖着的那种），可以在两个方向移动（所以装了两个吗？）</li>
-</ul>
-</li>
-<li>Alan Kay<ul>
-<li>PC之父</li>
-<li>1972 Dynabook，card board做的，因为CPU和GPu太大了，屏幕也没有，并不是真的</li>
-<li>1996年东芝做了个叫这个名字的PC</li>
-</ul>
-</li>
-<li>1973 Xerox Alto<ul>
-<li>real working machine</li>
-</ul>
-</li>
-<li>1981 Xerox Star<ul>
-<li>出现了桌面系统</li>
-<li>GUI</li>
-</ul>
-</li>
-<li>Ted Nelson<ul>
-<li>Hypertext Editing System -&gt; pen to jumo to another page</li>
-</ul>
-</li>
-<li>Steve Jobs &amp; Bill Atkinson<ul>
-<li>HyperCard 1987，同类的信息都在同一张卡上，然后所以的卡都连在一起，可以在卡中间jump。事情就变得非常简单了</li>
-</ul>
-</li>
-<li>Tim Berners-Lee<ul>
-<li>father of WWW （World Wide Web）</li>
-</ul>
-</li>
-<li>Richard Bold<ul>
-<li>put that there可以用手势交互，语言交互</li>
-<li>非常大的一个display和projector</li>
-</ul>
-</li>
-<li>Mark Weiser<ul>
-<li>father of the concept of Ubiquitous conputing(1991)</li>
-<li>预言了以后大家家家有电脑</li>
-</ul>
-</li>
-<li>Jaron Lanier<ul>
-<li>VPL data glove &amp; HMD 1989，手套里面有纤维</li>
-</ul>
-</li>
-</ul>
-<p>I/O的硬件如何组合 -&gt; 新的HCI方式</p>
-<h1 id="design-amp-evaluation"><a href="#design-amp-evaluation" class="headerlink" title="design &amp; evaluation"></a>design &amp; evaluation</h1><p>ACM SIGCHI</p>
-<h2 id="What’s-HCI"><a href="#What’s-HCI" class="headerlink" title="What’s HCI"></a>What’s HCI</h2><ul>
-<li>CS</li>
-<li>design </li>
-<li>是一个交叉学科</li>
-</ul>
-<h2 id="学会"><a href="#学会" class="headerlink" title="学会"></a>学会</h2><ul>
-<li>CHI -&gt; 更注重想法，和转化成实现</li>
-<li>UIST -&gt; 更注重implement</li>
-<li>IEEE/ACM Ubicomp</li>
-<li>CSCM</li>
-</ul>
-<h2 id="重要性"><a href="#重要性" class="headerlink" title="重要性"></a>重要性</h2><ul>
-<li>保证安全性，提升生活质量</li>
-<li>在商业上的产品化</li>
-</ul>
-<h2 id="推荐书"><a href="#推荐书" class="headerlink" title="推荐书"></a>推荐书</h2><ul>
-<li>The Design of Everyday things<ul>
-<li>核心思想Affordence: 人想象的这个东西的用途和实际的用途，让用户看到这个东西就知道是干什么用的<ul>
-<li>比如傻屌的看见按键不知道按哪个的瓦斯炉</li>
-<li>方向不同的车座靠背调节</li>
-<li>根本不知道哪个是哪个的电灯开关</li>
-</ul>
-</li>
-<li>想法<ul>
-<li>mapping ui to real layout</li>
-<li>design is stupid</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://gcdtech.com/blog/the-7-principles-of-doet-and-how-to-simplify-any-task/" target="_blank" rel="noopener">七个准则 by Norman</a></li>
-<li>8 golden rules by. Shneiderman<ul>
-<li>consistency（一致性） -&gt; 比如mac的pull down最下面都是quit，大家的位置都差不多</li>
-<li>Short-term memory<ul>
-<li>比如菜单里面的个数</li>
-<li>7+-2 magic number</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Bringing Design to software T.Winograd</li>
-</ul>
-<h1 id="GUI-amp-hypermedia"><a href="#GUI-amp-hypermedia" class="headerlink" title="GUI &amp; hypermedia"></a>GUI &amp; hypermedia</h1><h2 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h2><ul>
-<li>CUI -&gt; GUI</li>
-<li>CUI:<ul>
-<li>I: keyboard</li>
-<li>O: charracters in display</li>
-</ul>
-</li>
-<li>GUI<ul>
-<li>I: keyboard + mouse</li>
-<li>O: bitmap in display</li>
-</ul>
-</li>
-</ul>
-<h3 id="desktop"><a href="#desktop" class="headerlink" title="desktop "></a>desktop <-></-></h3><ul>
-<li>like a real office emvironment (metaphor)<ul>
-<li>document,folder,trash</li>
-<li>对于没有用过电脑的人来说非常容易理解</li>
-<li>visualizing to icons</li>
-<li>operating mouse</li>
-</ul>
-</li>
-<li>Jobs居然copy了这个东西</li>
-<li>跟现在的也没有太多概念（standard interface for computer)</li>
-<li>pros<ul>
-<li>visual by icon，因为视觉看出来的东西比较好理解</li>
-<li>direct manipulation interaction</li>
-<li>abstract by folders</li>
-</ul>
-</li>
-<li>cons<ul>
-<li>number of icons make user confused</li>
-<li>more computing</li>
-<li>more physical space</li>
-<li>typing is faster with keyboard</li>
-</ul>
-</li>
-</ul>
-<h3 id="其他的一些想法"><a href="#其他的一些想法" class="headerlink" title="其他的一些想法"></a>其他的一些想法</h3><ul>
-<li>room metaphor[henderson86]<ul>
-<li>different romms for different task</li>
-<li>multiply desk (就像mbp的多个桌面一样) </li>
-<li>based on user studys &lt;- how they use each applications</li>
-<li>并没有变成主流，哭哭</li>
-</ul>
-</li>
-<li>超整理法 super-organizing metaphor<ul>
-<li>如何整理物理文件</li>
-<li>organize by time, not name</li>
-<li>sequentially, not hierarchically</li>
-<li>implemented by Freeman -&gt; Lifestream</li>
-</ul>
-</li>
-</ul>
-<h3 id="GUI的一个特征WIMP"><a href="#GUI的一个特征WIMP" class="headerlink" title="GUI的一个特征WIMP"></a>GUI的一个特征WIMP</h3><p><strong>window, icon, menu, pointer（like mouse）</strong></p>
-<ul>
-<li>整体来看<ul>
-<li>苹果把pull down在左上角，因为从左往右拉比较容易</li>
-<li>windows: 因为不想和apple一样所以扔到底下了</li>
-</ul>
-</li>
-<li>difficult for icon<ul>
-<li>比如路上的标志设计的就很迷，大家都不知道是干啥的</li>
-</ul>
-</li>
-</ul>
-<h3 id="direct-manipulation"><a href="#direct-manipulation" class="headerlink" title="direct manipulation"></a>direct manipulation</h3><ul>
-<li>比如在删除东西的时候CHI需要自己输入，但是GUI可以直接拖进trash里面</li>
-</ul>
-<h3 id="WYSIWYG"><a href="#WYSIWYG" class="headerlink" title="WYSIWYG"></a>WYSIWYG</h3><p><strong>what you see is what you get</strong></p>
-<h3 id="PUI"><a href="#PUI" class="headerlink" title="PUI?"></a>PUI?</h3><p>I: recognization<br>O: large/ small displays</p>
-<h1 id="PUI-perceptual"><a href="#PUI-perceptual" class="headerlink" title="PUI(perceptual)"></a>PUI(perceptual)</h1><h2 id="GUI-gt-PUI"><a href="#GUI-gt-PUI" class="headerlink" title="GUI -&gt; PUI"></a>GUI -&gt; PUI</h2><ul>
-<li>PUI: using various input(sensors)</li>
-<li>GUI: mouse&amp; keyboard, not intuitive</li>
-</ul>
-<h2 id="vision-based-HCI"><a href="#vision-based-HCI" class="headerlink" title="vision-based HCI"></a>vision-based HCI</h2><h3 id="why"><a href="#why" class="headerlink" title="why?"></a>why?</h3><ul>
-<li>natural &amp; intuitive?</li>
-<li>not special device, unwired</li>
-<li>multimodel</li>
-</ul>
-<h3 id="application"><a href="#application" class="headerlink" title="application"></a>application</h3><ul>
-<li>recognition<ul>
-<li>detection &amp; recognition<ul>
-<li>object &lt;-(detect) - object detection system(find the thing in the real world)</li>
-<li>object database &lt;-recognition- objection recognition system(know what it is)</li>
-</ul>
-</li>
-<li>detect the hand<ul>
-<li>colors（shapes?）</li>
-<li>infrared camera<ul>
-<li>near infrared -&gt; vedio cameras(capture near infrared light to the object)</li>
-<li>far infrared -&gt; capture the heat</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>hand location(手指在哪，手在哪)<ul>
-<li>hand regions</li>
-<li>find the centre -&gt; morphlogical operation</li>
-<li>fingers -&gt; pattern matching(有很多不同的方法)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>tracking</li>
-</ul>
-<h3 id="gesture-recognition"><a href="#gesture-recognition" class="headerlink" title="gesture recognition"></a>gesture recognition</h3><ul>
-<li>difficult<ul>
-<li>segmentation of hands/body -&gt; depth camera</li>
-<li>recognition of 3D pose(occlusion)<ul>
-<li>如果用户转身了，手会被其他的东西挡住</li>
-</ul>
-</li>
-<li><strong>detecting begin/end of gestures</strong> 一个非常重要的问题！</li>
-</ul>
-</li>
-<li>high-speed gestures (systems)<ul>
-<li>pac！pac！<ul>
-<li>as many hands as possible</li>
-<li>advantages<ul>
-<li>robust against light conditions</li>
-<li>real-time with 40 people with 2 hands</li>
-<li>No instruction necessary</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>3D gestures(for navigation in VR)<ul>
-<li>2 cameras</li>
-<li>recognise hand shapes</li>
-<li>pattern classification(NN)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="object-recognition"><a href="#object-recognition" class="headerlink" title="object recognition"></a>object recognition</h3><ul>
-<li>tag-based<ul>
-<li>pre-registration of objects</li>
-<li>difficult to attached on something(unbralla, glove…)</li>
-<li>unnartual overlook</li>
-</ul>
-</li>
-<li>based on color information(‘1991)<ul>
-<li>3D histogram(RGB)</li>
-<li>translation/rotation invariant(如果图片改变了方向或者变了，但是颜色信息还没变)</li>
-<li>但是颜色相似的时候没法分辨</li>
-</ul>
-</li>
-<li>PTAM(‘2007)<ul>
-<li>recgonize feature positions</li>
-<li>features &amp; markers</li>
-</ul>
-</li>
-</ul>
-<h3 id="gaze-recognition"><a href="#gaze-recognition" class="headerlink" title="gaze recognition"></a>gaze recognition</h3><ul>
-<li>infrared cameras &amp; LEDs</li>
-<li>pattern matching<ul>
-<li>corners of eyes,mouse,shaping triangle</li>
-<li>-&gt; face direction</li>
-</ul>
-</li>
-</ul>
-<h1 id="4-18"><a href="#4-18" class="headerlink" title="4/18"></a>4/18</h1><h2 id="interactive-surface"><a href="#interactive-surface" class="headerlink" title="interactive surface"></a>interactive surface</h2><ul>
-<li>例子<ul>
-<li>handheld:phone, tablet</li>
-<li>horizantal: desk</li>
-<li>vertical: wall</li>
-</ul>
-</li>
-</ul>
-<h3 id="digital-desk-‘93"><a href="#digital-desk-‘93" class="headerlink" title="digital desk(‘93)"></a>digital desk(‘93)</h3><ul>
-<li>overhead projector + camera + desk</li>
-<li>metaDesk(‘97) -&gt; 用两个奇怪的方块，对这个map进行操作</li>
-</ul>
-<h3 id="LCD-tabletop"><a href="#LCD-tabletop" class="headerlink" title="LCD tabletop"></a>LCD tabletop</h3><ul>
-<li>LCD -&gt; larger, thinner,lighter,higher resolusion, less expensive<ul>
-<li>before that use projectors(dark)</li>
-<li>use as window? <strong>real glass is expensive then LCD</strong></li>
-</ul>
-</li>
-<li>principles of polarization<ul>
-<li>滤光吗，两个方向的（偏振片）</li>
-<li>这样可以用来检测手，把手之后的背景光滤掉</li>
-<li>非常好用<ul>
-<li>可以用来检测手</li>
-</ul>
-</li>
-<li>AR marker这样的东西实在是太丑了<ul>
-<li>design invisiable markers</li>
-<li>把偏振光片减成了ar marker的样子，人看不到但是机器可以识别</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="background-amp-motivation"><a href="#background-amp-motivation" class="headerlink" title="background &amp; motivation"></a>background &amp; motivation</h3><ul>
-<li>traditional surfaces are planar &amp; regid<ul>
-<li>difficult to make 3D surface</li>
-<li>photoelasricity -&gt; 透明的材料对不同载荷下颜色不同 -&gt; 也可以用来作为影响偏振光的因素，可以用来按，按下去光就能过去惹</li>
-</ul>
-</li>
-</ul>
-<h3 id="electrical-shock"><a href="#electrical-shock" class="headerlink" title="electrical shock"></a>electrical shock</h3><ul>
-<li>为什么会有这种电人的display啊！（BIRIBIRI）</li>
-</ul>
-<h2 id="beyond-2D-surface"><a href="#beyond-2D-surface" class="headerlink" title="beyond 2D surface"></a>beyond 2D surface</h2><h3 id="Caytrick-surface-‘18"><a href="#Caytrick-surface-‘18" class="headerlink" title="Caytrick surface(‘18)"></a>Caytrick surface(‘18)</h3><h1 id="4-22-information-visualization"><a href="#4-22-information-visualization" class="headerlink" title="4/22 information visualization"></a>4/22 information visualization</h1><p>更快，更精准的理解info(shape/ colors -&gt; information)</p>
-<h2 id="SciVis-amp-InfoVis"><a href="#SciVis-amp-InfoVis" class="headerlink" title="SciVis &amp; InfoVis"></a>SciVis &amp; InfoVis</h2><ul>
-<li>Sci<ul>
-<li>用户比较专业</li>
-<li>用来理解专业的现象</li>
-<li>physical data, measured data, simulation data</li>
-</ul>
-</li>
-<li>Info<ul>
-<li>abstract data</li>
-<li>给人民群众看的，感觉更加直观</li>
-</ul>
-</li>
-<li>how to layout the data</li>
-</ul>
-<h2 id="three-issues"><a href="#three-issues" class="headerlink" title="three issues"></a>three issues</h2><ul>
-<li>scalability<ul>
-<li>如果我们想要vis info，如果data的量太大了，有些东西看起来就很复杂(eg.trees)</li>
-</ul>
-</li>
-<li>limited display size</li>
-<li>human cant understand</li>
-</ul>
-<h2 id="tech"><a href="#tech" class="headerlink" title="tech"></a>tech</h2><ul>
-<li>layout</li>
-<li>scalability</li>
-<li>filiter</li>
-<li></li>
-</ul>
-<h2 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h2><ul>
-<li>graph drawing<ul>
-<li>好看，economically（多级化的，中心辐射，引力型 -&gt; 不同关系的相斥，圆环状）</li>
-</ul>
-</li>
-<li>tree structure<ul>
-<li>TreeMap</li>
-</ul>
-</li>
-</ul>
-<h1 id="5-9-Cognitive-process"><a href="#5-9-Cognitive-process" class="headerlink" title="5/9 Cognitive process"></a>5/9 Cognitive process</h1><h2 id="why-important"><a href="#why-important" class="headerlink" title="why important"></a>why important</h2><ul>
-<li>看到的不一定就是真实的</li>
-<li>通过改变HCI，可以改变看到的东西的</li>
-</ul>
-<h2 id="Seven-Stage-Model"><a href="#Seven-Stage-Model" class="headerlink" title="Seven Stage Model"></a>Seven Stage Model</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2653,7 +2452,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2913,7 +2712,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">68</span>
+                      
+                    
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
