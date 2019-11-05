@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Python在遍历时删除元素]]></title>
+    <url>%2F2019%2F10%2F30%2FPython%E5%9C%A8%E9%81%8D%E5%8E%86%E6%97%B6%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[Python语法糖——遍历列表时删除元素 Filter 之前在leetcode刷题的时候，如果用for循环删除list的元素时总会发生问题。由此来总结一下遍历删除元素的各个方法 我比较常用的——建立新的list简单直接的方法可以挺好的解决这个问题，建立一个新的list。如果结果不符合，则跳过这个元素，符合的时候把这个元素加入list。虽然这样显得比较蠢，但是遇到问题的时候比较容易想起来 延伸：遍历拷贝的list。操作原始的list123for i in lst[:]: if i == 0: lst.remove(i) 在这里，lst[:]已经是拷贝之后的结果了，也就是说对原来的lst操作不会对拷贝的结果产生影响 filter 显得比较聪明的一种方法 filter是python里面的一个函数，包括两个参数 function：用于条件判断。这个function可以是之前已经用def定义好的function，也可以是用lamnda简写的function lst：用于输入需要修改的list，参数是一个可迭代的对象1lst = filter(lambda x: x != 0, lst) 也就是说，会先判断x是否不等于0，如果返回值是true，那么保留这个元素。如果返回值是false，则删除这个元素。 列表解析也就是在1行里面写list的方法1lst = [x for x in lst if x != 0] while判断12while 0 in lst: lst.remove(0) 倒序循环 这个方法占用的空间最少 但是可读性比较差 123for i in range(len(lst)-1,-1,-1): if lst[i] == 0: del lst[i]]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>Python</category>
+        <category>list</category>
+      </categories>
+      <tags>
+        <tag>遍历</tag>
+        <tag>删除</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[关于Git]]></title>
     <url>%2F2019%2F10%2F27%2F%E5%85%B3%E4%BA%8EGit%2F</url>
     <content type="text"><![CDATA[Git 什么是分支 Git常用命令 集中式系统和分布式系统Git属于分布式，SVN（subversion）是集中式的系统 集中式只有在中心服务器有一份代码，分布式在每个人的电脑上都有一份代码 集中式版本控制有安全性问题（中心服务器挂了） 集中式需要联网才能工作。 分布式新建分支，合并分支的操作比较快。集中式新建分支相当于复制一份完整代码 中心服务器Github作为中心服务器用于交换每个用户的修改，没有中心服务器也能工作，倒是中心服务器24小时开启方便交流。 工作流 新建仓库之后，目前的目录就成为了工作区。工作区有一个隐藏目录.git，属于Git的版本库 在版本库里面，有一个Stage的暂存区，以及History版本库。在History里面会储存所有的分支，然后会使用HEAD指针来指向目前分区 使用 git add 会把文件添加到暂存区，也就是Stage 使用 git commit 会把暂存区的修改提交到当前的分支里面。提交之后暂存区就清空了 使用 git reset – 会使用现在的分支内容覆盖暂存区，也就是撤销最后一次add的操作 使用 git checkout – 会用Stage的内容覆盖本地内容，撤销最后一次本地修改也可以用复合命令来跳过Stage的部分 如果使用 git commit -a可以直接把文件的修改先加到暂存区，然后再提交 如果使用 git checkout HEAD – 可以取出最后一次修改，也就是对本地文件进行回滚操作 分支的实现在Git里面，使用了指针把每次的提交都连成一条线，HEAD会指向当前的指针 新建分支会在时间线上最后一个节点新建分支，并且HEAD会指向新的分支。而对新的分支的每次提交只会让当前的指针移动，其他的指针不会移动 合并的时候改变的也是Master的指针 关于Git的分支(branch)什么是分支 分支的意义：把现在的工作从主线上分离开，以免影响开发主线（这也是Git最大的优势，因为SVN开发新的分支相当于复制代码，速度非常慢） 为了不影响其他人的开发，可以在主线上建立自己的分支，工作完成后合并到主分支。每一次的提交会被保存，这样发生问题时候的定位就更加容易了 分支的应用 merge分支，为了可以随时发布release而创建的分支。通常大家会把master当成merge分支来使用 Topic分支：为了开发新功能或者修复Bug的分支，从merge里面创建，完成之后需要合并到merge里面去 分支的合并 merge（历史记录会非常复杂） 如果以前的master没有改变，可以直接合并（fast forward） 可以在合并时加上–no-ff来进行Fast forward，加上-m生成一个新的commit 如果直接fast forward可能会丢失分支信息 如果以前的有了新的更新，需要把两个分支修改的内容结合，生成一个新的提交 rebase（历史记录简单，但是可能会导致原来的内容无法正常运行） 如果使用这个方法合并，最后得到的结果会是一条线性的。如果在提交的时候X和Y发生冲突，需要修改冲突的部分 分支的冲突如果两个分支对同一个文件都进行了修改，合并的时候就会产生冲突。把不同分支的内容修改成一样的就可以解决在Git里面会用 &lt;&lt;&lt;&lt;&lt; ===== &gt;&gt;&gt;&gt;&gt;来表示 储藏 Stashing在一个分支上操作之后，如果没有提交这个分支就进行切换，那么在另一个分支上也能看到修改。因为所有的分支都公用一个工作区域。 可以使用 git stash把当前的分支修改储藏起来，这样就可以安全的切换到其他分支 比如，如果正在dev分支上开发，此时有master上面的bug需要修改，但是dev的开发还没有完成。这时候可以新建一个bug分支，并且切换到bug之前先用stash把目前dev的开发进度储存起来 SSH传输设置Git的仓库和Github的中心仓库是通过SSH进行加密的 .gitignore这个文件可以忽略以下的文件： 操作系统自动生成的文件，比如缩略图 编译生成的中间文件 自己的敏感信息。比如存放口令的配置文件 gitignore]]></content>

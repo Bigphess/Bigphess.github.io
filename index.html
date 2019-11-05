@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">67</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">68</span></a>
 
   </li>
 
@@ -334,6 +334,206 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/10/30/Python在遍历时删除元素/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/30/Python在遍历时删除元素/" class="post-title-link" itemprop="url">Python在遍历时删除元素</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-30 14:16:41 / Modified: 15:43:06" itemprop="dateCreated datePublished" datetime="2019-10-30T14:16:41+09:00">2019-10-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/list/" itemprop="url" rel="index"><span itemprop="name">list</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><a href="https://segmentfault.com/a/1190000007214571" target="_blank" rel="noopener">Python语法糖——遍历列表时删除元素</a></li>
+<li><a href="https://www.runoob.com/python3/python3-func-filter.html" target="_blank" rel="noopener">Filter</a></li>
+</ul>
+<p>之前在leetcode刷题的时候，如果用for循环删除list的元素时总会发生问题。由此来总结一下遍历删除元素的各个方法</p>
+<h2 id="我比较常用的——建立新的list"><a href="#我比较常用的——建立新的list" class="headerlink" title="我比较常用的——建立新的list"></a>我比较常用的——建立新的list</h2><p>简单直接的方法可以挺好的解决这个问题，建立一个新的list。如果结果不符合，则跳过这个元素，符合的时候把这个元素加入list。<br>虽然这样显得比较蠢，但是遇到问题的时候比较容易想起来</p>
+<h3 id="延伸：遍历拷贝的list。操作原始的list"><a href="#延伸：遍历拷贝的list。操作原始的list" class="headerlink" title="延伸：遍历拷贝的list。操作原始的list"></a>延伸：遍历拷贝的list。操作原始的list</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> lst[:]:</span><br><span class="line">	<span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">		lst.remove(i)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在这里，<code>lst[:]</code>已经是拷贝之后的结果了，也就是说对原来的lst操作不会对拷贝的结果产生影响</li>
+</ul>
+<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a><strong>filter</strong></h2><ul>
+<li>显得比较聪明的一种方法</li>
+<li>filter是python里面的一个函数，包括两个参数<ul>
+<li>function：用于条件判断。这个function可以是之前已经用<strong>def</strong>定义好的function，也可以是用lamnda简写的function</li>
+<li>lst：用于输入需要修改的list，参数是一个可迭代的对象<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lst = filter(<span class="keyword">lambda</span> x: x != <span class="number">0</span>, lst)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>也就是说，会先判断x是否不等于0，如果返回值是true，那么保留这个元素。如果返回值是false，则删除这个元素。</p>
+<h2 id="列表解析"><a href="#列表解析" class="headerlink" title="列表解析"></a>列表解析</h2><p>也就是在1行里面写list的方法<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lst  = [x <span class="keyword">for</span> x <span class="keyword">in</span> lst <span class="keyword">if</span> x != <span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
+<h2 id="while判断"><a href="#while判断" class="headerlink" title="while判断"></a>while判断</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="number">0</span> <span class="keyword">in</span> lst:</span><br><span class="line">	lst.remove(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="倒序循环"><a href="#倒序循环" class="headerlink" title="倒序循环"></a>倒序循环</h2><ul>
+<li>这个方法占用的空间最少</li>
+<li>但是可读性比较差</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(lst)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">	<span class="keyword">if</span> lst[i] == <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">del</span> lst[i]</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -3880,337 +4080,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/20/编程珠玑ProgrammingPearls/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/20/编程珠玑ProgrammingPearls/" class="post-title-link" itemprop="url">编程珠玑ProgrammingPearls</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-20 16:55:35" itemprop="dateCreated datePublished" datetime="2019-08-20T16:55:35+09:00">2019-08-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-02 12:25:21" itemprop="dateModified" datetime="2019-09-02T12:25:21+09:00">2019-09-02</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/编程珠玑/" itemprop="url" rel="index"><span itemprop="name">编程珠玑</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
-<li>开始的问题是如何对文件进行排序 -&gt; merge sort</li>
-<li>整合问题之后，问题变成了需要对7位数字进行排序，这样的话需要的时间就远小于merge sort了</li>
-</ul>
-<h3 id="另一种方法"><a href="#另一种方法" class="headerlink" title="另一种方法"></a>另一种方法</h3><ul>
-<li>如果在每个byte里面存一个数字，那么1MB可以存143000左右的号码（e6/7)</li>
-<li>但是如果把每个数字表示成一个32位的int（也就是说每7位数存成一个32位的整数，那么这7位数就占4个byte），那么可以存250000左右的号码</li>
-<li>从这个角度考虑，快排的速度比merge快</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>从上面的问题分析来看，用bitmap或者bit vector来表示数据很常见。<ul>
-<li>比如，可以用一个20bit的string来表示{1,2,3,5,8,13}</li>
-<li>0 1 1 1 0 1 0 0 1 0 0 0 0 1 0 0 0 0 0 0</li>
-<li>在这个里面，出现在集合里的数字就表示为1，没有出现的就表示为0</li>
-</ul>
-</li>
-<li>在实际解决问题过程中，7位数字可以表示成一个小于千万的数。如果用一个千万的二进制串来表示，那么如果整个文件里面有现在的号码的时候，这个位才被表示为1，否则就被表示为0</li>
-<li>分为三个阶段<ul>
-<li>关闭所有的位，即千万个位全都是0</li>
-<li>从输入文件里面导入所有的数字，比如2897的话，就是b[2897]=1</li>
-<li>全部输入完毕之后，再根据现有存在的数字就可以直接排序，输出了</li>
-</ul>
-</li>
-</ul>
-<h2 id="处理原则"><a href="#处理原则" class="headerlink" title="处理原则"></a>处理原则</h2><p>总原则：在开始处理问题之前分析问题，才能让问题更好解决</p>
-<ul>
-<li>确定正确的问题 -&gt; 最重要的一点</li>
-<li>选择了bitmap的数据结构：选择这个数据结构是根据电话号码不会重复这个特殊条件得到的</li>
-<li>multi-pass</li>
-<li>时间和空间的trade off</li>
-<li>简单设计</li>
-</ul>
-<h1 id="第二章-算法"><a href="#第二章-算法" class="headerlink" title="第二章 算法"></a>第二章 算法</h1><h2 id="问题1："><a href="#问题1：" class="headerlink" title="问题1："></a>问题1：</h2><ul>
-<li>如果有最多40亿个排好序的32位浮点数，其中有遗漏的数据，如何找到遗漏的数据。考虑内存足够的时候和内存不够的时候的情况<ul>
-<li>如果内存足够，可以像第一章说的一样，用位图来表示这些数据，然后看哪些没有</li>
-</ul>
-</li>
-</ul>
-<h3 id="如果内存不够？"><a href="#如果内存不够？" class="headerlink" title="如果内存不够？"></a>如果内存不够？</h3><ul>
-<li>二分查找<ul>
-<li>必须定义范围，范围里面每个数字的表示方法和探测方法</li>
-<li>比如如果把这些数据分成两部分，比如1-10里面取中位数，因为缺数据的原因，总是会有一边的个数少，那么缺的数据就肯定在少的这边</li>
-</ul>
-</li>
-</ul>
-<h2 id="问题2："><a href="#问题2：" class="headerlink" title="问题2："></a>问题2：</h2><ul>
-<li>将具有n个元素的向量x左旋i个位置，时间上与n成正比，有十几字节的额外空间</li>
-<li>直接方法<ul>
-<li>储存到额外数组 -&gt; 太浪费空间了</li>
-<li>定义一个函数将数组每次移动一个位置 -&gt; 太浪费时间了（虽然时间上和n成正比）</li>
-</ul>
-</li>
-<li>另一个思考<ul>
-<li>把一个数组分成不同的组，每次把对应组的内容转移，直到所有内容都转移成功。比如把x[0]挪出去，x[3]诺到x[0],x[6]挪到3，然后0挪到6。然后再挪x[1]和他的对应的内容们</li>
-</ul>
-</li>
-<li>另一种思考方法：旋转x实际就是把ab转换成ba<ul>
-<li>如果a是前i个元素，a比b短，把b分割成b1和b2，让b2和a的长度一样</li>
-<li>那么可以先交换a和b2 -&gt; b2 a b1</li>
-<li>然后再集中精力交换b1和b2里的元素，也就是说这可以是一个recursive的表示方法</li>
-</ul>
-</li>
-<li><strong>转置</strong>：这个看起来在写Leetcode的时候非常好用啊！！！<strong>但是注意在python里面reverse要自己写</strong><ul>
-<li>如果把问题看成转置，实际上数组ab可以<ul>
-<li>先转置a：aTb</li>
-<li>再转置b：aTbT</li>
-<li>再转置整个数组：（aTbT）T = ba</li>
-</ul>
-</li>
-<li>也就是说，如果abcdefg想让他旋转三位，实际上可以做到的是<ul>
-<li>reverse（0，2）：<strong>cba</strong>defg</li>
-<li>reverse（3，6）：cba<strong>gfed</strong></li>
-<li>reverse（0，6）：<strong>defgabc</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h2><ul>
-<li>找到一个单词的变位词：比如pots和stop</li>
-</ul>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
-<li>注意，找到所有的可能性是很愚蠢的，比如一个22个字母的词，所有的变位22！大概是10e21，时间爆炸了</li>
-<li>核心思想 -&gt; 排序，排序之后的变位词就都一样了</li>
-<li>leetcode 242,49<ul>
-<li>这个题的核心思路就是，每个单词按字母顺序排序之后的答案就是这个单词的key，如果两个单词的key一样的话这两个单词就是变位词，如果不一样的话就是新的词</li>
-<li>在python里面直接用字典可以很好的储存变位词</li>
-</ul>
-</li>
-</ul>
-<h1 id="第三章-数据结构"><a href="#第三章-数据结构" class="headerlink" title="第三章 数据结构"></a>第三章 数据结构</h1><p>数据结构的意义就是让代码可以更加简短整洁 -&gt; 比如用数组代替循环</p>
-<ul>
-<li>原则：能用小程序解决的就不要用大程序<ul>
-<li>把重复性代码改写</li>
-<li>封装复杂的结构</li>
-<li>尽可能使用高级工具</li>
-<li>让数据去构造程序</li>
-</ul>
-</li>
-</ul>
-<h1 id="第四章-正确编写程序"><a href="#第四章-正确编写程序" class="headerlink" title="第四章 正确编写程序"></a>第四章 正确编写程序</h1><h2 id="写一个完全正确的binary-search吧！"><a href="#写一个完全正确的binary-search吧！" class="headerlink" title="写一个完全正确的binary search吧！"></a>写一个完全正确的binary search吧！</h2><ul>
-<li>注意点<ul>
-<li>求中位数的时候是前后相加，除以二</li>
-<li>注意跳出循环的条件是 start&gt; end</li>
-<li>为了满足上面的循环条件，需要每次判断完mid之后，把start或者end移动一位，不然会陷入死循环</li>
-</ul>
-</li>
-<li>后面的9，11，14会用到程序的<strong>验证技术</strong><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">search</span><span class="params">(self, nums: List[int], target: int)</span> -&gt; int:</span></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        end = len(nums) - <span class="number">1</span></span><br><span class="line">        mid = (start + end) // <span class="number">2</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> start &lt;= end:</span><br><span class="line">            <span class="keyword">if</span> target == nums[mid]:</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            <span class="keyword">elif</span> target &gt; nums[mid]:</span><br><span class="line">                start = mid + <span class="number">1</span></span><br><span class="line">                mid = (end + start) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">elif</span> target &lt; nums[mid]:</span><br><span class="line">                end = mid - <span class="number">1</span> </span><br><span class="line">                mid = (start + end) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="第五章-次要问题"><a href="#第五章-次要问题" class="headerlink" title="第五章 次要问题"></a>第五章 次要问题</h1><ul>
-<li>虽然每次写完了程序，大家基本都会选择把它直接插入系统，然后强烈的希望他能运行</li>
-<li>（哭了，写的也太真实了）</li>
-</ul>
-<h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><ul>
-<li>设置极小的测试用例（比如0个，1个，2个元素等等）</li>
-<li>设置可以自动生成的测试用例</li>
-<li>计时，测试不同方法的时间</li>
-</ul>
-<h2 id="调试-gt-引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题"><a href="#调试-gt-引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题" class="headerlink" title="调试 -&gt; 引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题"></a>调试 -&gt; 引发bug是会有实际的逻辑原因的，调试的时候需要关注这些问题</h2><hr>
-<h1 id="第六章-性能透视"><a href="#第六章-性能透视" class="headerlink" title="第六章 性能透视"></a>第六章 性能透视</h1><p>在后面的三章会说到提高运行效率的三个方法，在第六章主要讲的是各个层次如何组合为一个整体</p>
-<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><ul>
-<li>一个模拟天体间受力关系，来模拟运动的程序，通过对程序的改进，在n=1000的程度下，把速度从一年提升到了不到一天，速度提升系数约为400</li>
-<li>改进方法<ul>
-<li>算法和数据结构，把时间复杂度n2 -&gt; nlogn（二叉树）</li>
-<li>算法优化，优化了两个粒子靠的很近的情况</li>
-<li>数据结构重组，减少了局部计算的次数</li>
-<li>代码优化：64位浮点数改为32位，计算时间减半。用汇编重写了某个函数，给缓慢的函数加速</li>
-<li>硬件，提升了硬件</li>
-</ul>
-</li>
-<li>算法加速不一定是独立于硬件的，比如在超级计算机上，树形结构对时间的影响就很小</li>
-</ul>
-<h2 id="设计层次"><a href="#设计层次" class="headerlink" title="设计层次"></a>设计层次</h2><ul>
-<li>问题的定义</li>
-<li>系统结构 -&gt; 第七章，封底估计</li>
-<li>算法和数据结构 -&gt; 2,8章</li>
-<li>代码优化 -&gt; 9</li>
-<li>系统软件</li>
-<li>硬件：比如实现某个功能的专门硬件</li>
-</ul>
-<h2 id="原则"><a href="#原则" class="headerlink" title="原则"></a>原则</h2><ul>
-<li>如果需要少量加速，研究最好的层次。虽然修改算法是非常常见的答案，但是在研究之前最好考虑一下所有可能的层次。比如硬件？这种的，最好能找到一个得到最大加速，又所需精力最少的层次</li>
-<li>如果需要大量加速，需要研究多个层次。就像上面的案例一样</li>
-</ul>
-<h1 id="封底计算"><a href="#封底计算" class="headerlink" title="封底计算"></a>封底计算</h1><p>在处理问题之前，需要对这个问题的规模有一个大概的估计，才能更好的处理问题</p>
-<h2 id="帮助封底计算"><a href="#帮助封底计算" class="headerlink" title="帮助封底计算"></a>帮助封底计算</h2><ul>
-<li>两个不同方面的答案对比</li>
-<li>量纲检测</li>
-<li>经验法则</li>
-<li>实践</li>
-</ul>
-<h2 id="性能估计-安全系数"><a href="#性能估计-安全系数" class="headerlink" title="性能估计 + 安全系数"></a>性能估计 + 安全系数</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4259,7 +4128,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -4515,7 +4384,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">66</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
