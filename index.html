@@ -395,7 +395,7 @@
                 
               
 
-              <time title="Created: 2019-12-18 16:59:17 / Modified: 17:55:36" itemprop="dateCreated datePublished" datetime="2019-12-18T16:59:17+09:00">2019-12-18</time>
+              <time title="Created: 2019-12-18 16:59:17 / Modified: 18:00:30" itemprop="dateCreated datePublished" datetime="2019-12-18T16:59:17+09:00">2019-12-18</time>
             
 
             
@@ -548,6 +548,13 @@
 <h3 id="二进制响应内容"><a href="#二进制响应内容" class="headerlink" title="二进制响应内容"></a>二进制响应内容</h3><p>可以用字节的方式来访问响应体<code>r.content</code>，会自动解码</p>
 <h3 id="Json响应内容"><a href="#Json响应内容" class="headerlink" title="Json响应内容"></a>Json响应内容</h3><p>内置json解码器，可以处理json数据。<code>r.json()</code><br>如果解码失败，会抛出异常401</p>
 <h3 id="原始响应内容"><a href="#原始响应内容" class="headerlink" title="原始响应内容"></a>原始响应内容</h3><p><code>r.raw</code></p>
+<h1 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h1><p>所以在一道例题中，需要调用某个网站的api，得到输入数字的hash值</p>
+<ul>
+<li>http方法：GET</li>
+<li>参数：”q”，生成hash的文字列</li>
+<li>响应：两个key的json，分别是’n’和’hash’<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># the input data</span></span><br><span class="line">param = <span class="string">'n'</span></span><br><span class="line">url = <span class="string">'http://challenge-server.code-check.io'</span></span><br><span class="line">endpoint = <span class="string">'/api/hash'</span></span><br><span class="line"></span><br><span class="line">param = &#123;<span class="string">'q'</span>: param&#125;</span><br><span class="line">r = requests.get(url + endpoint, params=param)</span><br><span class="line"></span><br><span class="line"><span class="comment"># r = requests.get(url)</span></span><br><span class="line">print(r.json())</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
           
         
