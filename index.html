@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">47</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">52</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">69</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">74</span></a>
 
   </li>
 
@@ -334,6 +334,1248 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/12/18/Python的request库/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/18/Python的request库/" class="post-title-link" itemprop="url">Python的request库</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-12-18 16:59:17 / Modified: 17:55:36" itemprop="dateCreated datePublished" datetime="2019-12-18T16:59:17+09:00">2019-12-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/Lib/" itemprop="url" rel="index"><span itemprop="name">Lib</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>之前做了个日本的网测题，题目的内容是call一个web上面的api并且返回结果。之前一直不知道这道题是在干什么，这两天终于搞明白了</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://2.python-requests.org//zh_CN/latest/user/quickstart.html" target="_blank" rel="noopener">快速上手request文档</a></li>
+<li><a href="https://www.zhihu.com/question/28586791" target="_blank" rel="noopener">GET 和 POST 到底有什么区别？</a></li>
+<li><a href="https://www.jianshu.com/p/80e25cb1d81a" target="_blank" rel="noopener">关于HTTP协议，一篇就够了</a></li>
+</ul>
+<h1 id="关于request"><a href="#关于request" class="headerlink" title="关于request"></a>关于request</h1><p>一个Python的第三方库，用于访问网络资源<br>需要导入模块<code>import requests</code></p>
+<h1 id="小知识：http协议（居然现在才发现我连这个都不知道）"><a href="#小知识：http协议（居然现在才发现我连这个都不知道）" class="headerlink" title="小知识：http协议（居然现在才发现我连这个都不知道）"></a>小知识：http协议（居然现在才发现我连这个都不知道）</h1><ul>
+<li>http是超文本传输协议的缩写，是从<strong>www服务器</strong>传输超文本到<strong>本地浏览器</strong>的传输协议</li>
+<li>http协议作用于客户端-服务器架构上，浏览器作为http的客户端，通过url向http服务器端（web服务器）发送所有请求，web服务器在接到请求后，向客户端发送响应</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>简单快捷。客户端请求的时候，只需要request method（包括GET，HEAD，POST等）和url。每种方法规定的客户和服务器的连接类型不同。因为协议简单，所以服务器的程序规模小，反应快速</li>
+<li>灵活：允许传输任意类型的对象</li>
+<li>无连接：限制每次连接只处理一个请求，收到客户端的应答后断开连接</li>
+<li>无状态：对于事物的处理没有记忆能力，所以如果处理的时候需要先前的信息就需要全部重新传输</li>
+<li>B/S（浏览器，服务器-广域网），C/S（客户端，服务器-局域网）模式</li>
+</ul>
+<h2 id="URL（Uniform-Resource-Locator）"><a href="#URL（Uniform-Resource-Locator）" class="headerlink" title="URL（Uniform Resource Locator）"></a>URL（Uniform Resource Locator）</h2><p><code>http://www.aspxfans.com:8080/news/index.asp?boardID=5&amp;ID=24618&amp;page=1#name</code><br>一个URL包括几部分：</p>
+<ul>
+<li>协议部分：http:，表示用的这个协议（https是加密的协议）</li>
+<li>域名部分：<code>www.aspxfans.com</code>，也可以用IP地址作为域名</li>
+<li>端口，用冒号分割，不是必须的</li>
+<li>虚拟目录（endpoint），从第一个/到最后一个/，也不是必须的</li>
+<li>文件名，从最后一个/到?为止。如果没有？就是到#。如果都没有就是到最后。如果省略的话就是默认文件名</li>
+<li>参数部分：从？到#，不是必须的。用来搜索和查询。可以有多个参数，参数之间&amp;相隔</li>
+<li>锚部分，从#开始到最后，不是必须的</li>
+</ul>
+<h2 id="客户端发送的request"><a href="#客户端发送的request" class="headerlink" title="客户端发送的request"></a>客户端发送的request</h2><p>当客户端向服务器发送请求的时候，包括以下的四个部分：<br>request line，header，empty line， request data</p>
+<ul>
+<li>请求行，会说明method（比如GET），要访问的资源，http版本</li>
+<li>请求头部：说明服务器要使用的附加信息（多行）</li>
+<li>空行：请求头部后面需要有空行</li>
+<li>请求数据（主体），可以为空</li>
+</ul>
+<h2 id="服务器响应的response"><a href="#服务器响应的response" class="headerlink" title="服务器响应的response"></a>服务器响应的response</h2><p>分为状态行，消息报头，空行，和响应正文</p>
+<ul>
+<li>状态行：http的版本号，状态码（200），状态消息（ok）</li>
+<li>消息报头：客户端需要使用的附加信息</li>
+<li>空行</li>
+<li>html部分为响应正文</li>
+</ul>
+<h3 id="关于状态码"><a href="#关于状态码" class="headerlink" title="关于状态码"></a>关于状态码</h3><ul>
+<li>200 ok 成功</li>
+<li>3xx 重定向，必须完成更进一步的操作</li>
+<li>4xx 客户端错误，请求有语法错误或者无法实现</li>
+<li>5xx 服务端错误，服务器未能实现</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">200</span> OK                        <span class="comment">//客户端请求成功</span></span><br><span class="line"><span class="number">400</span> Bad Request               <span class="comment">//客户端请求有语法错误，不能被服务器所理解</span></span><br><span class="line"><span class="number">401</span> Unauthorized              <span class="comment">//请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 </span></span><br><span class="line"><span class="number">403</span> Forbidden                 <span class="comment">//服务器收到请求，但是拒绝提供服务</span></span><br><span class="line"><span class="number">404</span> Not Found                 <span class="comment">//请求资源不存在，eg：输入了错误的URL</span></span><br><span class="line"><span class="number">500</span> Internal Server Error     <span class="comment">//服务器发生不可预期的错误</span></span><br><span class="line"><span class="number">503</span> Server Unavailable        <span class="comment">//服务器当前不能处理客户端的请求，一段时间后可能恢复正常</span></span><br></pre></td></tr></table></figure>
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><ul>
+<li>客户端（浏览器）连接到服务器，和服务器的http端口简历TCP连接（TCP：一种传输协议）</li>
+<li>发送http请求</li>
+<li>服务器接收并返回响应</li>
+<li>释放连接TCP，可能会由服务器断线，可能会保持一段时间</li>
+<li>客户端解析html的内容，显示</li>
+</ul>
+<h2 id="小知识：关于post和get"><a href="#小知识：关于post和get" class="headerlink" title="小知识：关于post和get"></a>小知识：关于post和get</h2><ul>
+<li>GET请求，请求数据会附在URL后面，用？分割（比如传入参数的时候）<ul>
+<li>如果是英语或数字，原样</li>
+<li>如果是空格换成+</li>
+<li>如果是中文或者其他字符，直接把字符串加密得到16进制ASCII</li>
+</ul>
+</li>
+<li>所以GET提交的数据会在地址栏显示出来，但是POST会把结果放在包体里面，不改变</li>
+<li>传输数据大小：<ul>
+<li>URL对数据的大小没有限制，但是有些浏览器可能会限制URL的字符长度，导致GET不行</li>
+</ul>
+</li>
+<li>安全性：<ul>
+<li>POST的安全性更高。</li>
+<li>但是http本身就是明文协议，所以其实哪个都安全性不高。最主要的方法是https</li>
+</ul>
+</li>
+</ul>
+<h1 id="回到request本身"><a href="#回到request本身" class="headerlink" title="回到request本身"></a>回到request本身</h1><h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p>我们可以使用get命令获取某个网页的信息，然后从名字为r的对象里面得到后续需要的信息<br>我们可以用r.url来打印现在的url等<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">r</span> = requests.get(<span class="string">'https://api.github.com/events'</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h2><p>requests支持用params关键字来传输参数，参数设置在dict里面<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">payload</span> = &#123;<span class="string">'key1'</span>: <span class="string">'value1'</span>, <span class="string">'key2'</span>: <span class="string">'value2'</span>&#125;</span><br><span class="line"><span class="attr">r</span> = requests.get(<span class="string">"http://httpbin.org/get"</span>, params=payload)</span><br></pre></td></tr></table></figure></p>
+<h2 id="响应内容"><a href="#响应内容" class="headerlink" title="响应内容"></a>响应内容</h2><p>响应的内容可以用<code>r.text</code>来限时，request会根据http头部的编码对文本进行解码，可以用<code>r.encoding</code>来查看解码类型并且改变</p>
+<h3 id="二进制响应内容"><a href="#二进制响应内容" class="headerlink" title="二进制响应内容"></a>二进制响应内容</h3><p>可以用字节的方式来访问响应体<code>r.content</code>，会自动解码</p>
+<h3 id="Json响应内容"><a href="#Json响应内容" class="headerlink" title="Json响应内容"></a>Json响应内容</h3><p>内置json解码器，可以处理json数据。<code>r.json()</code><br>如果解码失败，会抛出异常401</p>
+<h3 id="原始响应内容"><a href="#原始响应内容" class="headerlink" title="原始响应内容"></a>原始响应内容</h3><p><code>r.raw</code></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/11/18/关于链表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/18/关于链表/" class="post-title-link" itemprop="url">关于链表</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-18 18:58:56" itemprop="dateCreated datePublished" datetime="2019-11-18T18:58:56+09:00">2019-11-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-12-02 16:05:06" itemprop="dateModified" datetime="2019-12-02T16:05:06+09:00">2019-12-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/" itemprop="url" rel="index"><span itemprop="name">基础</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>虽然链表是一种比较基础的数据结构，但是在实际应用的时候用处没有那么多</p>
+<ul>
+<li>链表是一种线性的表，但是不会线性的存储数据</li>
+<li>数组存储的时候需要连续存储</li>
+</ul>
+<h1 id="单向链表"><a href="#单向链表" class="headerlink" title="单向链表"></a>单向链表</h1><p>有一个头结点head，指向链表内存的首地址。<br>链表里面的每个节点有两个成员</p>
+<ul>
+<li>需要保存的数据val</li>
+<li>指向下一个结构的指针next</li>
+</ul>
+<p>特点：</p>
+<ul>
+<li>查找<ul>
+<li>对各个点的查找必须从头找起，后续的地址是前节点给出来的。无论访问哪个点都必须从头来</li>
+<li>时间复杂度n，和数组相同</li>
+</ul>
+</li>
+<li>插入和删除（优势）<ul>
+<li>由于链表是不连续的存储，所以在插入和删除的时候，链表不需要大量成员的位移</li>
+<li>复杂度1</li>
+</ul>
+</li>
+<li>读取（劣势）<ul>
+<li>数组因为连续存储，所以可以通过寻址迅速的定位。但是链表不连续，所以必须依据指针持续的遍历</li>
+</ul>
+</li>
+</ul>
+<p>应用</p>
+<ul>
+<li>由于有双向链表，单向链表的应用比较少</li>
+<li>撤销功能：文本，图形编辑器。用到了链表的删除特性</li>
+<li>实现图或者hashMap等高级数据结构</li>
+</ul>
+<h1 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h1><p>增加了一个prev节点，相当于多了一个指针，所以用双向链表占的内存更多<br>比如编辑器的undo/redo操作，用双向链表就更好一点。如果是单向的话时间会是n</p>
+<h1 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h1><p>链表的末尾指针指向了链表开头<br>比如分时装置</p>
+<ul>
+<li>CPU处理多个用户的请求时产生抢占资源的情况，需要分时策略</li>
+<li>每个用户代表一个节点，会给每个节点分配一定的处理时间，然后进入下一个节点。</li>
+</ul>
+<h1 id="Leetcode链表练习题"><a href="#Leetcode链表练习题" class="headerlink" title="Leetcode链表练习题"></a>Leetcode链表练习题</h1><h2 id="141-判断单链表是否有cycle"><a href="#141-判断单链表是否有cycle" class="headerlink" title="141 判断单链表是否有cycle"></a>141 判断单链表是否有cycle</h2><p>思路：</p>
+<ul>
+<li>in-place的方法，如果两个人一起跑步，一个快一个慢，那么总有一个时刻快的会把慢的套圈<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">hasCycle</span><span class="params">(self, head: ListNode)</span> -&gt; bool:</span></span><br><span class="line">        fast = head</span><br><span class="line">        slow = head</span><br><span class="line">        <span class="keyword">while</span> slow <span class="keyword">and</span> fast <span class="keyword">and</span> fast.next:</span><br><span class="line">            slow = slow.next</span><br><span class="line">            fast = fast.next.next</span><br><span class="line">            <span class="keyword">if</span> fast == slow:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="24-交换两个相邻的node"><a href="#24-交换两个相邻的node" class="headerlink" title="24 交换两个相邻的node"></a>24 交换两个相邻的node</h2><p>思路：</p>
+<ul>
+<li>注意这个node的交换，不单和目前的部分（目前操作的两个）有关系，还和前面一个点有关系，因为前面一个点的next需要是交换之前的后一个点</li>
+<li>注意while时候的条件判断，必须两个点都在的时候才能进行交换</li>
+<li>注意d这个附加的点，用这个点可以快速的定位head点</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">swapPairs</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        counter = <span class="number">0</span></span><br><span class="line">        d = ListNode(<span class="number">-1</span>)</span><br><span class="line">        d.next = head</span><br><span class="line">        prev_node = d</span><br><span class="line">        <span class="keyword">while</span> head <span class="keyword">and</span> head.next:</span><br><span class="line">            curr = head</span><br><span class="line">            to_swap = head.next</span><br><span class="line">            </span><br><span class="line">            prev_node.next = to_swap</span><br><span class="line">            curr.next = to_swap.next</span><br><span class="line">            to_swap.next = curr</span><br><span class="line">            </span><br><span class="line">            prev_node = curr</span><br><span class="line">            head = curr.next</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> d.next</span><br></pre></td></tr></table></figure>
+<h2 id="328-把链表的odd位都交换到前面去"><a href="#328-把链表的odd位都交换到前面去" class="headerlink" title="328 把链表的odd位都交换到前面去"></a>328 把链表的odd位都交换到前面去</h2><p>思路：</p>
+<ul>
+<li>判断这个点如果是odd，那么上一个odd的next是现在的点，这个点的下一个指向even的开始点</li>
+<li>如果这个点是even，那么上一个even的next是现在的点，这个点的下一个是null</li>
+<li>死磕了一个小时的原因：<ul>
+<li>注意深拷贝和浅拷贝的问题，浅拷贝的时候，改变这个东西的同时，之前的也会改变</li>
+<li>注意形成环的问题，一定要注意每个点的input和output的方向都确定了，该赋值0的时候赋值0</li>
+<li>注意每次的odd点都应该指向even的起始点</li>
+<li>在下一个点会变化的时候，记得及时保存<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">oddEvenList</span><span class="params">(self, head: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        start = ListNode(<span class="number">-1</span>)</span><br><span class="line">        even_start = ListNode(<span class="number">-1</span>)</span><br><span class="line">        start.next = head</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">not</span> head) <span class="keyword">or</span> (<span class="keyword">not</span> head.next): <span class="keyword">return</span> head</span><br><span class="line">        </span><br><span class="line">        prev_odd = head</span><br><span class="line">        prev_even = head.next</span><br><span class="line">        even_start.next = prev_even</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        counter = <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> head:</span><br><span class="line">            curr = head</span><br><span class="line">            <span class="keyword">if</span> counter &gt;=<span class="number">3</span>:</span><br><span class="line">                temp = curr.next</span><br><span class="line">                <span class="keyword">if</span> counter % <span class="number">2</span> != <span class="number">0</span>: <span class="comment">#odd</span></span><br><span class="line">                    prev_odd.next = curr</span><br><span class="line">                    curr.next = even_start.next</span><br><span class="line">                    <span class="keyword">if</span> counter == <span class="number">3</span>:</span><br><span class="line">                        even_start.next.next = <span class="literal">None</span></span><br><span class="line">                    prev_odd = curr</span><br><span class="line">                <span class="keyword">elif</span> counter % <span class="number">2</span> == <span class="number">0</span>:<span class="comment">#even</span></span><br><span class="line">                    prev_even.next = curr</span><br><span class="line">                    prev_even = curr</span><br><span class="line">                    curr.next = <span class="literal">None</span></span><br><span class="line">                head = temp</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                head = curr.next</span><br><span class="line">            counter += <span class="number">1</span></span><br><span class="line">            </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> start.next</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/11/05/计算机网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/05/计算机网络/" class="post-title-link" itemprop="url">计算机网络</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-05 20:20:07 / Modified: 20:32:54" itemprop="dateCreated datePublished" datetime="2019-11-05T20:20:07+09:00">2019-11-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/" itemprop="url" rel="index"><span itemprop="name">基础</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/计算机网络/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>网线把主机连接起来<br>互联网把不同的网络连接起来</p>
+<h2 id="ISP"><a href="#ISP" class="headerlink" title="ISP"></a>ISP</h2><p>“互联网服务供应商”<br>从互联网管理机构获得IP地址，拥有通信线路以及路由器等联网设备，个人或机构缴纳一定的费用就可以连入互联网</p>
+<h2 id="主机间的通信方式"><a href="#主机间的通信方式" class="headerlink" title="主机间的通信方式"></a>主机间的通信方式</h2><ul>
+<li>client-server：客户是服务的请求方，服务器是供应方</li>
+<li>P2P：不区分客户和服务器</li>
+</ul>
+<h2 id="电路交换和分组交换"><a href="#电路交换和分组交换" class="headerlink" title="电路交换和分组交换"></a>电路交换和分组交换</h2><ul>
+<li>电路交换：电话通信系统，需要建立物理链</li>
+<li>分组交换：每个分组有首部和尾部，包含了源地址和目的地址等。同一个传输路径上互相不受影响</li>
+</ul>
+<h2 id="时延"><a href="#时延" class="headerlink" title="时延"></a>时延</h2><ul>
+<li>排队时延：路由器输入和输出队列间的等待时间，取决于通信量</li>
+<li>处理时延：主机或路由器受到分组时的处理时间（分析首部，提取数据，进行差错检验等）</li>
+<li>传输时延：传输所用的时间</li>
+<li>传播时延：在信道中传播用的时间</li>
+</ul>
+<h2 id="计算机网络体系结构"><a href="#计算机网络体系结构" class="headerlink" title="计算机网络体系结构"></a><strong>计算机网络体系结构</strong></h2><p><img src="/2019/11/05/计算机网络/1.jpg" alt></p>
+<h3 id="五层"><a href="#五层" class="headerlink" title="五层"></a>五层</h3><ul>
+<li>应用层：为特定应用提供数据传输，HTTP，DNS等协议（报文）</li>
+<li>传输层：为<strong>进程</strong>提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。</li>
+<li>网络层：为<strong>主机</strong>提供数据传输服务，网络层把传输层传递下来的报文段或者用户数据报封装成分组。</li>
+<li>数据链路层：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</li>
+<li>物理层</li>
+</ul>
+<h3 id="OSI"><a href="#OSI" class="headerlink" title="OSI"></a>OSI</h3><ul>
+<li>表示层：数据压缩，加密，描述。不必关心各台主机数据内部格式不同的问题</li>
+<li>会话层：建立和管理会话</li>
+</ul>
+<h3 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h3><p>数据链路层和物理层合并为网络接口层</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/11/05/计算机操作系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/05/计算机操作系统/" class="post-title-link" itemprop="url">计算机操作系统</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-05 18:39:47" itemprop="dateCreated datePublished" datetime="2019-11-05T18:39:47+09:00">2019-11-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-11-06 11:46:41" itemprop="dateModified" datetime="2019-11-06T11:46:41+09:00">2019-11-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/" itemprop="url" rel="index"><span itemprop="name">基础</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/基础/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <!-- # 概述
+## 基本特征
+- 并发：宏观上在一段时间内可以同时运行多个程序。并行指同一时刻运行多个指令 -->
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>大纲：中断，系统调用，内存管理，进程线程，调度，同步，文件系统，I/O</p>
+<h2 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h2><ul>
+<li>功能上<ul>
+<li>对用户来说，OS是控制</li>
+<li>管理应用程序的运行</li>
+<li>为应用程序提供服务</li>
+<li>杀死应用程序</li>
+</ul>
+</li>
+<li>对下<ul>
+<li>资源分配，管理，外设管理（多个资源的协调）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/11/05/计算机操作系统/1_1.jpg" alt="抽象"></p>
+<p>承上启下的作用：层次架构</p>
+<ul>
+<li>硬件之上</li>
+<li>应用程序（比如办公软件，视频播放软件等等）之下<ul>
+<li>OS为应用软件提供服务支撑</li>
+<li>分为两部分：shell部分，对外的接口。kernel部分，也就是OS的本身</li>
+</ul>
+</li>
+</ul>
+<h3 id="kernel部分"><a href="#kernel部分" class="headerlink" title="kernel部分"></a>kernel部分</h3><ul>
+<li>CPU管理，进程线程</li>
+<li>内存管理（物理内存，虚拟内存）<ul>
+<li>虚拟内存：给上层应用提供尽可能大的内存空间</li>
+</ul>
+</li>
+<li>文件系统管理</li>
+<li>（底层相关）中断处理和设备驱动 -&gt; 直接和硬件打交道</li>
+</ul>
+<h3 id="操作系统的特征"><a href="#操作系统的特征" class="headerlink" title="操作系统的特征"></a>操作系统的特征</h3><ul>
+<li>并发concurrency：同时存在多个运行的程序，需要OS管理和调度<ul>
+<li>一段时间内，多个程序</li>
+<li>并行parallelism：一个时间点上多个程序。一般并行的需要有多个CPU</li>
+</ul>
+</li>
+<li>共享：有效让资源共享给需要的应用程序<ul>
+<li>对于一个内存单元：一个时间点上只有一个程序访问一个资源</li>
+<li>同时访问？互斥共享？</li>
+</ul>
+</li>
+<li>虚拟：让每个用户都觉得有一个计算机专门为他服务<ul>
+<li>把一台机器虚拟成多台机器</li>
+</ul>
+</li>
+<li>异步（虽然执行的步骤不同，但是结果也相同）<ul>
+<li>不是一贯到底的，是走走停停的，向前推荐的速度不可知</li>
+<li>但是运行环境相同，OS要保证运行的<strong>结果也相同</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么学习OS"><a href="#为什么学习OS" class="headerlink" title="为什么学习OS"></a>为什么学习OS</h2><ul>
+<li>效率，可靠 -&gt; 算法</li>
+<li>硬件<ul>
+<li>良好的硬件管理，合理的资源分配</li>
+</ul>
+</li>
+<li>硬件可以完成很多OS以前关注的问题</li>
+<li>需要<strong>权衡</strong><ul>
+<li>时间空间</li>
+<li>性能和可预测</li>
+<li>公平和性能</li>
+</ul>
+</li>
+</ul>
+<h2 id="经典OS"><a href="#经典OS" class="headerlink" title="经典OS"></a>经典OS</h2><ul>
+<li>UNIX</li>
+<li>Linux：移动终端的占有量非常大</li>
+<li>Windows</li>
+</ul>
+<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/11/05/剑指offer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/11/05/剑指offer/" class="post-title-link" itemprop="url">剑指offer</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-11-05 15:10:41 / Modified: 18:55:30" itemprop="dateCreated datePublished" datetime="2019-11-05T15:10:41+09:00">2019-11-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/就职/" itemprop="url" rel="index"><span itemprop="name">就职</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="面试的流程"><a href="#面试的流程" class="headerlink" title="面试的流程"></a>面试的流程</h1><ul>
+<li>能写<strong>单元测试</strong>，加分</li>
+<li>答非所问，不懂装懂，大忌</li>
+<li>准备几个问题</li>
+</ul>
+<h2 id="面试的三个环节"><a href="#面试的三个环节" class="headerlink" title="面试的三个环节"></a>面试的三个环节</h2><h3 id="行为面试-5-10分钟"><a href="#行为面试-5-10分钟" class="headerlink" title="行为面试 5-10分钟"></a>行为面试 5-10分钟</h3><ul>
+<li>性格特点</li>
+<li>深入了解项目经历<ul>
+<li>项目介绍方法<ul>
+<li>简短的项目背景</li>
+<li>自己完成的任务（参与 != 负责）</li>
+<li>为了完成任务自己是怎么做的</li>
+<li>自己的贡献，最好能用数字加以说明</li>
+</ul>
+</li>
+<li>追问问题：<ul>
+<li>遇到最大的问题是什么，怎么解决</li>
+<li>学到了什么</li>
+<li>和其他团队成员有什么冲突，怎么解决的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>简短的介绍</li>
+<li>对技能的分级<ul>
+<li>了解：只是学过，但是没有做过实际的项目</li>
+<li>熟悉：<ul>
+<li>大部分的技能</li>
+</ul>
+</li>
+<li>精通<ul>
+<li>不要随便用</li>
+<li>如果有人请教这个方面的问题有信心解决，才能用精通</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为什么跳槽<ul>
+<li><strong>NG答案</strong><ul>
+<li>老板刻薄</li>
+<li>同事难相处</li>
+<li>加班频繁</li>
+<li>工资太低</li>
+</ul>
+</li>
+<li>可以尝试的<ul>
+<li>对现在的工作失去了激情，需要寻找一份有挑战</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="技术面试-40-50分钟"><a href="#技术面试-40-50分钟" class="headerlink" title="技术面试 40-50分钟"></a>技术面试 40-50分钟</h2><ul>
+<li>基础知识<ul>
+<li>数据结构，算法，编程语言等</li>
+</ul>
+</li>
+<li>能写出清晰，完整的代码</li>
+<li>能思路清晰的解决问题<ul>
+<li>简单问题-&gt; 清晰代码</li>
+<li>复杂问题-&gt; 画图，举例等分析</li>
+</ul>
+</li>
+<li>能从时间空间方面优化代码<ul>
+<li>主动提问，弄清要求</li>
+</ul>
+</li>
+<li>沟通能力，学习能力，发散思维能力</li>
+</ul>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><ul>
+<li>对一门编程语言的掌握</li>
+<li>数据结构<ul>
+<li>链表，树，栈，队列，哈希表</li>
+<li>尤其是链表和二叉树</li>
+</ul>
+</li>
+<li>查找，排序算法等</li>
+</ul>
+<h3 id="高质量代码"><a href="#高质量代码" class="headerlink" title="高质量代码"></a>高质量代码</h3><ul>
+<li>边界条件，特殊输入</li>
+<li>简单的问题需要完整的考虑问题，考虑特殊条件</li>
+<li>代码是不是够鲁棒</li>
+</ul>
+<h3 id="清晰的思路"><a href="#清晰的思路" class="headerlink" title="清晰的思路"></a>清晰的思路</h3><ul>
+<li>举几个简单的例子让自己理解问题</li>
+<li>图形抽象数据结构</li>
+<li>把复杂的问题分成简单的子问题</li>
+</ul>
+<h3 id="优化效率的能力"><a href="#优化效率的能力" class="headerlink" title="优化效率的能力"></a>优化效率的能力</h3><ul>
+<li>不能放弃思考</li>
+<li>需要知道怎么计算效率<ul>
+<li>比如斐波那契数列，用top-down就比bottom-up的重复计算多出很多</li>
+</ul>
+</li>
+<li>知道各种数据结构的优缺点</li>
+</ul>
+<h3 id="学习能力"><a href="#学习能力" class="headerlink" title="学习能力"></a>学习能力</h3><ul>
+<li>最近在看什么书，学习到了什么新技术</li>
+<li>抛出一个新概念，理解并解决相关的问题</li>
+</ul>
+<h2 id="提问环节-5-10分钟"><a href="#提问环节-5-10分钟" class="headerlink" title="提问环节 5-10分钟"></a>提问环节 5-10分钟</h2><ul>
+<li>不要问和自己职位没关系的问题</li>
+<li>不要问薪水（指技术面试）</li>
+<li>不要立即打听面试的结果</li>
+<li>与应聘的职位和项目相关的问题<ul>
+<li>提前了解公司信息</li>
+<li>注意面试时对方介绍的内容</li>
+</ul>
+</li>
+</ul>
+<h1 id="第二章-面试的基础知识"><a href="#第二章-面试的基础知识" class="headerlink" title="第二章 面试的基础知识"></a>第二章 面试的基础知识</h1><h2 id="编程语言"><a href="#编程语言" class="headerlink" title="编程语言"></a>编程语言</h2><p>驱动C，linuxCpp，windowsC#，跨平台Java，苹果O-C，小型应用Perl，Python</p>
+<h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><ul>
+<li>sizeof（也就是拿着准备好的概念题）<ul>
+<li>空类型的sizeof，instance需要占据一定空间，占用多少编译器决定</li>
+</ul>
+</li>
+<li>给一段代码，看是否能够运行等</li>
+<li>定义一个类型或实现类型中的成员函数</li>
+</ul>
+<p>相关书籍</p>
+<ul>
+<li>Effective C++（面试之前突击）</li>
+<li>C++ Primer（语法的全面了解）</li>
+<li>深度搜索C++对象模型（了解对象内部）</li>
+<li>The C++ Programming Language（深入了解）</li>
+</ul>
+<h3 id="C-1"><a href="#C-1" class="headerlink" title="C\"></a>C\</h3><ul>
+<li>主要会问C++和C#的区别</li>
+</ul>
+<p>相关书籍</p>
+<ul>
+<li>Professional C#（写给已经有其他经验的程序员）</li>
+<li>CLR Via C#</li>
+</ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1462,2625 +2704,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/10/02/Unity练习Flappy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/02/Unity练习Flappy/" class="post-title-link" itemprop="url">Unity练习FlappyBird</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-10-02 14:19:38" itemprop="dateCreated datePublished" datetime="2019-10-02T14:19:38+09:00">2019-10-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-08 13:33:47" itemprop="dateModified" datetime="2019-10-08T13:33:47+09:00">2019-10-08</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/练习/" itemprop="url" rel="index"><span itemprop="name">练习</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>教程及素材源自unity官方的learning资料<a href="https://learn.unity.com/tutorial/live-session-making-a-flappy-bird-style-game/?tab=materials#5c7f8528edbc2a002053b6a7" target="_blank" rel="noopener">FlappyBird</a></p>
-<p>整体思路：在游戏里物体本体是不会移动的，只有后面的背景滚轴一直在移动，然后每次在玩家视野外生成随机高度的柱子。柱子和背景一起滚动。</p>
-<h1 id="生成鸟的物体"><a href="#生成鸟的物体" class="headerlink" title="生成鸟的物体"></a>生成鸟的物体</h1><h2 id="sprite"><a href="#sprite" class="headerlink" title="sprite"></a>sprite</h2><ul>
-<li>sprite是一种半透明的texture。不会直接被用于mesh，而是会用在长方形或者正方形上</li>
-<li>修改texture type就可以修改</li>
-<li>与canvas render的区别：前者必须放在canvas里面，而后者可以放在hierarchy的任何地方</li>
-<li>sprite支持网格构造，可以清除不必要的透明元素，可以一定情况下避免overdraw的问题</li>
-</ul>
-<h3 id="sorting-layer"><a href="#sorting-layer" class="headerlink" title="sorting layer"></a>sorting layer</h3><ul>
-<li>在sprite render里面会有一项叫做sorting layer，这个功能可以决定画面的前景和后景的遮挡关系。写的越靠下的越前</li>
-</ul>
-<h2 id="rigidbody-collider"><a href="#rigidbody-collider" class="headerlink" title="rigidbody + collider"></a>rigidbody + collider</h2><ul>
-<li>需要设置刚体和碰撞关系</li>
-<li>这里面的碰撞器设置的种类是多边形的</li>
-</ul>
-<h2 id="animator（getcomponent）"><a href="#animator（getcomponent）" class="headerlink" title="animator（getcomponent）"></a>animator（getcomponent<animator>）</animator></h2><ul>
-<li>在这个游戏里，鸟的不同动作会触发不同的动画，所以需要为这个鸟构建一个动画来表现</li>
-<li>在animation里面，可以给鸟不同的动作不同的clip。在运行状态下修改鸟在不同clip里面的renderer。</li>
-<li>在animator里面可以设置不同动画之间切换的逻辑关系<ul>
-<li>一种是根据条件切换，需要为不同的条件设置不同的paramter（这里设定的是trigger，这个状态可以直接在script里面set，注意拼写需要一样）（正常 -按-&gt; 挥动翅膀/ 正常 -撞墙-&gt; 死亡）</li>
-<li>一种是根据时间切换（挥动翅膀 -&gt; 正常状态）</li>
-</ul>
-</li>
-</ul>
-<h2 id="鸟的行为逻辑"><a href="#鸟的行为逻辑" class="headerlink" title="鸟的行为逻辑"></a>鸟的行为逻辑</h2><ul>
-<li>运动：本身的x轴不会运动，y轴在每次按鼠标的时候上升（addForce），不按的时候重力自由落体（对应上升动画）</li>
-<li>碰撞：碰撞到地面或者柱子都会死亡（对应死亡动画）</li>
-<li>在鸟死亡的时候，会对应鸟的死亡状态在controller里面的切换</li>
-</ul>
-<h1 id="UI制作"><a href="#UI制作" class="headerlink" title="UI制作"></a>UI制作</h1><ul>
-<li>UI使用的就是普通的UI模式，注意所有text都是在canvas里面的</li>
-<li>导入素材包字体，可以给字体加阴影</li>
-<li>UI的分数变化在gamecontroller里面进行操作</li>
-<li>字体锚点位置调整需要按alt/option</li>
-</ul>
-<h1 id="gameControll"><a href="#gameControll" class="headerlink" title="gameControll"></a>gameControll</h1><ul>
-<li>设定了一个static的GameControl（这是这个自建类的名字）的object，名字是instance。设定成static之后，无论在哪里的code里面想要访问这个instance，只需要call<code>GameControl.instance</code>就可以了</li>
-<li><p>为了保证里面拥有这个instance，需要在awake的时候进行检查</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Awake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(instance != <span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在gameControl里面设置好了游戏结束的变量，这个变量可以直接在bird的script里面访问，这样就可以直接在bird里面决定游戏结束没结束，再在现在的control里面决定分数的变化，scene的切换等</p>
-</li>
-<li>也可以在这里操作，游戏重新开始<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (gameOver &amp;&amp; Input.GetMouseButtonDown(<span class="number">0</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="地面（及背景：作为地面的子物体）"><a href="#地面（及背景：作为地面的子物体）" class="headerlink" title="地面（及背景：作为地面的子物体）"></a>地面（及背景：作为地面的子物体）</h1><ul>
-<li>地面应该有collider，这样鸟撞到地面上才会死。需要用rd</li>
-<li>地面应该在start开始就按照一个速度进行负移动，如果游戏结束的话，地面停止移动</li>
-<li>地面应该复制两份，当每次第一份快要移动到头的时候，第二份移动到第一份前面去（这个距离可以直接用collider的size来决定</li>
-<li>地面的rd应该设置成kinematic，也就是除了script让移动，其他的方法不会让他移动</li>
-</ul>
-<h1 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h1><ul>
-<li>障碍物应该设置成prefab，制作好的东西直接拖进prefab文件夹就可以了。在用的时候可以直接在gamecontrol的物体里面操作这个prefab，直接拖进去就可以了</li>
-<li>障碍物本身应该增加了一个box collider的trigger，然后在每个柱子本身里面加上了<code>OnTriggerEnter2D(Collider2D other)</code>，也就是在这个trigger的区域里面遇到鸟的时候，会call加分的函数</li>
-</ul>
-<h2 id="pool"><a href="#pool" class="headerlink" title="pool"></a>pool</h2><ul>
-<li>生成柱子的方法，目前的方法是每次生成五个柱子，存在一个array里面，每次时间到了就随机新的柱子的位置。如果五个柱子都用完了就重头开始，也就是从index是0的柱子开始，重新定位坐标</li>
-<li>在初始化五个柱子的时候，用了<code>Object.Instantiate</code>，也就是把这五个柱子在指定的位置复制了五次。其中rotation的参数设置的是<code>Quaternion.identity</code>，也就是没有旋转的意思</li>
-</ul>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ColumnPool</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> ColumnSize = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">public</span> GameObject columnPrefab;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> SpwandRate = <span class="number">4f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> columnMin = <span class="number">-2f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> columnMax = <span class="number">2f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> GameObject[] columns;</span><br><span class="line">    <span class="keyword">private</span> Vector2 objectPoolPosition = <span class="keyword">new</span> Vector2(<span class="number">-15f</span>, <span class="number">-25f</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> timeSinceLastSpwand;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> spwandXPosition = <span class="number">10f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> currentColumn = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        columns = <span class="keyword">new</span> GameObject[ColumnSize];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ColumnSize; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            columns[i] = (GameObject)Instantiate(columnPrefab, objectPoolPosition, Quaternion.identity);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        timeSinceLastSpwand += Time.deltaTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (GameControl.instance.gameOver == <span class="literal">false</span> &amp;&amp; timeSinceLastSpwand &gt;= SpwandRate)</span><br><span class="line">        &#123;</span><br><span class="line">            timeSinceLastSpwand = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">float</span> spawnYposition = Random.Range(columnMin, columnMax);</span><br><span class="line">            columns[currentColumn].transform.position = <span class="keyword">new</span> Vector2(spwandXPosition, spawnYposition);</span><br><span class="line">            currentColumn++;</span><br><span class="line">            <span class="keyword">if</span>(currentColumn == <span class="number">4</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                currentColumn = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上，简易版的flappybird就制作完毕了</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/日语敬语学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/14/日语敬语学习/" class="post-title-link" itemprop="url">日语敬语学习</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-14 15:55:19" itemprop="dateCreated datePublished" datetime="2019-09-14T15:55:19+09:00">2019-09-14</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-16 20:54:14" itemprop="dateModified" datetime="2019-09-16T20:54:14+09:00">2019-09-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日语/" itemprop="url" rel="index"><span itemprop="name">日语</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日语/敬语/" itemprop="url" rel="index"><span itemprop="name">敬语</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="从头开始了解"><a href="#从头开始了解" class="headerlink" title="从头开始了解"></a>从头开始了解</h2><h3 id="一些经常听到的用法"><a href="#一些经常听到的用法" class="headerlink" title="一些经常听到的用法"></a>一些经常听到的用法</h3><ul>
-<li>本日　＝　今日</li>
-<li>まことに　＝　本当に</li>
-<li>ご案内申し上げます　＝　知らせます</li>
-<li>ただいま　＝　いま</li>
-<li>〜におきまして　＝　で</li>
-<li>〜でございます　＝　〜です</li>
-<li>来場する　＝　会場に来る</li>
-</ul>
-<h3 id="敬语的分组"><a href="#敬语的分组" class="headerlink" title="敬语的分组"></a>敬语的分组</h3><ul>
-<li>尊敬语：用来描述对方的行为，直接表示敬意</li>
-<li>谦让语；描述自己做的事，贬低自己，间接的表示敬意</li>
-<li>丁宁语：让整个对话的气氛都变得很丁宁，气氛比较郑重</li>
-</ul>
-<h3 id="基本常识"><a href="#基本常识" class="headerlink" title="基本常识"></a>基本常识</h3><ul>
-<li>一般来说，礼貌程度可以分成三个阶层，分别是疯狂使用敬语的 -&gt; 使用ですます的 -&gt; 使用普通形态的朋友间的对话</li>
-<li>一般来说，对外的人用敬语，对内的人不同敬语<ul>
-<li>比如有人打电话到了公司，问你的部长在不在，你自己说部长的时候就不用用敬语了</li>
-</ul>
-</li>
-</ul>
-<h1 id="下面开始根据不同的场合使用敬语"><a href="#下面开始根据不同的场合使用敬语" class="headerlink" title="下面开始根据不同的场合使用敬语"></a>下面开始根据不同的场合使用敬语</h1><h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><h3 id="访问时候的特定用语"><a href="#访问时候的特定用语" class="headerlink" title="访问时候的特定用语"></a>访问时候的特定用语</h3><ul>
-<li>玄关处<ul>
-<li>ごめんください</li>
-<li>すいません</li>
-</ul>
-</li>
-<li>部屋に入る時<ul>
-<li>お邪魔します</li>
-<li>失礼します</li>
-<li>失礼いたします</li>
-</ul>
-</li>
-<li>部屋を出る時<ul>
-<li>失礼します</li>
-<li>失礼いたします</li>
-</ul>
-</li>
-</ul>
-<h3 id="お／ご〜ください"><a href="#お／ご〜ください" class="headerlink" title="お／ご〜ください"></a>お／ご〜ください</h3><ul>
-<li>〜てください的丁宁用法</li>
-<li>masu型去masu加上后面的<strong>お</strong>，或者suru型直接加后面的<strong>ご</strong></li>
-<li>例子<ul>
-<li>お入りください</li>
-<li>お上りください　-&gt; 请进的意思 come in</li>
-<li>おかけください -&gt; 请坐，比如沙发，椅子啥的。<strong>和打电话没有关系</strong></li>
-<li>日本語でお話しください</li>
-<li>ご注意ください</li>
-</ul>
-</li>
-<li><strong>注意</strong>：这里没有te，不要顺便加上te，没有te，没有！！！！！</li>
-</ul>
-<h3 id="つまらないものですが…"><a href="#つまらないものですが…" class="headerlink" title="つまらないものですが…"></a>つまらないものですが…</h3><ul>
-<li>一点小东西，不成敬意</li>
-<li>更随意的时候可以说（给别人买了吃的的话）：美味しいので買ってきました</li>
-</ul>
-<h3 id="お〜になります"><a href="#お〜になります" class="headerlink" title="お〜になります"></a>お〜になります</h3><ul>
-<li>〜ます的丁宁语，suru的动词不能用这个用法</li>
-<li>也就是说一般的动词，如果不是特殊型的话，可以用这个用法代替平常直接用masu</li>
-<li>例<ul>
-<li>この教科書は鈴木先生がお書きになります</li>
-<li>社長、今朝の新聞をお読になりましたか</li>
-</ul>
-</li>
-</ul>
-<h3 id="上面的尊敬语的特别变形"><a href="#上面的尊敬语的特别变形" class="headerlink" title="上面的尊敬语的特别变形"></a>上面的尊敬语的特别变形</h3><ul>
-<li>食べます　-&gt; (🙅‍♀x)お食べになります　-&gt; (●)召し上がります</li>
-<li>します　-&gt; (🙅‍♀x)おしになります　-&gt; (●)なさいます</li>
-<li>見ます　-&gt; (🙅‍♀x)お見になります　-&gt; (●)ご覧になります</li>
-<li>也就是说，如果是三类动词的话，后面的する直接变成なさいます</li>
-<li><strong>注意</strong>：特别变形如果想用ください的时候，可以直接用特别变形之后的动词加上てください、<strong>现在这里是有te的，比如おっしゃってください 请说</strong></li>
-</ul>
-<h3 id="被动：更加简单一点的用法"><a href="#被动：更加简单一点的用法" class="headerlink" title="被动：更加简单一点的用法"></a>被动：更加简单一点的用法</h3><ul>
-<li>使用和被动态相同的方法来表示尊敬，不用像上面的お〜になります这么麻烦，根据上下文可以推测实际的意思</li>
-<li>例<ul>
-<li>書きます　-&gt; 書かれます／　読みます　-&gt; 読まれます</li>
-<li>出ます　-&gt; 出られます</li>
-<li>します　-&gt; されます／　来ます　-&gt; 来られます</li>
-</ul>
-</li>
-<li><strong>注意</strong>：这种用法不能和ください一起用，不能用被动后面加ください，要用ください的话请直接用上面的那个带ください的方法</li>
-<li>注意：被动型 不要顺嘴和させ说混</li>
-</ul>
-<h3 id="特殊敬语构成表"><a href="#特殊敬语构成表" class="headerlink" title="特殊敬语构成表"></a>特殊敬语构成表</h3><table>
-<thead>
-<tr>
-<th>动词</th>
-<th style="text-align:right">尊敬语</th>
-<th style="text-align:center">谦让语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>行きます</td>
-<td style="text-align:right">いらしゃいます／おいでになります</td>
-<td style="text-align:center">参ります／伺います</td>
-</tr>
-<tr>
-<td>来ます</td>
-<td style="text-align:right">いらしゃいます／おいでになります　</td>
-<td style="text-align:center">参ります</td>
-</tr>
-<tr>
-<td>います</td>
-<td style="text-align:right">いらしゃいます／おいでになります</td>
-<td style="text-align:center">おります</td>
-</tr>
-<tr>
-<td>言います</td>
-<td style="text-align:right">おっしゃいます</td>
-<td style="text-align:center">（許と）申します／（意見を）申し上げます</td>
-</tr>
-<tr>
-<td>見ます</td>
-<td style="text-align:right">ご覧になります</td>
-<td style="text-align:center">拝見します</td>
-</tr>
-<tr>
-<td>食べます／飲みます</td>
-<td style="text-align:right">召し上がります</td>
-<td style="text-align:center">いただきます</td>
-</tr>
-<tr>
-<td>知っています</td>
-<td style="text-align:right">ご存知です</td>
-<td style="text-align:center">存じております／知っております／（金子部長を）存じ上げております</td>
-</tr>
-<tr>
-<td>思います</td>
-<td style="text-align:right">お思いになります</td>
-<td style="text-align:center">存じます</td>
-</tr>
-<tr>
-<td>します</td>
-<td style="text-align:right">なさいます</td>
-<td style="text-align:center">いたします</td>
-</tr>
-<tr>
-<td>くれます</td>
-<td style="text-align:right">くださいます</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>あげます</td>
-<td style="text-align:right"></td>
-<td style="text-align:center">さしあげます</td>
-</tr>
-<tr>
-<td>もらいます</td>
-<td style="text-align:right"></td>
-<td style="text-align:center">いただきます</td>
-</tr>
-<tr>
-<td>会います</td>
-<td style="text-align:right">お会いになります</td>
-<td style="text-align:center">お会いします／お目にかかります</td>
-</tr>
-<tr>
-<td>聞きます</td>
-<td style="text-align:right">お聞きになります</td>
-<td style="text-align:center">お聞きします／伺います</td>
-</tr>
-<tr>
-<td>あります</td>
-<td style="text-align:right">あります</td>
-<td style="text-align:center">ございます</td>
-</tr>
-<tr>
-<td>寝ます</td>
-<td style="text-align:right">お休みになります</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>着ます</td>
-<td style="text-align:right"><strong>お召しになります</strong></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>住んでいます</td>
-<td style="text-align:right"><strong>お住まいです</strong></td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>持ちます／持っていきます／持ってきます</td>
-<td style="text-align:right">お持ちになります</td>
-<td style="text-align:center">お持ちします</td>
-</tr>
-<tr>
-<td>死にました</td>
-<td style="text-align:right">お亡くなりになりました</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td>〜です</td>
-<td style="text-align:right"><strong>で</strong>いらしゃいます</td>
-<td style="text-align:center">でございます</td>
-</tr>
-<tr>
-<td>〜ています</td>
-<td style="text-align:right"><strong>て</strong>いらしゃいます</td>
-<td style="text-align:center">でおります</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>尊敬语和谦让语的总结<ul>
-<li>句型<ul>
-<li>尊敬 お／ご〜になります　お／ご〜ください</li>
-<li>谦让　お／ご〜します</li>
-</ul>
-</li>
-<li>简单用法<ul>
-<li><strong>只有尊敬语</strong>可以用被动来表示尊敬</li>
-</ul>
-</li>
-<li>特别型见表</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>注意尊敬语：</p>
-<ul>
-<li>吃和穿长得差不多，但是吃喝里面不需要前面的お</li>
-<li>说里面带促音</li>
-<li>虽然想听起来很奇怪，但是真的是这样的</li>
-<li>住这个词有些奇怪</li>
-<li>死一定是过去式的</li>
-</ul>
-</li>
-<li><p>注意谦让语</p>
-<ul>
-<li>来和去都可以是 参。 但是去还有伺う。同时伺う还有听的意思</li>
-<li>存じ 在知道和想里面都可以用，注意区别。知道是te型的，所以是おります</li>
-</ul>
-</li>
-</ul>
-<h2 id="打招呼"><a href="#打招呼" class="headerlink" title="打招呼"></a>打招呼</h2><h3 id="经常使用的あいさつ"><a href="#经常使用的あいさつ" class="headerlink" title="经常使用的あいさつ"></a>经常使用的あいさつ</h3><ul>
-<li>朝<ul>
-<li>おはようがざいます</li>
-<li>おはよう</li>
-</ul>
-</li>
-<li>会社から帰り時<ul>
-<li>それでは、お失礼にします／失礼いたします</li>
-<li>じゃ、お先に</li>
-</ul>
-</li>
-<li>お礼<ul>
-<li>ありがどうございます　-&gt; いいえ／こちらこそ／どういたしまして</li>
-<li>ありがどう　-&gt; ううん／大丈夫だよ</li>
-</ul>
-</li>
-<li>天気<ul>
-<li>いい天気ですね／暑いですね／雨がよく降りますね　-&gt; そうですね</li>
-<li>いい天気だよ／暑いね／よく降るね　-&gt; そうだね</li>
-</ul>
-</li>
-<li>別れる時<ul>
-<li>失礼します／失礼いたします　-&gt; お気をつけて／それではまた</li>
-<li>じゃあね　-&gt; 気をつけてね／じゃ、また</li>
-</ul>
-</li>
-</ul>
-<h3 id="谦让语句型"><a href="#谦让语句型" class="headerlink" title="谦让语句型"></a>谦让语句型</h3><ul>
-<li>お〜します／ご〜します</li>
-<li>例子<ul>
-<li>看见拿着东西的社长　お持ちします</li>
-<li>说明的时候　ご説明します</li>
-<li>我来帮你 お手伝いします</li>
-</ul>
-</li>
-<li>一般使用谦让语的时候都会省略“我”的主语</li>
-<li>对于上级的人不能用　てあげる　（要用さし上げる）</li>
-</ul>
-<h3 id="谦让语特别型"><a href="#谦让语特别型" class="headerlink" title="谦让语特别型"></a>谦让语特别型</h3><ul>
-<li>更多见上面的表</li>
-<li>例子<ul>
-<li>メールを拝見しました</li>
-<li>駅前で偶然先生にお目にかかりました</li>
-</ul>
-</li>
-</ul>
-<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><p>来週の東京へのご出張のことですが、空港までお迎えに<strong>まいります／うかがいます</strong> ので、<strong>ご到着になる（到着される）</strong>時間を<strong>~存じさせてください~（お知らせください，这里的主语是对方不是自己）</strong>。<br>空港で資料を<strong>お渡しします</strong>ので、車の中で<strong>ご覧ください</strong>。<br>ご昼食の後、会議の場所まで<strong>お送りします</strong>。<br>どうぞよろしく<strong>お願いいたします</strong></p>
-<h2 id="邀请"><a href="#邀请" class="headerlink" title="邀请"></a>邀请</h2><h3 id="打招呼-声を掛ける-gt-找人帮忙的时候的搭话"><a href="#打招呼-声を掛ける-gt-找人帮忙的时候的搭话" class="headerlink" title="打招呼 声を掛ける　-&gt; 找人帮忙的时候的搭话"></a>打招呼 声を掛ける　-&gt; 找人帮忙的时候的搭话</h3><ul>
-<li>部長、すみません</li>
-<li>いま、よろしいですか／ちょっとよろしでしょうか</li>
-<li>いま、お時間いただけますか</li>
-</ul>
-<h3 id="打听别人的安排-予定を聞く"><a href="#打听别人的安排-予定を聞く" class="headerlink" title="打听别人的安排 予定を聞く"></a>打听别人的安排 予定を聞く</h3><ul>
-<li>日曜日、何かご予定がありますか</li>
-<li>来週の火曜日、小林さんのご都合はいかがでしょうか</li>
-</ul>
-<h3 id="邀请-1"><a href="#邀请-1" class="headerlink" title="邀请"></a>邀请</h3><ul>
-<li>部長にもぜひ来て<strong>頂きたいですか</strong>　语气比较强的邀请</li>
-<li>部長にもご出席いただけないかと思いまして 后面的思いまして带有表示原因的意思</li>
-<li>よろしかったら、部長もいらしゃいませんか</li>
-<li>よろしければ、部長もいかがでしょうか</li>
-<li>もしご都合がよろしければ、部長<strong>もいかがかと思いまして</strong></li>
-</ul>
-<h3 id="お／ご〜なく（不是什么词都能用的，后面不要加te）"><a href="#お／ご〜なく（不是什么词都能用的，后面不要加te）" class="headerlink" title="お／ご〜なく（不是什么词都能用的，后面不要加te）"></a>お／ご〜なく（不是什么词都能用的，后面不要加te）</h3><ul>
-<li>ご心配なく</li>
-<li>ご遠慮なく</li>
-<li>お気遣いなく</li>
-<li>おかまいなく</li>
-</ul>
-<h3 id="〜ております"><a href="#〜ております" class="headerlink" title="〜ております"></a>〜ております</h3><ul>
-<li>ています的谦让语</li>
-<li>例子<ul>
-<li>お返事をお持ちしております</li>
-<li>当日お会いできるのを楽しみにしております</li>
-</ul>
-</li>
-</ul>
-<h3 id="例子：邀请老师"><a href="#例子：邀请老师" class="headerlink" title="例子：邀请老师"></a>例子：邀请老师</h3><ul>
-<li>よろしければ、先生もいらしゃいませんか／先生も来てきただきたいと思っています</li>
-<li>先生のご都合はいかがでしょうか</li>
-<li>お返事をお持ちしております</li>
-</ul>
-<h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><h3 id="打招呼-呼びかける"><a href="#打招呼-呼びかける" class="headerlink" title="打招呼 呼びかける"></a>打招呼 呼びかける</h3><ul>
-<li>あの、ちょっとよろしいでしょうか</li>
-<li>今、お忙しいでしょうか</li>
-<li>お時間いただきてもよろしいでしょうか</li>
-</ul>
-<h3 id="（実は）〜のですが"><a href="#（実は）〜のですが" class="headerlink" title="（実は）〜のですが"></a>（実は）〜のですが</h3><ul>
-<li>持ち帰って我が社のものと検討したいのですが。。。</li>
-<li>実は使い方がよくわからないのですが。。。</li>
-</ul>
-<h3 id="いただけませんか／ご（お）〜いただけませんか"><a href="#いただけませんか／ご（お）〜いただけませんか" class="headerlink" title="いただけませんか／ご（お）〜いただけませんか"></a>いただけませんか／ご（お）〜いただけませんか</h3><ul>
-<li>后面那种说法更好一点，中间可以直接填动词的masu型</li>
-<li>この予告編のDVDを一枚お送っていただけませんか　</li>
-<li><strong>注意这里没有te！！！</strong></li>
-</ul>
-<h3 id="继续请求"><a href="#继续请求" class="headerlink" title="继续请求"></a>继续请求</h3><ul>
-<li>日本語訳をつけていただけないかと思いまして</li>
-<li>日本語訳をつけていただけるとありがたいんですが。<br>*　思いまして就表示了没说完，但是后面跟着：你能接收我的请求吗的意思</li>
-</ul>
-<h3 id="打招呼的方式"><a href="#打招呼的方式" class="headerlink" title="打招呼的方式"></a>打招呼的方式</h3><table>
-<thead>
-<tr>
-<th></th>
-<th>朋友</th>
-<th>ですます</th>
-<th>敬语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ねえ、あのね</td>
-<td>可</td>
-<td>不可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>あの-</td>
-<td>可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>悪いんだけど／悪いけど</td>
-<td>可</td>
-<td>不可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>よかったら</td>
-<td>可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>すみませんが</td>
-<td>不可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>よろしかったら</td>
-<td>不可</td>
-<td>不可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>申し訳ありませんが／恐れ入りますが／恐縮ですが</td>
-<td>不可</td>
-<td>不可</td>
-<td>可</td>
-</tr>
-</tbody>
-</table>
-<h3 id="文末"><a href="#文末" class="headerlink" title="文末"></a>文末</h3><table>
-<thead>
-<tr>
-<th></th>
-<th>朋友</th>
-<th>ですます</th>
-<th>敬语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>~て（よ／ね）</td>
-<td>可</td>
-<td>不可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>~てくれない　</td>
-<td>可</td>
-<td>不可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>~てくれませんか　</td>
-<td>不可</td>
-<td>可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>~てもらえませんか　</td>
-<td>不可</td>
-<td>可</td>
-<td>不可</td>
-</tr>
-<tr>
-<td>~いただけませんか　</td>
-<td>不可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>~いただけませんでしょうか　</td>
-<td>不可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>~いただきたいんですが　</td>
-<td>不可</td>
-<td>可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>~いただけないかと思いまして　</td>
-<td>不可</td>
-<td>不可</td>
-<td>可</td>
-</tr>
-<tr>
-<td>~いただけるとありがたいんですが　</td>
-<td>不可</td>
-<td>不可</td>
-<td>可</td>
-</tr>
-</tbody>
-</table>
-<h3 id="练习句型"><a href="#练习句型" class="headerlink" title="练习句型"></a>练习句型</h3><ul>
-<li>すみませんが、〜ていただけませんか</li>
-<li>申し訳ないんですが、〜ていただけるとありがたいんですが<ul>
-<li>用在非常难以开口请求的郑重恳请的情况下</li>
-</ul>
-</li>
-<li>あのー、〜てもよろしでしょうか</li>
-</ul>
-<h3 id="写推荐信"><a href="#写推荐信" class="headerlink" title="写推荐信"></a>写推荐信</h3><ul>
-<li>教師の推薦状が必要なのですが、お書きいただけないでしょうか。</li>
-<li>先生の研究室にごあいさつに伺いたいと思いまして</li>
-<li>先生のご都合がよろしい時間をお知らせいただけるとありがたく存じます</li>
-<li>返事をお待ちしております</li>
-</ul>
-<h2 id="拒绝-断る"><a href="#拒绝-断る" class="headerlink" title="拒绝 断る"></a>拒绝 断る</h2><h3 id="〜はちょっと。。。"><a href="#〜はちょっと。。。" class="headerlink" title="〜はちょっと。。。"></a>〜はちょっと。。。</h3><ul>
-<li>让对方看到自己为难的样子，知道自己有困难</li>
-</ul>
-<h3 id="断る"><a href="#断る" class="headerlink" title="断る"></a>断る</h3><ul>
-<li>例1：拒绝的时候说到句尾可以不说清楚<ul>
-<li>あ、コピー手伝ってくれないか</li>
-<li>今、ロビーでお客様が待っていらっしゃるので。。。</li>
-</ul>
-</li>
-<li>例2：句尾用まして（ます）、でして（です）来表示原因<ul>
-<li>残念ながら今回は伺えないんです。今夜は友人と会う約束がありまして。。。</li>
-<li>すみません。お酒はちょっと苦手でして。。。</li>
-</ul>
-</li>
-<li>あります　-&gt; ございまして／だ　-&gt; でして</li>
-</ul>
-<h3 id="謝る-拒绝了以后的道歉"><a href="#謝る-拒绝了以后的道歉" class="headerlink" title="謝る 拒绝了以后的道歉"></a>謝る 拒绝了以后的道歉</h3><ul>
-<li>被拜托了事情的时候 お役に立てなくて、申し訳ありません。</li>
-<li>被邀请了的时候。<strong>请先说谢谢</strong> せっかくお誘いくださいましたのに、（すみません）</li>
-</ul>
-<h3 id="拒绝了但是还要保持良好的关系"><a href="#拒绝了但是还要保持良好的关系" class="headerlink" title="拒绝了但是还要保持良好的关系"></a>拒绝了但是还要保持良好的关系</h3><ul>
-<li>今回は伺えないんですが、また　今度／次回／次の機会　に　お誘いください／ご一緒にさせてください</li>
-</ul>
-<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><ul>
-<li>〜はちょっと苦手でして</li>
-<li>お誘いくださいましてありがどうございます</li>
-<li>残念ながら、その日は山田さんと会議の予定でございます。</li>
-<li>申し訳ありませんが、参加できません</li>
-<li>せっかくのお誘いなのにすみません。</li>
-<li>今回は伺えないですが、また今度にお誘いください</li>
-</ul>
-<h2 id="申し出る-自己主动提出申请"><a href="#申し出る-自己主动提出申请" class="headerlink" title="申し出る　自己主动提出申请"></a>申し出る　自己主动提出申请</h2><h3 id="お／ご-〜-（いた）しましょうか"><a href="#お／ご-〜-（いた）しましょうか" class="headerlink" title="お／ご　〜　（いた）しましょうか"></a>お／ご　〜　（いた）しましょうか</h3><ul>
-<li>使用自谦语来表示郑重的<strong>主动提出</strong>，可以让我来干这件事的意思！！没有te</li>
-<li>例子<ul>
-<li>お荷物をお持ちしましょうか</li>
-<li>資料をお送り致しましょうか</li>
-<li>加藤さんには私からご連絡致しましょうか</li>
-</ul>
-</li>
-</ul>
-<h3 id="〜させていただきます"><a href="#〜させていただきます" class="headerlink" title="〜させていただきます"></a>〜させていただきます</h3><ul>
-<li>原本是征求对方许可之后做某事，后来发展成敬语用法（させていただきいてもよろしいでしょうか）</li>
-<li><strong>未经许可就用的话有强加的意思</strong></li>
-<li>例子<ul>
-<li>会議の日は昼食を用意させていただきます</li>
-<li>今日の午後、会議室を使わせていただきたいんですが</li>
-<li>今日は申し訳ないんですが、早めに帰らせていただけませんか</li>
-<li>このパソコンを使わせていただいてもよろしいでしょうか</li>
-</ul>
-</li>
-</ul>
-<h3 id="〜させてください"><a href="#〜させてください" class="headerlink" title="〜させてください"></a>〜させてください</h3><ul>
-<li>表达对方同意之后非常强烈的想做这件事</li>
-<li>例子<ul>
-<li>今    度の仕事は私に担当させてください</li>
-<li>今夜は私にごちそうをさせてください</li>
-</ul>
-</li>
-</ul>
-<h2 id="お詫びする-道歉"><a href="#お詫びする-道歉" class="headerlink" title="お詫びする　道歉"></a>お詫びする　道歉</h2><h3 id="道歉常用句"><a href="#道歉常用句" class="headerlink" title="道歉常用句"></a>道歉常用句</h3><ul>
-<li>申し訳ありません（でした）／　申し訳ございません（でした）</li>
-<li>大変失礼いたしました　／　ご迷惑をおかけしました　／　どうかお許しください</li>
-</ul>
-<h3 id="报告自己的失误"><a href="#报告自己的失误" class="headerlink" title="报告自己的失误"></a>报告自己的失误</h3><ul>
-<li>実は、お約束の時間に伺えなくなってしまったんです</li>
-<li>11日を21日だと聞き間違えてしまいました</li>
-</ul>
-<h3 id="传达反省的心情"><a href="#传达反省的心情" class="headerlink" title="传达反省的心情"></a>传达反省的心情</h3><ul>
-<li>以後／今後は気をつけます</li>
-<li>二度とこのようなミスをしないように、注意／確認／徹底　いたします</li>
-</ul>
-<h3 id="别人对自己道歉的时候"><a href="#别人对自己道歉的时候" class="headerlink" title="别人对自己道歉的时候"></a>别人对自己道歉的时候</h3><ul>
-<li>轻松<ul>
-<li>あ、いえいえ、あまりお気になさらないでください</li>
-</ul>
-</li>
-<li>严肃<ul>
-<li>こういうのは困ります</li>
-<li>こういうことをされると困るんですよ</li>
-<li>これから気をつけてください</li>
-</ul>
-</li>
-</ul>
-<h3 id="句子"><a href="#句子" class="headerlink" title="句子"></a>句子</h3><ul>
-<li>お／ご〜してしまいまして、申し訳ございませんでした</li>
-<li>お／ご〜くださいましたのに、伺えませんで、失礼いたしました（表示的意思是你都邀请我做了，你都准备好了，之类的，但是我做不了）<ul>
-<li>或者不加o，后面加te也可以</li>
-</ul>
-</li>
-</ul>
-<h3 id="卑微"><a href="#卑微" class="headerlink" title="卑微"></a>卑微</h3><ul>
-<li>お忙しい中、お時間を作ってくださいましたのに、時間を間違えてしまいまして申し訳ございませんでした。今後は十分注意いたしますので、お許してください。</li>
-</ul>
-<h2 id="提意见"><a href="#提意见" class="headerlink" title="提意见"></a>提意见</h2><h3 id="问别人的意见"><a href="#问别人的意见" class="headerlink" title="问别人的意见"></a>问别人的意见</h3><ul>
-<li>これについてはどう思われますか／この点についてはいかがですか</li>
-<li>みなさんのご意見は／何かご意見はありますか</li>
-</ul>
-<h3 id="用一句话表示赞成和反对"><a href="#用一句话表示赞成和反对" class="headerlink" title="用一句话表示赞成和反对"></a>用一句话表示赞成和反对</h3><ul>
-<li>赞成：いいと思います</li>
-<li>反対：うーん／それはちょっと。。。／どうでしょうか。。。</li>
-</ul>
-<h3 id="开始陈述自己的意见"><a href="#开始陈述自己的意见" class="headerlink" title="开始陈述自己的意见"></a>开始陈述自己的意见</h3><ul>
-<li>ちょっと、よろしいでしょうか</li>
-</ul>
-<h3 id="说自己的意见"><a href="#说自己的意见" class="headerlink" title="说自己的意见"></a>说自己的意见</h3><ul>
-<li>和平的提案（一般用这种）<ul>
-<li>V／Aい　のではないでしょうか</li>
-<li>N／Aな　なのではないでしょうか</li>
-<li>例<ul>
-<li>予算がもっとかかってしまうのではないでしょうか</li>
-<li>時間が足りなくて、無理なのではないでしょうか</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>提议 具体的方案<ul>
-<li>V たらどうかと思います（が）</li>
-<li>N がいいかと思います（が）</li>
-<li>例<ul>
-<li>時間がかかるので、1ヶ月前から準備したらどうかと思いますが</li>
-<li>結婚のお祝いには、二人が長く使えるコーヒーカップなどがいいと思います</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>归纳意见<ul>
-<li>それよりも　Vた　方がいいと思います</li>
-<li>それよりももっと簡単に準備できる発表に変えた方がいいと思います</li>
-</ul>
-</li>
-</ul>
-<h3 id="接收意见"><a href="#接收意见" class="headerlink" title="接收意见"></a>接收意见</h3><ul>
-<li>〜はいいことだと思いますが／それもそうですが</li>
-</ul>
-<h3 id="说明理由"><a href="#说明理由" class="headerlink" title="说明理由"></a>说明理由</h3><p>忘年会は中華料理がいいのではないでしょうか。<strong>というのは</strong>、人数が急に増えても大丈夫です<strong>し</strong>、若い人はたくさん食べたいという人も多いです<strong>し</strong>、料理の数も多くで、人気があります<strong>ので</strong>。。。こちらの方がいいと思います。</p>
-<h3 id="整体句型"><a href="#整体句型" class="headerlink" title="整体句型"></a>整体句型</h3><ul>
-<li>よろしいでしょうか。〜（な）のはいいことだと思いますが、〜（な）のではないでしょうか。それよりも、〜た方がいいと思いますが、いかがでしょうか。</li>
-</ul>
-<h3 id="写邮件"><a href="#写邮件" class="headerlink" title="写邮件"></a>写邮件</h3><ul>
-<li>お疲れ様です。アレクスです。</li>
-<li>メールを拝見しました。</li>
-<li>まず席のことですが、フランス料理はいいと思いますが、一人一人の席が離れていてみんなで話すことできないのではないでしょうか。</li>
-<li>人数がまだ決まっていないということですが、それなら人数が変わっても大丈夫な中華料理がいいっと思います。今度のお客様はアジアからのお客様が多いと伺っておりますので、アジア料理の方が慣れていていいのではないでしょうか。</li>
-<li>~中華料理がいいのではないでしょうか。というのは、人数が急に増えても大丈夫し、お客様はアジア料理の方が慣れているかもしれません。~</li>
-<li>それよりも、中華料理の方がいいと思いますが、いかがでしょうか。</li>
-</ul>
-<h2 id="接收预约"><a href="#接收预约" class="headerlink" title="接收预约"></a>接收预约</h2><h3 id="〜でございます-接电话"><a href="#〜でございます-接电话" class="headerlink" title="〜でございます　接电话"></a>〜でございます　接电话</h3><ul>
-<li>用于说自己或者自己团体的事情</li>
-<li>でございます和でいらしゃいます是一个意思，一个用在自己一个用在对方</li>
-</ul>
-<h3 id="承ります（うけたまわる）-接受预约"><a href="#承ります（うけたまわる）-接受预约" class="headerlink" title="承ります（うけたまわる）　接受预约"></a>承ります（うけたまわる）　接受预约</h3><ul>
-<li>对目上的人接收预约时候的敬语</li>
-<li>ご予約、承っております</li>
-<li>ご予約は、私、鈴木が承りました</li>
-</ul>
-<h3 id="〜でいらしゃいます-确定预约的人数或者名字"><a href="#〜でいらしゃいます-确定预约的人数或者名字" class="headerlink" title="〜でいらしゃいます　确定预约的人数或者名字"></a>〜でいらしゃいます　确定预约的人数或者名字</h3><ul>
-<li>失礼ですが、田中さんでいらしゃいますか</li>
-<li>3名様でいらしゃいますか</li>
-<li>お元気でいらしゃいますか</li>
-<li>不能用在和对方无关的事情上</li>
-</ul>
-<h3 id="お／ご-〜-になれますか"><a href="#お／ご-〜-になれますか" class="headerlink" title="お／ご　〜　になれますか"></a>お／ご　〜　になれますか</h3><ul>
-<li>在日语里直接问目上的人できます比较失礼，所以用这种方法的比较多。只有当有非常稀奇的技能的时候才会用できます</li>
-<li>社長はスペイン語がお話になれますか</li>
-</ul>
-<h3 id="お／ご〜いただけます-＝-〜てもらえます（表示的是可以做的意思，没有授受的含义）"><a href="#お／ご〜いただけます-＝-〜てもらえます（表示的是可以做的意思，没有授受的含义）" class="headerlink" title="お／ご〜いただけます　＝　〜てもらえます（表示的是可以做的意思，没有授受的含义）"></a>お／ご〜いただけます　＝　〜てもらえます（表示的是可以做的意思，没有授受的含义）</h3><ul>
-<li>この建物の中で、wifiがお使いいただけます</li>
-<li>特急券をお求めになれば、特急にご乗車いただけます</li>
-</ul>
-<h3 id="〜はなさいますか-＝-〜にしますか-＝-に決めます"><a href="#〜はなさいますか-＝-〜にしますか-＝-に決めます" class="headerlink" title="〜はなさいますか　＝　〜にしますか　＝　に決めます"></a>〜はなさいますか　＝　〜にしますか　＝　に決めます</h3><ul>
-<li>料理はどのコースになさいますか</li>
-</ul>
-<h3 id="させていただきます-再一次确认"><a href="#させていただきます-再一次确认" class="headerlink" title="させていただきます　再一次确认"></a>させていただきます　再一次确认</h3><ul>
-<li><strong>用多了会有强迫的意思</strong></li>
-<li>ご注文を　繰り返させて／確認させて／復唱させて　いただきます</li>
-<li>誠に勝手ながら本日は午後七時で閉店させていただきます</li>
-</ul>
-<h2 id="サービス敬語"><a href="#サービス敬語" class="headerlink" title="サービス敬語"></a>サービス敬語</h2><h3 id="お／ご〜になりましたら-如果你决定好了的话"><a href="#お／ご〜になりましたら-如果你决定好了的话" class="headerlink" title="お／ご〜になりましたら 如果你决定好了的话"></a>お／ご〜になりましたら 如果你决定好了的话</h3><p>お決まりになりましたら、お呼びください</p>
-<h3 id="お／ご〜くださいませ-丁宁的说请求的时候"><a href="#お／ご〜くださいませ-丁宁的说请求的时候" class="headerlink" title="お／ご〜くださいませ 丁宁的说请求的时候"></a>お／ご〜くださいませ 丁宁的说请求的时候</h3><ul>
-<li>お一人一枚ずつお取りくださいませ</li>
-<li>何かありましたら、ご相談くださいませ</li>
-<li>ご質問がおありでしたら、お答えいたします</li>
-<li>お困りでしたら、お手伝いいたします</li>
-</ul>
-<h3 id="短语"><a href="#短语" class="headerlink" title="短语"></a>短语</h3><ul>
-<li>お決まりでしたら（お決まりになっていましたら）、伺います</li>
-<li>ご予約をご希望なら（ご希望になるなら）、こちらで承ります</li>
-<li>先にお並びの方（お並びになっている方）から順にお入りください</li>
-<li>整理券をお持ちですか（お持ちになっていらっしゃいますか）</li>
-</ul>
-<h3 id="常用服务用语"><a href="#常用服务用语" class="headerlink" title="常用服务用语"></a>常用服务用语</h3><ul>
-<li>お待たせしました</li>
-<li>かしこまりました</li>
-<li>お飲み物はいかがいたしましょうか</li>
-</ul>
-<h3 id="けっこうです"><a href="#けっこうです" class="headerlink" title="けっこうです"></a>けっこうです</h3><h2 id="接收商量"><a href="#接收商量" class="headerlink" title="接收商量"></a>接收商量</h2><h3 id="询问别人的想法的时候"><a href="#询问别人的想法的时候" class="headerlink" title="询问别人的想法的时候"></a>询问别人的想法的时候</h3><ul>
-<li>对目上询问想干什么的时候，不能用〜したい来问</li>
-<li>先生は何を食べたいですか（X)<ul>
-<li>先生は何を召し上がりますか</li>
-<li>先生はどのようなものがお好きですか</li>
-</ul>
-</li>
-</ul>
-<h3 id="提案する"><a href="#提案する" class="headerlink" title="提案する"></a>提案する</h3><ul>
-<li>提建议的时候用とか不是很丁宁，変成　など</li>
-<li>ビールを召し上がるなら、銀座ホールなどはいかがでしょうか</li>
-<li>日本文化体験なら、鎌倉のお寺で座禅をなさったらいかがでしょうか</li>
-</ul>
-<h3 id="ご存知ですか-ー-存じております／存じ上げております"><a href="#ご存知ですか-ー-存じております／存じ上げております" class="headerlink" title="ご存知ですか　ー　存じております／存じ上げております"></a>ご存知ですか　ー　存じております／存じ上げております</h3><ul>
-<li>对事物的话用前者，对人的话用后者</li>
-<li>アスク商事の高橋部長をご存知ですか　ー　はい、存じ上げております（回答别人问话的时候）</li>
-</ul>
-<h3 id="ご〜（漢字）です-同样表达尊敬语的意思"><a href="#ご〜（漢字）です-同样表达尊敬语的意思" class="headerlink" title="ご〜（漢字）です　同样表达尊敬语的意思"></a>ご〜（漢字）です　同样表达尊敬语的意思</h3><ul>
-<li>何かご心配ですか</li>
-<li>明日の会議、ご出席ですか</li>
-</ul>
-<h2 id="演讲-发表"><a href="#演讲-发表" class="headerlink" title="演讲 发表"></a>演讲 发表</h2><h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>皆まさ、おはようございます。本日は、〜についてお話しします。</p>
-<h3 id="对演讲时的观众说话应该用敬语"><a href="#对演讲时的观众说话应该用敬语" class="headerlink" title="对演讲时的观众说话应该用敬语"></a>对演讲时的观众说话应该用敬语</h3><h3 id="在进入话题之后，比起敬语更应该用desu-masu"><a href="#在进入话题之后，比起敬语更应该用desu-masu" class="headerlink" title="在进入话题之后，比起敬语更应该用desu masu"></a>在进入话题之后，比起敬语更应该用desu masu</h3><ul>
-<li>ですから　＝　だから</li>
-<li>ご存知のように／ご存知の通り</li>
-<li>〜られております（考える／言う／評価する）</li>
-</ul>
-<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><ul>
-<li>以上、〜いついて紹介いたしました</li>
-<li>ご静聴ありがどうございます</li>
-</ul>
-<h2 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h2><h3 id="てまいりました＝てくる"><a href="#てまいりました＝てくる" class="headerlink" title="てまいりました＝てくる"></a>てまいりました＝てくる</h3><ul>
-<li>高校生の時日本語の勉強をしてまいりました</li>
-<li>私はこれまで、通訳の仕事に田鶴わってまいりました</li>
-</ul>
-<h3 id="〜ておりますN"><a href="#〜ておりますN" class="headerlink" title="〜ておりますN"></a>〜ておりますN</h3><p>私が研究しておりますテーマは、日本語の敬語についてです</p>
-<h3 id="〜次第です-＝-〜んです"><a href="#〜次第です-＝-〜んです" class="headerlink" title="〜次第です　＝　〜んです"></a>〜次第です　＝　〜んです</h3><ul>
-<li>御社のビジネスは、私の研究テーマと重なっていると思い、大変興味深く感じた次第です</li>
-</ul>
-<h3 id="换种说法"><a href="#换种说法" class="headerlink" title="换种说法"></a>换种说法</h3><p>| 〜について面白いと思いました　| 〜について興味深く感じました |<br>| すごく／とても　| 大変／非常に |<br>| どんな　| どのような |<br>| 〜できたらいいなと考えています　| 〜できたらと考えております |<br>| 〜くれたらいいなと思います　| 〜くれたらと考えております |<br>| 〜したいです　| <strong>〜できたらと思います</strong> |</p>
-<h3 id="自己紹介"><a href="#自己紹介" class="headerlink" title="自己紹介"></a>自己紹介</h3><p>本日は面接の機会をくださいましてありがとうございます。<br>早速ですが、自己紹介をさせていただきます。<br>私はXXと申します。<br>2018年来日いたしまして、現在、XXXを研究しております。<br>どうぞよろしくお願いいたします。</p>
-<h3 id="被问到问题要先回答-はい，不要加那么多犹豫词"><a href="#被问到问题要先回答-はい，不要加那么多犹豫词" class="headerlink" title="被问到问题要先回答 はい，不要加那么多犹豫词"></a>被问到问题要先回答 はい，不要加那么多犹豫词</h3><h3 id="不要太多的用できます"><a href="#不要太多的用できます" class="headerlink" title="不要太多的用できます"></a>不要太多的用できます</h3><ul>
-<li>少しでもお役に立てたらと思います</li>
-</ul>
-<h3 id="例-1"><a href="#例-1" class="headerlink" title="例"></a>例</h3><p>私はゲームのプログラムの開発を続けて<strong>まいりました</strong>。私が<strong>使っております</strong>ソフトの開発を多く<strong>手がけていらっしゃる</strong>御社の事業内容を<strong>伺って</strong>、<strong>非常に興味深く感じました</strong>。さらにより良いゲームソフトを<strong>開発できたらと考えております。</strong></p>
-<h2 id="接电话"><a href="#接电话" class="headerlink" title="接电话"></a>接电话</h2><h3 id="はい、XXXでございます"><a href="#はい、XXXでございます" class="headerlink" title="はい、XXXでございます"></a>はい、XXXでございます</h3><h3 id="いつもお世話になっております"><a href="#いつもお世話になっております" class="headerlink" title="いつもお世話になっております"></a>いつもお世話になっております</h3><ul>
-<li>こちらこそ、お世話になっております</li>
-</ul>
-<h3 id="（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか"><a href="#（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか" class="headerlink" title="（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか"></a>（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか</h3><h3 id="名前-はただいま、XX中でございます"><a href="#名前-はただいま、XX中でございます" class="headerlink" title="名前　はただいま、XX中でございます"></a>名前　はただいま、XX中でございます</h3><h3 id="常用语"><a href="#常用语" class="headerlink" title="常用语"></a>常用语</h3><ul>
-<li>不在的时候<ul>
-<li>XXはただいま席を外しておりまして。。。</li>
-</ul>
-</li>
-<li>让他一会回电<ul>
-<li>折り返しXXに電話させましょう</li>
-</ul>
-</li>
-<li>接收留言<ul>
-<li>よろしければ、私がご用件を承りますが。。。</li>
-<li>承知いたしました。XXXに申し伝えます。私、XXが承りました</li>
-</ul>
-</li>
-<li>稍后再拨<ul>
-<li>恐れ入りますが、XX分過ぎにもう一度おかけいただけますでしょうか</li>
-<li>それでは、XX分後にこちらからおかけします</li>
-</ul>
-</li>
-<li>再一次请教姓名<ul>
-<li>失礼ですが、もう一度お名前を伺ってもよろしいでしょうか</li>
-</ul>
-</li>
-<li>挂电话<ul>
-<li>では、失礼いたします</li>
-</ul>
-</li>
-<li>换人接<ul>
-<li>お電話かわりました。XXです</li>
-</ul>
-</li>
-</ul>
-<h2 id="采访"><a href="#采访" class="headerlink" title="采访"></a>采访</h2><h3 id="〜中／ところ、ありがとうございます"><a href="#〜中／ところ、ありがとうございます" class="headerlink" title="〜中／ところ、ありがとうございます"></a>〜中／ところ、ありがとうございます</h3><ul>
-<li>お忙しい中／お寒い中／雨の中、わざわざありがとうございます</li>
-<li>お急ぎのところ／お疲れのところ／お休みのところ、申し訳ありません</li>
-</ul>
-<h3 id="重复对方说的话"><a href="#重复对方说的话" class="headerlink" title="重复对方说的话"></a>重复对方说的话</h3><h3 id="扩展对方说的话"><a href="#扩展对方说的话" class="headerlink" title="扩展对方说的话"></a>扩展对方说的话</h3><h3 id="想确认时"><a href="#想确认时" class="headerlink" title="想确认时"></a>想确认时</h3><ul>
-<li>今、何とおっしゃいましたでしょうか。／と、おっしゃいますと</li>
-<li>その〜と言うのは、どのような意味ですか</li>
-</ul>
-<h2 id="报告"><a href="#报告" class="headerlink" title="报告"></a>报告</h2><h3 id="有顺序的报告"><a href="#有顺序的报告" class="headerlink" title="有顺序的报告"></a>有顺序的报告</h3><ul>
-<li><strong>まず</strong>、XXXについて報告します</li>
-<li><strong>以上</strong>、概要いついてご報告しました</li>
-<li><strong>次に</strong>、</li>
-<li><strong>その次に／それから</strong></li>
-<li><strong>最後に</strong></li>
-</ul>
-<h3 id="とのことです-＝-そうです-转述听到别人的话"><a href="#とのことです-＝-そうです-转述听到别人的话" class="headerlink" title="とのことです　＝　そうです 转述听到别人的话"></a>とのことです　＝　そうです 转述听到别人的话</h3><h3 id="请看"><a href="#请看" class="headerlink" title="请看"></a>请看</h3><ul>
-<li>ことらの写真をご覧ください</li>
-<li>ご覧いただくとお分かりのように、。。。</li>
-</ul>
-<h3 id="发表感想"><a href="#发表感想" class="headerlink" title="发表感想"></a>发表感想</h3><ul>
-<li>。。。と思います</li>
-<li>。。。のではないでしょうか</li>
-<li>た　方がいいと思います</li>
-</ul>
-<h3 id="结束报告"><a href="#结束报告" class="headerlink" title="结束报告"></a>结束报告</h3><ul>
-<li>以上で報告を終わります</li>
-<li>以上、XXXについてご報告しました</li>
-<li>何か質問はありませんか／ご質問がおありでしたらどうぞ</li>
-</ul>
-<h2 id="司会的敬语"><a href="#司会的敬语" class="headerlink" title="司会的敬语"></a>司会的敬语</h2><h3 id="虽然是朋友，但是在很多人面前说的时候也要丁宁一点"><a href="#虽然是朋友，但是在很多人面前说的时候也要丁宁一点" class="headerlink" title="虽然是朋友，但是在很多人面前说的时候也要丁宁一点"></a>虽然是朋友，但是在很多人面前说的时候也要丁宁一点</h3><h3 id="おVです-＝-おVになっていらっしゃいます"><a href="#おVです-＝-おVになっていらっしゃいます" class="headerlink" title="おVです　＝　おVになっていらっしゃいます"></a>おVです　＝　おVになっていらっしゃいます</h3><ul>
-<li>皆さんお揃いですので、</li>
-<li>皆さんお見えですので、</li>
-</ul>
-<h3 id="そろそろ始めたいと思います"><a href="#そろそろ始めたいと思います" class="headerlink" title="そろそろ始めたいと思います"></a>そろそろ始めたいと思います</h3><h3 id="常用语-1"><a href="#常用语-1" class="headerlink" title="常用语"></a>常用语</h3><ul>
-<li>大きな拍手でお迎えください</li>
-<li>〜さんの前途を祝して／今後のご活躍とご健康を祈って、乾杯をしたいと思います</li>
-<li>乾杯の音頭は〜先生にお願いしたいと思います</li>
-<li>お手元のグラスをお持ちください</li>
-<li>ごゆっくりお楽しみください</li>
-<li>ここで一言ご挨拶申し上げます</li>
-<li>では、〜さまにお祝いのことばをいただきたいと思います</li>
-<li>そろそろお聞きにしたいと思います</li>
-</ul>
-<h2 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h2><p> | 挨拶 | いつもお世話になっております |<br> | お礼 | メール、ありがどうございます |<br> | 始める | では、XXXの件ですが |<br> | 知らせる | 次回は先生をお迎えして下記の通りお食事をすることにいたしました |<br> | お願い | ご検討いただきますようお願いいたします／お目通しくださいますようお願い申し上げます |<br> | 自分の希望 | お目にかかりたいと存じます／ゆっくりお話を伺いたいと存じます／一度おいでいただけたらと存じます |<br> | 終わり | お待ちしております／よろしくお願いいたします／取り急ぎお返事申し上げます |<br> | もとめる | 以上、ご案内／ご招待　申し上げます |<br> | 付け加える | なお、 |</p>
-<h1 id="一些"><a href="#一些" class="headerlink" title="一些"></a>一些</h1><h1 id="一些特定说法"><a href="#一些特定说法" class="headerlink" title="一些特定说法"></a>一些特定说法</h1><h2 id="家人称呼"><a href="#家人称呼" class="headerlink" title="家人称呼"></a>家人称呼</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">我</th>
-<th style="text-align:center">他 普通</th>
-<th style="text-align:center">他 敬语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">父　ちち</td>
-<td style="text-align:center">お父さん</td>
-<td style="text-align:center">お父様</td>
-</tr>
-<tr>
-<td style="text-align:center">母　はは</td>
-<td style="text-align:center">お母さん</td>
-<td style="text-align:center">お母様</td>
-</tr>
-<tr>
-<td style="text-align:center">兄　あに</td>
-<td style="text-align:center">お兄さん</td>
-<td style="text-align:center">お兄様</td>
-</tr>
-<tr>
-<td style="text-align:center">姉　あね</td>
-<td style="text-align:center">お姉さん</td>
-<td style="text-align:center">お姉様</td>
-</tr>
-<tr>
-<td style="text-align:center">弟　おとうと</td>
-<td style="text-align:center">弟さん</td>
-<td style="text-align:center">弟様</td>
-</tr>
-<tr>
-<td style="text-align:center">妹　いもうと</td>
-<td style="text-align:center">妹さん</td>
-<td style="text-align:center">妹様</td>
-</tr>
-<tr>
-<td style="text-align:center">夫（おっと）／旦那／主人</td>
-<td style="text-align:center">ご主人</td>
-<td style="text-align:center">ご主人様</td>
-</tr>
-<tr>
-<td style="text-align:center">妻（つま）／家内（かない）</td>
-<td style="text-align:center">奥さん</td>
-<td style="text-align:center">奥様</td>
-</tr>
-<tr>
-<td style="text-align:center">子ども</td>
-<td style="text-align:center">お子さん</td>
-<td style="text-align:center">お子様</td>
-</tr>
-<tr>
-<td style="text-align:center">息子</td>
-<td style="text-align:center">息子さん</td>
-<td style="text-align:center">ご子息（しそく）</td>
-</tr>
-<tr>
-<td style="text-align:center">娘</td>
-<td style="text-align:center">娘さん</td>
-<td style="text-align:center">お嬢様</td>
-</tr>
-</tbody>
-</table>
-<h2 id="人称"><a href="#人称" class="headerlink" title="人称"></a>人称</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">ですます</th>
-<th style="text-align:center">敬語</th>
-<th style="text-align:center">友達</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">わたし</td>
-<td style="text-align:center">わたくし</td>
-<td style="text-align:center">わたし／僕／俺</td>
-</tr>
-<tr>
-<td style="text-align:center">わたしたち</td>
-<td style="text-align:center">わたくしたち</td>
-<td style="text-align:center">わたしたち／僕たち／俺たち</td>
-</tr>
-<tr>
-<td style="text-align:center">皆さん</td>
-<td style="text-align:center">皆様</td>
-<td style="text-align:center">みんな</td>
-</tr>
-<tr>
-<td style="text-align:center">お客さん</td>
-<td style="text-align:center">お客様</td>
-<td style="text-align:center">客</td>
-</tr>
-<tr>
-<td style="text-align:center">友人</td>
-<td style="text-align:center">ご友人</td>
-<td style="text-align:center">友達</td>
-</tr>
-<tr>
-<td style="text-align:center">あの人</td>
-<td style="text-align:center">あの方</td>
-<td style="text-align:center">あいつ／彼／彼女</td>
-</tr>
-<tr>
-<td style="text-align:center">お店の人</td>
-<td style="text-align:center">お店の方</td>
-<td style="text-align:center">店員</td>
-</tr>
-<tr>
-<td style="text-align:center">係の人</td>
-<td style="text-align:center">係の方</td>
-<td style="text-align:center">係</td>
-</tr>
-<tr>
-<td style="text-align:center">駅員さん</td>
-<td style="text-align:center">駅員さん</td>
-<td style="text-align:center">駅員</td>
-</tr>
-<tr>
-<td style="text-align:center">アメリカの人</td>
-<td style="text-align:center">アメリカの方</td>
-<td style="text-align:center">アメリカ人</td>
-</tr>
-</tbody>
-</table>
-<h2 id="公司，人员，学校等"><a href="#公司，人员，学校等" class="headerlink" title="公司，人员，学校等"></a>公司，人员，学校等</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">自己的</th>
-<th style="text-align:center">他人的</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">弊社（へいしゃ）のXXX／うちのXXX</td>
-<td style="text-align:center">XXX＋职位</td>
-</tr>
-<tr>
-<td style="text-align:center">弊社／我が社／当社</td>
-<td style="text-align:center">御社（おんしゃ）／貴社（きしゃ）</td>
-</tr>
-<tr>
-<td style="text-align:center">本校／当校</td>
-<td style="text-align:center">御校／貴校</td>
-</tr>
-<tr>
-<td style="text-align:center">本学（特指大学）</td>
-<td style="text-align:center">御学／貴学</td>
-</tr>
-</tbody>
-</table>
-<h2 id="常用-お／ご-词"><a href="#常用-お／ご-词" class="headerlink" title="常用 お／ご　词"></a>常用 お／ご　词</h2><ul>
-<li>动词<ul>
-<li>お<ul>
-<li>お電話します</li>
-<li>お約束します</li>
-<li>お持ちします</li>
-</ul>
-</li>
-<li>ご<ul>
-<li>報告</li>
-<li>紹介</li>
-<li>遠慮</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>形容词<ul>
-<li>お<ul>
-<li>お好き／お嫌い</li>
-<li>お元気／お疲れ／お急ぎ</li>
-</ul>
-</li>
-<li>ご<ul>
-<li>ご健康／ご無理</li>
-<li>ご満足／ご不快</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>名词<ul>
-<li>お<ul>
-<li>お電話／お写真</li>
-<li>お返事／お食事</li>
-<li>お手紙／お荷物／お持ち物</li>
-<li>お名前／お気持ち</li>
-<li>お金／お礼／お土産</li>
-<li>お弁当／お風呂</li>
-<li>お飲み物／お品物</li>
-<li>お手洗い</li>
-<li>お見舞い／お祈り／お祝い</li>
-</ul>
-</li>
-<li>ご　<ul>
-<li>ご家族／ご夫婦／ご長男</li>
-<li>ご住所／ご印鑑／ご予算／ご意志／ご本</li>
-<li>ご署名／ご注文／ご計画</li>
-<li>ご予約／ご招待</li>
-<li>ご出席／ご参加／ご登録／ご入金</li>
-<li>ご入学／ご出発</li>
-<li>ご結婚／ご関係</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="日子的说法"><a href="#日子的说法" class="headerlink" title="日子的说法"></a>日子的说法</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">普通</th>
-<th style="text-align:center">敬语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">今日</td>
-<td style="text-align:center">本日</td>
-</tr>
-<tr>
-<td style="text-align:center">昨日</td>
-<td style="text-align:center">昨日　さくじつ</td>
-</tr>
-<tr>
-<td style="text-align:center">あした</td>
-<td style="text-align:center">あす／みょうにち</td>
-</tr>
-<tr>
-<td style="text-align:center">おととい</td>
-<td style="text-align:center">いっさくじつ</td>
-</tr>
-<tr>
-<td style="text-align:center">あさって</td>
-<td style="text-align:center">みょうごにち</td>
-</tr>
-<tr>
-<td style="text-align:center">今年</td>
-<td style="text-align:center">本年</td>
-</tr>
-<tr>
-<td style="text-align:center">去年</td>
-<td style="text-align:center">昨年（さくねん）</td>
-</tr>
-<tr>
-<td style="text-align:center">おととし　一昨年</td>
-<td style="text-align:center">いっさくねん</td>
-</tr>
-<tr>
-<td style="text-align:center">1ヶ月</td>
-<td style="text-align:center">ひと月</td>
-</tr>
-</tbody>
-</table>
-<h2 id="副词的转换"><a href="#副词的转换" class="headerlink" title="副词的转换"></a>副词的转换</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">普通</th>
-<th style="text-align:center">敬语</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">いま</td>
-<td style="text-align:center">ただいま</td>
-</tr>
-<tr>
-<td style="text-align:center">さっき</td>
-<td style="text-align:center">先ほど</td>
-</tr>
-<tr>
-<td style="text-align:center">後で</td>
-<td style="text-align:center">後ほど（のちほど）</td>
-</tr>
-<tr>
-<td style="text-align:center">この間</td>
-<td style="text-align:center">先日</td>
-</tr>
-<tr>
-<td style="text-align:center">その日</td>
-<td style="text-align:center">当日</td>
-</tr>
-<tr>
-<td style="text-align:center">もうすぐ</td>
-<td style="text-align:center">間もなく</td>
-</tr>
-<tr>
-<td style="text-align:center">赶紧开始</td>
-<td style="text-align:center">さっそく</td>
-</tr>
-<tr>
-<td style="text-align:center">急いて／すぐに</td>
-<td style="text-align:center">早急に（さっきゅう）／至急（しきゅう）</td>
-</tr>
-<tr>
-<td style="text-align:center">すぐに</td>
-<td style="text-align:center">ただちに</td>
-</tr>
-<tr>
-<td style="text-align:center">前に</td>
-<td style="text-align:center">あらかじめ</td>
-</tr>
-<tr>
-<td style="text-align:center">〜たらすぐに</td>
-<td style="text-align:center">〜次第、</td>
-</tr>
-<tr>
-<td style="text-align:center">残念</td>
-<td style="text-align:center">あいにく</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">ぜひ</td>
-</tr>
-<tr>
-<td style="text-align:center">丁寧に</td>
-<td style="text-align:center">丁重に</td>
-</tr>
-<tr>
-<td style="text-align:center">だいたい</td>
-<td style="text-align:center">概ね（おおむね）</td>
-</tr>
-<tr>
-<td style="text-align:center">少し</td>
-<td style="text-align:center">少々（しょうしょう）</td>
-</tr>
-</tbody>
-</table>
-<h2 id="动词的转换"><a href="#动词的转换" class="headerlink" title="动词的转换"></a>动词的转换</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">普通</th>
-<th style="text-align:center">敬语</th>
-<th style="text-align:center">用法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">受け取る／もらう</td>
-<td style="text-align:center">受領する</td>
-<td style="text-align:center">配送物</td>
-</tr>
-<tr>
-<td style="text-align:center">受け取る／もらう</td>
-<td style="text-align:center">拝受する</td>
-<td style="text-align:center">配送 邮件 信</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">査収する</td>
-<td style="text-align:center">确认内容之后查收，自己不用</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">納める</td>
-<td style="text-align:center">赠品，贵重物品等</td>
-</tr>
-<tr>
-<td style="text-align:center">金を払う</td>
-<td style="text-align:center">納める</td>
-<td style="text-align:center">税金</td>
-</tr>
-<tr>
-<td style="text-align:center">送る</td>
-<td style="text-align:center">送付する</td>
-<td style="text-align:center">邮寄品，邮件</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">発送する</td>
-<td style="text-align:center">配达物</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">入金する</td>
-<td style="text-align:center">银行汇款</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">捺印する</td>
-<td style="text-align:center">盖章</td>
-</tr>
-<tr>
-<td style="text-align:center">使う</td>
-<td style="text-align:center">使用する</td>
-<td style="text-align:center">物品</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">利用する</td>
-<td style="text-align:center">物品，服务</td>
-</tr>
-<tr>
-<td style="text-align:center">ほしい／したい</td>
-<td style="text-align:center">希望する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">売る</td>
-<td style="text-align:center">販売する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">売り出す</td>
-<td style="text-align:center">発売する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">買う</td>
-<td style="text-align:center">購入する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">求める（もとめる）</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">読む</td>
-<td style="text-align:center">拝読する</td>
-<td style="text-align:center">邮件，信</td>
-</tr>
-<tr>
-<td style="text-align:center">聞く</td>
-<td style="text-align:center">拝聴する</td>
-<td style="text-align:center">意见，演讲</td>
-</tr>
-<tr>
-<td style="text-align:center">書く</td>
-<td style="text-align:center">記入する</td>
-<td style="text-align:center">申请用纸</td>
-</tr>
-<tr>
-<td style="text-align:center">書く</td>
-<td style="text-align:center">記す（しるす）</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">知らせる</td>
-<td style="text-align:center">通知する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">頼む</td>
-<td style="text-align:center">依頼する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">受ける</td>
-<td style="text-align:center">承る</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">考える</td>
-<td style="text-align:center">検討する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">わかる</td>
-<td style="text-align:center">承知する／理解する／了承する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">あきらめる</td>
-<td style="text-align:center">断念する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">忘れる</td>
-<td style="text-align:center">失念する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">帰国する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">出社する／出勤する</td>
-<td style="text-align:center">来自己的公司</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">退社する／退勤する</td>
-<td style="text-align:center">下班回家</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">失礼する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">帰宅する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">退社／退職する</td>
-<td style="text-align:center">辞职</td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">開店する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">閉店する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">来店する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center"></td>
-<td style="text-align:center">来場する</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">座る</td>
-<td style="text-align:center">かける</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/数据结构Tree/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/14/数据结构Tree/" class="post-title-link" itemprop="url">数据结构之Tree</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-14 15:54:11 / Modified: 16:44:52" itemprop="dateCreated datePublished" datetime="2019-09-14T15:54:11+09:00">2019-09-14</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/树/" itemprop="url" rel="index"><span itemprop="name">树</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="基本作用"><a href="#基本作用" class="headerlink" title="基本作用"></a><a href="https://www.zhihu.com/question/20176446" target="_blank" rel="noopener">基本作用</a></h1><ul>
-<li>树是图的一种，但是不是首尾连在一起的</li>
-<li>树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用）</li>
-<li>另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处</li>
-</ul>
-<h1 id="二叉树，最基础的结构"><a href="#二叉树，最基础的结构" class="headerlink" title="二叉树，最基础的结构"></a>二叉树，最基础的结构</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
-<li>每个数的节点<strong>最多</strong>只有两个子节点</li>
-<li>子节点分左右，必须不能颠倒</li>
-</ul>
-<h2 id="应用环境"><a href="#应用环境" class="headerlink" title="应用环境"></a>应用环境</h2><ul>
-<li>hash表，sets</li>
-<li>数据库，优先队列</li>
-<li>LDAP查找信息，在XML/HTML中进行搜索</li>
-</ul>
-<h2 id="不同分支："><a href="#不同分支：" class="headerlink" title="不同分支："></a>不同分支：</h2><ul>
-<li>full binary tree：除了叶节点（也就是一个子节点都没有的点），其他的都有两个子节点</li>
-<li>complete binary tree：除了最后一层外，其他层的节点都有两个子节点，最后一层的子节点必须是左对齐</li>
-<li>perfect binary tree：形成完美的三角形</li>
-</ul>
-<h1 id="BST-二叉搜索树"><a href="#BST-二叉搜索树" class="headerlink" title="BST 二叉搜索树"></a>BST 二叉搜索树</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
-<li>两个子节点里面，左边的必须小于父节点，右边的必须大于父节点</li>
-</ul>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
-<li>插入：<ul>
-<li>如果没有任何点，作为root</li>
-<li>如果大放到右边的子树，小放到左边的子树</li>
-<li>重复2直到找到空位</li>
-</ul>
-</li>
-<li>删除：<ul>
-<li>删除叶节点：断掉这个点和父节点的联系</li>
-<li>删除只有一个子节点的点：把父节点对待删除点的reference改为父节点对待删除点子节点的reference</li>
-<li>两个子节点的点：左节点不动，右边的换到父节点的位置上/右节点不同，左节点换到父节点</li>
-<li>删除root：需要更改对root的reference</li>
-</ul>
-</li>
-<li>遍历<ul>
-<li>顺序：左-&gt; 中 -&gt; 右</li>
-<li>反序：左 -&gt; 右 -&gt; 中</li>
-<li>DFS：中 -&gt; 左 -&gt; 右</li>
-</ul>
-</li>
-</ul>
-<h1 id="平衡二叉树-AVL树"><a href="#平衡二叉树-AVL树" class="headerlink" title="平衡二叉树 AVL树"></a>平衡二叉树 AVL树</h1><ul>
-<li>左右两个子树的高度差不超过1</li>
-<li>且子树本身也是平衡树</li>
-<li>在构建平衡树的时候确保他们平衡，从而导致最差的时间复杂度也是 logN</li>
-<li>虽然在插入或者删除的时候，可能会在旋转上花费时间，但是整体性能更加稳定</li>
-</ul>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><ul>
-<li>对于需要旋转的情况来说，一共有四种基本状况</li>
-<li>对于左左或者右右：但旋转</li>
-<li>对于左右或者右左：双旋转</li>
-</ul>
-<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><ul>
-<li>节点是红色或黑色</li>
-<li>叶节点都是黑色的</li>
-<li>root是黑色的</li>
-<li>每个红节点必须有两个黑子节点，也就是说不能路径上有两个连续的红色</li>
-<li>从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点</li>
-</ul>
-<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><ul>
-<li>用来处理排序后的数据，查找，插入，删除，循序存取都在对数时间完成</li>
-<li>对于普通的二叉树，可以有多于两个的节点</li>
-<li>优化大块数据的读写操作，加快存取速度</li>
-</ul>
-<h2 id="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"><a href="#在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开" class="headerlink" title="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"></a>在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开</h2><h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><ul>
-<li>只有达到叶节点才算命中，B树可以在非叶命中</li>
-<li>更适合文件索引系统</li>
-</ul>
-<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B * 树"></a>B * 树</h2><ul>
-<li>节点利用率从 1/2变成了 2/3</li>
-</ul>
-<h1 id="Trie树-字典树"><a href="#Trie树-字典树" class="headerlink" title="Trie树 字典树"></a>Trie树 字典树</h1><ul>
-<li>hash树的变种，保存大量字符串</li>
-<li>利用公共前缀减少查找时间</li>
-</ul>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>根节点不包括字符，除了根节点都只包含一个字符</li>
-<li>从根节点到某一节点，一路连过去就是相关的字符串</li>
-<li>每个节点的子节点的字符都不相同</li>
-</ul>
-<h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><ul>
-<li><a href="https://www.cnblogs.com/maybe2030/p/4732377.html" target="_blank" rel="noopener">[Data Structure] 数据结构中各种树</a></li>
-<li><a href="https://juejin.im/post/5b66d987e51d4519475f764c" target="_blank" rel="noopener">初学者应该了解的数据结构： Tree</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/Unity的shader/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/14/Unity的shader/" class="post-title-link" itemprop="url">Unity的shader</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-14 13:55:12 / Modified: 15:53:54" itemprop="dateCreated datePublished" datetime="2019-09-14T13:55:12+09:00">2019-09-14</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/入门/" itemprop="url" rel="index"><span itemprop="name">入门</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考来源<br><a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="noopener">这里</a></p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
-<li>shader，着色器，是一段负责将输入的mesh用指定的方式和输入的贴图，颜色等作用，然后输出</li>
-<li>输入贴图或者颜色，以及对应的shader，就可以得到一个material，然后将可以把材料给到renderer来进行输出</li>
-<li>shader如果是自己来写的话，需要新创建一个shader文件<ul>
-<li>比如在这里老师写的omniProcam的投影的shader，里面的参数就包括了fisheye相机的参数等等。这部分的参数也就是shader的输入，定义了这个shader需要的属性</li>
-<li>需要在里面设定不同的subshader，这部分是代码的主题，在每一个里面包含不同的pass。然后运行的时候会从最优先的着色器开始找。在shader的最后需要一个fallback，也就是说所有的subshader都不能运行的时候，需要一个返回情况</li>
-</ul>
-</li>
-</ul>
-<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Shader &quot;Custom/Diffuse Texture&quot; &#123;</span><br><span class="line">	Properties &#123;</span><br><span class="line">		_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	SubShader &#123;</span><br><span class="line">		Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</span><br><span class="line">		LOD 200</span><br><span class="line">		</span><br><span class="line">		CGPROGRAM</span><br><span class="line">		#pragma surface surf Lambert</span><br><span class="line"></span><br><span class="line">		sampler2D _MainTex;</span><br><span class="line"></span><br><span class="line">		struct Input &#123;</span><br><span class="line">			float2 uv_MainTex;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		void surf (Input IN, inout SurfaceOutput o) &#123;</span><br><span class="line">			half4 c = tex2D (_MainTex, IN.uv_MainTex);</span><br><span class="line">			o.Albedo = c.rgb;</span><br><span class="line">			o.Alpha = c.a;</span><br><span class="line">		&#125;</span><br><span class="line">		ENDCG</span><br><span class="line">	&#125; </span><br><span class="line">	FallBack &quot;Diffuse&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
-<li><code>Properties</code>里面定义了这个shader的属性，这里面的所有属性将作为input提供给子着色器</li>
-<li><code>_Name(&quot;Display Name&quot;, type) = defaultValue[{options}]</code></li>
-<li>格式<ul>
-<li><em>_</em>属性名</li>
-<li>“display name” 显示给用户的可读的名字</li>
-<li>type属性的类型<ul>
-<li>颜色，RGBA</li>
-<li>2D，2的指数大小的贴图</li>
-<li>rect，非2的指数大小的贴图</li>
-<li>cube，立方体纹理</li>
-<li>range，一个范围里面的数</li>
-<li>float，任意一个浮点数</li>
-</ul>
-</li>
-<li>属性的默认值，比如颜色可以设定成“white”</li>
-<li>opinion项，至少需要在贴图后面加上空白的花括号，只和2d rect或者cube有关系</li>
-</ul>
-</li>
-</ul>
-<h3 id="subshader"><a href="#subshader" class="headerlink" title="subshader"></a>subshader</h3><ul>
-<li>tag：比如渲染类型，如果是非透明的物体要写在opaque里面，透明的写在transparent里面</li>
-<li>LOD：level of detail</li>
-<li><code>CGPROGRAM</code>，开始的标记，从这里开始是一段CG程序。和最后的<code>ENDCG</code>是对应的</li>
-<li><code>#pragma surface surf Lambert</code>一个编译指令，声明了要写一个表面的shader，指定了光照模型</li>
-<li><code>sampler2D</code>对贴图进行操作，2d的贴图模型。虽然在之前的属性里面声明过一次，但是因为这里面是cg代码，还是需要重新声明一次</li>
-<li>需要在struct里面定义出来需要输入和输出的数据类型</li>
-<li>uv：uv mapping指的就是把一个2d贴图上面的点按照一定规则映射到3d模型上。如果在贴图变量前边加上uv.<code>uv_MainTex</code>指的就是提取这个变量的uv值，也就是说二维坐标</li>
-<li>surf函数，surf是之前定义的光照模型，有两个参数<ul>
-<li>In里面的内容是uv值，也就是说每次都会调用贴图上面的坐标点才计算输出</li>
-<li>inout是输出值</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/03/十大经典排序/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/03/十大经典排序/" class="post-title-link" itemprop="url">十大经典排序</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-03 15:36:21" itemprop="dateCreated datePublished" datetime="2019-09-03T15:36:21+09:00">2019-09-03</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-04 17:14:08" itemprop="dateModified" datetime="2019-09-04T17:14:08+09:00">2019-09-04</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考出自：<a href="https://mp.weixin.qq.com/s/vn3KiV-ez79FmbZ36SX9lg" target="_blank" rel="noopener">五分钟学算法</a></p>
-<ul>
-<li>时间复杂度<ul>
-<li>最好情况</li>
-<li>最坏情况</li>
-</ul>
-</li>
-<li>空间复杂度: 需不需要开辟新的空间</li>
-<li>排序方式：in-place还是不是in - place</li>
-<li>排序稳定性: 也就是之前顺序的东西在排序之后是否还顺序</li>
-</ul>
-<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><ul>
-<li>前面一个数和后面一个比，如果前面的数比后面的大(或者小)，就交换他们两个<ul>
-<li>这样交换一次之后的最后一个数就是所有数字里面的最大数</li>
-<li>也就相当于最大的数像冒泡一样冒出来了，第一轮过后，第二轮可以直接冒倒数第二个数，也就是说每一轮的内循环次数可以逐渐减少</li>
-</ul>
-</li>
-<li>需要重复n次（但是每次对越来越少的数字进行上述操作），以确保所有的交换都已经完毕了。</li>
-<li><p>增加了一个flag的判断，如果在一轮里面没有任何交换产生，那就说明所有的元素都已经排序完毕了（因为如果还有数字往上冒必然会在前面有交换</p>
-<ul>
-<li>这样如果是正序排列的话，可以直接跳出循环，不用进行比较，时间复杂度是n<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(num)</span>:</span></span><br><span class="line">    n = len(num)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        flag = <span class="literal">True</span>  <span class="comment"># 如果在这轮没有任何交换，就可以说明排序已经完成了</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n - j):</span><br><span class="line">            <span class="keyword">if</span> num[i] &gt; num[i + <span class="number">1</span>]:</span><br><span class="line">                temp = num[i]</span><br><span class="line">                num[i] = num[i + <span class="number">1</span>]</span><br><span class="line">                num[i + <span class="number">1</span>] = temp</span><br><span class="line">                flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> flag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>时间复杂度：</p>
-<ul>
-<li>当正序排列的时候，因为可以直接跳出循环，所以只需要遍历一次所有的数保证他们排列正常，所以时间复杂度是n</li>
-<li>当倒序排列的时候，需要把所有都移动一遍，所以时间复杂度是 n ^ 2</li>
-<li>平均的复杂度是n方</li>
-</ul>
-</li>
-<li>空间复杂度：<ul>
-<li>因为交换只需要一个额外的temp来储存临时变量，空间复杂度是1</li>
-</ul>
-</li>
-<li>in-place：是的</li>
-<li>稳定性：稳定，因为一次换过来的东西就不动了，在判断大小的时候也是判断的大于而不是大于等于，也就是说前面换到后面的大数永远会在后面的数的前面<ul>
-<li>比如[0, 8, 1, 8, 2]。首先会把第一个8换到第二个8的前面，因为判断条件没有等于，所以越不过去。</li>
-</ul>
-</li>
-</ul>
-<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><ul>
-<li>从所有元素中找到最小（或者最大）元素，然后放到数组的第一个（也就是和数组的第一个交换位置），然后这个就算是固定住了</li>
-<li>然后从第二个到最后一个中选择现在最小的，和数组的第二个交换位置，前两个就固定住了</li>
-<li><p>以此类推</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SelectSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        Min = float(<span class="string">"inf"</span>)</span><br><span class="line">        index = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, n):</span><br><span class="line">            <span class="keyword">if</span> nums[j] &lt; Min:</span><br><span class="line">                Min = nums[j]</span><br><span class="line">                index = j</span><br><span class="line">        <span class="keyword">if</span> index != i:  <span class="comment"># 这样可以减少一些根本不用交换的情况，下一个位置上本来就是最小的</span></span><br><span class="line">            temp = nums[i]</span><br><span class="line">            nums[i] = nums[index]</span><br><span class="line">            nums[index] = temp</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>时间复杂度：</p>
-<ul>
-<li>最好情况和最坏情况都不能避免走两个循环，都是n ^ 2</li>
-</ul>
-</li>
-<li>空间复杂度: 1, 来储存temp的值和暂时的最大值的变量</li>
-<li>in-place：是的，换位置就可以，不需要单拿出来</li>
-<li>稳定：<ul>
-<li>不稳定，因为在交换位置的时候，并不知道现在的东西被交换到哪里去了</li>
-<li>比如：[3, 3, 0, 9]，当0和3交换位置的时候，把第一个3交换到第二个3后面去了</li>
-</ul>
-</li>
-</ul>
-<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><ul>
-<li>在第1轮，认为第1个已经排好序了，然后从第二个开始拿出来，把它放在排好序的里面的合适的位置上</li>
-<li>从第二轮开始依次类推，所以还是两个循环</li>
-<li>在第i轮里面，前i个元素已经是排好序的了</li>
-<li>在插入的过程当中，需要考虑如果把所有的需要移动的数字的坐标都移动一位。这时候比较有效的考虑方法是从最右边开始往左边移动，只要右边的数比现在的temp要大，这一位（实际上这一位指的是j - 1，因为j是移动之后的坐标）就需要移动。移动之后再减1</li>
-<li>在所有的都移动结束之后，如果j这个位置和i的位置不一样，就说明发生了插入，那么就是nums[j] = 被插入的数字temp</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">InsertSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        temp = nums[i]</span><br><span class="line">        j = i</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> temp &lt; nums[j - <span class="number">1</span>]:</span><br><span class="line">            nums[j] = nums[j - <span class="number">1</span>]</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> j != i:</span><br><span class="line">            nums[j] = temp</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<ul>
-<li>时间复杂度<ul>
-<li>最好的时候，不需要插入，最大值直接放在了前面排好序的最右边，也就是没有内循环，n</li>
-<li>最差的时候，反序，需要全都循环一遍 n2</li>
-</ul>
-</li>
-<li>空间复杂度 1</li>
-<li>in-place</li>
-<li>稳定性：稳定，因为如果是[2, 0, 0, 1]，第一个0先插入变成了[0_1, 2, 0_2, 1]，然后插入第二个0的时候因为比较的时候没有比等于，所以会变成[0_1, 0_2, 2, 1]</li>
-</ul>
-<h1 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h1><ul>
-<li>选择一个序列来对这个数组进行排序，比如如果是10个数，可以是5 2 1这样的，最后一个一定是1（设定的公式是3xn + 1不知道为什么）</li>
-<li>然后根据这个序列把数组分成这个序列个数的组，对每组的数字进行插入排序。比如用5分成两份，那就要进行5次，两个之间的排序</li>
-<li>一共进行的排序次数是和序列的个数有关的</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShellSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    gap = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> gap &lt; n / <span class="number">3</span>:</span><br><span class="line">        gap = gap * <span class="number">3</span> + <span class="number">1</span>  <span class="comment"># 一个神奇的选择方法，也不知道为什么但是确实很好用</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gap, n):</span><br><span class="line">            <span class="comment"># 这里执行的是插入排序，和上面的插入排序一样，只不过每次跳gap个了</span></span><br><span class="line">            temp = nums[i]</span><br><span class="line">            j = i</span><br><span class="line">            <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> temp &lt; nums[j - gap]:</span><br><span class="line">                nums[j] = nums[j - gap]</span><br><span class="line">                j -= gap</span><br><span class="line">            <span class="keyword">if</span> j != i:</span><br><span class="line">                nums[j] = temp</span><br><span class="line">        <span class="comment"># 直接int就可以向下取整，因为加1并不影响取整效果</span></span><br><span class="line">        gap = int(gap / <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<ul>
-<li>关于增量，不同的增量对时间复杂度有不同的影响<ul>
-<li>目前应用最多的是 Knuth增量:1,4,13,40,…,(3^k - 1)/2，也就是代码里面的这个增量</li>
-<li>这时候的复杂度是 N^（3/2）</li>
-</ul>
-</li>
-<li>时间复杂度：<ul>
-<li>根据不同的步长不同而有所差别，还有的步长还没计算出来复杂度</li>
-<li>如果是原版的，也就是原长度一直除2的话<ul>
-<li>最好效果：n，也就是不需要内循环</li>
-<li>最烂效果：n^2</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>空间复杂度 1</li>
-<li>in-place</li>
-<li>不稳定，因为很有可能因为分组的不同把两个数的顺序颠倒，比如两组的后面都是3，但是第一组的前一个是2，第二组的前一个是4，这样就把第二个3换到前面去了</li>
-</ul>
-<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><ul>
-<li>归并排序是分治法的一个典型的应用，可以把有序的子列合并，然后得到新的有序的子列</li>
-<li>比较方法<ul>
-<li>首先比较两个子列的初始值a[i]和b[j]，把比较小的那个（比如i）放进新的list[k]里面，并且让<strong>i和k</strong>分别加一，然后继续比较i和j，然后结果放进k里。</li>
-<li>如果有一个子列已经取完了，那么可以直接把另一个里面的剩余元素复制到新的list的最后</li>
-<li>因为现在使用的子列已经是排好序的了，所以可以使用这种比较方法。初始状态认为每一个数字都是一个单独的子列，所以往上合并的时候都是有序的了</li>
-</ul>
-</li>
-<li>实现：<ul>
-<li>申请一个新的空间，大小是两个子列的大小之和</li>
-<li>两个指针分别从初始位置开始</li>
-<li>根据上面的方法移动指针</li>
-<li>在实现的过程中需要用到拆分和合并两个步骤</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MergeSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    middle = int(n / <span class="number">2</span>)</span><br><span class="line">    L, R = nums[:middle], nums[middle:]</span><br><span class="line">    <span class="keyword">return</span> merge(MergeSort(L), MergeSort(R))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(L, R)</span>:</span></span><br><span class="line">    M = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> L <span class="keyword">and</span> R:</span><br><span class="line">        <span class="keyword">if</span> L[<span class="number">0</span>] &lt;= R[<span class="number">0</span>]:</span><br><span class="line">            M.append(L.pop(<span class="number">0</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            M.append(R.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">while</span> L:</span><br><span class="line">        M.append(L.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">while</span> R:</span><br><span class="line">        M.append(R.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>在python实现中，其实并不需要用坐标表示，可以直接用pop把每次需要取的东西取出来</p>
-</li>
-<li><p>时间复杂度</p>
-<ul>
-<li>无论最好或者最坏的情况都需要把所有东西都比较一回，一共是logn层，每层的实际内容都是n个，所以最终的复杂度是nlog(n)。这样看出来归并排序对于最好和最坏的情况比较稳定</li>
-</ul>
-</li>
-<li>空间复杂度：<ul>
-<li>临时数组的时间n + recursive的时候的空间logn = O(n)</li>
-</ul>
-</li>
-<li>out of place</li>
-<li>稳定性：稳定，因为在左边的一定是在左边</li>
-</ul>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><ul>
-<li>选取数组的第一个作为标准，然后把比这个标准小的都放在左边，比标准大的都放在右边</li>
-<li>然后再分别对左右进行快速排序</li>
-<li>注意，在不是python的情况下，需要通过角标互换的方法得到结果</li>
-<li>实现<ul>
-<li>选择一个基准piv</li>
-<li>数列最左边的标记为左标记，最右边的标记是右标记</li>
-<li>将左标记向右标记移动</li>
-<li>如果左标记的值超过了piv的值，停止</li>
-<li>移动右标记</li>
-<li>当右标记小于piv的时候，停止移动</li>
-<li>当左右标记都停止的时候，交换两个数字</li>
-<li>然后继续移动，直到两个标记碰到一起，这时候把这个值和piv交换</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort</span><span class="params">(nums, s, e)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> s &lt; e:</span><br><span class="line">        i, j = s, e</span><br><span class="line">        piv = nums[i]</span><br><span class="line">        index = i</span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[j] &gt;= piv:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[i] &lt;= piv:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">        nums[i], nums[index] = piv, nums[i]</span><br><span class="line"></span><br><span class="line">        QuickSort(nums, s, i - <span class="number">1</span>)</span><br><span class="line">        QuickSort(nums, j + <span class="number">1</span>, e)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort_1</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    temp = nums[<span class="number">0</span>]</span><br><span class="line">    less, more, equal = [], [], [temp]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> i &lt; temp:</span><br><span class="line">            less.append(i)</span><br><span class="line">        <span class="keyword">elif</span> i &gt; temp:</span><br><span class="line">            more.append(i)</span><br><span class="line">        <span class="keyword">elif</span> i == temp:</span><br><span class="line">            equal.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># less = [x for x in nums[1:] if x &lt; temp]</span></span><br><span class="line">    <span class="comment"># more = [x for x in nums[1:] if x &gt; temp]</span></span><br><span class="line">    <span class="comment"># equal = [x for x in nums if x == temp]</span></span><br><span class="line">    <span class="keyword">return</span> QuickSort(less) + equal + QuickSort(more)</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort_3</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(nums) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    i, j = <span class="number">0</span>, len(nums) - <span class="number">1</span></span><br><span class="line">    piv = nums[i]</span><br><span class="line">    index = i</span><br><span class="line">    <span class="keyword">while</span> i &lt; j:</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[j] &gt;= piv:</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[i] &lt;= piv:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">    nums[i], nums[index] = piv, nums[i]</span><br><span class="line">    <span class="keyword">return</span> QuickSort_3(nums[:i]) + [piv] + QuickSort_3(nums[i + <span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第一种方法input的时候需要确定最开始和结束时候的index。看起来只有第一种方法是in-place的实现？</li>
-<li>时间复杂度：<ul>
-<li>最差的时候和冒泡排序是一样的（也就是排好的），这时候的复杂度是n^2</li>
-<li>最好的时候是完全平分，这时候是 nlogn</li>
-</ul>
-</li>
-<li>空间复杂度：如果用第一种方法，只耗费recursive时候的空间，也就是logn</li>
-<li>in-place</li>
-<li>不稳定，因为不知道在换的时候就把什么奇奇怪怪的东西换到前面去了</li>
-</ul>
-<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><ul>
-<li>一种类似二叉树的设计，子节点的<strong>数值</strong>总是大于或者小于父节点的<strong>数值</strong>。首先要让数据形成这样的结构</li>
-<li>每次操作的时候，都把root的值和最后一个节点交换，交换后的最后一个节点移动出堆，然后再重新移动堆让他保持上面说的性质</li>
-<li>一般通过一维数组来访问<ul>
-<li>父节点i的左节点：2i+1</li>
-<li>父节点i的有节点：2i+2</li>
-<li>子节点的父节点： floor（（i-1）/2）</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HeapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="comment"># start是从最后一个父节点开始的,构建出heap</span></span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> range((len(nums)<span class="number">-2</span>)//<span class="number">2</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        MinHeap(nums,start,len(nums)<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        nums[i],nums[<span class="number">0</span>] = nums[<span class="number">0</span>],nums[i]</span><br><span class="line">        <span class="comment"># 因为这里换到最后去的数字就已经确定是最大值了，所以再考虑的时候不用考虑他了</span></span><br><span class="line">        MinHeap(nums,<span class="number">0</span>,i<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MinHeap</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    dad = start</span><br><span class="line">    child = dad * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">    <span class="comment"># 如果子节点还在这个堆里面的话</span></span><br><span class="line">    <span class="keyword">while</span> child &lt;= end:</span><br><span class="line">        <span class="keyword">if</span> child + <span class="number">1</span> &lt;= end <span class="keyword">and</span> nums[child] &gt; nums[child + <span class="number">1</span>]:</span><br><span class="line">            <span class="comment"># 比较两个子节点，选出来更小的那个</span></span><br><span class="line">            child += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> nums[dad] &lt; nums[child]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums[dad], nums[child] = nums[child], nums[dad]</span><br><span class="line">            dad = child</span><br><span class="line">            child = dad * <span class="number">2</span> + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>注意</strong>：如果是maxheap（即root上的数字是最大的数字的话），实际排出来的是由小到大，因为max的数字在每一次都被换到了最后面</li>
-<li>时间复杂度：nlogn</li>
-<li>空间复杂度：1</li>
-<li>上面的代码可以原地完成的 in place</li>
-<li>稳定性：不稳定，这种瞎换的很难搞清楚到底换到哪里去了</li>
-</ul>
-<h1 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h1><ul>
-<li>扫描一遍整个数组，找到最大值max和最小值min，花费时间n</li>
-<li>创建一个新的数组，大小是max-min + 1</li>
-<li>然后用新数组里面的index来统计每个数字出现的次数，最后整理出来</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CountingSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    Max,Min = max(nums),min(nums)</span><br><span class="line">    counting = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(Max-Min+<span class="number">1</span>)]</span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        counting[n-Min] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> n,i <span class="keyword">in</span> enumerate(counting):</span><br><span class="line">        result += i * [n + Min]</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CountingSort_2</span><span class="params">(nums)</span>:</span> <span class="comment">#并不创建新的数组</span></span><br><span class="line">    Max= max(nums)</span><br><span class="line">    bucketLen = Max + <span class="number">1</span></span><br><span class="line">    bucket = [<span class="number">0</span>]*bucketLen</span><br><span class="line">    sortedIndex = <span class="number">0</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="comment"># 如果现在的这个位置是空的</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> bucket[nums[i]]:</span><br><span class="line">            bucket[nums[i]] = <span class="number">0</span></span><br><span class="line">        bucket[nums[i]] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(bucketLen):</span><br><span class="line">        <span class="keyword">while</span> bucket[j] &gt; <span class="number">0</span>:</span><br><span class="line">            nums[sortedIndex] = j</span><br><span class="line">            sortedIndex += <span class="number">1</span></span><br><span class="line">            bucket[j] -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>不是比较排序，时间上来说比任何比较排序都快</li>
-<li>没法用在排序的东西不是数字的情况下，数字差异非常大的情况会很占内存。排序的必须是整数</li>
-<li>时间复杂度 <ul>
-<li>n+k，只需要在整个数组里找出最大值和最小值，然后在k时间里面数数每个数字出现了多少次。其中k是这些整数的范围</li>
-</ul>
-</li>
-<li>空间复杂度<ul>
-<li>k用来储存计数的数组</li>
-</ul>
-</li>
-<li>稳定：为了保证数组的稳定性，需要反向填充数组（现在的方法不能保证稳定性）</li>
-</ul>
-<h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><ul>
-<li>思想基于上面的计数排序，但是没有分那么多种</li>
-<li>主要想法就是先把现在的内容分到k个不同的桶里面，再在每个桶里面分别排序</li>
-<li>步骤<ul>
-<li>把数据分到k个桶里<ul>
-<li>每个桶的范围是 floor（（max-min+1）/ k）</li>
-<li>放入桶的编号为 floor((数字-最小值)/每个桶的范围)</li>
-</ul>
-</li>
-<li>对每个不为空的桶排序</li>
-<li>连接每个不为空的桶</li>
-</ul>
-</li>
-<li>时间复杂度：<ul>
-<li>最好n+k -&gt; 平均分</li>
-<li>最差是n^2 都分到一个桶里了</li>
-</ul>
-</li>
-<li>空间复杂度 n+k</li>
-<li>稳定，注意先放进桶里的要先拿出来，才能保证稳定</li>
-</ul>
-<h1 id="基数排序-radix-sort"><a href="#基数排序-radix-sort" class="headerlink" title="基数排序 radix sort"></a>基数排序 radix sort</h1><ul>
-<li>非比较的整数排序的算法。也可以用在字母上，也就是LSD和MSD</li>
-<li>把整数按位切割成不同的数字，然后每个位的数字分别比较。需要把比较的位放进0-9的九个桶里</li>
-<li>步骤<ul>
-<li>所有数统一到一个长度，短的话前面补0</li>
-<li>从最低位开始，依据最低位进行排序</li>
-<li>一直排到最高位，排序之后就是有序的了</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -4124,7 +2752,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">69</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -4235,7 +2863,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">47</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -4386,7 +3024,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">69</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

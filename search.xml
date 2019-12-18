@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Python的request库]]></title>
+    <url>%2F2019%2F12%2F18%2FPython%E7%9A%84request%E5%BA%93%2F</url>
+    <content type="text"><![CDATA[之前做了个日本的网测题，题目的内容是call一个web上面的api并且返回结果。之前一直不知道这道题是在干什么，这两天终于搞明白了 参考资料 快速上手request文档 GET 和 POST 到底有什么区别？ 关于HTTP协议，一篇就够了 关于request一个Python的第三方库，用于访问网络资源需要导入模块import requests 小知识：http协议（居然现在才发现我连这个都不知道） http是超文本传输协议的缩写，是从www服务器传输超文本到本地浏览器的传输协议 http协议作用于客户端-服务器架构上，浏览器作为http的客户端，通过url向http服务器端（web服务器）发送所有请求，web服务器在接到请求后，向客户端发送响应 特点 简单快捷。客户端请求的时候，只需要request method（包括GET，HEAD，POST等）和url。每种方法规定的客户和服务器的连接类型不同。因为协议简单，所以服务器的程序规模小，反应快速 灵活：允许传输任意类型的对象 无连接：限制每次连接只处理一个请求，收到客户端的应答后断开连接 无状态：对于事物的处理没有记忆能力，所以如果处理的时候需要先前的信息就需要全部重新传输 B/S（浏览器，服务器-广域网），C/S（客户端，服务器-局域网）模式 URL（Uniform Resource Locator）http://www.aspxfans.com:8080/news/index.asp?boardID=5&amp;ID=24618&amp;page=1#name一个URL包括几部分： 协议部分：http:，表示用的这个协议（https是加密的协议） 域名部分：www.aspxfans.com，也可以用IP地址作为域名 端口，用冒号分割，不是必须的 虚拟目录（endpoint），从第一个/到最后一个/，也不是必须的 文件名，从最后一个/到?为止。如果没有？就是到#。如果都没有就是到最后。如果省略的话就是默认文件名 参数部分：从？到#，不是必须的。用来搜索和查询。可以有多个参数，参数之间&amp;相隔 锚部分，从#开始到最后，不是必须的 客户端发送的request当客户端向服务器发送请求的时候，包括以下的四个部分：request line，header，empty line， request data 请求行，会说明method（比如GET），要访问的资源，http版本 请求头部：说明服务器要使用的附加信息（多行） 空行：请求头部后面需要有空行 请求数据（主体），可以为空 服务器响应的response分为状态行，消息报头，空行，和响应正文 状态行：http的版本号，状态码（200），状态消息（ok） 消息报头：客户端需要使用的附加信息 空行 html部分为响应正文 关于状态码 200 ok 成功 3xx 重定向，必须完成更进一步的操作 4xx 客户端错误，请求有语法错误或者无法实现 5xx 服务端错误，服务器未能实现 1234567200 OK //客户端请求成功400 Bad Request //客户端请求有语法错误，不能被服务器所理解401 Unauthorized //请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用 403 Forbidden //服务器收到请求，但是拒绝提供服务404 Not Found //请求资源不存在，eg：输入了错误的URL500 Internal Server Error //服务器发生不可预期的错误503 Server Unavailable //服务器当前不能处理客户端的请求，一段时间后可能恢复正常 工作原理 客户端（浏览器）连接到服务器，和服务器的http端口简历TCP连接（TCP：一种传输协议） 发送http请求 服务器接收并返回响应 释放连接TCP，可能会由服务器断线，可能会保持一段时间 客户端解析html的内容，显示 小知识：关于post和get GET请求，请求数据会附在URL后面，用？分割（比如传入参数的时候） 如果是英语或数字，原样 如果是空格换成+ 如果是中文或者其他字符，直接把字符串加密得到16进制ASCII 所以GET提交的数据会在地址栏显示出来，但是POST会把结果放在包体里面，不改变 传输数据大小： URL对数据的大小没有限制，但是有些浏览器可能会限制URL的字符长度，导致GET不行 安全性： POST的安全性更高。 但是http本身就是明文协议，所以其实哪个都安全性不高。最主要的方法是https 回到request本身发送请求我们可以使用get命令获取某个网页的信息，然后从名字为r的对象里面得到后续需要的信息我们可以用r.url来打印现在的url等1r = requests.get('https://api.github.com/events') 传递参数requests支持用params关键字来传输参数，参数设置在dict里面12payload = &#123;'key1': 'value1', 'key2': 'value2'&#125;r = requests.get("http://httpbin.org/get", params=payload) 响应内容响应的内容可以用r.text来限时，request会根据http头部的编码对文本进行解码，可以用r.encoding来查看解码类型并且改变 二进制响应内容可以用字节的方式来访问响应体r.content，会自动解码 Json响应内容内置json解码器，可以处理json数据。r.json()如果解码失败，会抛出异常401 原始响应内容r.raw]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>Python</category>
+        <category>Lib</category>
+      </categories>
+      <tags>
+        <tag>Url</tag>
+        <tag>Request</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[关于链表]]></title>
+    <url>%2F2019%2F11%2F18%2F%E5%85%B3%E4%BA%8E%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[虽然链表是一种比较基础的数据结构，但是在实际应用的时候用处没有那么多 链表是一种线性的表，但是不会线性的存储数据 数组存储的时候需要连续存储 单向链表有一个头结点head，指向链表内存的首地址。链表里面的每个节点有两个成员 需要保存的数据val 指向下一个结构的指针next 特点： 查找 对各个点的查找必须从头找起，后续的地址是前节点给出来的。无论访问哪个点都必须从头来 时间复杂度n，和数组相同 插入和删除（优势） 由于链表是不连续的存储，所以在插入和删除的时候，链表不需要大量成员的位移 复杂度1 读取（劣势） 数组因为连续存储，所以可以通过寻址迅速的定位。但是链表不连续，所以必须依据指针持续的遍历 应用 由于有双向链表，单向链表的应用比较少 撤销功能：文本，图形编辑器。用到了链表的删除特性 实现图或者hashMap等高级数据结构 双向链表增加了一个prev节点，相当于多了一个指针，所以用双向链表占的内存更多比如编辑器的undo/redo操作，用双向链表就更好一点。如果是单向的话时间会是n 循环链表链表的末尾指针指向了链表开头比如分时装置 CPU处理多个用户的请求时产生抢占资源的情况，需要分时策略 每个用户代表一个节点，会给每个节点分配一定的处理时间，然后进入下一个节点。 Leetcode链表练习题141 判断单链表是否有cycle思路： in-place的方法，如果两个人一起跑步，一个快一个慢，那么总有一个时刻快的会把慢的套圈12345678910class Solution: def hasCycle(self, head: ListNode) -&gt; bool: fast = head slow = head while slow and fast and fast.next: slow = slow.next fast = fast.next.next if fast == slow: return True return False 24 交换两个相邻的node思路： 注意这个node的交换，不单和目前的部分（目前操作的两个）有关系，还和前面一个点有关系，因为前面一个点的next需要是交换之前的后一个点 注意while时候的条件判断，必须两个点都在的时候才能进行交换 注意d这个附加的点，用这个点可以快速的定位head点 123456789101112131415161718class Solution: def swapPairs(self, head: ListNode) -&gt; ListNode: counter = 0 d = ListNode(-1) d.next = head prev_node = d while head and head.next: curr = head to_swap = head.next prev_node.next = to_swap curr.next = to_swap.next to_swap.next = curr prev_node = curr head = curr.next return d.next 328 把链表的odd位都交换到前面去思路： 判断这个点如果是odd，那么上一个odd的next是现在的点，这个点的下一个指向even的开始点 如果这个点是even，那么上一个even的next是现在的点，这个点的下一个是null 死磕了一个小时的原因： 注意深拷贝和浅拷贝的问题，浅拷贝的时候，改变这个东西的同时，之前的也会改变 注意形成环的问题，一定要注意每个点的input和output的方向都确定了，该赋值0的时候赋值0 注意每次的odd点都应该指向even的起始点 在下一个点会变化的时候，记得及时保存1234567891011121314151617181920212223242526272829303132333435class Solution: def oddEvenList(self, head: ListNode) -&gt; ListNode: start = ListNode(-1) even_start = ListNode(-1) start.next = head if (not head) or (not head.next): return head prev_odd = head prev_even = head.next even_start.next = prev_even counter = 1 while head: curr = head if counter &gt;=3: temp = curr.next if counter % 2 != 0: #odd prev_odd.next = curr curr.next = even_start.next if counter == 3: even_start.next.next = None prev_odd = curr elif counter % 2 == 0:#even prev_even.next = curr prev_even = curr curr.next = None head = temp else: head = curr.next counter += 1 return start.next]]></content>
+      <categories>
+        <category>基础</category>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[计算机网络]]></title>
+    <url>%2F2019%2F11%2F05%2F%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%2F</url>
+    <content type="text"><![CDATA[概述网线把主机连接起来互联网把不同的网络连接起来 ISP“互联网服务供应商”从互联网管理机构获得IP地址，拥有通信线路以及路由器等联网设备，个人或机构缴纳一定的费用就可以连入互联网 主机间的通信方式 client-server：客户是服务的请求方，服务器是供应方 P2P：不区分客户和服务器 电路交换和分组交换 电路交换：电话通信系统，需要建立物理链 分组交换：每个分组有首部和尾部，包含了源地址和目的地址等。同一个传输路径上互相不受影响 时延 排队时延：路由器输入和输出队列间的等待时间，取决于通信量 处理时延：主机或路由器受到分组时的处理时间（分析首部，提取数据，进行差错检验等） 传输时延：传输所用的时间 传播时延：在信道中传播用的时间 计算机网络体系结构 五层 应用层：为特定应用提供数据传输，HTTP，DNS等协议（报文） 传输层：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。 网络层：为主机提供数据传输服务，网络层把传输层传递下来的报文段或者用户数据报封装成分组。 数据链路层：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。 物理层 OSI 表示层：数据压缩，加密，描述。不必关心各台主机数据内部格式不同的问题 会话层：建立和管理会话 TCP/IP数据链路层和物理层合并为网络接口层]]></content>
+      <categories>
+        <category>基础</category>
+        <category>计算机网络</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[计算机操作系统]]></title>
+    <url>%2F2019%2F11%2F05%2F%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%2F</url>
+    <content type="text"><![CDATA[概述大纲：中断，系统调用，内存管理，进程线程，调度，同步，文件系统，I/O 什么是操作系统 功能上 对用户来说，OS是控制 管理应用程序的运行 为应用程序提供服务 杀死应用程序 对下 资源分配，管理，外设管理（多个资源的协调） 承上启下的作用：层次架构 硬件之上 应用程序（比如办公软件，视频播放软件等等）之下 OS为应用软件提供服务支撑 分为两部分：shell部分，对外的接口。kernel部分，也就是OS的本身 kernel部分 CPU管理，进程线程 内存管理（物理内存，虚拟内存） 虚拟内存：给上层应用提供尽可能大的内存空间 文件系统管理 （底层相关）中断处理和设备驱动 -&gt; 直接和硬件打交道 操作系统的特征 并发concurrency：同时存在多个运行的程序，需要OS管理和调度 一段时间内，多个程序 并行parallelism：一个时间点上多个程序。一般并行的需要有多个CPU 共享：有效让资源共享给需要的应用程序 对于一个内存单元：一个时间点上只有一个程序访问一个资源 同时访问？互斥共享？ 虚拟：让每个用户都觉得有一个计算机专门为他服务 把一台机器虚拟成多台机器 异步（虽然执行的步骤不同，但是结果也相同） 不是一贯到底的，是走走停停的，向前推荐的速度不可知 但是运行环境相同，OS要保证运行的结果也相同 为什么学习OS 效率，可靠 -&gt; 算法 硬件 良好的硬件管理，合理的资源分配 硬件可以完成很多OS以前关注的问题 需要权衡 时间空间 性能和可预测 公平和性能 经典OS UNIX Linux：移动终端的占有量非常大 Windows 历史]]></content>
+      <categories>
+        <category>基础</category>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[剑指offer]]></title>
+    <url>%2F2019%2F11%2F05%2F%E5%89%91%E6%8C%87offer%2F</url>
+    <content type="text"><![CDATA[面试的流程 能写单元测试，加分 答非所问，不懂装懂，大忌 准备几个问题 面试的三个环节行为面试 5-10分钟 性格特点 深入了解项目经历 项目介绍方法 简短的项目背景 自己完成的任务（参与 != 负责） 为了完成任务自己是怎么做的 自己的贡献，最好能用数字加以说明 追问问题： 遇到最大的问题是什么，怎么解决 学到了什么 和其他团队成员有什么冲突，怎么解决的 简短的介绍 对技能的分级 了解：只是学过，但是没有做过实际的项目 熟悉： 大部分的技能 精通 不要随便用 如果有人请教这个方面的问题有信心解决，才能用精通 为什么跳槽 NG答案 老板刻薄 同事难相处 加班频繁 工资太低 可以尝试的 对现在的工作失去了激情，需要寻找一份有挑战 技术面试 40-50分钟 基础知识 数据结构，算法，编程语言等 能写出清晰，完整的代码 能思路清晰的解决问题 简单问题-&gt; 清晰代码 复杂问题-&gt; 画图，举例等分析 能从时间空间方面优化代码 主动提问，弄清要求 沟通能力，学习能力，发散思维能力 基础 对一门编程语言的掌握 数据结构 链表，树，栈，队列，哈希表 尤其是链表和二叉树 查找，排序算法等 高质量代码 边界条件，特殊输入 简单的问题需要完整的考虑问题，考虑特殊条件 代码是不是够鲁棒 清晰的思路 举几个简单的例子让自己理解问题 图形抽象数据结构 把复杂的问题分成简单的子问题 优化效率的能力 不能放弃思考 需要知道怎么计算效率 比如斐波那契数列，用top-down就比bottom-up的重复计算多出很多 知道各种数据结构的优缺点 学习能力 最近在看什么书，学习到了什么新技术 抛出一个新概念，理解并解决相关的问题 提问环节 5-10分钟 不要问和自己职位没关系的问题 不要问薪水（指技术面试） 不要立即打听面试的结果 与应聘的职位和项目相关的问题 提前了解公司信息 注意面试时对方介绍的内容 第二章 面试的基础知识编程语言驱动C，linuxCpp，windowsC#，跨平台Java，苹果O-C，小型应用Perl，Python C++ sizeof（也就是拿着准备好的概念题） 空类型的sizeof，instance需要占据一定空间，占用多少编译器决定 给一段代码，看是否能够运行等 定义一个类型或实现类型中的成员函数 相关书籍 Effective C++（面试之前突击） C++ Primer（语法的全面了解） 深度搜索C++对象模型（了解对象内部） The C++ Programming Language（深入了解） C\ 主要会问C++和C#的区别 相关书籍 Professional C#（写给已经有其他经验的程序员） CLR Via C# 数据结构]]></content>
+      <categories>
+        <category>就职</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[关于docker]]></title>
     <url>%2F2019%2F11%2F05%2F%E5%85%B3%E4%BA%8Edocker%2F</url>
     <content type="text"><![CDATA[Docker Docker入门教程 通俗解释Docker是什么 解决的问题不同的机器有不同的操作系统，库和组件。把一个应用部署到多台机器上需要大量环境配置的操作 主要就是实现隔离性。但是比虚拟机的隔离性好很多 主要解决的问题 硬件性能过剩。在很多时候硬件处于闲置状态 软件冲突 但是在上面的情况下，如果使用多台电脑成本很高，所以在硬件机能过剩的情况下，硬件虚拟化的普及就提出来了 12绝大部分应用，开发者都可以通过docker build创建镜像，通过docker push上传镜像，用户通过docker pull下载镜像，用docker run运行应用。用户不需要再去关心如何搭建环境，如何安装，如何解决不同发行版的库冲突——而且通常不会需要消耗更多的硬件资源，不会明显降低性能。这就是其他答主所说的标准化、集装箱的原因所在。 Docker是对Linux容器（Linux Containers）的一种封装 docker解决的就是环境配置的问题。 对进程隔离，被隔离的进程独立于宿主系统或者其他隔离进程 可以不修改程序代码，不需要学习特定环境的技术，就能实现应用程序部署在机器上 用途 提供一次性的环境。 本地测试他人软件 持续集成时，提供单元测试和构建环境 持续集成指不断的将代码集成到主干上，这样能更快的发现错误 因为使用的时候可以隔离，随意不会对其他的产生影响 提供弹性的云服务：因为可以随开随关 组件微服务架构： 可以在本机模拟出服务器架构 与虚拟机的比较虚拟机是通过模拟硬件，在硬件上安装操作系统从而实现的 启动速度 虚拟机需要先启动虚拟机的操作系统，再启动应用 docker相当于直接启动一个进程，速度快 占用资源 一台机器只能开十几个虚拟机，是一个完整的操作系统，需要占用大量的磁盘，内存和CPU docker只需要相关应用和组件，一台机器可以开成千上万个 优势 容易迁移：打包好的应用在不同的机器上迁移 容易维护：分层和镜像，可以容易复用重复的部分。 容易扩展：可以使用基础镜像扩展得到新的镜像 镜像(imgae)和容器镜像是一种静态的结构，可以看成OOP里面的类。容器是镜像的一个instance镜像包含容器运行时候需要的代码以及组件，是一个分层结构，每一层都是只读的。构建镜像的时候会一层一层的创建，前一层是后一层的基础构建容器的时候，可以在镜像里增加writeable layer，从而保存容器在运行过程中的修改 容器文件 生成容器后，会存在容器文件和image文件。关闭容器不会删除容器文件 如果要完全终止，可以删除容器文件 image文件 docker把应用程序以及他的依赖，打包在image文件里。经过这个文件才能生成docker容器，docker根据这个文件生成容器的实例。 image是二进制文件，实际开发中，image文件一般都会继承另一个image文件，再加上一些个性化设置(image文件是通用的) 制作完成后，文件可以上传网上仓库，比如DockerHub]]></content>
