@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">52</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">53</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">74</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">75</span></a>
 
   </li>
 
@@ -334,6 +334,256 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/08/Levenshtein/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/08/Levenshtein/" class="post-title-link" itemprop="url">Levenshtein Distance的具体分析</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-08 12:56:05 / Modified: 15:00:44" itemprop="dateCreated datePublished" datetime="2019-08-08T12:56:05+09:00">2019-08-08</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/动态规划/" itemprop="url" rel="index"><span itemprop="name">动态规划</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="编辑距离"><a href="#编辑距离" class="headerlink" title="编辑距离"></a>编辑距离</h2><ul>
+<li>编辑距离是衡量字符串相似度的距离</li>
+<li>主要应用比如衡量DNA的相似性，衡量什么地方断字，文件的差异等等</li>
+</ul>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><ul>
+<li>对于字符串里面的两个<strong>字母</strong>，有三种操作方法能让他们改变<ul>
+<li>插入一个新的字母</li>
+<li>删除一个已经存在的字母</li>
+<li>把现有的字母替换成其他字母</li>
+</ul>
+</li>
+<li>对于两个string，有四种基本的操作<ul>
+<li>第一种，不变 （比如ruopeng和fag）<ul>
+<li>原本的操作 ruopeng[0,6] -&gt; fag[0,2]</li>
+<li>变换之后 ruopen[0,5] -&gt; fa[0,1]</li>
+<li>因为最后一位相同，这个问题可以拆分成最后一个字母，和不包括最后一个字母的substring，这个问题就可以拆分了</li>
+</ul>
+</li>
+<li>第二种，替代 replace （比如 peng 和 zhou）<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 pen[0,2] -&gt; zho[0,2] + replace(g -&gt; u)</li>
+<li>其中，替换的操作是一步，替换之后最后一位的字母相同，这个问题就可以拆分成更小的问题了</li>
+</ul>
+</li>
+<li>第三种，插入 insert<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 peng[0,3] -&gt; zho[0,2] + insert(u)</li>
+<li>首先，直接把这个问题里面的zhou拆分成了更小的问题zho，然后再进行一个插入操作（一步），使zho重新变成了u</li>
+</ul>
+</li>
+<li>第四种，删除 deletion<ul>
+<li>原本操作 peng[0,3] -&gt; zhou[0,3]</li>
+<li>变换之后 pen[0,2] -&gt; zhou[0,3] + delete(g)</li>
+<li>同时也可以尝试尝试删除掉前一个string里面的最后一个字母g，不再管里面的g，把这个字符串尝试变成pen来进行比较</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
+<li>首先，我们针对这两个string制作一个table<ul>
+<li>对于这个表来说，每一个位置都相当于这个位置对应的两个substring的相似程度，比如E和F对应的就是 ”RUOPE“ 和 ”F“两个substring对应的相似度</li>
+<li>在每个单词开始之前，还有一个空白符号，对应的substring就是空白。比如空白符号这一列对应的就是”“分别和”F“，”FA“，”FAN“等元素的比较<br><img src="/2019/08/08/Levenshtein/1.jpg" alt="1"></li>
+</ul>
+</li>
+<li>对于每个表格里面的位置，从(1,1)开始，这个位置和周围位置的关系如下<ul>
+<li>上面一格是插入，指的是在FANGZHOU这个string的substring里面插入</li>
+<li>左边一格是删除，指的是把RUOPENG这个单词删除一个字母</li>
+<li>左上角一格是替代，指的是把这两个单词的字母分别退一位。如果当前位的字母相同，当前位的值等于退一位之后的值，如果当前不同，是退一位的值+替代花费的操作（也就是1）<br><img src="/2019/08/08/Levenshtein/2.jpg" alt="2"></li>
+</ul>
+</li>
+<li>表格初始化<ul>
+<li>首先需要确定这个表格的边缘情况，也就是横坐标和纵坐标分别是0的部分，这个部分不能用上面总结出来的公式表示</li>
+<li>因为这部分其实就是把不同的substring和空白符号比较，那么需要的最小操作就等于当前字母的位数<br><img src="/2019/08/08/Levenshtein/3.jpg" alt="3"></li>
+</ul>
+</li>
+<li>填表<ul>
+<li>从当前的初始状况出发，逐渐把这个表填完，每一个新的格子的值都取决于上一个格子的值<ul>
+<li>insert = M[i-1][j]+1</li>
+<li>delete = M[i][j-1] + 1</li>
+<li>replace = M[i-1][j-1] + 1</li>
+<li>dont change = M[i-1][j-1] （两个字母匹配）</li>
+</ul>
+</li>
+<li>如果两个字母不匹配的时候，now = min(insert,delete,replace)</li>
+<li>最终结果如下，红色部分为字母相同部分<br><img src="/2019/08/08/Levenshtein/4.jpg" alt="4"></li>
+</ul>
+</li>
+</ul>
+<h2 id="python代码实现"><a href="#python代码实现" class="headerlink" title="python代码实现"></a>python代码实现</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">EditDistance</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    m = len(a)</span><br><span class="line">    n = len(b)</span><br><span class="line">    <span class="comment"># 构建表格，注意需要比长度大一格，储存空字符串</span></span><br><span class="line">    M = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(m + <span class="number">1</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> range(n + <span class="number">1</span>)]</span><br><span class="line">    <span class="comment"># 初始化表格，substring分别和空字符串比较</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">        M[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">        M[<span class="number">0</span>][i] = i</span><br><span class="line">    <span class="comment"># DP</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, m + <span class="number">1</span>):</span><br><span class="line">                <span class="comment"># 判断是否相同，注意这里要减一</span></span><br><span class="line">            <span class="keyword">if</span> b[i - <span class="number">1</span>] == a[j - <span class="number">1</span>]:</span><br><span class="line">                M[i][j] = M[i - <span class="number">1</span>][j - <span class="number">1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                insert = M[i - <span class="number">1</span>][j] + <span class="number">1</span></span><br><span class="line">                delete = M[i][j - <span class="number">1</span>] + <span class="number">1</span></span><br><span class="line">                replace = M[i - <span class="number">1</span>][j - <span class="number">1</span>] + <span class="number">1</span></span><br><span class="line">                M[i][j] = min(insert, delete, replace)</span><br><span class="line">    <span class="keyword">return</span> M[n][m]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意分清矩阵的行和列，在这个实现里a是行，b是列</li>
+<li>考虑到最前面的空字符串<ul>
+<li>注意从string里面读取的时候要记得减1</li>
+<li>注意构建矩阵的时候行数和列数要加一</li>
+</ul>
+</li>
+<li>右下角的结果就是两个完整字符串对比的结果</li>
+</ul>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
+<li>这个方法需要遍历左右的substring的组合，并且把所有的结果都存在一个矩阵里</li>
+<li>如果两个string的长度分别是m和n，那么时间复杂度O(mn),空间复杂度O(mn)</li>
+</ul>
+<h2 id="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐"><a href="#最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八-7-1-夕快乐" class="headerlink" title="最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐"></a>最后，RUOPENG在8月8号这天祝距离为8的FANGZHOU，八(7+1)夕快乐</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2604,233 +2854,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/05/关于字符串匹配算法KMP和BM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/05/关于字符串匹配算法KMP和BM/" class="post-title-link" itemprop="url">关于字符串匹配算法KMP和BM</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-05 12:03:50" itemprop="dateCreated datePublished" datetime="2019-06-05T12:03:50+09:00">2019-06-05</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-07 19:27:07" itemprop="dateModified" datetime="2019-06-07T19:27:07+09:00">2019-06-07</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/字符串处理/" itemprop="url" rel="index"><span itemprop="name">字符串处理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天在leetcode终于刷到了string的题，是在一大串字符里面匹配相应的字符。<br>托python的福，居然被我用暴力破解解决了，虽然结果不是很优雅。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span><span class="params">(self, haystack: str, needle: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> needle == <span class="string">""</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i, ch <span class="keyword">in</span> enumerate(haystack):</span><br><span class="line">            <span class="keyword">if</span> ch == needle[<span class="number">0</span>]:</span><br><span class="line">                <span class="keyword">if</span> needle == haystack[i:i+len(needle)]:</span><br><span class="line">                    <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><ul>
-<li>首先，把这个需要检测的string（a）的第一个和目标string（t）的第一个进行对比，如果不匹配，后移一位</li>
-<li>直到找到第一个相同的字母，然后把a和b同时后移一位<ul>
-<li>还是相同，继续后移</li>
-<li>不同（<strong>这部分是这个代码的精髓</strong>）<ul>
-<li>一般的思路是把b全都后移一位，但是这样其实消耗挺大的</li>
-<li>KMP的思路是，既然b的前n位都已经比较过了，那就不要放弃这个信息，不要移动回之前比较过的n位了，继续后移移动到全新的位置</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>需要移动的位数 = 已经匹配到的字数 - 对应最后一位匹配上的东西的匹配值（由partial match table得出）</li>
-</ul>
-<h3 id="如何产生这张表"><a href="#如何产生这张表" class="headerlink" title="如何产生这张表"></a>如何产生这张表</h3><p>比如一个单词 bread</p>
-<ul>
-<li>前缀：b,br,bre,brea</li>
-<li>后缀：read,ead,ad,d<br>部分匹配值就是前缀和后缀最长的共有元素长度</li>
-<li>比如ABCDABD这个string<ul>
-<li>A前后缀都是空的，长度0</li>
-<li>AB，前缀A，后缀B，共有长度0</li>
-<li>ABC，[A, AB]，后缀为[BC, C]，共有元素的长度0</li>
-<li>ABCD，[A,AB,ABC],[B,BC,BCD] -&gt; 0</li>
-<li>ABCDA, [A,AB,ABC,ABCD],[BCDA,CDA,DA,A] -&gt; 有一个共有元素A，长度为1</li>
-<li>ABCDAB,[A, AB, ABC, ABCD, ABCDA],[BCDAB, CDAB, DAB, AB, B] -&gt; 共有元素AB，长度为2</li>
-<li>“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。<br>（难点：怎么得到上面的这个长度）</li>
-</ul>
-</li>
-</ul>
-<h2 id="BM"><a href="#BM" class="headerlink" title="BM"></a>BM</h2><ul>
-<li>首先将a和b的头对其开始，然后从尾部开始比较。因为如果尾部不匹配的话，这整个一串都不匹配了。知道了这个不匹配的字符之后，这个字符就被称为坏字符<ul>
-<li>如果这个坏字符包括在单词里面，则需要把这两个对其</li>
-<li><strong>后移位数 = 坏字符的位置 - 搜索词中的上一次出现位置</strong></li>
-<li>如果不包含在搜索词里面，那么上一次的位置是-1</li>
-</ul>
-</li>
-<li>最后一位匹配上了，那么就顺着b往前捋<ul>
-<li>在a里面可以和b后面匹配上的都是good suffix（比如example的e，le，ple等等）</li>
-<li>好后缀的后移：<strong>后移位数 = 好后缀的位置（最后一个字符为准） - 搜索词中的上一次出现位置</strong></li>
-<li>如果没有出现过是 -1 </li>
-<li>如果有多个好后缀，那么除了最长的好后缀，其他的上一次出现位置必须在头部（b的头部）</li>
-</ul>
-</li>
-<li>在上面两个规则里面，选择移动的最大值<ul>
-<li>上面两个规则只和搜索词有关，和原来的字符串没关系，所以可以提前生成坏字符和好后缀表，直接比较移动位数</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2879,7 +2902,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">74</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3000,7 +3023,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3159,7 +3184,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">73</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
