@@ -105,7 +105,7 @@
 <meta property="og:description" content="994 腐烂的橘子2020.3.4链接 在给定的网格中，每个单元格可以有以下三个值之一： 值 0 代表空单元格；值 1 代表新鲜橘子；值 2 代表腐烂的橘子。每分钟，任何与腐烂的橘子（在 4 个正方向上）相邻的新鲜橘子都会腐烂。 返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 - 1。  基本思路 刚开始看到这道题感觉像是DP，因为要求的是最短时间，乍一看感觉是找一天最快">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://bigphess.github.io/2020/03/05/leetcode每日一题挑战/20200304.jpg">
-<meta property="og:updated_time" content="2020-03-06T07:05:23.000Z">
+<meta property="og:updated_time" content="2020-03-07T05:16:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode每日一题挑战">
 <meta name="twitter:description" content="994 腐烂的橘子2020.3.4链接 在给定的网格中，每个单元格可以有以下三个值之一： 值 0 代表空单元格；值 1 代表新鲜橘子；值 2 代表腐烂的橘子。每分钟，任何与腐烂的橘子（在 4 个正方向上）相邻的新鲜橘子都会腐烂。 返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回 - 1。  基本思路 刚开始看到这道题感觉像是DP，因为要求的是最短时间，乍一看感觉是找一天最快">
@@ -416,7 +416,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-06 16:05:23" itemprop="dateModified" datetime="2020-03-06T16:05:23+09:00">2020-03-06</time>
+                <time title="Modified: 2020-03-07 14:16:54" itemprop="dateModified" datetime="2020-03-07T14:16:54+09:00">2020-03-07</time>
               
             
           </span>
@@ -553,6 +553,33 @@
 <li><p>因为这里只考虑自然数，不用考虑角标，所以i和j从1开始比从0开始更方便</p>
 </li>
 </ul>
+<h1 id="面试题59-2-实现队列的最大值"><a href="#面试题59-2-实现队列的最大值" class="headerlink" title="面试题59-2 实现队列的最大值"></a>面试题59-2 实现队列的最大值</h1><p>2020.03.07<br><a href="https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof" target="_blank" rel="noopener">链接</a></p>
+<p>请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的时间复杂度都是O(1)。</p>
+<p>若队列为空，pop_front 和 max_value 需要返回 -1</p>
+<p>示例 1：</p>
+<p>输入:<br>[“MaxQueue”,”push_back”,”push_back”,”max_value”,”pop_front”,”max_value”]<br>[[],[1],[2],[],[],[]]<br>输出: [null,null,null,2,1,2]</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>如果本身来说实现起来非常简单。push和pop的复杂度都可以做到O(1)，但是遍历寻找最大值的复杂度是O(n)</li>
+<li>降低复杂度一共就那么几个思路：第一个是用一个变量来记录最大值，但是这样的话当前最大值如果被pop出去了之后，就无法确定最大值了。第二个就是用空间换时间，使用了一个deque来实现最大值的记录（自己并没有想出来）</li>
+</ul>
+<h3 id="相关参考"><a href="#相关参考" class="headerlink" title="相关参考"></a>相关参考</h3><ul>
+<li><a href="https://blog.csdn.net/a1414345/article/details/55221457?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">实现stack求最小值的操作，复杂度为1实现</a></li>
+<li>这个方法也使用了构建一个辅助数组来记录最小值。但是需要注意的是，这里的stack是先进后出的，所以后面的值pop的时候对之前的最小值并没有影响。于是这道题的思路就是<ul>
+<li>push的时候如果是当前最小就push进辅助数组 -&gt; 辅助数组从上到下依次增大</li>
+<li>pop的时候如果当前数组pop的值和辅助数组的顶端的值相同，则一起pop</li>
+</ul>
+</li>
+</ul>
+<h3 id="此题思路"><a href="#此题思路" class="headerlink" title="此题思路"></a>此题思路</h3><ul>
+<li>这道题和上面的stack的区别在于queue需要从前面pop出来，所以如果push 2，1。pop 2的时候，按上面一道题的方法辅助数组里面就没有东西了</li>
+<li>所以这道题的辅助数组构建应该是从前到后依次减小<ul>
+<li>如果新push的数字大于辅助数组的最后，则把辅助数组最后一直删除，直到可以放下新的数字。比如 2，1，1，1，3的时候，辅助数组在放3之前是2，1，1，1。但是很明显可以发现，当popleft的时候，如果新的数组里有了3，则之前的2111对最大值就没有了影响。</li>
+<li>在pop的时候，如果pop的数字和辅助数组的最左边相同，则辅助数组一起popleft</li>
+</ul>
+</li>
+<li>注意，pop(i)的复杂度是O(n)，包括pop(0)，所以用的时候最好还是建立一个deque然后用popleft的功能</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxQueue</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.queue = deque()</span><br><span class="line">        self.assist_queue = deque()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">max_value</span><span class="params">(self)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.queue:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        <span class="keyword">return</span> self.assist_queue[<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push_back</span><span class="params">(self, value: int)</span> -&gt; <span class="keyword">None</span>:</span></span><br><span class="line">        self.queue.append(value)</span><br><span class="line">        <span class="keyword">while</span> self.assist_queue <span class="keyword">and</span> value &gt; self.assist_queue[<span class="number">-1</span>]:</span><br><span class="line">            self.assist_queue.pop()</span><br><span class="line">        self.assist_queue.append(value)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop_front</span><span class="params">(self)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.queue:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line">        temp =  self.queue.popleft()</span><br><span class="line">        <span class="keyword">if</span> temp == self.assist_queue[<span class="number">0</span>]:</span><br><span class="line">            self.assist_queue.popleft()</span><br><span class="line">        <span class="keyword">return</span> temp</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1024,7 +1051,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#994-腐烂的橘子"><span class="nav-number">1.</span> <span class="nav-text">994 腐烂的橘子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路"><span class="nav-number">1.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本代码"><span class="nav-number">1.2.</span> <span class="nav-text">基本代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希望改进的地方"><span class="nav-number">1.3.</span> <span class="nav-text">希望改进的地方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1103-分糖果2"><span class="nav-number">2.</span> <span class="nav-text">1103 分糖果2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路：遍历"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路：遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试题57-2-和为s的正整数序列"><span class="nav-number">3.</span> <span class="nav-text">面试题57-2 和为s的正整数序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自己的思路：数学解法"><span class="nav-number">3.1.</span> <span class="nav-text">自己的思路：数学解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另一种思路：滑动窗口"><span class="nav-number">3.2.</span> <span class="nav-text">另一种思路：滑动窗口</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#994-腐烂的橘子"><span class="nav-number">1.</span> <span class="nav-text">994 腐烂的橘子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路"><span class="nav-number">1.1.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本代码"><span class="nav-number">1.2.</span> <span class="nav-text">基本代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希望改进的地方"><span class="nav-number">1.3.</span> <span class="nav-text">希望改进的地方</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1103-分糖果2"><span class="nav-number">2.</span> <span class="nav-text">1103 分糖果2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本思路：遍历"><span class="nav-number">2.1.</span> <span class="nav-text">基本思路：遍历</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试题57-2-和为s的正整数序列"><span class="nav-number">3.</span> <span class="nav-text">面试题57-2 和为s的正整数序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自己的思路：数学解法"><span class="nav-number">3.1.</span> <span class="nav-text">自己的思路：数学解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另一种思路：滑动窗口"><span class="nav-number">3.2.</span> <span class="nav-text">另一种思路：滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试题59-2-实现队列的最大值"><span class="nav-number">4.</span> <span class="nav-text">面试题59-2 实现队列的最大值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">4.0.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关参考"><span class="nav-number">4.0.2.</span> <span class="nav-text">相关参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#此题思路"><span class="nav-number">4.0.3.</span> <span class="nav-text">此题思路</span></a></li></ol></li></ol></div>
             
 
           </div>
