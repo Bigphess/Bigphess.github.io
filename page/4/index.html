@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">77</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">78</span></a>
 
   </li>
 
@@ -334,6 +334,407 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/13/unity入门spaceshooter/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/13/unity入门spaceshooter/" class="post-title-link" itemprop="url">unity入门制作space shooter</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-13 11:57:44" itemprop="dateCreated datePublished" datetime="2019-06-13T11:57:44+09:00">2019-06-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-20 13:44:50" itemprop="dateModified" datetime="2019-06-20T13:44:50+09:00">2019-06-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/入门/" itemprop="url" rel="index"><span itemprop="name">入门</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><ul>
+<li>这个游戏是和雷电类似的游戏</li>
+<li>需要设定碰撞等等游戏逻辑，然后设计音乐，图等等东西</li>
+</ul>
+<h2 id="setup，player，camera"><a href="#setup，player，camera" class="headerlink" title="setup，player，camera"></a>setup，player，camera</h2><h3 id="set-up"><a href="#set-up" class="headerlink" title="set up"></a>set up</h3><ul>
+<li>需要确定好应用的开发平台<code>file-build setting</code><ul>
+<li>注意这个游戏想开发网页版的，但是现在已经不支持web player，建议使用web GL</li>
+</ul>
+</li>
+<li>可以在<code>project setting-player</code>里面改变一些游戏的设置（这里改变了宽度和高度）</li>
+<li>在右上角的layout可以改变窗口的布局</li>
+</ul>
+<h3 id="放置游戏的object"><a href="#放置游戏的object" class="headerlink" title="放置游戏的object"></a>放置游戏的object</h3><ul>
+<li>直接从model里面拖进来放进scene或者hierarchy里面<ul>
+<li>点击F可以锁定这个东西（最佳视角）</li>
+</ul>
+</li>
+<li>需要设置这个object在原点</li>
+<li>有一个mesh filiter来决定这个东西用的什么模型</li>
+<li>一个mesh renderer来渲染这个模型<ul>
+<li>这个里面有两个不同的材料</li>
+</ul>
+</li>
+<li>因为需要物体之间的碰撞，所以需要增加<code>physics--rigidbody</code><ul>
+<li>加入了这个东西之后，物体就有了物理上的特征</li>
+</ul>
+</li>
+<li>下面由于需要碰撞，所以需要定义这个物体的体积<ul>
+<li>增加一个<code>physics -- capsule collision</code></li>
+<li>相当于把这个物体的周围加上了一个cage，来确定他的体积</li>
+<li>需要在这里面定义碰撞的方向（因为这里面是沿着z运动的，所以碰撞在z轴上面）</li>
+<li>可以改一改视角，然后直接拉bar来调节这个consule的大小</li>
+</ul>
+</li>
+<li><strong>关于coliider</strong><ul>
+<li>除了这里面用到的胶囊型的以外，还有square的sphere的，confound的（混合）？，在能解决问题的时候尽量用上面的基础图形</li>
+<li>除此之外，还有一个mesh coillder，用来专门契合这个物体的体积的，但是是最后的选择，选择的时候最好也选择一些比较简单的形状(如图所示，新的碰撞范围会完整契合这个物体)</li>
+<li>在coillder里面可以自己设定这个对应的mesh的种类，即使和使用的模型不同也可以（也就是说可以建立一个相对于这个模型简单的模型，然后建立碰撞）<br><img src="/2019/06/13/unity入门spaceshooter/1.jpg" alt><br><img src="/2019/06/13/unity入门spaceshooter/2.jpg" alt></li>
+</ul>
+</li>
+<li>为了选中的这个东西可以被识别为碰撞物体，选择<code>is trigger</code></li>
+<li>为了增加一点神奇的新功能，在预设好的prefab（一个可以重复克隆的对象）里面找到一个引擎的动画，拖到player的子目录下面，这个东西就自动加进去了</li>
+</ul>
+<h3 id="相机和light"><a href="#相机和light" class="headerlink" title="相机和light"></a>相机和light</h3><h4 id="相机"><a href="#相机" class="headerlink" title="相机"></a>相机</h4><ul>
+<li>因为一开始相机会初始化在物体之后的位置，所以现在在game界面只能看到这个物体的屁股部分，需要设置相机</li>
+<li>点击<code>main camera</code>，这时候右下角会出现相机位置的缩略图</li>
+<li>位置 -&gt; 调节到物体上方，并且旋转90度</li>
+<li>设置相机的种类<ul>
+<li>如果选择perspective的相机，可以通过调节FOV来决定看到的是多大</li>
+<li>这里选择orthographic（正投影，主视图那种感觉）的相机，然后直接调节看到的size就可以了</li>
+<li>因为希望object保持在原点上，所以在这里移动camera</li>
+</ul>
+</li>
+<li>可以在game画面里面直接调节object的位置等等东西</li>
+<li>下面把在camera里面把背景改成黑色（soild color）<ul>
+<li>但是这时候object的颜色并没有变黑，这是因为打开了ambiant light</li>
+<li>在<code>window--rendering--lighting setting</code>里面，把source改成color就可以改变环境光的颜色</li>
+</ul>
+</li>
+<li>环境光：ambient light<ul>
+<li>这个光没有方向，所以如果都加上了的话可能会很奇怪</li>
+</ul>
+</li>
+</ul>
+<h4 id="光"><a href="#光" class="headerlink" title="光"></a>光</h4><ul>
+<li><p>创建一个有方向的light -&gt; main light</p>
+<ul>
+<li>应该是最亮的光</li>
+<li>希望可以看到飞机的颜色但是不希望太亮</li>
+<li>调整这个光的角度以及强度<br><img src="/2019/06/13/unity入门spaceshooter/3.jpg" alt></li>
+</ul>
+</li>
+<li><p>建立第二个光，来照亮不怎么亮的部分 -&gt; fill light</p>
+<ul>
+<li>还是调整角度，照亮第一个光照不到的部分</li>
+<li>为了不让这个光那么强，把这个光的强度适当调小</li>
+<li>为了适应太空的冷色调，把光源颜色改成蓝绿色<br><img src="/2019/06/13/unity入门spaceshooter/4.jpg" alt></li>
+</ul>
+</li>
+<li><p>最后增加第三个光，把暗部勾边（相当于素描里面的在边上的高亮部分） -&gt; rim light</p>
+<ul>
+<li>为了不照亮东西的上层，在x轴把角度调成复数</li>
+<li>为了勾边，颜色是白色的</li>
+<li>降低亮度</li>
+</ul>
+</li>
+<li>最后建立一个新的空的object，位置reset好，来整理上面的三个光<ul>
+<li>注意，因为这里的光是directional light，所以光照的效果和光源的位置无关，只和光源的角度有关<br><img src="/2019/06/13/unity入门spaceshooter/5.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><ul>
+<li>新创建一个quad，调整位置和角度让相机能看到他</li>
+<li>remove掉碰撞的部分，因为背景不需要</li>
+<li>加上texture -&gt; 可以直接把这张图片拽到对应的位置上面<ul>
+<li>这样会创建一个新的material加到这个mesh的renderer上面去</li>
+</ul>
+</li>
+<li>缩放这个方块，让这个图片可以完全显示（高宽比必须保持！）</li>
+<li>这时候照在player上面的光也可以照在背景上面，但是不是很希望这种结果<ul>
+<li>一种方法是把background完全独立一个layer出来</li>
+<li>另一种方法是改变这个texture的shader<ul>
+<li>这里改成完全的testure，这样就不会受到光的影响了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>最后把船从陷入的background里拽出来<br><img src="/2019/06/13/unity入门spaceshooter/6.jpg" alt></li>
+</ul>
+<h3 id="移动player"><a href="#移动player" class="headerlink" title="移动player"></a>移动player</h3><ul>
+<li>首先需要在player底下建立新的scripts</li>
+<li>fixedupdate -&gt; 确定物体现在的位置<ul>
+<li>首先得到垂直和平行的输入（键盘或者鼠标输入）</li>
+<li>物体的移动是一个三维的数组，分别是xyz轴，这里y轴的移动是0.0f，其他两个分别是平行和垂直的移动</li>
+<li>因为已经用了rigid body，可以从里面给物体一个速度<code>GetComponent&lt;Rigidbody&gt;().velocity</code> -&gt; 这时候移动的非常慢，因为input接收的只是0和1，所以每秒移动一个unit</li>
+<li>这时候加上了一个新的speed参数，每次在计算速度的时候乘上这个参数就可以了</li>
+<li><strong>注意，因为这里的speed是个public的值，所以可以直接在unity的UI里面进行操作</strong><br><img src="/2019/06/13/unity入门spaceshooter/7.jpg" alt></li>
+</ul>
+</li>
+<li>这时候出现了一个问题，player会跑出屏幕<ul>
+<li>增加一个判断条件，移动这个东西如果到了边界，那么把position从先reset到边界上</li>
+<li>因为这样在更新下一帧之前都不会出界</li>
+<li>使用了mathf里面的一个函数clamp，来设定x和z的范围<ul>
+<li>这个函数超过了下界就会一直显示下界，超过了上届就会一直显示上届</li>
+</ul>
+</li>
+<li>为了不让设定的xmax，xmin，zmax，zmin在UI里面太占地，所以建立了一个新的class来装这些东西（注意新的class不需要继承），然后在需要用的时候建立新的对象，call</li>
+<li>为了能在UI里显示，需要在新创建的class上面加上<code>[System.Serializable]</code></li>
+<li>这些边缘设置什么值可以直接把东西拖到边缘然后看看是什么值就可以了</li>
+</ul>
+</li>
+<li>tilt或者bank：让飞船到左右移动的时候可以旋转一下<ul>
+<li>增加了旋转功能<code>Quaternion.Euler</code><br><img src="/2019/06/13/unity入门spaceshooter/8.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h3 id="shots"><a href="#shots" class="headerlink" title="shots"></a>shots</h3><p>希望把这部分的逻辑和这部分的图像分隔开：这样换模型的时候就很方便了</p>
+<ul>
+<li>首先创建一个新的quan，在这个上面加上texture<ul>
+<li>创建一个新的material，然后再这个里面选择一个texture</li>
+<li>然后再把新的material加到对应的东西里面</li>
+</ul>
+</li>
+<li>希望这个东西黑色的部分消失，shader选择<code>mobile--particle--addtive</code>（mobile比较有效率）</li>
+<li>增加这个东西的碰撞，去掉VFX的碰撞</li>
+<li>然后加上这个光的运动逻辑<ul>
+<li><code>transform.forward()</code>向前运动，乘上速度</li>
+</ul>
+</li>
+<li>把这个东西设定成一个prefab（直接拖到prefab的文件夹里面）</li>
+</ul>
+<h3 id="shoot-shots"><a href="#shoot-shots" class="headerlink" title="shoot shots"></a>shoot shots</h3><ul>
+<li>已经把需要射出去的光线设定成了一个prefab，这时候只要在每次点鼠标的时候把这个东西射出去就可以了</li>
+<li>创建一个新的空的object作为player的子目录来定义发出去激光的位置（shotSpawn）</li>
+<li>在player中新增一个功能，public的对象是shot和shotSpawn，这两个东西都可以直接从UI里面拖进来，然后设定这个子弹发射的逻辑，每次按下鼠标都并且在0.25秒外会发射子弹<ul>
+<li>按下鼠标后把showSpawn的transform赋值给shot，这样就知道shot的位置了</li>
+</ul>
+</li>
+<li>问题：现在游戏进行过程中会往root里面增加很多prefab</li>
+</ul>
+<h2 id="boundary，hazards，enemy"><a href="#boundary，hazards，enemy" class="headerlink" title="boundary，hazards，enemy"></a>boundary，hazards，enemy</h2><h3 id="boundary"><a href="#boundary" class="headerlink" title="boundary"></a>boundary</h3><p>在画面里面消失的子弹也删掉 -&gt; 建立一个box</p>
+<ul>
+<li>打开trigger</li>
+<li>给这个box里面用一个函数，判断是否撞上这个边框，撞上了的话就删除撞上的物体<code>OnTriggerExit</code></li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DestroyByBoundry</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnTriggerExit</span>(<span class="params">Collider other</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Destroy(other.gameObject);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="hazrads"><a href="#hazrads" class="headerlink" title="hazrads"></a>hazrads</h3><p>会撞上player的陨石</p>
+<ul>
+<li>首先建立一个新的陨石对象，这个对象应该可以被撞击的，加上碰撞和刚体</li>
+<li>加上这个陨石的自动旋转，使用随机的数字，并且把angular drag改成0</li>
+<li>加上激光和陨石碰撞之后，两个东西同时消失的效果<ul>
+<li>单纯的加碰撞效果会发现因为边界引发的陨石消失bug</li>
+<li>因为陨石先和边界碰撞了，然后两个一起消失了</li>
+<li>需要把Boundary加上一个新的tag<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (other.tag == <span class="string">"Boundary"</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2019/06/13/unity入门spaceshooter/9.jpg" alt></p>
+<h3 id="爆炸！就是艺术！"><a href="#爆炸！就是艺术！" class="headerlink" title="爆炸！就是艺术！"></a>爆炸！就是艺术！</h3><ul>
+<li>在contact destroy的文件里面增加新的爆炸效果</li>
+<li>新建一个explosion的gameobject，给这个对象赋值位置<code>Instantiate(explosion, transform.position, transform.rotation);</code></li>
+<li>给player一个新的tag，然后在碰撞里面判断是陨石撞player还是陨石撞激光，赋值不同的爆炸效果</li>
+<li>把mover增加到陨石里面，速度设置为负值，这样陨石就能往自己身上掉了</li>
+</ul>
+<h3 id="game-controller"><a href="#game-controller" class="headerlink" title="game controller"></a>game controller</h3><ul>
+<li>创建整个游戏的逻辑</li>
+<li>设置好的陨石创建成新的prefab</li>
+<li>创建一个新的对象作为控制器，加入一个新的对象hazard，初始化好掉下来的敌人的位置，让敌人可以从随机的位置往下掉</li>
+<li>每次掉落之间隔着时间（这部分和C++有些不一样），把所有的掉落放在一个while里面</li>
+<li>去掉剩余的爆炸效果</li>
+</ul>
+<h2 id="score，audio，building"><a href="#score，audio，building" class="headerlink" title="score，audio，building"></a>score，audio，building</h2><h3 id="加声音"><a href="#加声音" class="headerlink" title="加声音"></a>加声音</h3><ul>
+<li>首先把陨石爆炸的背景音加到陨石的prefab里面</li>
+<li>背景音乐加到game controller，武器的音乐加到player<ul>
+<li>武器的音乐需要在每次发射的时候触发</li>
+</ul>
+</li>
+<li>调整各个音量的大小</li>
+</ul>
+<h3 id="计算score"><a href="#计算score" class="headerlink" title="计算score"></a>计算score</h3><ul>
+<li>新建一个text，设定好这个text的字体效果之类的</li>
+<li>然后把这个text reference到gamecontroller里面，然后把最开始的分数初始化，并且写出来更新score的代码</li>
+<li>把这个score reference陨石里面</li>
+</ul>
+<h3 id="增加文字效果"><a href="#增加文字效果" class="headerlink" title="增加文字效果"></a>增加文字效果</h3><ul>
+<li>需要增加重新开始游戏和游戏结束的text</li>
+<li>在游戏逻辑里面加上的是这个玩意怎么更新和计算，需要两个flag判断有没有游戏结束</li>
+<li>需要在碰撞里面把player弄死</li>
+</ul>
+<h3 id="增加最后的效果"><a href="#增加最后的效果" class="headerlink" title="增加最后的效果"></a>增加最后的效果</h3><ul>
+<li>增加陨石<ul>
+<li>复制之前的asteroid并且给他们不同的模型和碰撞</li>
+<li>把之前的对象改成一个数组就可以handle很多个对象了，随机选择</li>
+</ul>
+</li>
+<li>增加移动的小星星（项目里面自带的）</li>
+<li>让背景重复起来<ul>
+<li>把背景设置在一个范围内，一旦超过了这个范围就重新开始</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2150,200 +2551,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/10/CS231Nassignment3RNN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/10/CS231Nassignment3RNN/" class="post-title-link" itemprop="url">CS231Nassignment3RNN</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-10 15:31:15" itemprop="dateCreated datePublished" datetime="2019-05-10T15:31:15+09:00">2019-05-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-16 14:36:51" itemprop="dateModified" datetime="2019-05-16T14:36:51+09:00">2019-05-16</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="http://cs231n.github.io/assignments2019/assignment3/" target="_blank" rel="noopener">assignment3</a></p>
-<h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><p>In this exercise you will implement a vanilla recurrent neural networks and use them it to train a model that can generate novel captions for images.</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/05/10/CS231Nassignment3RNN/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2392,7 +2599,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2688,7 +2895,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">80</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

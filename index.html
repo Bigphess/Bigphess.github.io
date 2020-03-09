@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">77</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">78</span></a>
 
   </li>
 
@@ -334,6 +334,226 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2020/03/09/Python-lru-cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/03/09/Python-lru-cache/" class="post-title-link" itemprop="url">Python的lru_cache装饰器，装饰器，可变参数\*args</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-09 14:22:38 / Modified: 16:23:18" itemprop="dateCreated datePublished" datetime="2020-03-09T14:22:38+09:00">2020-03-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/27643991" target="_blank" rel="noopener">Python - lru_cache和singledispatch装饰器
+</a></li>
+<li><a href="https://docs.python.org/zh-cn/3/library/functools.html" target="_blank" rel="noopener">官方文档</a></li>
+</ul>
+<p>今天写算法题dp的自上而下的算法的时候，看到有人用了<a href="mailto:``@functools.lr" target="_blank" rel="noopener">``@functools.lr</a>u_cache<code></code>这个函数。最神奇的是没用之前我的算法是超时的，用了之后居然就跑出来了</p>
+<h3 id="这个函数是什么？"><a href="#这个函数是什么？" class="headerlink" title="这个函数是什么？"></a>这个函数是什么？</h3><p>根据官方文档，这个函数的定义如下：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@functools.lru_cache(maxsize=128, typed=False)</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">一个为函数提供缓存功能的装饰器，缓存 maxsize 组传入参数，在下次以相同参数调用时直接返回上一次的结果。用以节约高开销或I/O函数的调用时间。</span><br><span class="line"></span><br><span class="line">由于使用了字典存储缓存，所以该函数的固定参数和关键字参数必须是可哈希的。</span><br><span class="line"></span><br><span class="line">不同模式的参数可能被视为不同从而产生多个缓存项，例如, f(<span class="attribute">a</span>=1, <span class="attribute">b</span>=2) 和 f(<span class="attribute">b</span>=2, <span class="attribute">a</span>=1) 因其参数顺序不同，可能会被缓存两次。</span><br><span class="line"></span><br><span class="line">如果指定了 user_function，它必须是一个可调用对象。 这允许 lru_cache 装饰器被直接应用于一个用户自定义函数，让 maxsize 保持其默认值 128:</span><br><span class="line"></span><br><span class="line">如果 maxsize 设置为 None ，LRU功能将被禁用且缓存数量无上限。 maxsize 设置为2的幂时可获得最佳性能。</span><br><span class="line"></span><br><span class="line">如果 typed 设置为<span class="literal">true</span>，不同类型的函数参数将被分别缓存。例如， f(3) 和 f(3.0) 将被视为不同而分别缓存。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>取这个函数名的意义在于，LRU叫做<strong>最久未使用算法</strong>，是一种缓存文件的置换方法。这些种方法会使用最久没有被访问的对象作为置换进去的对象。于此相对的方法还有，最近最少使用，非最近使用，先进先出等等算法。</li>
+<li>也就是说，这个函数默认会储存128个调用结果。这个函数<strong>实现了备忘功能，会避免在传入相同函数的重复计算。超过这个条目的缓存，会根据LRU规则被丢弃掉</strong>。可以使<code>cache_clear()</code>来清除缓存</li>
+</ul>
+<h3 id="实现场景"><a href="#实现场景" class="headerlink" title="实现场景"></a>实现场景</h3><ul>
+<li>比如在一些使用recursion的场景下，会重复调用很多相同参数的函数（我的雅虎网测也是因此没有通过）。使用这种方法可以很好的减少计算量</li>
+<li>比如斐波那契的计算，计算31的时候调用函数的次数已经差出了几千倍，时间也差很多</li>
+<li>使用的时候记得<code>import functools</code><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@functools.lru_cache(None)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fib_with_cache</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> fib_with_cache(n - <span class="number">2</span>) + fib_with_cache(n - <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="什么是装饰器"><a href="#什么是装饰器" class="headerlink" title="什么是装饰器"></a>什么是装饰器</h1><p>既然说到了这种装饰器，我就突然发现自己还不知道什么是装饰器。</p>
+<h2 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a href="https://www.zhihu.com/question/26930016" target="_blank" rel="noopener">如何理解python装饰器</a></li>
+<li><a href="https://www.runoob.com/w3cnote/python-func-decorators.html" target="_blank" rel="noopener">Python 函数装饰器</a></li>
+<li><a href></a></li>
+</ul>
+<p>####核心思想：python万物皆对象，包括函数本身</p>
+<h3 id="装饰器（decorators）"><a href="#装饰器（decorators）" class="headerlink" title="装饰器（decorators）"></a>装饰器（decorators）</h3><ul>
+<li>整体来说，装饰器的作用就是在不影响以前的函数的情况下，提供我们需要的效果。本质上来说，装饰器也是一个python的函数，他可以让其他函数实现额外的功能，而不修改本身的代码。可以用装饰器实现大量复用的功能</li>
+<li>装饰器返回的也是函数对象。</li>
+</ul>
+<h4 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h4><p>如果现在有一个函数<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am foo'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>但是我想要一个需求，就是记录下来执行日志<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'i am foo'</span>)</span><br><span class="line">    logging.info(<span class="string">"foo is running"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>但是如果在很多个函数中都想要实现这个功能，那么我们需要修改每个函数的内容，加上log的代码。如果这个log的功能只是测试的时候用一下，那么修改的时候还需要把所有的代码再删掉。这时候最开始的想法是写一个新的函数包括这些功能，比如<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">	print(<span class="string">"THIS is foo"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decotator</span><span class="params">(func)</span>:</span></span><br><span class="line">	print(<span class="string">"start...%s"</span>%func)</span><br><span class="line">	func()</span><br><span class="line"></span><br><span class="line">decotator(foo)</span><br></pre></td></tr></table></figure></p>
+<p>但是写成这样挺丑的，而且调用这个函数的时候就变成了不是调用这个函数本身，这时候就需要装饰器来工作。</p>
+<ul>
+<li>面函数里面的wrapper是一个函数对象，因为修饰器的参数是函数，wrapper是来解决这个函数还有参数的问题。</li>
+<li><p>这个效果也就等同于<code>foo = Log(foo)</code>，然后调用的时候调用<code>foo(arg)</code>的效果。把这个方法自动化之后就是加上@让他自动变成装饰器了</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Log</span><span class="params">(func)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">		logging.warn(<span class="string">"%s is running"</span>%func.__name__)</span><br><span class="line">		<span class="keyword">return</span> func(*args)</span><br><span class="line">	<span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@Log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span></span><br><span class="line">	print(<span class="string">"this is foo"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在装饰器调用的时候，用<strong>@</strong>来表示，避免再一次的赋值操作（本来应该是 <code>foo = Log(foo)  foo()</code>的这种调用方法。<br>在实现带参数的装饰器的时候，可以给装饰器再套一层。注意函数名带括号和不带括号的区别</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Log</span><span class="params">(level)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">		<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">			<span class="keyword">if</span> level == <span class="string">"1"</span>:</span><br><span class="line">				logging.warn(<span class="string">"start %s"</span>%func.__name__)</span><br><span class="line">			<span class="keyword">return</span> func(*args)</span><br><span class="line">		<span class="keyword">return</span> wrapper</span><br><span class="line">	<span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>####其他的一些</p>
+<ul>
+<li>类装饰器：如果装饰器的参数是个类，可以给类写装饰器，可以实现更多的功能</li>
+<li>装饰器的顺序，离这个函数越近的越是</li>
+</ul>
+<p>#可变参数<br><a href="https://n3xtchen.github.io/n3xtchen/python/2014/08/08/python-args-and-kwargs" target="_blank" rel="noopener">参考</a><br>上面的参数里面有加了星标的，这个突然发现自己有一点理解不准确，而且这么久了感觉也没怎么用到过。就一起写在这里了<br><strong>总得来说，可变参数就是可以处理不同数量的参数</strong></p>
+<h3 id="args"><a href="#args" class="headerlink" title="*args"></a>*args</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">argsFunc</span><span class="params">(a, *args)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> a</span><br><span class="line">	<span class="keyword">print</span> args</span><br><span class="line">	</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>argsFunc(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="kwargs"><a href="#kwargs" class="headerlink" title="**kwargs"></a>**kwargs</h3><ul>
+<li>参数名字前面加两个星号，表示参数会被存放在dict里面，这时候调用这个函数的时候需要输入<code>arg1 = value1, arg2 = value2</code>这种形式</li>
+<li>这种的一般会在调用sql的时候用到</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2521,206 +2741,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/10/30/Python在遍历时删除元素/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/30/Python在遍历时删除元素/" class="post-title-link" itemprop="url">Python在遍历时删除元素</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-10-30 14:16:41 / Modified: 15:43:06" itemprop="dateCreated datePublished" datetime="2019-10-30T14:16:41+09:00">2019-10-30</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/编程语言/Python/list/" itemprop="url" rel="index"><span itemprop="name">list</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><a href="https://segmentfault.com/a/1190000007214571" target="_blank" rel="noopener">Python语法糖——遍历列表时删除元素</a></li>
-<li><a href="https://www.runoob.com/python3/python3-func-filter.html" target="_blank" rel="noopener">Filter</a></li>
-</ul>
-<p>之前在leetcode刷题的时候，如果用for循环删除list的元素时总会发生问题。由此来总结一下遍历删除元素的各个方法</p>
-<h2 id="我比较常用的——建立新的list"><a href="#我比较常用的——建立新的list" class="headerlink" title="我比较常用的——建立新的list"></a>我比较常用的——建立新的list</h2><p>简单直接的方法可以挺好的解决这个问题，建立一个新的list。如果结果不符合，则跳过这个元素，符合的时候把这个元素加入list。<br>虽然这样显得比较蠢，但是遇到问题的时候比较容易想起来</p>
-<h3 id="延伸：遍历拷贝的list。操作原始的list"><a href="#延伸：遍历拷贝的list。操作原始的list" class="headerlink" title="延伸：遍历拷贝的list。操作原始的list"></a>延伸：遍历拷贝的list。操作原始的list</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> lst[:]:</span><br><span class="line">	<span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">		lst.remove(i)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在这里，<code>lst[:]</code>已经是拷贝之后的结果了，也就是说对原来的lst操作不会对拷贝的结果产生影响</li>
-</ul>
-<h2 id="filter"><a href="#filter" class="headerlink" title="filter"></a><strong>filter</strong></h2><ul>
-<li>显得比较聪明的一种方法</li>
-<li>filter是python里面的一个函数，包括两个参数<ul>
-<li>function：用于条件判断。这个function可以是之前已经用<strong>def</strong>定义好的function，也可以是用lamnda简写的function</li>
-<li>lst：用于输入需要修改的list，参数是一个可迭代的对象<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lst = filter(<span class="keyword">lambda</span> x: x != <span class="number">0</span>, lst)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p>也就是说，会先判断x是否不等于0，如果返回值是true，那么保留这个元素。如果返回值是false，则删除这个元素。</p>
-<h2 id="列表解析"><a href="#列表解析" class="headerlink" title="列表解析"></a>列表解析</h2><p>也就是在1行里面写list的方法<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lst  = [x <span class="keyword">for</span> x <span class="keyword">in</span> lst <span class="keyword">if</span> x != <span class="number">0</span>]</span><br></pre></td></tr></table></figure></p>
-<h2 id="while判断"><a href="#while判断" class="headerlink" title="while判断"></a>while判断</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="number">0</span> <span class="keyword">in</span> lst:</span><br><span class="line">	lst.remove(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="倒序循环"><a href="#倒序循环" class="headerlink" title="倒序循环"></a>倒序循环</h2><ul>
-<li>这个方法占用的空间最少</li>
-<li>但是可读性比较差</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(lst)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">	<span class="keyword">if</span> lst[i] == <span class="number">0</span>:</span><br><span class="line">		<span class="keyword">del</span> lst[i]</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2769,7 +2789,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3065,7 +3085,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">80</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
