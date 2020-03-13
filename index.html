@@ -370,7 +370,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2020/03/09/Python-lru-cache/" class="post-title-link" itemprop="url">Python的lru_cache装饰器，装饰器，可变参数\*args</a>
+                <a href="/2020/03/09/Python-lru-cache/" class="post-title-link" itemprop="url">Python的lru_cache装饰器，装饰器，可变参数*args</a>
               
             
           </h1>
@@ -395,12 +395,24 @@
                 
               
 
-              <time title="Created: 2020-03-09 14:22:38 / Modified: 16:23:18" itemprop="dateCreated datePublished" datetime="2020-03-09T14:22:38+09:00">2020-03-09</time>
+              <time title="Created: 2020-03-09 14:22:38" itemprop="dateCreated datePublished" datetime="2020-03-09T14:22:38+09:00">2020-03-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-13 14:10:15" itemprop="dateModified" datetime="2020-03-13T14:10:15+09:00">2020-03-13</time>
               
             
           </span>
@@ -483,10 +495,8 @@
 <h2 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="https://www.zhihu.com/question/26930016" target="_blank" rel="noopener">如何理解python装饰器</a></li>
 <li><a href="https://www.runoob.com/w3cnote/python-func-decorators.html" target="_blank" rel="noopener">Python 函数装饰器</a></li>
-<li><a href></a></li>
 </ul>
-<p>####核心思想：python万物皆对象，包括函数本身</p>
-<h3 id="装饰器（decorators）"><a href="#装饰器（decorators）" class="headerlink" title="装饰器（decorators）"></a>装饰器（decorators）</h3><ul>
+<h4 id="核心思想：python万物皆对象，包括函数本身"><a href="#核心思想：python万物皆对象，包括函数本身" class="headerlink" title="核心思想：python万物皆对象，包括函数本身"></a>核心思想：python万物皆对象，包括函数本身</h4><h3 id="装饰器（decorators）"><a href="#装饰器（decorators）" class="headerlink" title="装饰器（decorators）"></a>装饰器（decorators）</h3><ul>
 <li>整体来说，装饰器的作用就是在不影响以前的函数的情况下，提供我们需要的效果。本质上来说，装饰器也是一个python的函数，他可以让其他函数实现额外的功能，而不修改本身的代码。可以用装饰器实现大量复用的功能</li>
 <li>装饰器返回的也是函数对象。</li>
 </ul>
@@ -503,12 +513,11 @@
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Log</span><span class="params">(level)</span>:</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">		<span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args,**kwargs)</span>:</span></span><br><span class="line">			<span class="keyword">if</span> level == <span class="string">"1"</span>:</span><br><span class="line">				logging.warn(<span class="string">"start %s"</span>%func.__name__)</span><br><span class="line">			<span class="keyword">return</span> func(*args)</span><br><span class="line">		<span class="keyword">return</span> wrapper</span><br><span class="line">	<span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>####其他的一些</p>
-<ul>
+<h4 id="其他的一些"><a href="#其他的一些" class="headerlink" title="其他的一些"></a>其他的一些</h4><ul>
 <li>类装饰器：如果装饰器的参数是个类，可以给类写装饰器，可以实现更多的功能</li>
 <li>装饰器的顺序，离这个函数越近的越是</li>
 </ul>
-<p>#可变参数<br><a href="https://n3xtchen.github.io/n3xtchen/python/2014/08/08/python-args-and-kwargs" target="_blank" rel="noopener">参考</a><br>上面的参数里面有加了星标的，这个突然发现自己有一点理解不准确，而且这么久了感觉也没怎么用到过。就一起写在这里了<br><strong>总得来说，可变参数就是可以处理不同数量的参数</strong></p>
+<h1 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h1><p><a href="https://n3xtchen.github.io/n3xtchen/python/2014/08/08/python-args-and-kwargs" target="_blank" rel="noopener">参考</a><br>上面的参数里面有加了星标的，这个突然发现自己有一点理解不准确，而且这么久了感觉也没怎么用到过。就一起写在这里了<br><strong>总得来说，可变参数就是可以处理不同数量的参数</strong></p>
 <h3 id="args"><a href="#args" class="headerlink" title="*args"></a>*args</h3><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">argsFunc</span><span class="params">(a, *args)</span>:</span></span><br><span class="line">	<span class="keyword">print</span> a</span><br><span class="line">	<span class="keyword">print</span> args</span><br><span class="line">	</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>argsFunc(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line">(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="kwargs"><a href="#kwargs" class="headerlink" title="**kwargs"></a>**kwargs</h3><ul>
 <li>参数名字前面加两个星号，表示参数会被存放在dict里面，这时候调用这个函数的时候需要输入<code>arg1 = value1, arg2 = value2</code>这种形式</li>
@@ -632,7 +641,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-09 14:10:06" itemprop="dateModified" datetime="2020-03-09T14:10:06+09:00">2020-03-09</time>
+                <time title="Modified: 2020-03-13 14:49:07" itemprop="dateModified" datetime="2020-03-13T14:49:07+09:00">2020-03-13</time>
               
             
           </span>
