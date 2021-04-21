@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">53</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">54</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">80</span></a>
 
   </li>
 
@@ -334,6 +334,652 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/03/十大经典排序/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/03/十大经典排序/" class="post-title-link" itemprop="url">十大经典排序</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-03 15:36:21" itemprop="dateCreated datePublished" datetime="2019-09-03T15:36:21+09:00">2019-09-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-04 17:14:08" itemprop="dateModified" datetime="2019-09-04T17:14:08+09:00">2019-09-04</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/排序/" itemprop="url" rel="index"><span itemprop="name">排序</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考出自：<a href="https://mp.weixin.qq.com/s/vn3KiV-ez79FmbZ36SX9lg" target="_blank" rel="noopener">五分钟学算法</a></p>
+<ul>
+<li>时间复杂度<ul>
+<li>最好情况</li>
+<li>最坏情况</li>
+</ul>
+</li>
+<li>空间复杂度: 需不需要开辟新的空间</li>
+<li>排序方式：in-place还是不是in - place</li>
+<li>排序稳定性: 也就是之前顺序的东西在排序之后是否还顺序</li>
+</ul>
+<h1 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h1><ul>
+<li>前面一个数和后面一个比，如果前面的数比后面的大(或者小)，就交换他们两个<ul>
+<li>这样交换一次之后的最后一个数就是所有数字里面的最大数</li>
+<li>也就相当于最大的数像冒泡一样冒出来了，第一轮过后，第二轮可以直接冒倒数第二个数，也就是说每一轮的内循环次数可以逐渐减少</li>
+</ul>
+</li>
+<li>需要重复n次（但是每次对越来越少的数字进行上述操作），以确保所有的交换都已经完毕了。</li>
+<li><p>增加了一个flag的判断，如果在一轮里面没有任何交换产生，那就说明所有的元素都已经排序完毕了（因为如果还有数字往上冒必然会在前面有交换</p>
+<ul>
+<li>这样如果是正序排列的话，可以直接跳出循环，不用进行比较，时间复杂度是n<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubbleSort</span><span class="params">(num)</span>:</span></span><br><span class="line">    n = len(num)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        flag = <span class="literal">True</span>  <span class="comment"># 如果在这轮没有任何交换，就可以说明排序已经完成了</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n - j):</span><br><span class="line">            <span class="keyword">if</span> num[i] &gt; num[i + <span class="number">1</span>]:</span><br><span class="line">                temp = num[i]</span><br><span class="line">                num[i] = num[i + <span class="number">1</span>]</span><br><span class="line">                num[i + <span class="number">1</span>] = temp</span><br><span class="line">                flag = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> flag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li>当正序排列的时候，因为可以直接跳出循环，所以只需要遍历一次所有的数保证他们排列正常，所以时间复杂度是n</li>
+<li>当倒序排列的时候，需要把所有都移动一遍，所以时间复杂度是 n ^ 2</li>
+<li>平均的复杂度是n方</li>
+</ul>
+</li>
+<li>空间复杂度：<ul>
+<li>因为交换只需要一个额外的temp来储存临时变量，空间复杂度是1</li>
+</ul>
+</li>
+<li>in-place：是的</li>
+<li>稳定性：稳定，因为一次换过来的东西就不动了，在判断大小的时候也是判断的大于而不是大于等于，也就是说前面换到后面的大数永远会在后面的数的前面<ul>
+<li>比如[0, 8, 1, 8, 2]。首先会把第一个8换到第二个8的前面，因为判断条件没有等于，所以越不过去。</li>
+</ul>
+</li>
+</ul>
+<h1 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h1><ul>
+<li>从所有元素中找到最小（或者最大）元素，然后放到数组的第一个（也就是和数组的第一个交换位置），然后这个就算是固定住了</li>
+<li>然后从第二个到最后一个中选择现在最小的，和数组的第二个交换位置，前两个就固定住了</li>
+<li><p>以此类推</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">SelectSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        Min = float(<span class="string">"inf"</span>)</span><br><span class="line">        index = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, n):</span><br><span class="line">            <span class="keyword">if</span> nums[j] &lt; Min:</span><br><span class="line">                Min = nums[j]</span><br><span class="line">                index = j</span><br><span class="line">        <span class="keyword">if</span> index != i:  <span class="comment"># 这样可以减少一些根本不用交换的情况，下一个位置上本来就是最小的</span></span><br><span class="line">            temp = nums[i]</span><br><span class="line">            nums[i] = nums[index]</span><br><span class="line">            nums[index] = temp</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>时间复杂度：</p>
+<ul>
+<li>最好情况和最坏情况都不能避免走两个循环，都是n ^ 2</li>
+</ul>
+</li>
+<li>空间复杂度: 1, 来储存temp的值和暂时的最大值的变量</li>
+<li>in-place：是的，换位置就可以，不需要单拿出来</li>
+<li>稳定：<ul>
+<li>不稳定，因为在交换位置的时候，并不知道现在的东西被交换到哪里去了</li>
+<li>比如：[3, 3, 0, 9]，当0和3交换位置的时候，把第一个3交换到第二个3后面去了</li>
+</ul>
+</li>
+</ul>
+<h1 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h1><ul>
+<li>在第1轮，认为第1个已经排好序了，然后从第二个开始拿出来，把它放在排好序的里面的合适的位置上</li>
+<li>从第二轮开始依次类推，所以还是两个循环</li>
+<li>在第i轮里面，前i个元素已经是排好序的了</li>
+<li>在插入的过程当中，需要考虑如果把所有的需要移动的数字的坐标都移动一位。这时候比较有效的考虑方法是从最右边开始往左边移动，只要右边的数比现在的temp要大，这一位（实际上这一位指的是j - 1，因为j是移动之后的坐标）就需要移动。移动之后再减1</li>
+<li>在所有的都移动结束之后，如果j这个位置和i的位置不一样，就说明发生了插入，那么就是nums[j] = 被插入的数字temp</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">InsertSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        temp = nums[i]</span><br><span class="line">        j = i</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> temp &lt; nums[j - <span class="number">1</span>]:</span><br><span class="line">            nums[j] = nums[j - <span class="number">1</span>]</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> j != i:</span><br><span class="line">            nums[j] = temp</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度<ul>
+<li>最好的时候，不需要插入，最大值直接放在了前面排好序的最右边，也就是没有内循环，n</li>
+<li>最差的时候，反序，需要全都循环一遍 n2</li>
+</ul>
+</li>
+<li>空间复杂度 1</li>
+<li>in-place</li>
+<li>稳定性：稳定，因为如果是[2, 0, 0, 1]，第一个0先插入变成了[0_1, 2, 0_2, 1]，然后插入第二个0的时候因为比较的时候没有比等于，所以会变成[0_1, 0_2, 2, 1]</li>
+</ul>
+<h1 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h1><ul>
+<li>选择一个序列来对这个数组进行排序，比如如果是10个数，可以是5 2 1这样的，最后一个一定是1（设定的公式是3xn + 1不知道为什么）</li>
+<li>然后根据这个序列把数组分成这个序列个数的组，对每组的数字进行插入排序。比如用5分成两份，那就要进行5次，两个之间的排序</li>
+<li>一共进行的排序次数是和序列的个数有关的</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ShellSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    gap = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> gap &lt; n / <span class="number">3</span>:</span><br><span class="line">        gap = gap * <span class="number">3</span> + <span class="number">1</span>  <span class="comment"># 一个神奇的选择方法，也不知道为什么但是确实很好用</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gap, n):</span><br><span class="line">            <span class="comment"># 这里执行的是插入排序，和上面的插入排序一样，只不过每次跳gap个了</span></span><br><span class="line">            temp = nums[i]</span><br><span class="line">            j = i</span><br><span class="line">            <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> temp &lt; nums[j - gap]:</span><br><span class="line">                nums[j] = nums[j - gap]</span><br><span class="line">                j -= gap</span><br><span class="line">            <span class="keyword">if</span> j != i:</span><br><span class="line">                nums[j] = temp</span><br><span class="line">        <span class="comment"># 直接int就可以向下取整，因为加1并不影响取整效果</span></span><br><span class="line">        gap = int(gap / <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于增量，不同的增量对时间复杂度有不同的影响<ul>
+<li>目前应用最多的是 Knuth增量:1,4,13,40,…,(3^k - 1)/2，也就是代码里面的这个增量</li>
+<li>这时候的复杂度是 N^（3/2）</li>
+</ul>
+</li>
+<li>时间复杂度：<ul>
+<li>根据不同的步长不同而有所差别，还有的步长还没计算出来复杂度</li>
+<li>如果是原版的，也就是原长度一直除2的话<ul>
+<li>最好效果：n，也就是不需要内循环</li>
+<li>最烂效果：n^2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>空间复杂度 1</li>
+<li>in-place</li>
+<li>不稳定，因为很有可能因为分组的不同把两个数的顺序颠倒，比如两组的后面都是3，但是第一组的前一个是2，第二组的前一个是4，这样就把第二个3换到前面去了</li>
+</ul>
+<h1 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h1><ul>
+<li>归并排序是分治法的一个典型的应用，可以把有序的子列合并，然后得到新的有序的子列</li>
+<li>比较方法<ul>
+<li>首先比较两个子列的初始值a[i]和b[j]，把比较小的那个（比如i）放进新的list[k]里面，并且让<strong>i和k</strong>分别加一，然后继续比较i和j，然后结果放进k里。</li>
+<li>如果有一个子列已经取完了，那么可以直接把另一个里面的剩余元素复制到新的list的最后</li>
+<li>因为现在使用的子列已经是排好序的了，所以可以使用这种比较方法。初始状态认为每一个数字都是一个单独的子列，所以往上合并的时候都是有序的了</li>
+</ul>
+</li>
+<li>实现：<ul>
+<li>申请一个新的空间，大小是两个子列的大小之和</li>
+<li>两个指针分别从初始位置开始</li>
+<li>根据上面的方法移动指针</li>
+<li>在实现的过程中需要用到拆分和合并两个步骤</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MergeSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    middle = int(n / <span class="number">2</span>)</span><br><span class="line">    L, R = nums[:middle], nums[middle:]</span><br><span class="line">    <span class="keyword">return</span> merge(MergeSort(L), MergeSort(R))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(L, R)</span>:</span></span><br><span class="line">    M = []</span><br><span class="line">    i, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> L <span class="keyword">and</span> R:</span><br><span class="line">        <span class="keyword">if</span> L[<span class="number">0</span>] &lt;= R[<span class="number">0</span>]:</span><br><span class="line">            M.append(L.pop(<span class="number">0</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            M.append(R.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">while</span> L:</span><br><span class="line">        M.append(L.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">while</span> R:</span><br><span class="line">        M.append(R.pop(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> M</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>在python实现中，其实并不需要用坐标表示，可以直接用pop把每次需要取的东西取出来</p>
+</li>
+<li><p>时间复杂度</p>
+<ul>
+<li>无论最好或者最坏的情况都需要把所有东西都比较一回，一共是logn层，每层的实际内容都是n个，所以最终的复杂度是nlog(n)。这样看出来归并排序对于最好和最坏的情况比较稳定</li>
+</ul>
+</li>
+<li>空间复杂度：<ul>
+<li>临时数组的时间n + recursive的时候的空间logn = O(n)</li>
+</ul>
+</li>
+<li>out of place</li>
+<li>稳定性：稳定，因为在左边的一定是在左边</li>
+</ul>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><ul>
+<li>选取数组的第一个作为标准，然后把比这个标准小的都放在左边，比标准大的都放在右边</li>
+<li>然后再分别对左右进行快速排序</li>
+<li>注意，在不是python的情况下，需要通过角标互换的方法得到结果</li>
+<li>实现<ul>
+<li>选择一个基准piv</li>
+<li>数列最左边的标记为左标记，最右边的标记是右标记</li>
+<li>将左标记向右标记移动</li>
+<li>如果左标记的值超过了piv的值，停止</li>
+<li>移动右标记</li>
+<li>当右标记小于piv的时候，停止移动</li>
+<li>当左右标记都停止的时候，交换两个数字</li>
+<li>然后继续移动，直到两个标记碰到一起，这时候把这个值和piv交换</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort</span><span class="params">(nums, s, e)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> s &lt; e:</span><br><span class="line">        i, j = s, e</span><br><span class="line">        piv = nums[i]</span><br><span class="line">        index = i</span><br><span class="line">        <span class="keyword">while</span> i &lt; j:</span><br><span class="line">            <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[j] &gt;= piv:</span><br><span class="line">                j -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[i] &lt;= piv:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">        nums[i], nums[index] = piv, nums[i]</span><br><span class="line"></span><br><span class="line">        QuickSort(nums, s, i - <span class="number">1</span>)</span><br><span class="line">        QuickSort(nums, j + <span class="number">1</span>, e)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort_1</span><span class="params">(nums)</span>:</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    temp = nums[<span class="number">0</span>]</span><br><span class="line">    less, more, equal = [], [], [temp]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> nums[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> i &lt; temp:</span><br><span class="line">            less.append(i)</span><br><span class="line">        <span class="keyword">elif</span> i &gt; temp:</span><br><span class="line">            more.append(i)</span><br><span class="line">        <span class="keyword">elif</span> i == temp:</span><br><span class="line">            equal.append(i)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># less = [x for x in nums[1:] if x &lt; temp]</span></span><br><span class="line">    <span class="comment"># more = [x for x in nums[1:] if x &gt; temp]</span></span><br><span class="line">    <span class="comment"># equal = [x for x in nums if x == temp]</span></span><br><span class="line">    <span class="keyword">return</span> QuickSort(less) + equal + QuickSort(more)</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort_3</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(nums) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> nums</span><br><span class="line">    i, j = <span class="number">0</span>, len(nums) - <span class="number">1</span></span><br><span class="line">    piv = nums[i]</span><br><span class="line">    index = i</span><br><span class="line">    <span class="keyword">while</span> i &lt; j:</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[j] &gt;= piv:</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) <span class="keyword">and</span> nums[i] &lt;= piv:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">    nums[i], nums[index] = piv, nums[i]</span><br><span class="line">    <span class="keyword">return</span> QuickSort_3(nums[:i]) + [piv] + QuickSort_3(nums[i + <span class="number">1</span>:])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一种方法input的时候需要确定最开始和结束时候的index。看起来只有第一种方法是in-place的实现？</li>
+<li>时间复杂度：<ul>
+<li>最差的时候和冒泡排序是一样的（也就是排好的），这时候的复杂度是n^2</li>
+<li>最好的时候是完全平分，这时候是 nlogn</li>
+</ul>
+</li>
+<li>空间复杂度：如果用第一种方法，只耗费recursive时候的空间，也就是logn</li>
+<li>in-place</li>
+<li>不稳定，因为不知道在换的时候就把什么奇奇怪怪的东西换到前面去了</li>
+</ul>
+<h1 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h1><ul>
+<li>一种类似二叉树的设计，子节点的<strong>数值</strong>总是大于或者小于父节点的<strong>数值</strong>。首先要让数据形成这样的结构</li>
+<li>每次操作的时候，都把root的值和最后一个节点交换，交换后的最后一个节点移动出堆，然后再重新移动堆让他保持上面说的性质</li>
+<li>一般通过一维数组来访问<ul>
+<li>父节点i的左节点：2i+1</li>
+<li>父节点i的有节点：2i+2</li>
+<li>子节点的父节点： floor（（i-1）/2）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">HeapSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    <span class="comment"># start是从最后一个父节点开始的,构建出heap</span></span><br><span class="line">    <span class="keyword">for</span> start <span class="keyword">in</span> range((len(nums)<span class="number">-2</span>)//<span class="number">2</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        MinHeap(nums,start,len(nums)<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)<span class="number">-1</span>,<span class="number">-1</span>,<span class="number">-1</span>):</span><br><span class="line">        nums[i],nums[<span class="number">0</span>] = nums[<span class="number">0</span>],nums[i]</span><br><span class="line">        <span class="comment"># 因为这里换到最后去的数字就已经确定是最大值了，所以再考虑的时候不用考虑他了</span></span><br><span class="line">        MinHeap(nums,<span class="number">0</span>,i<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MinHeap</span><span class="params">(nums, start, end)</span>:</span></span><br><span class="line">    dad = start</span><br><span class="line">    child = dad * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">    <span class="comment"># 如果子节点还在这个堆里面的话</span></span><br><span class="line">    <span class="keyword">while</span> child &lt;= end:</span><br><span class="line">        <span class="keyword">if</span> child + <span class="number">1</span> &lt;= end <span class="keyword">and</span> nums[child] &gt; nums[child + <span class="number">1</span>]:</span><br><span class="line">            <span class="comment"># 比较两个子节点，选出来更小的那个</span></span><br><span class="line">            child += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> nums[dad] &lt; nums[child]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            nums[dad], nums[child] = nums[child], nums[dad]</span><br><span class="line">            dad = child</span><br><span class="line">            child = dad * <span class="number">2</span> + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>注意</strong>：如果是maxheap（即root上的数字是最大的数字的话），实际排出来的是由小到大，因为max的数字在每一次都被换到了最后面</li>
+<li>时间复杂度：nlogn</li>
+<li>空间复杂度：1</li>
+<li>上面的代码可以原地完成的 in place</li>
+<li>稳定性：不稳定，这种瞎换的很难搞清楚到底换到哪里去了</li>
+</ul>
+<h1 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h1><ul>
+<li>扫描一遍整个数组，找到最大值max和最小值min，花费时间n</li>
+<li>创建一个新的数组，大小是max-min + 1</li>
+<li>然后用新数组里面的index来统计每个数字出现的次数，最后整理出来</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CountingSort</span><span class="params">(nums)</span>:</span></span><br><span class="line">    Max,Min = max(nums),min(nums)</span><br><span class="line">    counting = [<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(Max-Min+<span class="number">1</span>)]</span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">for</span> n <span class="keyword">in</span> nums:</span><br><span class="line">        counting[n-Min] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> n,i <span class="keyword">in</span> enumerate(counting):</span><br><span class="line">        result += i * [n + Min]</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CountingSort_2</span><span class="params">(nums)</span>:</span> <span class="comment">#并不创建新的数组</span></span><br><span class="line">    Max= max(nums)</span><br><span class="line">    bucketLen = Max + <span class="number">1</span></span><br><span class="line">    bucket = [<span class="number">0</span>]*bucketLen</span><br><span class="line">    sortedIndex = <span class="number">0</span></span><br><span class="line">    n = len(nums)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="comment"># 如果现在的这个位置是空的</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> bucket[nums[i]]:</span><br><span class="line">            bucket[nums[i]] = <span class="number">0</span></span><br><span class="line">        bucket[nums[i]] += <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(bucketLen):</span><br><span class="line">        <span class="keyword">while</span> bucket[j] &gt; <span class="number">0</span>:</span><br><span class="line">            nums[sortedIndex] = j</span><br><span class="line">            sortedIndex += <span class="number">1</span></span><br><span class="line">            bucket[j] -= <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>不是比较排序，时间上来说比任何比较排序都快</li>
+<li>没法用在排序的东西不是数字的情况下，数字差异非常大的情况会很占内存。排序的必须是整数</li>
+<li>时间复杂度 <ul>
+<li>n+k，只需要在整个数组里找出最大值和最小值，然后在k时间里面数数每个数字出现了多少次。其中k是这些整数的范围</li>
+</ul>
+</li>
+<li>空间复杂度<ul>
+<li>k用来储存计数的数组</li>
+</ul>
+</li>
+<li>稳定：为了保证数组的稳定性，需要反向填充数组（现在的方法不能保证稳定性）</li>
+</ul>
+<h1 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h1><ul>
+<li>思想基于上面的计数排序，但是没有分那么多种</li>
+<li>主要想法就是先把现在的内容分到k个不同的桶里面，再在每个桶里面分别排序</li>
+<li>步骤<ul>
+<li>把数据分到k个桶里<ul>
+<li>每个桶的范围是 floor（（max-min+1）/ k）</li>
+<li>放入桶的编号为 floor((数字-最小值)/每个桶的范围)</li>
+</ul>
+</li>
+<li>对每个不为空的桶排序</li>
+<li>连接每个不为空的桶</li>
+</ul>
+</li>
+<li>时间复杂度：<ul>
+<li>最好n+k -&gt; 平均分</li>
+<li>最差是n^2 都分到一个桶里了</li>
+</ul>
+</li>
+<li>空间复杂度 n+k</li>
+<li>稳定，注意先放进桶里的要先拿出来，才能保证稳定</li>
+</ul>
+<h1 id="基数排序-radix-sort"><a href="#基数排序-radix-sort" class="headerlink" title="基数排序 radix sort"></a>基数排序 radix sort</h1><ul>
+<li>非比较的整数排序的算法。也可以用在字母上，也就是LSD和MSD</li>
+<li>把整数按位切割成不同的数字，然后每个位的数字分别比较。需要把比较的位放进0-9的九个桶里</li>
+<li>步骤<ul>
+<li>所有数统一到一个长度，短的话前面补0</li>
+<li>从最低位开始，依据最低位进行排序</li>
+<li>一直排到最高位，排序之后就是有序的了</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/22/unity显示相机画面/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/22/unity显示相机画面/" class="post-title-link" itemprop="url">unity显示相机画面并在opencv处理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-22 12:19:07 / Modified: 17:05:48" itemprop="dateCreated datePublished" datetime="2019-08-22T12:19:07+09:00">2019-08-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="打开相机"><a href="#打开相机" class="headerlink" title="打开相机"></a>打开相机</h1><h2 id="显示方法"><a href="#显示方法" class="headerlink" title="显示方法"></a>显示方法</h2><p>首先需要明确，目前看到的显示图片有两种方法，一种是渲染到实际的gameobject上面去，另一种是draw到GUI上面去。关于gameobject在上一个<a href="https://bigphess.github.io/2019/08/20/unity%E4%B8%8EopenCV%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87/">显示图片</a>里面有了大致的了解。这里主要说的内容包括</p>
+<ul>
+<li>相机显示的必备步骤</li>
+<li>关于GUI</li>
+<li>关于renderer</li>
+</ul>
+<h2 id="相机内容显示"><a href="#相机内容显示" class="headerlink" title="相机内容显示"></a>相机内容显示</h2><ul>
+<li>在unity中，有一个专门的类叫做WebCamTexture，我们需要为读取进来的相机texture创建一个新的对象。一般来说，需要三个部分，相机纹理，相机名字（string）以及相机是否打开（bool）</li>
+</ul>
+<h3 id="start部分"><a href="#start部分" class="headerlink" title="start部分"></a>start部分</h3><ul>
+<li>在这部分，我们首先需要把创建的cameraTexture实例化</li>
+<li>其次，我们需要调用<code>StartCoroutine</code>函数，在其中调用测试函数来确定相机是否打开</li>
+</ul>
+<h4 id="StartCoroutine"><a href="#StartCoroutine" class="headerlink" title="StartCoroutine"></a>StartCoroutine</h4><ul>
+<li>在一般的执行里面，unity是逐帧运行的，所以当操作花费时间的时候，帧率下降，就会发生卡顿</li>
+<li>这部分开始了一个协程（Coroutine），使用yield，可以在任何部分暂停这个Coroutine的执行。如果被成功暂停，它会在下一帧恢复正常。所以这个方法在多帧运行之中非常好用。<ul>
+<li>unity会假装开辟一个新线程来执行，但是不会影响主线程的持续效果</li>
+<li><a href="https://blog.csdn.net/qq_15379219/article/details/80507864" target="_blank" rel="noopener">参考</a></li>
+</ul>
+</li>
+<li>从这里的功能来说，yield会检查用户有没有授权，如果没有授权的话，运行被终止，跳到下一帧。如果授权成功了的话，运行成功，相机打开。</li>
+</ul>
+<h4 id="IEnumerator"><a href="#IEnumerator" class="headerlink" title="IEnumerator"></a>IEnumerator</h4><ul>
+<li>在StartCoroutine调用的是一个IEnumerator函数，他通过yield一个bool来决定是不是继续运行这个函数</li>
+</ul>
+<h4 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h4><ul>
+<li>在test里面需要考虑有没有用户的授权</li>
+<li>有授权的情况下，需要把目前的WebCamTexture（注意这里不是建立的实例）的device的数据传递给<code>WebCamDevice</code>，包括类型，名字等等。</li>
+<li>然后需要把包括这个相机名字，size和fps的信息传给之前cameraTexture的实例</li>
+<li>以上都设定好之后，<code>WebCamTexture.Play</code>会激活这个相机，让他开始工作</li>
+<li>然后再讲相机的texture渲染到object的表面上<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> <span class="keyword">return</span> Application.RequestUserAuthorization(UserAuthorization.WebCam);</span><br><span class="line">        <span class="keyword">if</span>(Application.HasUserAuthorization(UserAuthorization.WebCam))</span><br><span class="line">        &#123;</span><br><span class="line">            WebCamDevice[] devices = WebCamTexture.devices;</span><br><span class="line">            cameraName = devices[<span class="number">0</span>].name;</span><br><span class="line">            cameraTexture = <span class="keyword">new</span> WebCamTexture(cameraName, <span class="number">1024</span>, <span class="number">768</span>, <span class="number">15</span>);</span><br><span class="line">            cameraTexture.Play();</span><br><span class="line">            isOpen = <span class="literal">true</span>;</span><br><span class="line">            renderer.material.mainTexture = cameraTexture;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h2><ul>
+<li>GUI主要是提供了图形化的窗口，实际上显示的元素是直接显示在game画面上的，也就是说这部分是和实际相机拍摄到的画面独立的。无论相机如何移动，物体如何改变，最终GUI的画面都会显示到同样的地方</li>
+</ul>
+<h3 id="MonoBehaviour-OnGUI"><a href="#MonoBehaviour-OnGUI" class="headerlink" title="MonoBehaviour.OnGUI()"></a>MonoBehaviour.OnGUI()</h3><ul>
+<li><strong>注意OnGUI函数并不需要我们自己去调用，不需要再update里面调用！</strong></li>
+<li>OnGUI是API里面自带的函数，我们需要在这个函数中渲染和处理GUI的event</li>
+<li>在实际应用中，OnGUI可能每一个frame被call很多次，每次event（例如鼠标操作，键盘等等）发生的时候都会call这个函数</li>
+<li>例如下面官方的例子，每次鼠标点击的时候，就会print出相应的话来<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExampleClass</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (GUI.Button(<span class="keyword">new</span> Rect(<span class="number">10</span>, <span class="number">10</span>, <span class="number">150</span>, <span class="number">100</span>), <span class="string">"I am a button"</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            print(<span class="string">"You clicked the button!"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="GUI-DrawTexture"><a href="#GUI-DrawTexture" class="headerlink" title="GUI.DrawTexture"></a>GUI.DrawTexture</h3><ul>
+<li>在GUI的实现中，我们需要将相机读取到的部分draw的GUI的上面，所以调用了这个函数</li>
+<li>需要确定的参数包括：位置，需要渲染的texture，缩放比例等等</li>
+</ul>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ul>
+<li><a href="https://blog.csdn.net/weixin_33966095/article/details/85736365" target="_blank" rel="noopener">代码部分参考</a><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">showCamera</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">protected</span> WebCamTexture cameraTexture;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">string</span> cameraName = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">bool</span> isOpen = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//protected MeshRenderer renderer;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//renderer = this.GetComponent&lt;MeshRenderer&gt;();</span></span><br><span class="line">        cameraTexture = <span class="keyword">new</span> WebCamTexture();</span><br><span class="line">        StartCoroutine(Test());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">IEnumerator <span class="title">Test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Application.RequestUserAuthorization(UserAuthorization.WebCam);</span><br><span class="line">        <span class="keyword">if</span>(Application.HasUserAuthorization(UserAuthorization.WebCam))</span><br><span class="line">        &#123;</span><br><span class="line">            WebCamDevice[] devices = WebCamTexture.devices;</span><br><span class="line">            cameraName = devices[<span class="number">0</span>].name;</span><br><span class="line">            cameraTexture = <span class="keyword">new</span> WebCamTexture(cameraName, <span class="number">1024</span>, <span class="number">768</span>, <span class="number">15</span>);</span><br><span class="line">            cameraTexture.Play();</span><br><span class="line">            isOpen = <span class="literal">true</span>;</span><br><span class="line">            <span class="comment">//renderer.material.mainTexture = cameraTexture;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">OnGUI</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>(isOpen)</span><br><span class="line">        &#123;</span><br><span class="line">            GUI.DrawTexture(<span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">400</span>, <span class="number">300</span>), cameraTexture, ScaleMode.ScaleToFit);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="渲染到object上面"><a href="#渲染到object上面" class="headerlink" title="渲染到object上面"></a>渲染到object上面</h2><ul>
+<li>和之前的操作类似，需要<ul>
+<li>构建MeshRenderer的object </li>
+<li>在start里面读取出物体的MeshRenderer（getcomponent）</li>
+<li>最后打开相机后，把相机的内容渲染到MeshRenderer上面</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">showCamera</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">protected</span> WebCamTexture cameraTexture;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">string</span> cameraName = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">bool</span> isOpen = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> MeshRenderer renderer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        renderer = <span class="keyword">this</span>.GetComponent&lt;MeshRenderer&gt;();</span><br><span class="line">        <span class="comment">//cameraTexture = new WebCamTexture();</span></span><br><span class="line">        StartCoroutine(Test());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function">IEnumerator <span class="title">Test</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Application.RequestUserAuthorization(UserAuthorization.WebCam);</span><br><span class="line">        <span class="keyword">if</span>(Application.HasUserAuthorization(UserAuthorization.WebCam))</span><br><span class="line">        &#123;</span><br><span class="line">            WebCamDevice[] devices = WebCamTexture.devices;</span><br><span class="line">            cameraName = devices[<span class="number">0</span>].name;</span><br><span class="line">            cameraTexture = <span class="keyword">new</span> WebCamTexture(cameraName, <span class="number">1024</span>, <span class="number">768</span>, <span class="number">15</span>);</span><br><span class="line">            cameraTexture.Play();</span><br><span class="line">            isOpen = <span class="literal">true</span>;</span><br><span class="line">            renderer.material.mainTexture = cameraTexture;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//void OnGUI()</span></span><br><span class="line">    <span class="comment">//&#123;</span></span><br><span class="line">    <span class="comment">//    if(isOpen)</span></span><br><span class="line">    <span class="comment">//    &#123;</span></span><br><span class="line">    <span class="comment">//        GUI.DrawTexture(new Rect(0, 0, 400, 300), cameraTexture, ScaleMode.ScaleToFit);</span></span><br><span class="line">    <span class="comment">//    &#125;</span></span><br><span class="line">    <span class="comment">//&#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="将图片放入opencv"><a href="#将图片放入opencv" class="headerlink" title="将图片放入opencv"></a>将图片放入opencv</h1><p><a href="https://teratail.com/questions/33847" target="_blank" rel="noopener">来源</a></p>
+<ul>
+<li>得到了web的texture之后，可以直接用openCV的部分把这个玩意转换成mat，然后处理</li>
+<li>这里的问题是刚开始mat的大小莫名其妙的是16，所以需要加上一个判断条件</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> OpenCVForUnity.CoreModule;</span><br><span class="line"><span class="keyword">using</span> OpenCVForUnity.UnityUtils;</span><br><span class="line"><span class="keyword">using</span> OpenCVForUnity.ImgprocModule;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">showCamera</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">protected</span> WebCamTexture cameraTexture;</span><br><span class="line">    <span class="comment">//protected string cameraName = "";</span></span><br><span class="line">    <span class="comment">//protected bool isOpen = false;</span></span><br><span class="line">    <span class="keyword">private</span> Color32[] colors;</span><br><span class="line">    <span class="keyword">private</span> Mat rgbaMat;</span><br><span class="line">    <span class="keyword">private</span> Texture2D tex;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//renderer = this.GetComponent&lt;MeshRenderer&gt;();</span></span><br><span class="line">        <span class="comment">//cameraTexture = new WebCamTexture();</span></span><br><span class="line">        <span class="comment">//StartCoroutine(Test());</span></span><br><span class="line">        cameraTexture = <span class="keyword">new</span> WebCamTexture(WebCamTexture.devices[<span class="number">0</span>].name, <span class="number">640</span>, <span class="number">480</span>);</span><br><span class="line">        cameraTexture.Play();</span><br><span class="line"></span><br><span class="line">        StartCoroutine(init());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> IEnumerator <span class="title">init</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Debug.Log(cameraTexture.width);</span><br><span class="line">        <span class="keyword">if</span> (cameraTexture.width &lt;= <span class="number">16</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span>(!cameraTexture.didUpdateThisFrame)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForEndOfFrame</span>(<span class="params"></span>)</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            cameraTexture.Pause();</span><br><span class="line">            colors = cameraTexture.GetPixels32();</span><br><span class="line">            cameraTexture.Stop();</span><br><span class="line"></span><br><span class="line">            <span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForEndOfFrame</span>(<span class="params"></span>)</span>;</span><br><span class="line">            cameraTexture.Play();</span><br><span class="line"></span><br><span class="line">            tex = <span class="keyword">new</span> Texture2D(cameraTexture.width, cameraTexture.height, TextureFormat.RGBA32, <span class="literal">false</span>);</span><br><span class="line">            rgbaMat = <span class="keyword">new</span> Mat(cameraTexture.height, cameraTexture.width, CvType.CV_8UC4);</span><br><span class="line"></span><br><span class="line">            GetComponent&lt;Renderer&gt;().material.mainTexture = tex;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Debug.Log(cameraTexture.width);</span><br><span class="line">        <span class="keyword">if</span> (cameraTexture.didUpdateThisFrame &amp;&amp; rgbaMat != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Utils.webCamTextureToMat(cameraTexture, rgbaMat);</span><br><span class="line">            <span class="comment">//Imgproc.cvtColor(rgbaMat, rgbaMat, Imgproc.COLOR_RGB2HSV);</span></span><br><span class="line">            Utils.matToTexture2D(rgbaMat, tex);</span><br><span class="line">            tex.Apply();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2440,427 +3086,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/20/一些OpenCV里面之前没用到的函数/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/20/一些OpenCV里面之前没用到的函数/" class="post-title-link" itemprop="url">一些OpenCV里面之前没用到的函数</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-20 14:01:46" itemprop="dateCreated datePublished" datetime="2019-06-20T14:01:46+09:00">2019-06-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-24 11:57:27" itemprop="dateModified" datetime="2019-06-24T11:57:27+09:00">2019-06-24</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/OpenCV/" itemprop="url" rel="index"><span itemprop="name">OpenCV</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>看了别人写的代码，感觉好多openCV里面的基础功能我都不知道，当时还是在自己写的，比如降噪啊，减去背景啊等等的</p>
-<h2 id="关于载入模型"><a href="#关于载入模型" class="headerlink" title="关于载入模型"></a>关于载入模型</h2><p>看了一个Github上面的项目，是自己训练了一个五个手势的识别，然后用这些手势来控制自己屋子里面的灯光变化，用keras训练的所以先载入了这个的模型，然后有两个不同的预测的函数</p>
-<ul>
-<li>第一个函数用了<code>model.predict_classes</code>，这个函数预测出来的直接是类别，打印出来的就是类别的编号</li>
-<li>第二个用的是<code>model.predict</code>，这个预测出来的是一个数字，不能直接用，还需要把这个数值<code>argmax(predict_test,axis=1)</code>才可以用（也就是找到最大的）</li>
-</ul>
-<h2 id="createBackgroundSubtractorMOG2"><a href="#createBackgroundSubtractorMOG2" class="headerlink" title="createBackgroundSubtractorMOG2()"></a>createBackgroundSubtractorMOG2()</h2><p>retval = cv.createBackgroundSubtractorMOG2(    [, history[, varThreshold[, detectShadows]]] )</p>
-<ul>
-<li>创建了一个MOG2的background substructor</li>
-<li>参数分别是<ul>
-<li>history的长度</li>
-<li>计算的是曼哈顿距离，这个的阈值</li>
-<li>是否检测影子，如果检测的话速度回慢一点</li>
-</ul>
-</li>
-</ul>
-<h3 id="创建完的模型有很多功能"><a href="#创建完的模型有很多功能" class="headerlink" title="创建完的模型有很多功能"></a><a href="https://docs.opencv.org/4.0.1/d7/d7b/classcv_1_1BackgroundSubtractorMOG2.html" target="_blank" rel="noopener">创建完的模型有很多功能</a></h3><ul>
-<li>这里用到了一个apply，就是对一张图进行这个操作，来计算出这张图片的foreground<ul>
-<li>这里有一个参数叫learning rate，指的是你的这个模型会不会随着时间而改变，0的话就是不变，1的话就是完全由上一帧形成，然后负数的话会自动选择一个</li>
-</ul>
-</li>
-</ul>
-<h2 id="bitwise-and"><a href="#bitwise-and" class="headerlink" title="bitwise_and()"></a>bitwise_and()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
-<ul>
-<li>这里计算了每一位的与（and）计算，加上了一个可选的参数mask，这样可以直接计算出来前景去掉背景</li>
-</ul>
-<h2 id="videoCapture-set"><a href="#videoCapture-set" class="headerlink" title="videoCapture.set()"></a>videoCapture.set()</h2><p>dst    =    cv.bitwise_and(    src1, src2[, dst[, mask]]    )</p>
-<ul>
-<li>这里他的代码没有用属性，直接设置了两个数字，每个数字会代表一个属性，数字的范围是0-18</li>
-<li>也就是说她设置了10这个属性，然后把这个属性的大小设置成了200</li>
-</ul>
-<h2 id="cv2-bilateralFilter-frame-5-50-100"><a href="#cv2-bilateralFilter-frame-5-50-100" class="headerlink" title="cv2.bilateralFilter(frame, 5, 50, 100)"></a>cv2.bilateralFilter(frame, 5, 50, 100)</h2><ul>
-<li>一个叫这个名字的滤镜，可以消除掉图片里面你不想要的噪音</li>
-<li>效果比较好，可以在消除噪音的同时保证图像比较清晰，但是与此同时这个filter的速度会比大多数的慢一些</li>
-</ul>
-<h2 id="图像翻转-flip"><a href="#图像翻转-flip" class="headerlink" title="图像翻转 flip"></a>图像翻转 flip</h2><ul>
-<li>两个参数，翻转的图像以及翻转参数</li>
-<li>0是竖直翻转，1是水平翻转，小于0的时候是旋转180度（先竖直再水平翻转）</li>
-</ul>
-<h2 id="inRange"><a href="#inRange" class="headerlink" title="inRange"></a>inRange</h2><p>dst    =    cv.inRange(    src, lowerb, upperb[, dst]    )</p>
-<ul>
-<li>查看是否有数字在这个范围里面，三个channel都在的话就输出1，不在的话就输出0</li>
-<li>可以给不同的channel赋不同的值</li>
-</ul>
-<h2 id="calcHist"><a href="#calcHist" class="headerlink" title="calcHist"></a>calcHist</h2><p>hist    =    cv.calcHist(    images, channels, mask, histSize, ranges[, hist[, accumulate]]    )</p>
-<ul>
-<li>计算一系列输入的histogram</li>
-<li>原来有这个函数，把这个输入normalize到255个channel上面就能得到，这样就可以得到这张图片里面的分布了</li>
-<li>而且考虑了上面的mask的情况</li>
-</ul>
-<h2 id="calcBackProject（存疑！）"><a href="#calcBackProject（存疑！）" class="headerlink" title="calcBackProject（存疑！）"></a>calcBackProject（存疑！）</h2><p>dst    =    cv.calcBackProject(    images, channels, hist, ranges, scale[, dst]    )</p>
-<ul>
-<li>计算一个hist的back projection</li>
-</ul>
-<h2 id="CamShift"><a href="#CamShift" class="headerlink" title="CamShift()"></a>CamShift()</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/17/论文Touch180/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/17/论文Touch180/" class="post-title-link" itemprop="url">论文Touch180</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-17 11:53:05 / Modified: 12:06:25" itemprop="dateCreated datePublished" datetime="2019-06-17T11:53:05+09:00">2019-06-17</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Papers/" itemprop="url" rel="index"><span itemprop="name">Papers</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Papers/鱼眼手势识别/" itemprop="url" rel="index"><span itemprop="name">鱼眼手势识别</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Touch180-Finger-Identification-on-Mobile-Touchscreen-using-Fisheye-Camera-and-Convolutional-Neural-Network"><a href="#Touch180-Finger-Identification-on-Mobile-Touchscreen-using-Fisheye-Camera-and-Convolutional-Neural-Network" class="headerlink" title="Touch180: Finger Identification on Mobile Touchscreen using Fisheye Camera and Convolutional Neural Network"></a>Touch180: Finger Identification on Mobile Touchscreen using Fisheye Camera and Convolutional Neural Network</h1><h2 id="abstract"><a href="#abstract" class="headerlink" title="abstract"></a>abstract</h2><ul>
-<li>鱼眼+深度学习，证明检测手指的准确性和鲁棒性</li>
-<li>生成了一个dataset</li>
-<li>训练了一个CNN，确定手指touch的位置</li>
-</ul>
-<h2 id="intro"><a href="#intro" class="headerlink" title="intro"></a>intro</h2><ul>
-<li>可以通过给不同的手指不同的职责来增强对触摸屏的使用</li>
-<li>以前的分别手指的论文<ul>
-<li>wearable device -&gt; 比较贵</li>
-<li>确定触摸的区域 -&gt; 必须多个手指触控</li>
-<li>还有一个方法是在手上戴上了一个有颜色的戒指（诶这个方法用来实现现在的device的画画功能感觉怎么样）</li>
-<li>用了深度相机的 -&gt; 不适合mobile device</li>
-<li>其他用CNN的没有使用鱼眼相机</li>
-</ul>
-</li>
-</ul>
-<h2 id="dataset"><a href="#dataset" class="headerlink" title="dataset"></a>dataset</h2><ul>
-<li>直接用不同的frame来做的dataset</li>
-<li>用五个二进制的数字来表示labeling</li>
-</ul>
-<h2 id="net"><a href="#net" class="headerlink" title="net"></a>net</h2><p><img src="/2019/06/17/论文Touch180/1.jpg" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2909,7 +3134,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-count">80</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3032,7 +3257,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3209,7 +3436,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -3275,7 +3506,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">53</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">54</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">78</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">80</span></a>
 
   </li>
 
@@ -334,6 +334,420 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/17/CS231nassignment3LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/17/CS231nassignment3LSTM/" class="post-title-link" itemprop="url">CS231nassignment3LSTM</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-17 15:21:46 / Modified: 17:22:20" itemprop="dateCreated datePublished" datetime="2019-05-17T15:21:46+09:00">2019-05-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="target"><a href="#target" class="headerlink" title="target"></a>target</h2><p>implement LSTM update rule and use it for image captioning</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><ul>
+<li>在vanilla RNN里面，可以根据vanilla来计算长的sequence，但是同样会因为不停的乘矩阵导致gradient爆炸的问题，LSTM主要就是用了一个其他的update rule解决了这个问题</li>
+<li>和vanilla RNN差不多，现在这个step的x，前一个hidden state。LSTM保持着H-d的cell state，所以也会从前一个接收到前一个的cell state。<ul>
+<li>LSTM会学一个input-to-hidden的矩阵 4HxD， hidden-to-hidden的矩阵 4HxH， bias 4H</li>
+</ul>
+</li>
+<li>在每一部都会先计算被激活之后的函数（4H），然后把这个结果a分成四个部分，每个部分的大小是H<ul>
+<li>根据这四个部分计算input gate，forget gate，output gate，block gate</li>
+<li>前三个都用sigmoid激活，最后一个用tanh激活</li>
+</ul>
+</li>
+<li>然后用上面的四个参数计算下一个cell state和hidden state</li>
+</ul>
+<h2 id="step-forward"><a href="#step-forward" class="headerlink" title="step forward"></a>step forward</h2><ul>
+<li>输入的大小是D，hidden的大小是H，minibatch的大小是N</li>
+<li>input<ul>
+<li>x (N,D)</li>
+<li>prev_h (N,H)</li>
+<li>prev_c (N,H)</li>
+<li>Wx input 2 hidden (D,4H)</li>
+<li>Wh hidden 2 hidden (H,4H)</li>
+<li>bias, (4H)</li>
+</ul>
+</li>
+<li>output<ul>
+<li>next_h (N,H)</li>
+<li>next_c (N,H)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>按照之前给的公式直接计算就行了，其实就是把原来求出来的值分成了四个部分，分别求出来了四个新的值，用这四个新的值的公式可以得到下一个状态的c和h</li>
+</ul>
+<h2 id="step-backward"><a href="#step-backward" class="headerlink" title="step backward"></a>step backward</h2><ul>
+<li>input<ul>
+<li>dnext_h (N,H) 都是上面一个回来的</li>
+<li>dnext_c (N,H)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>output<ul>
+<li>dx(N,D)</li>
+<li>dprev_h (N,H)</li>
+<li>dprev_c (N,H)</li>
+<li>dWx (D,4H)</li>
+<li>dWh (H,4H)</li>
+<li>db (4H)</li>
+</ul>
+</li>
+<li>按着正方向计算的顺序back回去就可以了，注意这里有个问题就是因为next_c被用来计算next h了，所以dnext_c需要再求一下关于next h的导数，并且把求出来的新的值加在以前的东西上面</li>
+<li>后面的矩阵计算尺寸</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_step_forward</span><span class="params">(x, prev_h, prev_c, Wx, Wh, b)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Forward pass for a single timestep of an LSTM.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The input data has dimension D, the hidden state has dimension H, and we use</span></span><br><span class="line"><span class="string">    a minibatch size of N.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Note that a sigmoid() function has already been provided for you in this file.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: Input data, of shape (N, D)</span></span><br><span class="line"><span class="string">    - prev_h: Previous hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - prev_c: previous cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - Wx: Input-to-hidden weights, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - Wh: Hidden-to-hidden weights, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - b: Biases, of shape (4H,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - next_h: Next hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - next_c: Next cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - cache: Tuple of values needed for backward pass.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    next_h, next_c, cache = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for a single timestep of an LSTM.        #</span></span><br><span class="line">    <span class="comment"># You may want to use the numerically stable sigmoid implementation above.  #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, H = prev_h.shape</span><br><span class="line">    <span class="comment">#  -&gt; N,4H</span></span><br><span class="line">    a = x.dot(Wx) + prev_h.dot(Wh) + b</span><br><span class="line">    a_i = a[:, :H]</span><br><span class="line">    a_f = a[:, H:<span class="number">2</span> * H]</span><br><span class="line">    a_o = a[:, <span class="number">2</span> * H:<span class="number">3</span> * H]</span><br><span class="line">    a_g = a[:, <span class="number">3</span> * H:]</span><br><span class="line"></span><br><span class="line">    i = sigmoid(a_i)</span><br><span class="line">    f = sigmoid(a_f)</span><br><span class="line">    o = sigmoid(a_o)</span><br><span class="line">    g = np.tanh(a_g)</span><br><span class="line"></span><br><span class="line">    next_c = f * prev_c + i * g</span><br><span class="line">    next_h = o * np.tanh(next_c)</span><br><span class="line"></span><br><span class="line">    cache = (x, prev_h, prev_c, Wx, Wh, a, i, f, o, g, next_c, next_h)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next_h, next_c, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_step_backward</span><span class="params">(dnext_h, dnext_c, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Backward pass for a single timestep of an LSTM.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dnext_h: Gradients of next hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dnext_c: Gradients of next cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - cache: Values from the forward pass</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - dx: Gradient of input data, of shape (N, D)</span></span><br><span class="line"><span class="string">    - dprev_h: Gradient of previous hidden state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dprev_c: Gradient of previous cell state, of shape (N, H)</span></span><br><span class="line"><span class="string">    - dWx: Gradient of input-to-hidden weights, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - dWh: Gradient of hidden-to-hidden weights, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - db: Gradient of biases, of shape (4H,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx, dprev_h, dprev_c, dWx, dWh, db = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the backward pass for a single timestep of an LSTM.       #</span></span><br><span class="line">    <span class="comment">#                                                                           #</span></span><br><span class="line">    <span class="comment"># HINT: For sigmoid and tanh you can compute local derivatives in terms of  #</span></span><br><span class="line">    <span class="comment"># the output value from the nonlinearity.                                   #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, H = dnext_h.shape</span><br><span class="line"></span><br><span class="line">    x, prev_h, prev_c, Wx, Wh, a, i, f, o, g, next_c, next_h = cache</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dnext_h/do -&gt; do</span></span><br><span class="line">    do = np.tanh(next_c) * dnext_h</span><br><span class="line">    <span class="comment"># dnext_h/dnext_c</span></span><br><span class="line">    dnext_c = o * (<span class="number">1</span> - np.tanh(next_c) ** <span class="number">2</span>) * dnext_h + dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/df -&gt; df</span></span><br><span class="line">    df = prev_c * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/dprev_c</span></span><br><span class="line">    dprev_c = f * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/di</span></span><br><span class="line">    di = g * dnext_c</span><br><span class="line">    <span class="comment"># dnext_c/dg</span></span><br><span class="line">    dg = i * dnext_c</span><br><span class="line"></span><br><span class="line">    da = np.zeros((N, <span class="number">4</span> * H))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># sigmoid i</span></span><br><span class="line">    da[:, :H] = i * (<span class="number">1</span> - i) * di</span><br><span class="line">    da[:, H:<span class="number">2</span> * H] = f * (<span class="number">1</span> - f) * df</span><br><span class="line">    da[:, <span class="number">2</span> * H:<span class="number">3</span> * H] = o * (<span class="number">1</span> - o) * do</span><br><span class="line">    da[:, <span class="number">3</span> * H:] = (<span class="number">1</span> - g * g) * dg</span><br><span class="line"></span><br><span class="line">    <span class="comment"># a = x.dot(Wx) + prev_h.dot(Wh) + b</span></span><br><span class="line">    <span class="comment"># N,4H D,4H</span></span><br><span class="line">    dx = da.dot(Wx.T)</span><br><span class="line">    <span class="comment"># N,D N,4H</span></span><br><span class="line">    dWx = x.T.dot(da)</span><br><span class="line">    <span class="comment"># N,4H H,4H</span></span><br><span class="line">    dprev_h = da.dot(Wh.T)</span><br><span class="line">    <span class="comment"># N,H N,4H</span></span><br><span class="line">    dWh = prev_h.T.dot(da)</span><br><span class="line">    <span class="comment"># da N,4H</span></span><br><span class="line">    db = np.sum(da, axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dprev_h, dprev_c, dWx, dWh, db</span><br></pre></td></tr></table></figure>
+<h2 id="forward"><a href="#forward" class="headerlink" title="forward"></a>forward</h2><ul>
+<li>输入了一大串data，假设输入的data包括了T个vector，每个的dim是D，用的hidden的大小是H，在N的minibatch上面进行，返回对于所有time step的hidden state</li>
+<li>初始化的cell是0，不会return cell state，只是LSTM自己的变量</li>
+<li>输入<ul>
+<li>x (N,T,D)</li>
+<li>h0, (N,H)</li>
+<li>Wx (D,4H)</li>
+<li>Wh (H,4H)</li>
+<li>b (4H)</li>
+</ul>
+</li>
+<li>out<ul>
+<li>h (N,T,D)</li>
+<li>cache</li>
+</ul>
+</li>
+<li>注意h是需要初始化为0的，每次for里面拿出来的是h里面的一部分来赋值</li>
+</ul>
+<h2 id="backward"><a href="#backward" class="headerlink" title="backward"></a>backward</h2><ul>
+<li>和之前的差不多，注意W和b都是要积累的，之前都是要初始化的</li>
+<li>而且back的时候要用reversed的顺序</li>
+</ul>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_forward</span><span class="params">(x, h0, Wx, Wh, b)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Forward pass for an LSTM over an entire sequence of data. We assume an input</span></span><br><span class="line"><span class="string">    sequence composed of T vectors, each of dimension D. The LSTM uses a hidden</span></span><br><span class="line"><span class="string">    size of H, and we work over a minibatch containing N sequences. After running</span></span><br><span class="line"><span class="string">    the LSTM forward, we return the hidden states for all timesteps.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Note that the initial cell state is passed as input, but the initial cell</span></span><br><span class="line"><span class="string">    state is set to zero. Also note that the cell state is not returned; it is</span></span><br><span class="line"><span class="string">    an internal variable to the LSTM and is not accessed from outside.</span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    - x: Input data of shape (N, T, D)</span></span><br><span class="line"><span class="string">    - h0: Initial hidden state of shape (N, H)</span></span><br><span class="line"><span class="string">    - Wx: Weights for input-to-hidden connections, of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - Wh: Weights for hidden-to-hidden connections, of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - b: Biases of shape (4H,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - h: Hidden states for all timesteps of all sequences, of shape (N, T, H)</span></span><br><span class="line"><span class="string">    - cache: Values needed for the backward pass.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    h, cache = <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for an LSTM over an entire timeseries.   #</span></span><br><span class="line">    <span class="comment"># You should use the lstm_step_forward function that you just defined.      #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    N, T, D = x.shape</span><br><span class="line">    N, H = h0.shape</span><br><span class="line"></span><br><span class="line">    prev_h = h0</span><br><span class="line">    prev_c = np.zeros((N, H))</span><br><span class="line">    cache = &#123;&#125;</span><br><span class="line">    h = np.zeros((N, T, H))</span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> range(T):</span><br><span class="line">        prev_h, prev_c, cache_step = lstm_step_forward(</span><br><span class="line">            x[:, step, :], prev_h, prev_c, Wx, Wh, b)</span><br><span class="line">        h[:, step, :] = prev_h</span><br><span class="line">        cache[step] = cache_step</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> h, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_backward</span><span class="params">(dh, cache)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Backward pass for an LSTM over an entire sequence of data.]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - dh: Upstream gradients of hidden states, of shape (N, T, H)</span></span><br><span class="line"><span class="string">    - cache: Values from the forward pass</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns a tuple of:</span></span><br><span class="line"><span class="string">    - dx: Gradient of input data of shape (N, T, D)</span></span><br><span class="line"><span class="string">    - dh0: Gradient of initial hidden state of shape (N, H)</span></span><br><span class="line"><span class="string">    - dWx: Gradient of input-to-hidden weight matrix of shape (D, 4H)</span></span><br><span class="line"><span class="string">    - dWh: Gradient of hidden-to-hidden weight matrix of shape (H, 4H)</span></span><br><span class="line"><span class="string">    - db: Gradient of biases, of shape (4H,)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dx, dh0, dWx, dWh, db = <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the backward pass for an LSTM over an entire timeseries.  #</span></span><br><span class="line">    <span class="comment"># You should use the lstm_step_backward function that you just defined.     #</span></span><br><span class="line">    <span class="comment">#############################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    x = cache[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 注意这是一个step里面的x，大小是N，D</span></span><br><span class="line">    N, D = x.shape</span><br><span class="line">    _, T, H = dh.shape</span><br><span class="line"></span><br><span class="line">    dx = np.zeros((N, T, D))</span><br><span class="line">    dprev_h = np.zeros((N, H))</span><br><span class="line">    dprev_c = np.zeros((N, H))</span><br><span class="line"></span><br><span class="line">    dh0 = np.zeros((N, H))</span><br><span class="line">    dWx = np.zeros((D, <span class="number">4</span> * H))</span><br><span class="line">    dWh = np.zeros((H, <span class="number">4</span> * H))</span><br><span class="line">    db = np.zeros(<span class="number">4</span> * H)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step <span class="keyword">in</span> reversed(range(T)):</span><br><span class="line">        dnext_h = dh[:, step, :] + dprev_h</span><br><span class="line">        dnext_c = dprev_c</span><br><span class="line"></span><br><span class="line">        dx[:, step, :], dprev_h, dprev_c, dWx_temp, dWh_temp, db_temp = lstm_step_backward(</span><br><span class="line">            dnext_h, dnext_c, cache[step])</span><br><span class="line"></span><br><span class="line">        dWx += dWx_temp</span><br><span class="line">        dWh += dWh_temp</span><br><span class="line">        db += db_temp</span><br><span class="line">    dh0 = dprev_h</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line">    <span class="comment">#                               END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">##############################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dx, dh0, dWx, dWh, db</span><br></pre></td></tr></table></figure>
+<h2 id="剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分"><a href="#剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分" class="headerlink" title="剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分"></a>剩下的和RNN部分没有什么区别了，主要就是把代码的选项里面加上lstm的部分</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/16/关于github删除和ignore/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/16/关于github删除和ignore/" class="post-title-link" itemprop="url">关于github删除和ignore</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-05-16 15:27:15 / Modified: 15:53:33" itemprop="dateCreated datePublished" datetime="2019-05-16T15:27:15+09:00">2019-05-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Github/" itemprop="url" rel="index"><span itemprop="name">Github</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h2><p>add过的文件如果想要都撤销了修改<code>git rm -r --cached .</code>（不小心add之后关上了的情况）<br>如果status之后就发现不对，可以用<code>git reset HEAD &lt;file&gt;</code>，后面加点就是撤销全部的</p>
+<p>如果已经push了，可以还原版本<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git revert HEAD 撤销前一次 <span class="keyword">commit</span> </span><br><span class="line">git revert <span class="keyword">HEAD</span>^ 撤销前前一次 <span class="keyword">commit</span> </span><br><span class="line">git revert <span class="keyword">commit</span>-<span class="keyword">id</span> (撤销指定的版本，撤销也会作为一次提交进行保存） </span><br><span class="line"></span><br><span class="line">(<span class="keyword">ref</span>：https://blog.csdn.net/kongbaidepao/article/details/<span class="number">52253774</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="ignore"><a href="#ignore" class="headerlink" title="ignore"></a>ignore</h2><p>有一些比较大的文件想要忽略掉的，需要在根目录建立一个<code>.gitignore</code>，里面直接放需要的路径就可以了</p>
+<p><strong><em>不要往里面传很大的数据鸭会爆炸的TAT</em></strong></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2981,538 +3395,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/18/CS231nassignment2Dropout/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/CS231nassignment2Dropout/" class="post-title-link" itemprop="url">CS231nassignment2之Dropout</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-18 09:51:56 / Modified: 15:11:08" itemprop="dateCreated datePublished" datetime="2019-04-18T09:51:56+09:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a>Target</h2><ul>
-<li>regularization NN</li>
-<li>randomly setting some features to 0 during <strong>forward pass</strong></li>
-</ul>
-<p><a href="https://arxiv.org/abs/1207.0580" target="_blank" rel="noopener">Geoffrey E. Hinton et al, “Improving neural networks by preventing co-adaptation of feature detectors”, arXiv 2012</a></p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/18/CS231nassignment2Dropout/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/04/16/OpenGL笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/16/OpenGL笔记/" class="post-title-link" itemprop="url">OpenGL笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-04-16 15:57:45" itemprop="dateCreated datePublished" datetime="2019-04-16T15:57:45+09:00">2019-04-16</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-31 13:04:14" itemprop="dateModified" datetime="2019-05-31T13:04:14+09:00">2019-05-31</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/OpenGl/" itemprop="url" rel="index"><span itemprop="name">OpenGl</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://learnopengl.com/" target="_blank" rel="noopener">Learn OpenGl</a></p>
-<p>on Modern OpenGL. -&gt; 从graphics的programming开始讲的</p>
-<h1 id="Getting-Start"><a href="#Getting-Start" class="headerlink" title="Getting Start"></a>Getting Start</h1><h2 id="OPENGL"><a href="#OPENGL" class="headerlink" title="OPENGL"></a>OPENGL</h2><ul>
-<li>是一个进行图像处理的工具</li>
-<li>可以被认为是API，但是实际上是specification<ul>
-<li>明确说明了每个function应该的输入和输出，以及如何perform</li>
-<li>用户在用这个说明来解决问题，因为没有给出明确的implement的过程，所以只要结果符合规则，怎么implement都可以</li>
-</ul>
-</li>
-</ul>
-<h3 id="Core-profile-vs-Immediate-mode"><a href="#Core-profile-vs-Immediate-mode" class="headerlink" title="Core-profile vs Immediate mode"></a>Core-profile vs Immediate mode</h3><ul>
-<li>以前的版本用的是immediate mode<ul>
-<li>比较好用来画图</li>
-<li>具体的是实现都在lib里面，developer不是很好的能看到如何计算</li>
-<li>效率越来越低</li>
-</ul>
-</li>
-<li>Core-profile<ul>
-<li>在3.2版本之后改成了这个</li>
-<li>强制使用modern practices，如果想要用被分出去的function就会直接报错</li>
-<li>效率高，更灵活，更难学</li>
-</ul>
-</li>
-</ul>
-<h3 id="extensions"><a href="#extensions" class="headerlink" title="extensions"></a>extensions</h3><ul>
-<li>支持extensions，只要检查支不支持graphic card就可以知道能不能用</li>
-<li>可以直接用比较新的东西，不用等着OPENGL更新新的功能</li>
-<li>需要在用之前判断他是不是available的，如果不是需要用原来的方法搞</li>
-</ul>
-<h3 id="State-Machine"><a href="#State-Machine" class="headerlink" title="State Machine"></a>State Machine</h3><ul>
-<li>OpenGL自己就是一个State Machine：一个var的集合，来判断他现在应该如何操作</li>
-<li>state -&gt; context<ul>
-<li>改变state：设定一些options，操作一些buffer，在现在的context来render</li>
-</ul>
-</li>
-<li>例子：<ul>
-<li>如果我想画三角形，而不是画线了，就改变draw的state</li>
-<li>只要这个改变传达到了，下一条线就画的是三角形了</li>
-</ul>
-</li>
-<li><code>state-changing</code>用来改变context，<code>state-using</code>在现在的state上面开始进行操作</li>
-</ul>
-<h3 id="Objects"><a href="#Objects" class="headerlink" title="Objects"></a>Objects</h3><ul>
-<li>一个集合来表现OpenGL的subset的state<ul>
-<li>比如可以用一个object来表示对window的设定，可以设置大小，设置支持的颜色等等<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The State of OpenGL</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">OpenGL_Context</span> &#123;</span></span><br><span class="line">  	...</span><br><span class="line">  	object_name* object_Window_Target;</span><br><span class="line">  	...  	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create object</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> objectId = <span class="number">0</span>;</span><br><span class="line">glGenObject(<span class="number">1</span>, &amp;objectId);</span><br><span class="line"><span class="comment">// bind object to context</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, objectId);</span><br><span class="line"><span class="comment">// set options of object currently bound to GL_WINDOW_TARGET</span></span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH, <span class="number">800</span>);</span><br><span class="line">glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, <span class="number">600</span>);</span><br><span class="line"><span class="comment">// set context target back to default</span></span><br><span class="line">glBindObject(GL_WINDOW_TARGET, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>流程<ul>
-<li>首先创建了一个object，里面存了一个ref是这个object的id</li>
-<li>然后把这个object和context的目标位置bind在了一起</li>
-<li>设置了这些window的参数</li>
-<li>最后un-bind这两个东西，把window target改回原来的值</li>
-</ul>
-</li>
-<li>这样的话我们可以创建很多object，提前设置好里面的量，等到需要用的时候就直接bind就可以用了<ul>
-<li>比如我们有一堆object包含了小人，小马，小鹿</li>
-<li>想画哪个就把哪个绑定到draw里面，就可以直接画出来了</li>
-</ul>
-</li>
-</ul>
-<h2 id="Crateing-a-window"><a href="#Crateing-a-window" class="headerlink" title="Crateing a window"></a>Crateing a window</h2><p>因为操作系统的问题，所有操作系统上面不是很一样。但是已经有一些提供这些功能的函数了，这里用的是GLFW</p>
-<h3 id="GLFW"><a href="#GLFW" class="headerlink" title="GLFW"></a>GLFW</h3><ul>
-<li>一个lib，用C写的，主要目的是提供把东西渲染到屏幕的功能</li>
-<li>可以创建一个context，定义窗口的params，处理用户的输入</li>
-</ul>
-<p>已经一口气配置好了这些！<br><a href="https://www.jianshu.com/p/25d5fbf792a2" target="_blank" rel="noopener">https://www.jianshu.com/p/25d5fbf792a2</a><br><strong>记得在link lib里面把openGL的framework加进去！！！！！</strong></p>
-<h3 id="GLAD"><a href="#GLAD" class="headerlink" title="GLAD"></a>GLAD</h3><ul>
-<li>因为openGL还需要不同版本的driver的支持，需要有东西来处理这部分的内容</li>
-<li>和其他的东西不同，GLAD用的是<a href="https://glad.dav1d.de/" target="_blank" rel="noopener">web service</a><ul>
-<li>在这个网页上选择好语言，版本号，确保profile是core，然后生成</li>
-<li>直接下载下来对应的zip，然后把include放进include里面，.c文件放在project里面</li>
-</ul>
-</li>
-<li>莫名其妙并不需要这一步，神奇，可能是我在include里面已经搞进来了！！</li>
-</ul>
-<h2 id="Hello-Window"><a href="#Hello-Window" class="headerlink" title="Hello Window"></a>Hello Window</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    glfwInit();</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, <span class="number">3</span>);</span><br><span class="line">    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);</span><br><span class="line">    <span class="comment">//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);</span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>首先进行了初始化</li>
-<li>然后configure了GLFW，设置了a large enum of possible options prefixed with GLFW_. （第三行就是最小） -&gt; 大概是设置要用GLFW的版本号</li>
-<li>然后也告诉了他想用core</li>
-</ul>
-<hr>
-<ul>
-<li>然后需要使用<code>glfwCreateWindow</code>这个函数，来创建这个<code>GLFWwindow* window</code>的变量<ul>
-<li>创建的函数需要窗口的长宽</li>
-<li>窗口名</li>
-</ul>
-</li>
-<li>创建完之后就可以把这个窗口设置成<code>glfwMakeContextCurrent(window);</code>也就是说设置成了现在的thread里面<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">GLFWwindow* window = glfwCreateWindow(<span class="number">800</span>, <span class="number">600</span>, <span class="string">"LearnOpenGL"</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"><span class="keyword">if</span> (window == <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to create GLFW window"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    glfwTerminate();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line">glfwMakeContextCurrent(window);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="GLAD-1"><a href="#GLAD-1" class="headerlink" title="GLAD"></a>GLAD</h3><ul>
-<li>GLAD是为OpenGL来管理这些函数的，在使用这些函数之前需要初始化GLAD<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Failed to initialize GLAD"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="viewpoint"><a href="#viewpoint" class="headerlink" title="viewpoint"></a>viewpoint</h3><ul>
-<li>在开始render之前我们还需要告诉GL渲染窗口的大小，用到了<code>glViewport</code>这个函数<ul>
-<li>前面两个参数定义了这个窗口左下角的坐标</li>
-<li>后面两个参数定义了需要render的窗口的大小</li>
-</ul>
-</li>
-<li>每次调整window的大小的时候viewport也需要被调整</li>
-</ul>
-<h3 id="engines"><a href="#engines" class="headerlink" title="engines"></a>engines</h3><ul>
-<li><p>我们希望这个engine可以一直持续画图，直到最后我们告诉这个窗口要关闭，所以要建立一个循环</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">    glfwPollEvents();    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在这个循环里面，pollevent是来检查是不是有trigger进来的事情（比如键盘输入），更新窗口的状态，并且call相应的函数</p>
-</li>
-<li>swapbuffer，会交换color buffer（包括每个像素点颜色的buffer），然后show在窗口里面</li>
-</ul>
-<h3 id="last-thing"><a href="#last-thing" class="headerlink" title="last thing"></a>last thing</h3><ul>
-<li><code>glfwTerminate</code>退出这个循环之后，需要清除这些相关的资源，用这个函数放在最底下</li>
-</ul>
-<h3 id="input"><a href="#input" class="headerlink" title="input"></a>input</h3><ul>
-<li>需要一些键盘上的操作来调整的时候，写了一个processInput的函数</li>
-<li>比如下面这个函数就是检测了有没有按下去esc，如果按了的话就关闭窗口</li>
-<li>写完之后把这个函数在while循环里面调用<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">processInput</span><span class="params">(GLFWwindow *window)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)</span><br><span class="line">        glfwSetWindowShouldClose(window, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="rendering"><a href="#rendering" class="headerlink" title="rendering"></a>rendering</h3><ul>
-<li>希望在一个loop里面放上去所有的rendering的命令，整个循环看起来应该是这个样子的<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// render loop</span></span><br><span class="line"><span class="keyword">while</span>(!glfwWindowShouldClose(window))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// input</span></span><br><span class="line">    processInput(window);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// rendering commands here</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// check and call events and swap the buffers</span></span><br><span class="line">    glfwPollEvents();</span><br><span class="line">    glfwSwapBuffers(window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="hello-triangle"><a href="#hello-triangle" class="headerlink" title="hello triangle"></a>hello triangle</h2><p><img src="/2019/04/16/OpenGL笔记/1.jpg" alt><br>opengl里面所有东西都是在3D的空间里的，但是屏幕上显示的东西是2D的。整个这个转换的过程叫做<strong>graphics pipeline</strong>，可以分成两个步骤：第一个是把物体的3D坐标转化成2D的坐标，第二个是把2D的坐标转化成pixel上面的具体值</p>
-<h3 id="pipeline"><a href="#pipeline" class="headerlink" title="pipeline"></a>pipeline</h3><ul>
-<li>所有的转化步骤都可以parallel的进行，现在的显卡有很多小的core来进行 -&gt; shaders</li>
-<li>在最开始的时候pass进去了一个list的3D坐标 （Vertex Data）</li>
-<li>第一步：vertex shader<ul>
-<li>把3D的坐标转化成不同的3D坐标（相当于把数据转化成点？）</li>
-</ul>
-</li>
-<li>primitive assembly<ul>
-<li>从上一步得到的左右的点得到输入</li>
-<li>然后形成一个基本的图形</li>
-</ul>
-</li>
-<li>geometry shader<ul>
-<li>根据新给的点，形成新的不同的形状，比如在例子里面形成了新的一条线</li>
-</ul>
-</li>
-<li>rasterization stage<ul>
-<li>把上面得到的primitives map到最后的屏幕上面的相应的pixel上面</li>
-</ul>
-</li>
-<li>Clipping<ul>
-<li>这一步丢掉了所有在视线外面的fragments，提升性能</li>
-</ul>
-</li>
-<li>fragment shader<ul>
-<li>计算这个pixel最后的颜色，会在这一步计算光影，以及光线的颜色等等东西</li>
-</ul>
-</li>
-<li>当每个像素的颜色决定了以后，这个object会被送到alpha test和blending<ul>
-<li>这一步会测试深度原因，判断fragment是在物体的前面还是后面</li>
-<li>还会考虑透明度的问题<br>虽然上面的东西很复杂，但是在实际应用的时候只需要要考虑vertex和fragment shader</li>
-</ul>
-</li>
-</ul>
-<h3 id="vertex-input"><a href="#vertex-input" class="headerlink" title="vertex input"></a>vertex input</h3><ul>
-<li>openGL是3D的东西，所有的点设置input的时候都需要设置三维的坐标 xyz</li>
-<li>只有在坐标在 -1 到 1 中间的时候，才会处理这些坐标，这个范围里面的数字是根据屏幕的比例得出来的<code>normalized device coordinates</code></li>
-<li><p>比如在这个例子里面，需要的渲染一个三角形，那么需要这个三角形的三个点的坐标。注意这个例子里面根本没有考虑深度，而是直接画在了平面上面</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> vertices[] = &#123;</span><br><span class="line">    <span class="number">-0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.5f</span>, <span class="number">-0.5f</span>, <span class="number">0.0f</span>,</span><br><span class="line">     <span class="number">0.0f</span>,  <span class="number">0.5f</span>, <span class="number">0.0f</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在定义好坐标之后需要把这个东西放进vertex shader里面，需要在GPU里面创建一部分内存来存储这个数据，并且需要在GPU里面存储大量的数据（这样不用每次都送了）</p>
-</li>
-<li>每个部分的object都会有一个自己的buffer id，可以通过下面的方法生成一个id。也可以把一串array绑到这个id上面<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> VBO;</span><br><span class="line">glGenBuffers(<span class="number">1</span>, &amp;VBO);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="/2019/04/16/OpenGL笔记/2.jpg" alt></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3561,7 +3443,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-count">80</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3684,7 +3566,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3861,7 +3745,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -3927,7 +3815,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
