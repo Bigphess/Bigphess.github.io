@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">54</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">56</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">80</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">81</span></a>
 
   </li>
 
@@ -334,6 +334,218 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/Unity的shader/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/14/Unity的shader/" class="post-title-link" itemprop="url">Unity的shader</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-14 13:55:12 / Modified: 15:53:54" itemprop="dateCreated datePublished" datetime="2019-09-14T13:55:12+09:00">2019-09-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/入门/" itemprop="url" rel="index"><span itemprop="name">入门</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考来源<br><a href="https://onevcat.com/2013/07/shader-tutorial-1/" target="_blank" rel="noopener">这里</a></p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>shader，着色器，是一段负责将输入的mesh用指定的方式和输入的贴图，颜色等作用，然后输出</li>
+<li>输入贴图或者颜色，以及对应的shader，就可以得到一个material，然后将可以把材料给到renderer来进行输出</li>
+<li>shader如果是自己来写的话，需要新创建一个shader文件<ul>
+<li>比如在这里老师写的omniProcam的投影的shader，里面的参数就包括了fisheye相机的参数等等。这部分的参数也就是shader的输入，定义了这个shader需要的属性</li>
+<li>需要在里面设定不同的subshader，这部分是代码的主题，在每一个里面包含不同的pass。然后运行的时候会从最优先的着色器开始找。在shader的最后需要一个fallback，也就是说所有的subshader都不能运行的时候，需要一个返回情况</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码讲解"><a href="#代码讲解" class="headerlink" title="代码讲解"></a>代码讲解</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">Shader &quot;Custom/Diffuse Texture&quot; &#123;</span><br><span class="line">	Properties &#123;</span><br><span class="line">		_MainTex (&quot;Base (RGB)&quot;, 2D) = &quot;white&quot; &#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	SubShader &#123;</span><br><span class="line">		Tags &#123; &quot;RenderType&quot;=&quot;Opaque&quot; &#125;</span><br><span class="line">		LOD 200</span><br><span class="line">		</span><br><span class="line">		CGPROGRAM</span><br><span class="line">		#pragma surface surf Lambert</span><br><span class="line"></span><br><span class="line">		sampler2D _MainTex;</span><br><span class="line"></span><br><span class="line">		struct Input &#123;</span><br><span class="line">			float2 uv_MainTex;</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">		void surf (Input IN, inout SurfaceOutput o) &#123;</span><br><span class="line">			half4 c = tex2D (_MainTex, IN.uv_MainTex);</span><br><span class="line">			o.Albedo = c.rgb;</span><br><span class="line">			o.Alpha = c.a;</span><br><span class="line">		&#125;</span><br><span class="line">		ENDCG</span><br><span class="line">	&#125; </span><br><span class="line">	FallBack &quot;Diffuse&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><code>Properties</code>里面定义了这个shader的属性，这里面的所有属性将作为input提供给子着色器</li>
+<li><code>_Name(&quot;Display Name&quot;, type) = defaultValue[{options}]</code></li>
+<li>格式<ul>
+<li><em>_</em>属性名</li>
+<li>“display name” 显示给用户的可读的名字</li>
+<li>type属性的类型<ul>
+<li>颜色，RGBA</li>
+<li>2D，2的指数大小的贴图</li>
+<li>rect，非2的指数大小的贴图</li>
+<li>cube，立方体纹理</li>
+<li>range，一个范围里面的数</li>
+<li>float，任意一个浮点数</li>
+</ul>
+</li>
+<li>属性的默认值，比如颜色可以设定成“white”</li>
+<li>opinion项，至少需要在贴图后面加上空白的花括号，只和2d rect或者cube有关系</li>
+</ul>
+</li>
+</ul>
+<h3 id="subshader"><a href="#subshader" class="headerlink" title="subshader"></a>subshader</h3><ul>
+<li>tag：比如渲染类型，如果是非透明的物体要写在opaque里面，透明的写在transparent里面</li>
+<li>LOD：level of detail</li>
+<li><code>CGPROGRAM</code>，开始的标记，从这里开始是一段CG程序。和最后的<code>ENDCG</code>是对应的</li>
+<li><code>#pragma surface surf Lambert</code>一个编译指令，声明了要写一个表面的shader，指定了光照模型</li>
+<li><code>sampler2D</code>对贴图进行操作，2d的贴图模型。虽然在之前的属性里面声明过一次，但是因为这里面是cg代码，还是需要重新声明一次</li>
+<li>需要在struct里面定义出来需要输入和输出的数据类型</li>
+<li>uv：uv mapping指的就是把一个2d贴图上面的点按照一定规则映射到3d模型上。如果在贴图变量前边加上uv.<code>uv_MainTex</code>指的就是提取这个变量的uv值，也就是说二维坐标</li>
+<li>surf函数，surf是之前定义的光照模型，有两个参数<ul>
+<li>In里面的内容是uv值，也就是说每次都会调用贴图上面的坐标点才计算输出</li>
+<li>inout是输出值</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2892,205 +3104,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/25/libProCam笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/25/libProCam笔记/" class="post-title-link" itemprop="url">libProCam笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-25 17:49:57 / Modified: 19:01:15" itemprop="dateCreated datePublished" datetime="2019-06-25T17:49:57+09:00">2019-06-25</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/研究室/" itemprop="url" rel="index"><span itemprop="name">研究室</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Binarizer-cpp"><a href="#Binarizer-cpp" class="headerlink" title="Binarizer.cpp"></a>Binarizer.cpp</h1><p>这个部分是来计算图像的binary的，包括</p>
-<ul>
-<li>计算这个图片的threshold</li>
-<li>做背景substract</li>
-</ul>
-<h2 id="Cpp相关"><a href="#Cpp相关" class="headerlink" title="Cpp相关"></a>Cpp相关</h2><ul>
-<li>构造函数<ul>
-<li>构造一个类的时候使用的函数，这个函数的名字和类名相同，默认是没有参数的，可以自己加上参数，这样创建对象的时候就需要给参数</li>
-<li>对标python里面的init</li>
-</ul>
-</li>
-<li>析构函数<ul>
-<li>名字和构造函数完全相同，但是在前面增加了一个波浪线，没有返回值也没有参数，只是用来在关闭程序的时候释放资源</li>
-</ul>
-</li>
-<li><p>虚函数</p>
-<ul>
-<li>借助指针来达到多态的效果</li>
-<li>定义一个函数是虚函数，不代表这个函数不被实现，而是代表基类的指针可以调用子类的这个函数</li>
-<li>如果定义为纯虚函数，才说明不会实现</li>
-<li>比如下面的例子里面，B是子类，A是基类，创建的是A的指针，但是调用的却是B的函数，这说明这个函数的调用不是在编译的时候被确定的，而是在运行的时候被确定的<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"A::foo() is called"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span><span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"B::foo() is called"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    A *a = <span class="keyword">new</span> B();</span><br><span class="line">    a-&gt;foo();   <span class="comment">// 在这里，a虽然是指向A的指针，但是被调用的函数(foo)却是B的!</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>纯虚函数，在函数的定义后面加上 =0</p>
-<ul>
-<li>经常会在定义基类的时候用纯虚函数，因为基类可能有很多的派生，但是基类本身生成的对象可能是不合理的<ul>
-<li>比如动物可以派生狮子老虎，但是动物本身不是很合理</li>
-</ul>
-</li>
-<li>在子类里面必须重新声明这个函数，也就是说在子类的时候必须提供一个这个函数的实现，但是基类的作者不知道你怎么实现它</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -3134,7 +3152,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3259,7 +3277,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3440,7 +3462,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">84</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
