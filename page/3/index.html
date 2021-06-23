@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">56</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">57</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">81</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">84</span></a>
 
   </li>
 
@@ -334,6 +334,1995 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/10/02/Unity练习Flappy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/02/Unity练习Flappy/" class="post-title-link" itemprop="url">Unity练习FlappyBird</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-10-02 14:19:38" itemprop="dateCreated datePublished" datetime="2019-10-02T14:19:38+09:00">2019-10-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-08 13:33:47" itemprop="dateModified" datetime="2019-10-08T13:33:47+09:00">2019-10-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/" itemprop="url" rel="index"><span itemprop="name">Unity</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Unity/练习/" itemprop="url" rel="index"><span itemprop="name">练习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>教程及素材源自unity官方的learning资料<a href="https://learn.unity.com/tutorial/live-session-making-a-flappy-bird-style-game/?tab=materials#5c7f8528edbc2a002053b6a7" target="_blank" rel="noopener">FlappyBird</a></p>
+<p>整体思路：在游戏里物体本体是不会移动的，只有后面的背景滚轴一直在移动，然后每次在玩家视野外生成随机高度的柱子。柱子和背景一起滚动。</p>
+<h1 id="生成鸟的物体"><a href="#生成鸟的物体" class="headerlink" title="生成鸟的物体"></a>生成鸟的物体</h1><h2 id="sprite"><a href="#sprite" class="headerlink" title="sprite"></a>sprite</h2><ul>
+<li>sprite是一种半透明的texture。不会直接被用于mesh，而是会用在长方形或者正方形上</li>
+<li>修改texture type就可以修改</li>
+<li>与canvas render的区别：前者必须放在canvas里面，而后者可以放在hierarchy的任何地方</li>
+<li>sprite支持网格构造，可以清除不必要的透明元素，可以一定情况下避免overdraw的问题</li>
+</ul>
+<h3 id="sorting-layer"><a href="#sorting-layer" class="headerlink" title="sorting layer"></a>sorting layer</h3><ul>
+<li>在sprite render里面会有一项叫做sorting layer，这个功能可以决定画面的前景和后景的遮挡关系。写的越靠下的越前</li>
+</ul>
+<h2 id="rigidbody-collider"><a href="#rigidbody-collider" class="headerlink" title="rigidbody + collider"></a>rigidbody + collider</h2><ul>
+<li>需要设置刚体和碰撞关系</li>
+<li>这里面的碰撞器设置的种类是多边形的</li>
+</ul>
+<h2 id="animator（getcomponent）"><a href="#animator（getcomponent）" class="headerlink" title="animator（getcomponent）"></a>animator（getcomponent<animator>）</animator></h2><ul>
+<li>在这个游戏里，鸟的不同动作会触发不同的动画，所以需要为这个鸟构建一个动画来表现</li>
+<li>在animation里面，可以给鸟不同的动作不同的clip。在运行状态下修改鸟在不同clip里面的renderer。</li>
+<li>在animator里面可以设置不同动画之间切换的逻辑关系<ul>
+<li>一种是根据条件切换，需要为不同的条件设置不同的paramter（这里设定的是trigger，这个状态可以直接在script里面set，注意拼写需要一样）（正常 -按-&gt; 挥动翅膀/ 正常 -撞墙-&gt; 死亡）</li>
+<li>一种是根据时间切换（挥动翅膀 -&gt; 正常状态）</li>
+</ul>
+</li>
+</ul>
+<h2 id="鸟的行为逻辑"><a href="#鸟的行为逻辑" class="headerlink" title="鸟的行为逻辑"></a>鸟的行为逻辑</h2><ul>
+<li>运动：本身的x轴不会运动，y轴在每次按鼠标的时候上升（addForce），不按的时候重力自由落体（对应上升动画）</li>
+<li>碰撞：碰撞到地面或者柱子都会死亡（对应死亡动画）</li>
+<li>在鸟死亡的时候，会对应鸟的死亡状态在controller里面的切换</li>
+</ul>
+<h1 id="UI制作"><a href="#UI制作" class="headerlink" title="UI制作"></a>UI制作</h1><ul>
+<li>UI使用的就是普通的UI模式，注意所有text都是在canvas里面的</li>
+<li>导入素材包字体，可以给字体加阴影</li>
+<li>UI的分数变化在gamecontroller里面进行操作</li>
+<li>字体锚点位置调整需要按alt/option</li>
+</ul>
+<h1 id="gameControll"><a href="#gameControll" class="headerlink" title="gameControll"></a>gameControll</h1><ul>
+<li>设定了一个static的GameControl（这是这个自建类的名字）的object，名字是instance。设定成static之后，无论在哪里的code里面想要访问这个instance，只需要call<code>GameControl.instance</code>就可以了</li>
+<li><p>为了保证里面拥有这个instance，需要在awake的时候进行检查</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Awake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            instance = <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(instance != <span class="keyword">this</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Destroy(gameObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在gameControl里面设置好了游戏结束的变量，这个变量可以直接在bird的script里面访问，这样就可以直接在bird里面决定游戏结束没结束，再在现在的control里面决定分数的变化，scene的切换等</p>
+</li>
+<li>也可以在这里操作，游戏重新开始<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (gameOver &amp;&amp; Input.GetMouseButtonDown(<span class="number">0</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="地面（及背景：作为地面的子物体）"><a href="#地面（及背景：作为地面的子物体）" class="headerlink" title="地面（及背景：作为地面的子物体）"></a>地面（及背景：作为地面的子物体）</h1><ul>
+<li>地面应该有collider，这样鸟撞到地面上才会死。需要用rd</li>
+<li>地面应该在start开始就按照一个速度进行负移动，如果游戏结束的话，地面停止移动</li>
+<li>地面应该复制两份，当每次第一份快要移动到头的时候，第二份移动到第一份前面去（这个距离可以直接用collider的size来决定</li>
+<li>地面的rd应该设置成kinematic，也就是除了script让移动，其他的方法不会让他移动</li>
+</ul>
+<h1 id="障碍物"><a href="#障碍物" class="headerlink" title="障碍物"></a>障碍物</h1><ul>
+<li>障碍物应该设置成prefab，制作好的东西直接拖进prefab文件夹就可以了。在用的时候可以直接在gamecontrol的物体里面操作这个prefab，直接拖进去就可以了</li>
+<li>障碍物本身应该增加了一个box collider的trigger，然后在每个柱子本身里面加上了<code>OnTriggerEnter2D(Collider2D other)</code>，也就是在这个trigger的区域里面遇到鸟的时候，会call加分的函数</li>
+</ul>
+<h2 id="pool"><a href="#pool" class="headerlink" title="pool"></a>pool</h2><ul>
+<li>生成柱子的方法，目前的方法是每次生成五个柱子，存在一个array里面，每次时间到了就随机新的柱子的位置。如果五个柱子都用完了就重头开始，也就是从index是0的柱子开始，重新定位坐标</li>
+<li>在初始化五个柱子的时候，用了<code>Object.Instantiate</code>，也就是把这五个柱子在指定的位置复制了五次。其中rotation的参数设置的是<code>Quaternion.identity</code>，也就是没有旋转的意思</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ColumnPool</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> ColumnSize = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">public</span> GameObject columnPrefab;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> SpwandRate = <span class="number">4f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> columnMin = <span class="number">-2f</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> columnMax = <span class="number">2f</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> GameObject[] columns;</span><br><span class="line">    <span class="keyword">private</span> Vector2 objectPoolPosition = <span class="keyword">new</span> Vector2(<span class="number">-15f</span>, <span class="number">-25f</span>);</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> timeSinceLastSpwand;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> spwandXPosition = <span class="number">10f</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> currentColumn = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start is called before the first frame update</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        columns = <span class="keyword">new</span> GameObject[ColumnSize];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ColumnSize; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            columns[i] = (GameObject)Instantiate(columnPrefab, objectPoolPosition, Quaternion.identity);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        timeSinceLastSpwand += Time.deltaTime;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (GameControl.instance.gameOver == <span class="literal">false</span> &amp;&amp; timeSinceLastSpwand &gt;= SpwandRate)</span><br><span class="line">        &#123;</span><br><span class="line">            timeSinceLastSpwand = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">float</span> spawnYposition = Random.Range(columnMin, columnMax);</span><br><span class="line">            columns[currentColumn].transform.position = <span class="keyword">new</span> Vector2(spwandXPosition, spawnYposition);</span><br><span class="line">            currentColumn++;</span><br><span class="line">            <span class="keyword">if</span>(currentColumn == <span class="number">4</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                currentColumn = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，简易版的flappybird就制作完毕了</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/日语敬语学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/14/日语敬语学习/" class="post-title-link" itemprop="url">日语敬语学习</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-14 15:55:19" itemprop="dateCreated datePublished" datetime="2019-09-14T15:55:19+09:00">2019-09-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-09-16 20:54:14" itemprop="dateModified" datetime="2019-09-16T20:54:14+09:00">2019-09-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日语/" itemprop="url" rel="index"><span itemprop="name">日语</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/日语/敬语/" itemprop="url" rel="index"><span itemprop="name">敬语</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="从头开始了解"><a href="#从头开始了解" class="headerlink" title="从头开始了解"></a>从头开始了解</h2><h3 id="一些经常听到的用法"><a href="#一些经常听到的用法" class="headerlink" title="一些经常听到的用法"></a>一些经常听到的用法</h3><ul>
+<li>本日　＝　今日</li>
+<li>まことに　＝　本当に</li>
+<li>ご案内申し上げます　＝　知らせます</li>
+<li>ただいま　＝　いま</li>
+<li>〜におきまして　＝　で</li>
+<li>〜でございます　＝　〜です</li>
+<li>来場する　＝　会場に来る</li>
+</ul>
+<h3 id="敬语的分组"><a href="#敬语的分组" class="headerlink" title="敬语的分组"></a>敬语的分组</h3><ul>
+<li>尊敬语：用来描述对方的行为，直接表示敬意</li>
+<li>谦让语；描述自己做的事，贬低自己，间接的表示敬意</li>
+<li>丁宁语：让整个对话的气氛都变得很丁宁，气氛比较郑重</li>
+</ul>
+<h3 id="基本常识"><a href="#基本常识" class="headerlink" title="基本常识"></a>基本常识</h3><ul>
+<li>一般来说，礼貌程度可以分成三个阶层，分别是疯狂使用敬语的 -&gt; 使用ですます的 -&gt; 使用普通形态的朋友间的对话</li>
+<li>一般来说，对外的人用敬语，对内的人不同敬语<ul>
+<li>比如有人打电话到了公司，问你的部长在不在，你自己说部长的时候就不用用敬语了</li>
+</ul>
+</li>
+</ul>
+<h1 id="下面开始根据不同的场合使用敬语"><a href="#下面开始根据不同的场合使用敬语" class="headerlink" title="下面开始根据不同的场合使用敬语"></a>下面开始根据不同的场合使用敬语</h1><h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><h3 id="访问时候的特定用语"><a href="#访问时候的特定用语" class="headerlink" title="访问时候的特定用语"></a>访问时候的特定用语</h3><ul>
+<li>玄关处<ul>
+<li>ごめんください</li>
+<li>すいません</li>
+</ul>
+</li>
+<li>部屋に入る時<ul>
+<li>お邪魔します</li>
+<li>失礼します</li>
+<li>失礼いたします</li>
+</ul>
+</li>
+<li>部屋を出る時<ul>
+<li>失礼します</li>
+<li>失礼いたします</li>
+</ul>
+</li>
+</ul>
+<h3 id="お／ご〜ください"><a href="#お／ご〜ください" class="headerlink" title="お／ご〜ください"></a>お／ご〜ください</h3><ul>
+<li>〜てください的丁宁用法</li>
+<li>masu型去masu加上后面的<strong>お</strong>，或者suru型直接加后面的<strong>ご</strong></li>
+<li>例子<ul>
+<li>お入りください</li>
+<li>お上りください　-&gt; 请进的意思 come in</li>
+<li>おかけください -&gt; 请坐，比如沙发，椅子啥的。<strong>和打电话没有关系</strong></li>
+<li>日本語でお話しください</li>
+<li>ご注意ください</li>
+</ul>
+</li>
+<li><strong>注意</strong>：这里没有te，不要顺便加上te，没有te，没有！！！！！</li>
+</ul>
+<h3 id="つまらないものですが…"><a href="#つまらないものですが…" class="headerlink" title="つまらないものですが…"></a>つまらないものですが…</h3><ul>
+<li>一点小东西，不成敬意</li>
+<li>更随意的时候可以说（给别人买了吃的的话）：美味しいので買ってきました</li>
+</ul>
+<h3 id="お〜になります"><a href="#お〜になります" class="headerlink" title="お〜になります"></a>お〜になります</h3><ul>
+<li>〜ます的丁宁语，suru的动词不能用这个用法</li>
+<li>也就是说一般的动词，如果不是特殊型的话，可以用这个用法代替平常直接用masu</li>
+<li>例<ul>
+<li>この教科書は鈴木先生がお書きになります</li>
+<li>社長、今朝の新聞をお読になりましたか</li>
+</ul>
+</li>
+</ul>
+<h3 id="上面的尊敬语的特别变形"><a href="#上面的尊敬语的特别变形" class="headerlink" title="上面的尊敬语的特别变形"></a>上面的尊敬语的特别变形</h3><ul>
+<li>食べます　-&gt; (🙅‍♀x)お食べになります　-&gt; (●)召し上がります</li>
+<li>します　-&gt; (🙅‍♀x)おしになります　-&gt; (●)なさいます</li>
+<li>見ます　-&gt; (🙅‍♀x)お見になります　-&gt; (●)ご覧になります</li>
+<li>也就是说，如果是三类动词的话，后面的する直接变成なさいます</li>
+<li><strong>注意</strong>：特别变形如果想用ください的时候，可以直接用特别变形之后的动词加上てください、<strong>现在这里是有te的，比如おっしゃってください 请说</strong></li>
+</ul>
+<h3 id="被动：更加简单一点的用法"><a href="#被动：更加简单一点的用法" class="headerlink" title="被动：更加简单一点的用法"></a>被动：更加简单一点的用法</h3><ul>
+<li>使用和被动态相同的方法来表示尊敬，不用像上面的お〜になります这么麻烦，根据上下文可以推测实际的意思</li>
+<li>例<ul>
+<li>書きます　-&gt; 書かれます／　読みます　-&gt; 読まれます</li>
+<li>出ます　-&gt; 出られます</li>
+<li>します　-&gt; されます／　来ます　-&gt; 来られます</li>
+</ul>
+</li>
+<li><strong>注意</strong>：这种用法不能和ください一起用，不能用被动后面加ください，要用ください的话请直接用上面的那个带ください的方法</li>
+<li>注意：被动型 不要顺嘴和させ说混</li>
+</ul>
+<h3 id="特殊敬语构成表"><a href="#特殊敬语构成表" class="headerlink" title="特殊敬语构成表"></a>特殊敬语构成表</h3><table>
+<thead>
+<tr>
+<th>动词</th>
+<th style="text-align:right">尊敬语</th>
+<th style="text-align:center">谦让语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行きます</td>
+<td style="text-align:right">いらしゃいます／おいでになります</td>
+<td style="text-align:center">参ります／伺います</td>
+</tr>
+<tr>
+<td>来ます</td>
+<td style="text-align:right">いらしゃいます／おいでになります　</td>
+<td style="text-align:center">参ります</td>
+</tr>
+<tr>
+<td>います</td>
+<td style="text-align:right">いらしゃいます／おいでになります</td>
+<td style="text-align:center">おります</td>
+</tr>
+<tr>
+<td>言います</td>
+<td style="text-align:right">おっしゃいます</td>
+<td style="text-align:center">（許と）申します／（意見を）申し上げます</td>
+</tr>
+<tr>
+<td>見ます</td>
+<td style="text-align:right">ご覧になります</td>
+<td style="text-align:center">拝見します</td>
+</tr>
+<tr>
+<td>食べます／飲みます</td>
+<td style="text-align:right">召し上がります</td>
+<td style="text-align:center">いただきます</td>
+</tr>
+<tr>
+<td>知っています</td>
+<td style="text-align:right">ご存知です</td>
+<td style="text-align:center">存じております／知っております／（金子部長を）存じ上げております</td>
+</tr>
+<tr>
+<td>思います</td>
+<td style="text-align:right">お思いになります</td>
+<td style="text-align:center">存じます</td>
+</tr>
+<tr>
+<td>します</td>
+<td style="text-align:right">なさいます</td>
+<td style="text-align:center">いたします</td>
+</tr>
+<tr>
+<td>くれます</td>
+<td style="text-align:right">くださいます</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>あげます</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">さしあげます</td>
+</tr>
+<tr>
+<td>もらいます</td>
+<td style="text-align:right"></td>
+<td style="text-align:center">いただきます</td>
+</tr>
+<tr>
+<td>会います</td>
+<td style="text-align:right">お会いになります</td>
+<td style="text-align:center">お会いします／お目にかかります</td>
+</tr>
+<tr>
+<td>聞きます</td>
+<td style="text-align:right">お聞きになります</td>
+<td style="text-align:center">お聞きします／伺います</td>
+</tr>
+<tr>
+<td>あります</td>
+<td style="text-align:right">あります</td>
+<td style="text-align:center">ございます</td>
+</tr>
+<tr>
+<td>寝ます</td>
+<td style="text-align:right">お休みになります</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>着ます</td>
+<td style="text-align:right"><strong>お召しになります</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>住んでいます</td>
+<td style="text-align:right"><strong>お住まいです</strong></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>持ちます／持っていきます／持ってきます</td>
+<td style="text-align:right">お持ちになります</td>
+<td style="text-align:center">お持ちします</td>
+</tr>
+<tr>
+<td>死にました</td>
+<td style="text-align:right">お亡くなりになりました</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>〜です</td>
+<td style="text-align:right"><strong>で</strong>いらしゃいます</td>
+<td style="text-align:center">でございます</td>
+</tr>
+<tr>
+<td>〜ています</td>
+<td style="text-align:right"><strong>て</strong>いらしゃいます</td>
+<td style="text-align:center">でおります</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>尊敬语和谦让语的总结<ul>
+<li>句型<ul>
+<li>尊敬 お／ご〜になります　お／ご〜ください</li>
+<li>谦让　お／ご〜します</li>
+</ul>
+</li>
+<li>简单用法<ul>
+<li><strong>只有尊敬语</strong>可以用被动来表示尊敬</li>
+</ul>
+</li>
+<li>特别型见表</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>注意尊敬语：</p>
+<ul>
+<li>吃和穿长得差不多，但是吃喝里面不需要前面的お</li>
+<li>说里面带促音</li>
+<li>虽然想听起来很奇怪，但是真的是这样的</li>
+<li>住这个词有些奇怪</li>
+<li>死一定是过去式的</li>
+</ul>
+</li>
+<li><p>注意谦让语</p>
+<ul>
+<li>来和去都可以是 参。 但是去还有伺う。同时伺う还有听的意思</li>
+<li>存じ 在知道和想里面都可以用，注意区别。知道是te型的，所以是おります</li>
+</ul>
+</li>
+</ul>
+<h2 id="打招呼"><a href="#打招呼" class="headerlink" title="打招呼"></a>打招呼</h2><h3 id="经常使用的あいさつ"><a href="#经常使用的あいさつ" class="headerlink" title="经常使用的あいさつ"></a>经常使用的あいさつ</h3><ul>
+<li>朝<ul>
+<li>おはようがざいます</li>
+<li>おはよう</li>
+</ul>
+</li>
+<li>会社から帰り時<ul>
+<li>それでは、お失礼にします／失礼いたします</li>
+<li>じゃ、お先に</li>
+</ul>
+</li>
+<li>お礼<ul>
+<li>ありがどうございます　-&gt; いいえ／こちらこそ／どういたしまして</li>
+<li>ありがどう　-&gt; ううん／大丈夫だよ</li>
+</ul>
+</li>
+<li>天気<ul>
+<li>いい天気ですね／暑いですね／雨がよく降りますね　-&gt; そうですね</li>
+<li>いい天気だよ／暑いね／よく降るね　-&gt; そうだね</li>
+</ul>
+</li>
+<li>別れる時<ul>
+<li>失礼します／失礼いたします　-&gt; お気をつけて／それではまた</li>
+<li>じゃあね　-&gt; 気をつけてね／じゃ、また</li>
+</ul>
+</li>
+</ul>
+<h3 id="谦让语句型"><a href="#谦让语句型" class="headerlink" title="谦让语句型"></a>谦让语句型</h3><ul>
+<li>お〜します／ご〜します</li>
+<li>例子<ul>
+<li>看见拿着东西的社长　お持ちします</li>
+<li>说明的时候　ご説明します</li>
+<li>我来帮你 お手伝いします</li>
+</ul>
+</li>
+<li>一般使用谦让语的时候都会省略“我”的主语</li>
+<li>对于上级的人不能用　てあげる　（要用さし上げる）</li>
+</ul>
+<h3 id="谦让语特别型"><a href="#谦让语特别型" class="headerlink" title="谦让语特别型"></a>谦让语特别型</h3><ul>
+<li>更多见上面的表</li>
+<li>例子<ul>
+<li>メールを拝見しました</li>
+<li>駅前で偶然先生にお目にかかりました</li>
+</ul>
+</li>
+</ul>
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><p>来週の東京へのご出張のことですが、空港までお迎えに<strong>まいります／うかがいます</strong> ので、<strong>ご到着になる（到着される）</strong>時間を<strong>~存じさせてください~（お知らせください，这里的主语是对方不是自己）</strong>。<br>空港で資料を<strong>お渡しします</strong>ので、車の中で<strong>ご覧ください</strong>。<br>ご昼食の後、会議の場所まで<strong>お送りします</strong>。<br>どうぞよろしく<strong>お願いいたします</strong></p>
+<h2 id="邀请"><a href="#邀请" class="headerlink" title="邀请"></a>邀请</h2><h3 id="打招呼-声を掛ける-gt-找人帮忙的时候的搭话"><a href="#打招呼-声を掛ける-gt-找人帮忙的时候的搭话" class="headerlink" title="打招呼 声を掛ける　-&gt; 找人帮忙的时候的搭话"></a>打招呼 声を掛ける　-&gt; 找人帮忙的时候的搭话</h3><ul>
+<li>部長、すみません</li>
+<li>いま、よろしいですか／ちょっとよろしでしょうか</li>
+<li>いま、お時間いただけますか</li>
+</ul>
+<h3 id="打听别人的安排-予定を聞く"><a href="#打听别人的安排-予定を聞く" class="headerlink" title="打听别人的安排 予定を聞く"></a>打听别人的安排 予定を聞く</h3><ul>
+<li>日曜日、何かご予定がありますか</li>
+<li>来週の火曜日、小林さんのご都合はいかがでしょうか</li>
+</ul>
+<h3 id="邀请-1"><a href="#邀请-1" class="headerlink" title="邀请"></a>邀请</h3><ul>
+<li>部長にもぜひ来て<strong>頂きたいですか</strong>　语气比较强的邀请</li>
+<li>部長にもご出席いただけないかと思いまして 后面的思いまして带有表示原因的意思</li>
+<li>よろしかったら、部長もいらしゃいませんか</li>
+<li>よろしければ、部長もいかがでしょうか</li>
+<li>もしご都合がよろしければ、部長<strong>もいかがかと思いまして</strong></li>
+</ul>
+<h3 id="お／ご〜なく（不是什么词都能用的，后面不要加te）"><a href="#お／ご〜なく（不是什么词都能用的，后面不要加te）" class="headerlink" title="お／ご〜なく（不是什么词都能用的，后面不要加te）"></a>お／ご〜なく（不是什么词都能用的，后面不要加te）</h3><ul>
+<li>ご心配なく</li>
+<li>ご遠慮なく</li>
+<li>お気遣いなく</li>
+<li>おかまいなく</li>
+</ul>
+<h3 id="〜ております"><a href="#〜ております" class="headerlink" title="〜ております"></a>〜ております</h3><ul>
+<li>ています的谦让语</li>
+<li>例子<ul>
+<li>お返事をお持ちしております</li>
+<li>当日お会いできるのを楽しみにしております</li>
+</ul>
+</li>
+</ul>
+<h3 id="例子：邀请老师"><a href="#例子：邀请老师" class="headerlink" title="例子：邀请老师"></a>例子：邀请老师</h3><ul>
+<li>よろしければ、先生もいらしゃいませんか／先生も来てきただきたいと思っています</li>
+<li>先生のご都合はいかがでしょうか</li>
+<li>お返事をお持ちしております</li>
+</ul>
+<h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><h3 id="打招呼-呼びかける"><a href="#打招呼-呼びかける" class="headerlink" title="打招呼 呼びかける"></a>打招呼 呼びかける</h3><ul>
+<li>あの、ちょっとよろしいでしょうか</li>
+<li>今、お忙しいでしょうか</li>
+<li>お時間いただきてもよろしいでしょうか</li>
+</ul>
+<h3 id="（実は）〜のですが"><a href="#（実は）〜のですが" class="headerlink" title="（実は）〜のですが"></a>（実は）〜のですが</h3><ul>
+<li>持ち帰って我が社のものと検討したいのですが。。。</li>
+<li>実は使い方がよくわからないのですが。。。</li>
+</ul>
+<h3 id="いただけませんか／ご（お）〜いただけませんか"><a href="#いただけませんか／ご（お）〜いただけませんか" class="headerlink" title="いただけませんか／ご（お）〜いただけませんか"></a>いただけませんか／ご（お）〜いただけませんか</h3><ul>
+<li>后面那种说法更好一点，中间可以直接填动词的masu型</li>
+<li>この予告編のDVDを一枚お送っていただけませんか　</li>
+<li><strong>注意这里没有te！！！</strong></li>
+</ul>
+<h3 id="继续请求"><a href="#继续请求" class="headerlink" title="继续请求"></a>继续请求</h3><ul>
+<li>日本語訳をつけていただけないかと思いまして</li>
+<li>日本語訳をつけていただけるとありがたいんですが。<br>*　思いまして就表示了没说完，但是后面跟着：你能接收我的请求吗的意思</li>
+</ul>
+<h3 id="打招呼的方式"><a href="#打招呼的方式" class="headerlink" title="打招呼的方式"></a>打招呼的方式</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>朋友</th>
+<th>ですます</th>
+<th>敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ねえ、あのね</td>
+<td>可</td>
+<td>不可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>あの-</td>
+<td>可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>悪いんだけど／悪いけど</td>
+<td>可</td>
+<td>不可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>よかったら</td>
+<td>可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>すみませんが</td>
+<td>不可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>よろしかったら</td>
+<td>不可</td>
+<td>不可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>申し訳ありませんが／恐れ入りますが／恐縮ですが</td>
+<td>不可</td>
+<td>不可</td>
+<td>可</td>
+</tr>
+</tbody>
+</table>
+<h3 id="文末"><a href="#文末" class="headerlink" title="文末"></a>文末</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>朋友</th>
+<th>ですます</th>
+<th>敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>~て（よ／ね）</td>
+<td>可</td>
+<td>不可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>~てくれない　</td>
+<td>可</td>
+<td>不可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>~てくれませんか　</td>
+<td>不可</td>
+<td>可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>~てもらえませんか　</td>
+<td>不可</td>
+<td>可</td>
+<td>不可</td>
+</tr>
+<tr>
+<td>~いただけませんか　</td>
+<td>不可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>~いただけませんでしょうか　</td>
+<td>不可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>~いただきたいんですが　</td>
+<td>不可</td>
+<td>可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>~いただけないかと思いまして　</td>
+<td>不可</td>
+<td>不可</td>
+<td>可</td>
+</tr>
+<tr>
+<td>~いただけるとありがたいんですが　</td>
+<td>不可</td>
+<td>不可</td>
+<td>可</td>
+</tr>
+</tbody>
+</table>
+<h3 id="练习句型"><a href="#练习句型" class="headerlink" title="练习句型"></a>练习句型</h3><ul>
+<li>すみませんが、〜ていただけませんか</li>
+<li>申し訳ないんですが、〜ていただけるとありがたいんですが<ul>
+<li>用在非常难以开口请求的郑重恳请的情况下</li>
+</ul>
+</li>
+<li>あのー、〜てもよろしでしょうか</li>
+</ul>
+<h3 id="写推荐信"><a href="#写推荐信" class="headerlink" title="写推荐信"></a>写推荐信</h3><ul>
+<li>教師の推薦状が必要なのですが、お書きいただけないでしょうか。</li>
+<li>先生の研究室にごあいさつに伺いたいと思いまして</li>
+<li>先生のご都合がよろしい時間をお知らせいただけるとありがたく存じます</li>
+<li>返事をお待ちしております</li>
+</ul>
+<h2 id="拒绝-断る"><a href="#拒绝-断る" class="headerlink" title="拒绝 断る"></a>拒绝 断る</h2><h3 id="〜はちょっと。。。"><a href="#〜はちょっと。。。" class="headerlink" title="〜はちょっと。。。"></a>〜はちょっと。。。</h3><ul>
+<li>让对方看到自己为难的样子，知道自己有困难</li>
+</ul>
+<h3 id="断る"><a href="#断る" class="headerlink" title="断る"></a>断る</h3><ul>
+<li>例1：拒绝的时候说到句尾可以不说清楚<ul>
+<li>あ、コピー手伝ってくれないか</li>
+<li>今、ロビーでお客様が待っていらっしゃるので。。。</li>
+</ul>
+</li>
+<li>例2：句尾用まして（ます）、でして（です）来表示原因<ul>
+<li>残念ながら今回は伺えないんです。今夜は友人と会う約束がありまして。。。</li>
+<li>すみません。お酒はちょっと苦手でして。。。</li>
+</ul>
+</li>
+<li>あります　-&gt; ございまして／だ　-&gt; でして</li>
+</ul>
+<h3 id="謝る-拒绝了以后的道歉"><a href="#謝る-拒绝了以后的道歉" class="headerlink" title="謝る 拒绝了以后的道歉"></a>謝る 拒绝了以后的道歉</h3><ul>
+<li>被拜托了事情的时候 お役に立てなくて、申し訳ありません。</li>
+<li>被邀请了的时候。<strong>请先说谢谢</strong> せっかくお誘いくださいましたのに、（すみません）</li>
+</ul>
+<h3 id="拒绝了但是还要保持良好的关系"><a href="#拒绝了但是还要保持良好的关系" class="headerlink" title="拒绝了但是还要保持良好的关系"></a>拒绝了但是还要保持良好的关系</h3><ul>
+<li>今回は伺えないんですが、また　今度／次回／次の機会　に　お誘いください／ご一緒にさせてください</li>
+</ul>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><ul>
+<li>〜はちょっと苦手でして</li>
+<li>お誘いくださいましてありがどうございます</li>
+<li>残念ながら、その日は山田さんと会議の予定でございます。</li>
+<li>申し訳ありませんが、参加できません</li>
+<li>せっかくのお誘いなのにすみません。</li>
+<li>今回は伺えないですが、また今度にお誘いください</li>
+</ul>
+<h2 id="申し出る-自己主动提出申请"><a href="#申し出る-自己主动提出申请" class="headerlink" title="申し出る　自己主动提出申请"></a>申し出る　自己主动提出申请</h2><h3 id="お／ご-〜-（いた）しましょうか"><a href="#お／ご-〜-（いた）しましょうか" class="headerlink" title="お／ご　〜　（いた）しましょうか"></a>お／ご　〜　（いた）しましょうか</h3><ul>
+<li>使用自谦语来表示郑重的<strong>主动提出</strong>，可以让我来干这件事的意思！！没有te</li>
+<li>例子<ul>
+<li>お荷物をお持ちしましょうか</li>
+<li>資料をお送り致しましょうか</li>
+<li>加藤さんには私からご連絡致しましょうか</li>
+</ul>
+</li>
+</ul>
+<h3 id="〜させていただきます"><a href="#〜させていただきます" class="headerlink" title="〜させていただきます"></a>〜させていただきます</h3><ul>
+<li>原本是征求对方许可之后做某事，后来发展成敬语用法（させていただきいてもよろしいでしょうか）</li>
+<li><strong>未经许可就用的话有强加的意思</strong></li>
+<li>例子<ul>
+<li>会議の日は昼食を用意させていただきます</li>
+<li>今日の午後、会議室を使わせていただきたいんですが</li>
+<li>今日は申し訳ないんですが、早めに帰らせていただけませんか</li>
+<li>このパソコンを使わせていただいてもよろしいでしょうか</li>
+</ul>
+</li>
+</ul>
+<h3 id="〜させてください"><a href="#〜させてください" class="headerlink" title="〜させてください"></a>〜させてください</h3><ul>
+<li>表达对方同意之后非常强烈的想做这件事</li>
+<li>例子<ul>
+<li>今    度の仕事は私に担当させてください</li>
+<li>今夜は私にごちそうをさせてください</li>
+</ul>
+</li>
+</ul>
+<h2 id="お詫びする-道歉"><a href="#お詫びする-道歉" class="headerlink" title="お詫びする　道歉"></a>お詫びする　道歉</h2><h3 id="道歉常用句"><a href="#道歉常用句" class="headerlink" title="道歉常用句"></a>道歉常用句</h3><ul>
+<li>申し訳ありません（でした）／　申し訳ございません（でした）</li>
+<li>大変失礼いたしました　／　ご迷惑をおかけしました　／　どうかお許しください</li>
+</ul>
+<h3 id="报告自己的失误"><a href="#报告自己的失误" class="headerlink" title="报告自己的失误"></a>报告自己的失误</h3><ul>
+<li>実は、お約束の時間に伺えなくなってしまったんです</li>
+<li>11日を21日だと聞き間違えてしまいました</li>
+</ul>
+<h3 id="传达反省的心情"><a href="#传达反省的心情" class="headerlink" title="传达反省的心情"></a>传达反省的心情</h3><ul>
+<li>以後／今後は気をつけます</li>
+<li>二度とこのようなミスをしないように、注意／確認／徹底　いたします</li>
+</ul>
+<h3 id="别人对自己道歉的时候"><a href="#别人对自己道歉的时候" class="headerlink" title="别人对自己道歉的时候"></a>别人对自己道歉的时候</h3><ul>
+<li>轻松<ul>
+<li>あ、いえいえ、あまりお気になさらないでください</li>
+</ul>
+</li>
+<li>严肃<ul>
+<li>こういうのは困ります</li>
+<li>こういうことをされると困るんですよ</li>
+<li>これから気をつけてください</li>
+</ul>
+</li>
+</ul>
+<h3 id="句子"><a href="#句子" class="headerlink" title="句子"></a>句子</h3><ul>
+<li>お／ご〜してしまいまして、申し訳ございませんでした</li>
+<li>お／ご〜くださいましたのに、伺えませんで、失礼いたしました（表示的意思是你都邀请我做了，你都准备好了，之类的，但是我做不了）<ul>
+<li>或者不加o，后面加te也可以</li>
+</ul>
+</li>
+</ul>
+<h3 id="卑微"><a href="#卑微" class="headerlink" title="卑微"></a>卑微</h3><ul>
+<li>お忙しい中、お時間を作ってくださいましたのに、時間を間違えてしまいまして申し訳ございませんでした。今後は十分注意いたしますので、お許してください。</li>
+</ul>
+<h2 id="提意见"><a href="#提意见" class="headerlink" title="提意见"></a>提意见</h2><h3 id="问别人的意见"><a href="#问别人的意见" class="headerlink" title="问别人的意见"></a>问别人的意见</h3><ul>
+<li>これについてはどう思われますか／この点についてはいかがですか</li>
+<li>みなさんのご意見は／何かご意見はありますか</li>
+</ul>
+<h3 id="用一句话表示赞成和反对"><a href="#用一句话表示赞成和反对" class="headerlink" title="用一句话表示赞成和反对"></a>用一句话表示赞成和反对</h3><ul>
+<li>赞成：いいと思います</li>
+<li>反対：うーん／それはちょっと。。。／どうでしょうか。。。</li>
+</ul>
+<h3 id="开始陈述自己的意见"><a href="#开始陈述自己的意见" class="headerlink" title="开始陈述自己的意见"></a>开始陈述自己的意见</h3><ul>
+<li>ちょっと、よろしいでしょうか</li>
+</ul>
+<h3 id="说自己的意见"><a href="#说自己的意见" class="headerlink" title="说自己的意见"></a>说自己的意见</h3><ul>
+<li>和平的提案（一般用这种）<ul>
+<li>V／Aい　のではないでしょうか</li>
+<li>N／Aな　なのではないでしょうか</li>
+<li>例<ul>
+<li>予算がもっとかかってしまうのではないでしょうか</li>
+<li>時間が足りなくて、無理なのではないでしょうか</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>提议 具体的方案<ul>
+<li>V たらどうかと思います（が）</li>
+<li>N がいいかと思います（が）</li>
+<li>例<ul>
+<li>時間がかかるので、1ヶ月前から準備したらどうかと思いますが</li>
+<li>結婚のお祝いには、二人が長く使えるコーヒーカップなどがいいと思います</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>归纳意见<ul>
+<li>それよりも　Vた　方がいいと思います</li>
+<li>それよりももっと簡単に準備できる発表に変えた方がいいと思います</li>
+</ul>
+</li>
+</ul>
+<h3 id="接收意见"><a href="#接收意见" class="headerlink" title="接收意见"></a>接收意见</h3><ul>
+<li>〜はいいことだと思いますが／それもそうですが</li>
+</ul>
+<h3 id="说明理由"><a href="#说明理由" class="headerlink" title="说明理由"></a>说明理由</h3><p>忘年会は中華料理がいいのではないでしょうか。<strong>というのは</strong>、人数が急に増えても大丈夫です<strong>し</strong>、若い人はたくさん食べたいという人も多いです<strong>し</strong>、料理の数も多くで、人気があります<strong>ので</strong>。。。こちらの方がいいと思います。</p>
+<h3 id="整体句型"><a href="#整体句型" class="headerlink" title="整体句型"></a>整体句型</h3><ul>
+<li>よろしいでしょうか。〜（な）のはいいことだと思いますが、〜（な）のではないでしょうか。それよりも、〜た方がいいと思いますが、いかがでしょうか。</li>
+</ul>
+<h3 id="写邮件"><a href="#写邮件" class="headerlink" title="写邮件"></a>写邮件</h3><ul>
+<li>お疲れ様です。アレクスです。</li>
+<li>メールを拝見しました。</li>
+<li>まず席のことですが、フランス料理はいいと思いますが、一人一人の席が離れていてみんなで話すことできないのではないでしょうか。</li>
+<li>人数がまだ決まっていないということですが、それなら人数が変わっても大丈夫な中華料理がいいっと思います。今度のお客様はアジアからのお客様が多いと伺っておりますので、アジア料理の方が慣れていていいのではないでしょうか。</li>
+<li>~中華料理がいいのではないでしょうか。というのは、人数が急に増えても大丈夫し、お客様はアジア料理の方が慣れているかもしれません。~</li>
+<li>それよりも、中華料理の方がいいと思いますが、いかがでしょうか。</li>
+</ul>
+<h2 id="接收预约"><a href="#接收预约" class="headerlink" title="接收预约"></a>接收预约</h2><h3 id="〜でございます-接电话"><a href="#〜でございます-接电话" class="headerlink" title="〜でございます　接电话"></a>〜でございます　接电话</h3><ul>
+<li>用于说自己或者自己团体的事情</li>
+<li>でございます和でいらしゃいます是一个意思，一个用在自己一个用在对方</li>
+</ul>
+<h3 id="承ります（うけたまわる）-接受预约"><a href="#承ります（うけたまわる）-接受预约" class="headerlink" title="承ります（うけたまわる）　接受预约"></a>承ります（うけたまわる）　接受预约</h3><ul>
+<li>对目上的人接收预约时候的敬语</li>
+<li>ご予約、承っております</li>
+<li>ご予約は、私、鈴木が承りました</li>
+</ul>
+<h3 id="〜でいらしゃいます-确定预约的人数或者名字"><a href="#〜でいらしゃいます-确定预约的人数或者名字" class="headerlink" title="〜でいらしゃいます　确定预约的人数或者名字"></a>〜でいらしゃいます　确定预约的人数或者名字</h3><ul>
+<li>失礼ですが、田中さんでいらしゃいますか</li>
+<li>3名様でいらしゃいますか</li>
+<li>お元気でいらしゃいますか</li>
+<li>不能用在和对方无关的事情上</li>
+</ul>
+<h3 id="お／ご-〜-になれますか"><a href="#お／ご-〜-になれますか" class="headerlink" title="お／ご　〜　になれますか"></a>お／ご　〜　になれますか</h3><ul>
+<li>在日语里直接问目上的人できます比较失礼，所以用这种方法的比较多。只有当有非常稀奇的技能的时候才会用できます</li>
+<li>社長はスペイン語がお話になれますか</li>
+</ul>
+<h3 id="お／ご〜いただけます-＝-〜てもらえます（表示的是可以做的意思，没有授受的含义）"><a href="#お／ご〜いただけます-＝-〜てもらえます（表示的是可以做的意思，没有授受的含义）" class="headerlink" title="お／ご〜いただけます　＝　〜てもらえます（表示的是可以做的意思，没有授受的含义）"></a>お／ご〜いただけます　＝　〜てもらえます（表示的是可以做的意思，没有授受的含义）</h3><ul>
+<li>この建物の中で、wifiがお使いいただけます</li>
+<li>特急券をお求めになれば、特急にご乗車いただけます</li>
+</ul>
+<h3 id="〜はなさいますか-＝-〜にしますか-＝-に決めます"><a href="#〜はなさいますか-＝-〜にしますか-＝-に決めます" class="headerlink" title="〜はなさいますか　＝　〜にしますか　＝　に決めます"></a>〜はなさいますか　＝　〜にしますか　＝　に決めます</h3><ul>
+<li>料理はどのコースになさいますか</li>
+</ul>
+<h3 id="させていただきます-再一次确认"><a href="#させていただきます-再一次确认" class="headerlink" title="させていただきます　再一次确认"></a>させていただきます　再一次确认</h3><ul>
+<li><strong>用多了会有强迫的意思</strong></li>
+<li>ご注文を　繰り返させて／確認させて／復唱させて　いただきます</li>
+<li>誠に勝手ながら本日は午後七時で閉店させていただきます</li>
+</ul>
+<h2 id="サービス敬語"><a href="#サービス敬語" class="headerlink" title="サービス敬語"></a>サービス敬語</h2><h3 id="お／ご〜になりましたら-如果你决定好了的话"><a href="#お／ご〜になりましたら-如果你决定好了的话" class="headerlink" title="お／ご〜になりましたら 如果你决定好了的话"></a>お／ご〜になりましたら 如果你决定好了的话</h3><p>お決まりになりましたら、お呼びください</p>
+<h3 id="お／ご〜くださいませ-丁宁的说请求的时候"><a href="#お／ご〜くださいませ-丁宁的说请求的时候" class="headerlink" title="お／ご〜くださいませ 丁宁的说请求的时候"></a>お／ご〜くださいませ 丁宁的说请求的时候</h3><ul>
+<li>お一人一枚ずつお取りくださいませ</li>
+<li>何かありましたら、ご相談くださいませ</li>
+<li>ご質問がおありでしたら、お答えいたします</li>
+<li>お困りでしたら、お手伝いいたします</li>
+</ul>
+<h3 id="短语"><a href="#短语" class="headerlink" title="短语"></a>短语</h3><ul>
+<li>お決まりでしたら（お決まりになっていましたら）、伺います</li>
+<li>ご予約をご希望なら（ご希望になるなら）、こちらで承ります</li>
+<li>先にお並びの方（お並びになっている方）から順にお入りください</li>
+<li>整理券をお持ちですか（お持ちになっていらっしゃいますか）</li>
+</ul>
+<h3 id="常用服务用语"><a href="#常用服务用语" class="headerlink" title="常用服务用语"></a>常用服务用语</h3><ul>
+<li>お待たせしました</li>
+<li>かしこまりました</li>
+<li>お飲み物はいかがいたしましょうか</li>
+</ul>
+<h3 id="けっこうです"><a href="#けっこうです" class="headerlink" title="けっこうです"></a>けっこうです</h3><h2 id="接收商量"><a href="#接收商量" class="headerlink" title="接收商量"></a>接收商量</h2><h3 id="询问别人的想法的时候"><a href="#询问别人的想法的时候" class="headerlink" title="询问别人的想法的时候"></a>询问别人的想法的时候</h3><ul>
+<li>对目上询问想干什么的时候，不能用〜したい来问</li>
+<li>先生は何を食べたいですか（X)<ul>
+<li>先生は何を召し上がりますか</li>
+<li>先生はどのようなものがお好きですか</li>
+</ul>
+</li>
+</ul>
+<h3 id="提案する"><a href="#提案する" class="headerlink" title="提案する"></a>提案する</h3><ul>
+<li>提建议的时候用とか不是很丁宁，変成　など</li>
+<li>ビールを召し上がるなら、銀座ホールなどはいかがでしょうか</li>
+<li>日本文化体験なら、鎌倉のお寺で座禅をなさったらいかがでしょうか</li>
+</ul>
+<h3 id="ご存知ですか-ー-存じております／存じ上げております"><a href="#ご存知ですか-ー-存じております／存じ上げております" class="headerlink" title="ご存知ですか　ー　存じております／存じ上げております"></a>ご存知ですか　ー　存じております／存じ上げております</h3><ul>
+<li>对事物的话用前者，对人的话用后者</li>
+<li>アスク商事の高橋部長をご存知ですか　ー　はい、存じ上げております（回答别人问话的时候）</li>
+</ul>
+<h3 id="ご〜（漢字）です-同样表达尊敬语的意思"><a href="#ご〜（漢字）です-同样表达尊敬语的意思" class="headerlink" title="ご〜（漢字）です　同样表达尊敬语的意思"></a>ご〜（漢字）です　同样表达尊敬语的意思</h3><ul>
+<li>何かご心配ですか</li>
+<li>明日の会議、ご出席ですか</li>
+</ul>
+<h2 id="演讲-发表"><a href="#演讲-发表" class="headerlink" title="演讲 发表"></a>演讲 发表</h2><h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>皆まさ、おはようございます。本日は、〜についてお話しします。</p>
+<h3 id="对演讲时的观众说话应该用敬语"><a href="#对演讲时的观众说话应该用敬语" class="headerlink" title="对演讲时的观众说话应该用敬语"></a>对演讲时的观众说话应该用敬语</h3><h3 id="在进入话题之后，比起敬语更应该用desu-masu"><a href="#在进入话题之后，比起敬语更应该用desu-masu" class="headerlink" title="在进入话题之后，比起敬语更应该用desu masu"></a>在进入话题之后，比起敬语更应该用desu masu</h3><ul>
+<li>ですから　＝　だから</li>
+<li>ご存知のように／ご存知の通り</li>
+<li>〜られております（考える／言う／評価する）</li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><ul>
+<li>以上、〜いついて紹介いたしました</li>
+<li>ご静聴ありがどうございます</li>
+</ul>
+<h2 id="面试"><a href="#面试" class="headerlink" title="面试"></a>面试</h2><h3 id="てまいりました＝てくる"><a href="#てまいりました＝てくる" class="headerlink" title="てまいりました＝てくる"></a>てまいりました＝てくる</h3><ul>
+<li>高校生の時日本語の勉強をしてまいりました</li>
+<li>私はこれまで、通訳の仕事に田鶴わってまいりました</li>
+</ul>
+<h3 id="〜ておりますN"><a href="#〜ておりますN" class="headerlink" title="〜ておりますN"></a>〜ておりますN</h3><p>私が研究しておりますテーマは、日本語の敬語についてです</p>
+<h3 id="〜次第です-＝-〜んです"><a href="#〜次第です-＝-〜んです" class="headerlink" title="〜次第です　＝　〜んです"></a>〜次第です　＝　〜んです</h3><ul>
+<li>御社のビジネスは、私の研究テーマと重なっていると思い、大変興味深く感じた次第です</li>
+</ul>
+<h3 id="换种说法"><a href="#换种说法" class="headerlink" title="换种说法"></a>换种说法</h3><p>| 〜について面白いと思いました　| 〜について興味深く感じました |<br>| すごく／とても　| 大変／非常に |<br>| どんな　| どのような |<br>| 〜できたらいいなと考えています　| 〜できたらと考えております |<br>| 〜くれたらいいなと思います　| 〜くれたらと考えております |<br>| 〜したいです　| <strong>〜できたらと思います</strong> |</p>
+<h3 id="自己紹介"><a href="#自己紹介" class="headerlink" title="自己紹介"></a>自己紹介</h3><p>本日は面接の機会をくださいましてありがとうございます。<br>早速ですが、自己紹介をさせていただきます。<br>私はXXと申します。<br>2018年来日いたしまして、現在、XXXを研究しております。<br>どうぞよろしくお願いいたします。</p>
+<h3 id="被问到问题要先回答-はい，不要加那么多犹豫词"><a href="#被问到问题要先回答-はい，不要加那么多犹豫词" class="headerlink" title="被问到问题要先回答 はい，不要加那么多犹豫词"></a>被问到问题要先回答 はい，不要加那么多犹豫词</h3><h3 id="不要太多的用できます"><a href="#不要太多的用できます" class="headerlink" title="不要太多的用できます"></a>不要太多的用できます</h3><ul>
+<li>少しでもお役に立てたらと思います</li>
+</ul>
+<h3 id="例-1"><a href="#例-1" class="headerlink" title="例"></a>例</h3><p>私はゲームのプログラムの開発を続けて<strong>まいりました</strong>。私が<strong>使っております</strong>ソフトの開発を多く<strong>手がけていらっしゃる</strong>御社の事業内容を<strong>伺って</strong>、<strong>非常に興味深く感じました</strong>。さらにより良いゲームソフトを<strong>開発できたらと考えております。</strong></p>
+<h2 id="接电话"><a href="#接电话" class="headerlink" title="接电话"></a>接电话</h2><h3 id="はい、XXXでございます"><a href="#はい、XXXでございます" class="headerlink" title="はい、XXXでございます"></a>はい、XXXでございます</h3><h3 id="いつもお世話になっております"><a href="#いつもお世話になっております" class="headerlink" title="いつもお世話になっております"></a>いつもお世話になっております</h3><ul>
+<li>こちらこそ、お世話になっております</li>
+</ul>
+<h3 id="（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか"><a href="#（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか" class="headerlink" title="（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか"></a>（会社名）のXXと申しますが、XX様／役職、いらっしゃいますか</h3><h3 id="名前-はただいま、XX中でございます"><a href="#名前-はただいま、XX中でございます" class="headerlink" title="名前　はただいま、XX中でございます"></a>名前　はただいま、XX中でございます</h3><h3 id="常用语"><a href="#常用语" class="headerlink" title="常用语"></a>常用语</h3><ul>
+<li>不在的时候<ul>
+<li>XXはただいま席を外しておりまして。。。</li>
+</ul>
+</li>
+<li>让他一会回电<ul>
+<li>折り返しXXに電話させましょう</li>
+</ul>
+</li>
+<li>接收留言<ul>
+<li>よろしければ、私がご用件を承りますが。。。</li>
+<li>承知いたしました。XXXに申し伝えます。私、XXが承りました</li>
+</ul>
+</li>
+<li>稍后再拨<ul>
+<li>恐れ入りますが、XX分過ぎにもう一度おかけいただけますでしょうか</li>
+<li>それでは、XX分後にこちらからおかけします</li>
+</ul>
+</li>
+<li>再一次请教姓名<ul>
+<li>失礼ですが、もう一度お名前を伺ってもよろしいでしょうか</li>
+</ul>
+</li>
+<li>挂电话<ul>
+<li>では、失礼いたします</li>
+</ul>
+</li>
+<li>换人接<ul>
+<li>お電話かわりました。XXです</li>
+</ul>
+</li>
+</ul>
+<h2 id="采访"><a href="#采访" class="headerlink" title="采访"></a>采访</h2><h3 id="〜中／ところ、ありがとうございます"><a href="#〜中／ところ、ありがとうございます" class="headerlink" title="〜中／ところ、ありがとうございます"></a>〜中／ところ、ありがとうございます</h3><ul>
+<li>お忙しい中／お寒い中／雨の中、わざわざありがとうございます</li>
+<li>お急ぎのところ／お疲れのところ／お休みのところ、申し訳ありません</li>
+</ul>
+<h3 id="重复对方说的话"><a href="#重复对方说的话" class="headerlink" title="重复对方说的话"></a>重复对方说的话</h3><h3 id="扩展对方说的话"><a href="#扩展对方说的话" class="headerlink" title="扩展对方说的话"></a>扩展对方说的话</h3><h3 id="想确认时"><a href="#想确认时" class="headerlink" title="想确认时"></a>想确认时</h3><ul>
+<li>今、何とおっしゃいましたでしょうか。／と、おっしゃいますと</li>
+<li>その〜と言うのは、どのような意味ですか</li>
+</ul>
+<h2 id="报告"><a href="#报告" class="headerlink" title="报告"></a>报告</h2><h3 id="有顺序的报告"><a href="#有顺序的报告" class="headerlink" title="有顺序的报告"></a>有顺序的报告</h3><ul>
+<li><strong>まず</strong>、XXXについて報告します</li>
+<li><strong>以上</strong>、概要いついてご報告しました</li>
+<li><strong>次に</strong>、</li>
+<li><strong>その次に／それから</strong></li>
+<li><strong>最後に</strong></li>
+</ul>
+<h3 id="とのことです-＝-そうです-转述听到别人的话"><a href="#とのことです-＝-そうです-转述听到别人的话" class="headerlink" title="とのことです　＝　そうです 转述听到别人的话"></a>とのことです　＝　そうです 转述听到别人的话</h3><h3 id="请看"><a href="#请看" class="headerlink" title="请看"></a>请看</h3><ul>
+<li>ことらの写真をご覧ください</li>
+<li>ご覧いただくとお分かりのように、。。。</li>
+</ul>
+<h3 id="发表感想"><a href="#发表感想" class="headerlink" title="发表感想"></a>发表感想</h3><ul>
+<li>。。。と思います</li>
+<li>。。。のではないでしょうか</li>
+<li>た　方がいいと思います</li>
+</ul>
+<h3 id="结束报告"><a href="#结束报告" class="headerlink" title="结束报告"></a>结束报告</h3><ul>
+<li>以上で報告を終わります</li>
+<li>以上、XXXについてご報告しました</li>
+<li>何か質問はありませんか／ご質問がおありでしたらどうぞ</li>
+</ul>
+<h2 id="司会的敬语"><a href="#司会的敬语" class="headerlink" title="司会的敬语"></a>司会的敬语</h2><h3 id="虽然是朋友，但是在很多人面前说的时候也要丁宁一点"><a href="#虽然是朋友，但是在很多人面前说的时候也要丁宁一点" class="headerlink" title="虽然是朋友，但是在很多人面前说的时候也要丁宁一点"></a>虽然是朋友，但是在很多人面前说的时候也要丁宁一点</h3><h3 id="おVです-＝-おVになっていらっしゃいます"><a href="#おVです-＝-おVになっていらっしゃいます" class="headerlink" title="おVです　＝　おVになっていらっしゃいます"></a>おVです　＝　おVになっていらっしゃいます</h3><ul>
+<li>皆さんお揃いですので、</li>
+<li>皆さんお見えですので、</li>
+</ul>
+<h3 id="そろそろ始めたいと思います"><a href="#そろそろ始めたいと思います" class="headerlink" title="そろそろ始めたいと思います"></a>そろそろ始めたいと思います</h3><h3 id="常用语-1"><a href="#常用语-1" class="headerlink" title="常用语"></a>常用语</h3><ul>
+<li>大きな拍手でお迎えください</li>
+<li>〜さんの前途を祝して／今後のご活躍とご健康を祈って、乾杯をしたいと思います</li>
+<li>乾杯の音頭は〜先生にお願いしたいと思います</li>
+<li>お手元のグラスをお持ちください</li>
+<li>ごゆっくりお楽しみください</li>
+<li>ここで一言ご挨拶申し上げます</li>
+<li>では、〜さまにお祝いのことばをいただきたいと思います</li>
+<li>そろそろお聞きにしたいと思います</li>
+</ul>
+<h2 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h2><p> | 挨拶 | いつもお世話になっております |<br> | お礼 | メール、ありがどうございます |<br> | 始める | では、XXXの件ですが |<br> | 知らせる | 次回は先生をお迎えして下記の通りお食事をすることにいたしました |<br> | お願い | ご検討いただきますようお願いいたします／お目通しくださいますようお願い申し上げます |<br> | 自分の希望 | お目にかかりたいと存じます／ゆっくりお話を伺いたいと存じます／一度おいでいただけたらと存じます |<br> | 終わり | お待ちしております／よろしくお願いいたします／取り急ぎお返事申し上げます |<br> | もとめる | 以上、ご案内／ご招待　申し上げます |<br> | 付け加える | なお、 |</p>
+<h1 id="一些"><a href="#一些" class="headerlink" title="一些"></a>一些</h1><h1 id="一些特定说法"><a href="#一些特定说法" class="headerlink" title="一些特定说法"></a>一些特定说法</h1><h2 id="家人称呼"><a href="#家人称呼" class="headerlink" title="家人称呼"></a>家人称呼</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">我</th>
+<th style="text-align:center">他 普通</th>
+<th style="text-align:center">他 敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">父　ちち</td>
+<td style="text-align:center">お父さん</td>
+<td style="text-align:center">お父様</td>
+</tr>
+<tr>
+<td style="text-align:center">母　はは</td>
+<td style="text-align:center">お母さん</td>
+<td style="text-align:center">お母様</td>
+</tr>
+<tr>
+<td style="text-align:center">兄　あに</td>
+<td style="text-align:center">お兄さん</td>
+<td style="text-align:center">お兄様</td>
+</tr>
+<tr>
+<td style="text-align:center">姉　あね</td>
+<td style="text-align:center">お姉さん</td>
+<td style="text-align:center">お姉様</td>
+</tr>
+<tr>
+<td style="text-align:center">弟　おとうと</td>
+<td style="text-align:center">弟さん</td>
+<td style="text-align:center">弟様</td>
+</tr>
+<tr>
+<td style="text-align:center">妹　いもうと</td>
+<td style="text-align:center">妹さん</td>
+<td style="text-align:center">妹様</td>
+</tr>
+<tr>
+<td style="text-align:center">夫（おっと）／旦那／主人</td>
+<td style="text-align:center">ご主人</td>
+<td style="text-align:center">ご主人様</td>
+</tr>
+<tr>
+<td style="text-align:center">妻（つま）／家内（かない）</td>
+<td style="text-align:center">奥さん</td>
+<td style="text-align:center">奥様</td>
+</tr>
+<tr>
+<td style="text-align:center">子ども</td>
+<td style="text-align:center">お子さん</td>
+<td style="text-align:center">お子様</td>
+</tr>
+<tr>
+<td style="text-align:center">息子</td>
+<td style="text-align:center">息子さん</td>
+<td style="text-align:center">ご子息（しそく）</td>
+</tr>
+<tr>
+<td style="text-align:center">娘</td>
+<td style="text-align:center">娘さん</td>
+<td style="text-align:center">お嬢様</td>
+</tr>
+</tbody>
+</table>
+<h2 id="人称"><a href="#人称" class="headerlink" title="人称"></a>人称</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">ですます</th>
+<th style="text-align:center">敬語</th>
+<th style="text-align:center">友達</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">わたし</td>
+<td style="text-align:center">わたくし</td>
+<td style="text-align:center">わたし／僕／俺</td>
+</tr>
+<tr>
+<td style="text-align:center">わたしたち</td>
+<td style="text-align:center">わたくしたち</td>
+<td style="text-align:center">わたしたち／僕たち／俺たち</td>
+</tr>
+<tr>
+<td style="text-align:center">皆さん</td>
+<td style="text-align:center">皆様</td>
+<td style="text-align:center">みんな</td>
+</tr>
+<tr>
+<td style="text-align:center">お客さん</td>
+<td style="text-align:center">お客様</td>
+<td style="text-align:center">客</td>
+</tr>
+<tr>
+<td style="text-align:center">友人</td>
+<td style="text-align:center">ご友人</td>
+<td style="text-align:center">友達</td>
+</tr>
+<tr>
+<td style="text-align:center">あの人</td>
+<td style="text-align:center">あの方</td>
+<td style="text-align:center">あいつ／彼／彼女</td>
+</tr>
+<tr>
+<td style="text-align:center">お店の人</td>
+<td style="text-align:center">お店の方</td>
+<td style="text-align:center">店員</td>
+</tr>
+<tr>
+<td style="text-align:center">係の人</td>
+<td style="text-align:center">係の方</td>
+<td style="text-align:center">係</td>
+</tr>
+<tr>
+<td style="text-align:center">駅員さん</td>
+<td style="text-align:center">駅員さん</td>
+<td style="text-align:center">駅員</td>
+</tr>
+<tr>
+<td style="text-align:center">アメリカの人</td>
+<td style="text-align:center">アメリカの方</td>
+<td style="text-align:center">アメリカ人</td>
+</tr>
+</tbody>
+</table>
+<h2 id="公司，人员，学校等"><a href="#公司，人员，学校等" class="headerlink" title="公司，人员，学校等"></a>公司，人员，学校等</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">自己的</th>
+<th style="text-align:center">他人的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">弊社（へいしゃ）のXXX／うちのXXX</td>
+<td style="text-align:center">XXX＋职位</td>
+</tr>
+<tr>
+<td style="text-align:center">弊社／我が社／当社</td>
+<td style="text-align:center">御社（おんしゃ）／貴社（きしゃ）</td>
+</tr>
+<tr>
+<td style="text-align:center">本校／当校</td>
+<td style="text-align:center">御校／貴校</td>
+</tr>
+<tr>
+<td style="text-align:center">本学（特指大学）</td>
+<td style="text-align:center">御学／貴学</td>
+</tr>
+</tbody>
+</table>
+<h2 id="常用-お／ご-词"><a href="#常用-お／ご-词" class="headerlink" title="常用 お／ご　词"></a>常用 お／ご　词</h2><ul>
+<li>动词<ul>
+<li>お<ul>
+<li>お電話します</li>
+<li>お約束します</li>
+<li>お持ちします</li>
+</ul>
+</li>
+<li>ご<ul>
+<li>報告</li>
+<li>紹介</li>
+<li>遠慮</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>形容词<ul>
+<li>お<ul>
+<li>お好き／お嫌い</li>
+<li>お元気／お疲れ／お急ぎ</li>
+</ul>
+</li>
+<li>ご<ul>
+<li>ご健康／ご無理</li>
+<li>ご満足／ご不快</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>名词<ul>
+<li>お<ul>
+<li>お電話／お写真</li>
+<li>お返事／お食事</li>
+<li>お手紙／お荷物／お持ち物</li>
+<li>お名前／お気持ち</li>
+<li>お金／お礼／お土産</li>
+<li>お弁当／お風呂</li>
+<li>お飲み物／お品物</li>
+<li>お手洗い</li>
+<li>お見舞い／お祈り／お祝い</li>
+</ul>
+</li>
+<li>ご　<ul>
+<li>ご家族／ご夫婦／ご長男</li>
+<li>ご住所／ご印鑑／ご予算／ご意志／ご本</li>
+<li>ご署名／ご注文／ご計画</li>
+<li>ご予約／ご招待</li>
+<li>ご出席／ご参加／ご登録／ご入金</li>
+<li>ご入学／ご出発</li>
+<li>ご結婚／ご関係</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="日子的说法"><a href="#日子的说法" class="headerlink" title="日子的说法"></a>日子的说法</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">普通</th>
+<th style="text-align:center">敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">今日</td>
+<td style="text-align:center">本日</td>
+</tr>
+<tr>
+<td style="text-align:center">昨日</td>
+<td style="text-align:center">昨日　さくじつ</td>
+</tr>
+<tr>
+<td style="text-align:center">あした</td>
+<td style="text-align:center">あす／みょうにち</td>
+</tr>
+<tr>
+<td style="text-align:center">おととい</td>
+<td style="text-align:center">いっさくじつ</td>
+</tr>
+<tr>
+<td style="text-align:center">あさって</td>
+<td style="text-align:center">みょうごにち</td>
+</tr>
+<tr>
+<td style="text-align:center">今年</td>
+<td style="text-align:center">本年</td>
+</tr>
+<tr>
+<td style="text-align:center">去年</td>
+<td style="text-align:center">昨年（さくねん）</td>
+</tr>
+<tr>
+<td style="text-align:center">おととし　一昨年</td>
+<td style="text-align:center">いっさくねん</td>
+</tr>
+<tr>
+<td style="text-align:center">1ヶ月</td>
+<td style="text-align:center">ひと月</td>
+</tr>
+</tbody>
+</table>
+<h2 id="副词的转换"><a href="#副词的转换" class="headerlink" title="副词的转换"></a>副词的转换</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">普通</th>
+<th style="text-align:center">敬语</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">いま</td>
+<td style="text-align:center">ただいま</td>
+</tr>
+<tr>
+<td style="text-align:center">さっき</td>
+<td style="text-align:center">先ほど</td>
+</tr>
+<tr>
+<td style="text-align:center">後で</td>
+<td style="text-align:center">後ほど（のちほど）</td>
+</tr>
+<tr>
+<td style="text-align:center">この間</td>
+<td style="text-align:center">先日</td>
+</tr>
+<tr>
+<td style="text-align:center">その日</td>
+<td style="text-align:center">当日</td>
+</tr>
+<tr>
+<td style="text-align:center">もうすぐ</td>
+<td style="text-align:center">間もなく</td>
+</tr>
+<tr>
+<td style="text-align:center">赶紧开始</td>
+<td style="text-align:center">さっそく</td>
+</tr>
+<tr>
+<td style="text-align:center">急いて／すぐに</td>
+<td style="text-align:center">早急に（さっきゅう）／至急（しきゅう）</td>
+</tr>
+<tr>
+<td style="text-align:center">すぐに</td>
+<td style="text-align:center">ただちに</td>
+</tr>
+<tr>
+<td style="text-align:center">前に</td>
+<td style="text-align:center">あらかじめ</td>
+</tr>
+<tr>
+<td style="text-align:center">〜たらすぐに</td>
+<td style="text-align:center">〜次第、</td>
+</tr>
+<tr>
+<td style="text-align:center">残念</td>
+<td style="text-align:center">あいにく</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">ぜひ</td>
+</tr>
+<tr>
+<td style="text-align:center">丁寧に</td>
+<td style="text-align:center">丁重に</td>
+</tr>
+<tr>
+<td style="text-align:center">だいたい</td>
+<td style="text-align:center">概ね（おおむね）</td>
+</tr>
+<tr>
+<td style="text-align:center">少し</td>
+<td style="text-align:center">少々（しょうしょう）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="动词的转换"><a href="#动词的转换" class="headerlink" title="动词的转换"></a>动词的转换</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">普通</th>
+<th style="text-align:center">敬语</th>
+<th style="text-align:center">用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">受け取る／もらう</td>
+<td style="text-align:center">受領する</td>
+<td style="text-align:center">配送物</td>
+</tr>
+<tr>
+<td style="text-align:center">受け取る／もらう</td>
+<td style="text-align:center">拝受する</td>
+<td style="text-align:center">配送 邮件 信</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">査収する</td>
+<td style="text-align:center">确认内容之后查收，自己不用</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">納める</td>
+<td style="text-align:center">赠品，贵重物品等</td>
+</tr>
+<tr>
+<td style="text-align:center">金を払う</td>
+<td style="text-align:center">納める</td>
+<td style="text-align:center">税金</td>
+</tr>
+<tr>
+<td style="text-align:center">送る</td>
+<td style="text-align:center">送付する</td>
+<td style="text-align:center">邮寄品，邮件</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">発送する</td>
+<td style="text-align:center">配达物</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">入金する</td>
+<td style="text-align:center">银行汇款</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">捺印する</td>
+<td style="text-align:center">盖章</td>
+</tr>
+<tr>
+<td style="text-align:center">使う</td>
+<td style="text-align:center">使用する</td>
+<td style="text-align:center">物品</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">利用する</td>
+<td style="text-align:center">物品，服务</td>
+</tr>
+<tr>
+<td style="text-align:center">ほしい／したい</td>
+<td style="text-align:center">希望する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">売る</td>
+<td style="text-align:center">販売する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">売り出す</td>
+<td style="text-align:center">発売する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">買う</td>
+<td style="text-align:center">購入する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">求める（もとめる）</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">読む</td>
+<td style="text-align:center">拝読する</td>
+<td style="text-align:center">邮件，信</td>
+</tr>
+<tr>
+<td style="text-align:center">聞く</td>
+<td style="text-align:center">拝聴する</td>
+<td style="text-align:center">意见，演讲</td>
+</tr>
+<tr>
+<td style="text-align:center">書く</td>
+<td style="text-align:center">記入する</td>
+<td style="text-align:center">申请用纸</td>
+</tr>
+<tr>
+<td style="text-align:center">書く</td>
+<td style="text-align:center">記す（しるす）</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">知らせる</td>
+<td style="text-align:center">通知する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">頼む</td>
+<td style="text-align:center">依頼する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">受ける</td>
+<td style="text-align:center">承る</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">考える</td>
+<td style="text-align:center">検討する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">わかる</td>
+<td style="text-align:center">承知する／理解する／了承する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">あきらめる</td>
+<td style="text-align:center">断念する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">忘れる</td>
+<td style="text-align:center">失念する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">帰国する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">出社する／出勤する</td>
+<td style="text-align:center">来自己的公司</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">退社する／退勤する</td>
+<td style="text-align:center">下班回家</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">失礼する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">帰宅する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">退社／退職する</td>
+<td style="text-align:center">辞职</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">開店する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">閉店する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">来店する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">来場する</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">座る</td>
+<td style="text-align:center">かける</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/09/14/数据结构Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/14/数据结构Tree/" class="post-title-link" itemprop="url">数据结构之Tree</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-14 15:54:11 / Modified: 16:44:52" itemprop="dateCreated datePublished" datetime="2019-09-14T15:54:11+09:00">2019-09-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/树/" itemprop="url" rel="index"><span itemprop="name">树</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="基本作用"><a href="#基本作用" class="headerlink" title="基本作用"></a><a href="https://www.zhihu.com/question/20176446" target="_blank" rel="noopener">基本作用</a></h1><ul>
+<li>树是图的一种，但是不是首尾连在一起的</li>
+<li>树的其中一类是从 self-balanced tree BST演变出来的，包括红黑树，AVL，Splay，Treap等等（经常在面试出现但是实际不常用）</li>
+<li>另一种大类是 Trie（字典树），能保证字典排序。前缀搜索，正则匹配，数据压缩，构建索引等等用处</li>
+</ul>
+<h1 id="二叉树，最基础的结构"><a href="#二叉树，最基础的结构" class="headerlink" title="二叉树，最基础的结构"></a>二叉树，最基础的结构</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>每个数的节点<strong>最多</strong>只有两个子节点</li>
+<li>子节点分左右，必须不能颠倒</li>
+</ul>
+<h2 id="应用环境"><a href="#应用环境" class="headerlink" title="应用环境"></a>应用环境</h2><ul>
+<li>hash表，sets</li>
+<li>数据库，优先队列</li>
+<li>LDAP查找信息，在XML/HTML中进行搜索</li>
+</ul>
+<h2 id="不同分支："><a href="#不同分支：" class="headerlink" title="不同分支："></a>不同分支：</h2><ul>
+<li>full binary tree：除了叶节点（也就是一个子节点都没有的点），其他的都有两个子节点</li>
+<li>complete binary tree：除了最后一层外，其他层的节点都有两个子节点，最后一层的子节点必须是左对齐</li>
+<li>perfect binary tree：形成完美的三角形</li>
+</ul>
+<h1 id="BST-二叉搜索树"><a href="#BST-二叉搜索树" class="headerlink" title="BST 二叉搜索树"></a>BST 二叉搜索树</h1><h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>两个子节点里面，左边的必须小于父节点，右边的必须大于父节点</li>
+</ul>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><ul>
+<li>插入：<ul>
+<li>如果没有任何点，作为root</li>
+<li>如果大放到右边的子树，小放到左边的子树</li>
+<li>重复2直到找到空位</li>
+</ul>
+</li>
+<li>删除：<ul>
+<li>删除叶节点：断掉这个点和父节点的联系</li>
+<li>删除只有一个子节点的点：把父节点对待删除点的reference改为父节点对待删除点子节点的reference</li>
+<li>两个子节点的点：左节点不动，右边的换到父节点的位置上/右节点不同，左节点换到父节点</li>
+<li>删除root：需要更改对root的reference</li>
+</ul>
+</li>
+<li>遍历<ul>
+<li>顺序：左-&gt; 中 -&gt; 右</li>
+<li>反序：左 -&gt; 右 -&gt; 中</li>
+<li>DFS：中 -&gt; 左 -&gt; 右</li>
+</ul>
+</li>
+</ul>
+<h1 id="平衡二叉树-AVL树"><a href="#平衡二叉树-AVL树" class="headerlink" title="平衡二叉树 AVL树"></a>平衡二叉树 AVL树</h1><ul>
+<li>左右两个子树的高度差不超过1</li>
+<li>且子树本身也是平衡树</li>
+<li>在构建平衡树的时候确保他们平衡，从而导致最差的时间复杂度也是 logN</li>
+<li>虽然在插入或者删除的时候，可能会在旋转上花费时间，但是整体性能更加稳定</li>
+</ul>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><ul>
+<li>对于需要旋转的情况来说，一共有四种基本状况</li>
+<li>对于左左或者右右：但旋转</li>
+<li>对于左右或者右左：双旋转</li>
+</ul>
+<h2 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h2><ul>
+<li>节点是红色或黑色</li>
+<li>叶节点都是黑色的</li>
+<li>root是黑色的</li>
+<li>每个红节点必须有两个黑子节点，也就是说不能路径上有两个连续的红色</li>
+<li>从任一节点到其每个叶子的所有简单路径都包含相同数目的黑色节点</li>
+</ul>
+<h1 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h1><h2 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>用来处理排序后的数据，查找，插入，删除，循序存取都在对数时间完成</li>
+<li>对于普通的二叉树，可以有多于两个的节点</li>
+<li>优化大块数据的读写操作，加快存取速度</li>
+</ul>
+<h2 id="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"><a href="#在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开" class="headerlink" title="在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开"></a>在构建的时候，每一个点的存储数量是有限的，超过上限的时候，本节点分别成三部分，一个往上移动，另外两个分开</h2><h2 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h2><ul>
+<li>只有达到叶节点才算命中，B树可以在非叶命中</li>
+<li>更适合文件索引系统</li>
+</ul>
+<h2 id="B-树-1"><a href="#B-树-1" class="headerlink" title="B * 树"></a>B * 树</h2><ul>
+<li>节点利用率从 1/2变成了 2/3</li>
+</ul>
+<h1 id="Trie树-字典树"><a href="#Trie树-字典树" class="headerlink" title="Trie树 字典树"></a>Trie树 字典树</h1><ul>
+<li>hash树的变种，保存大量字符串</li>
+<li>利用公共前缀减少查找时间</li>
+</ul>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li>根节点不包括字符，除了根节点都只包含一个字符</li>
+<li>从根节点到某一节点，一路连过去就是相关的字符串</li>
+<li>每个节点的子节点的字符都不相同</li>
+</ul>
+<h1 id="参考来源"><a href="#参考来源" class="headerlink" title="参考来源"></a>参考来源</h1><ul>
+<li><a href="https://www.cnblogs.com/maybe2030/p/4732377.html" target="_blank" rel="noopener">[Data Structure] 数据结构中各种树</a></li>
+<li><a href="https://juejin.im/post/5b66d987e51d4519475f764c" target="_blank" rel="noopener">初学者应该了解的数据结构： Tree</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -2219,891 +4208,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/08/06/算法图解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/06/算法图解/" class="post-title-link" itemprop="url">算法图解笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-06 14:37:32" itemprop="dateCreated datePublished" datetime="2019-08-06T14:37:32+09:00">2019-08-06</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-08-19 14:49:23" itemprop="dateModified" datetime="2019-08-19T14:49:23+09:00">2019-08-19</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/算法图解/" itemprop="url" rel="index"><span itemprop="name">算法图解</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第一章-算法简介"><a href="#第一章-算法简介" class="headerlink" title="第一章 算法简介"></a>第一章 算法简介</h1><h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><ul>
-<li>必须是有序的数组</li>
-<li>对于n个元素的列表，使用二分查找最多需要 log2 n步，用普通的查找最多需要n步<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(l, item)</span>:</span></span><br><span class="line">    low = <span class="number">0</span></span><br><span class="line">    high = len(l) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> low &lt;= high:</span><br><span class="line">        mid = int((low + high) / <span class="number">2</span>)  <span class="comment"># 这里需要转成int，不然没办法做index</span></span><br><span class="line">        <span class="keyword">if</span> l[mid] == item:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> l[mid] &lt; item:</span><br><span class="line">            low = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            high = mid - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="运行时间"><a href="#运行时间" class="headerlink" title="运行时间"></a>运行时间</h2><ul>
-<li>大O表示法表示了操作数，表示的是这个算法的增量</li>
-<li>大O表示了在最糟情况下的运行时间 -&gt; 但是也是需要讨论平均时间的</li>
-<li>常见的大O时间<ul>
-<li>logN 对数时间 Logarithmic</li>
-<li>N 线性时间 Linear</li>
-<li>N * logN 包括快速排序等，速度较快</li>
-<li>N ^ 2 选择排序等，速度较慢</li>
-<li>N！ Factorial time 非常慢</li>
-</ul>
-</li>
-</ul>
-<h2 id="旅行商问题-travelling-salesman-problem-TSP"><a href="#旅行商问题-travelling-salesman-problem-TSP" class="headerlink" title="旅行商问题 travelling salesman problem, TSP"></a>旅行商问题 travelling salesman problem, TSP</h2><ul>
-<li>一个搞不好可以用n！来解决的问题</li>
-<li>你要去五个不同的地方，需要规划怎么样路线最短，最开始的思路就是把每种可能性都列出来，然后对每种路线进行计算。这样的话五个地方就是120种，地方越多越呈阶乘增长</li>
-</ul>
-<h1 id="第二章-选择排序"><a href="#第二章-选择排序" class="headerlink" title="第二章 选择排序"></a>第二章 选择排序</h1><h2 id="数组和链表"><a href="#数组和链表" class="headerlink" title="数组和链表"></a>数组和链表</h2><ul>
-<li>数组需要的空间是固定的（也就是说必须连在一起），所以如果后面加进去了其他东西的话就不行了，需要转移位置，或者预留空间</li>
-<li>链表的每一个位置都会有到下一个位置的指针，所以不需要移动元素。<ul>
-<li>但是链表的问题在于，如果想直接找后面的东西的时候需要一个接着一个读取</li>
-</ul>
-</li>
-<li><strong>需要读取整个数据的时候链表效率很高，需要跳跃的时候链表效率很低。而数组在读取随机元素的时候效率很高</strong><ul>
-<li>数组插入 / 删除线性，读取常数。</li>
-<li>链表读取线性，插入 / 删除常数。</li>
-</ul>
-</li>
-<li>在实际中，因为数组支持随机访问（但是链表只支持顺序访问），所以数组的适用范围大一些</li>
-</ul>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><ul>
-<li>实现方法：每次都从所有的里面选出最大 / 最小，然后放在最开头</li>
-<li>时间复杂度 n ^ 2<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(l)</span>:</span></span><br><span class="line">    newArr = []</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(len(l)):</span><br><span class="line">        smallest = float(<span class="string">'inf'</span>)</span><br><span class="line">        index = <span class="literal">None</span></span><br><span class="line">        <span class="keyword">for</span> i, item <span class="keyword">in</span> enumerate(l):</span><br><span class="line">            <span class="keyword">if</span> item &lt; smallest:</span><br><span class="line">                smallest = item</span><br><span class="line">                index = i</span><br><span class="line">        newArr.append(l.pop(index))  <span class="comment"># 注意这里需要把l的大小改变了</span></span><br><span class="line">        <span class="comment"># 但是是在带l的loop外面变得所以没有关系</span></span><br><span class="line">    <span class="keyword">return</span> newArr</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="第三章-递归-recursion"><a href="#第三章-递归-recursion" class="headerlink" title="第三章 递归 recursion"></a>第三章 递归 recursion</h1><h2 id="何为递归"><a href="#何为递归" class="headerlink" title="何为递归"></a>何为递归</h2><ul>
-<li>函数自己调用自己</li>
-<li>递归和循环的作用效果是相同的，没有性能上的优势，但是可以让方案更加清晰<ul>
-<li>base case：告诉函数什么时候不再调用自己，停止循环</li>
-<li>recursive case：函数调用自己</li>
-</ul>
-</li>
-</ul>
-<h2 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈 stack"></a>栈 stack</h2><ul>
-<li>先进后出的数据结构，push（压入）和pop（读取和删除）</li>
-<li>在调用另一个函数的时候，当前函数暂停并且处于未完成状态，函数的所有变量都储存在内存里</li>
-<li>使用递归的一个问题：如果调用栈的时候很长，会占据大量内存<ul>
-<li>这种时候需要重新编写代码使用循环</li>
-<li>或者使用尾递归（并不是所有语言都支持）</li>
-</ul>
-</li>
-</ul>
-<h1 id="第四章-快速排序（分而治之-divide-and-conquer）"><a href="#第四章-快速排序（分而治之-divide-and-conquer）" class="headerlink" title="第四章 快速排序（分而治之 divide and conquer）"></a>第四章 快速排序（分而治之 divide and conquer）</h1><h2 id="分治"><a href="#分治" class="headerlink" title="分治"></a>分治</h2><ul>
-<li>核心：把一个问题分成子问题，再把子问题分成更小的子问题，最后的子问题可以直接求解，这样的话原问题的解就是子问题的解的合并<ul>
-<li>比如把n规模的问题分成k份，然后在k个问题里面分别再分开</li>
-</ul>
-</li>
-<li>特征<ul>
-<li>问题缩小规模可以轻松解决</li>
-<li>可以分解成若干个小问题</li>
-<li>分解出的子问题可以再合并（如果不满足这条，应该考虑贪心或者DP）</li>
-<li>分解出的各个子问题是独立的（不满足应该考虑DP）</li>
-</ul>
-</li>
-<li>不用循环而用递归：函数式编程里面没有循环（Haskell）</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">RecursiveSum</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> l == []:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] + RecursiveSum(l[<span class="number">1</span>:])  <span class="comment"># 这里不能改变l本身的大小</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">MaxNum</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(l) == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> l[<span class="number">0</span>] <span class="keyword">if</span> l[<span class="number">0</span>] &gt; l[<span class="number">1</span>] <span class="keyword">else</span> l[<span class="number">1</span>]</span><br><span class="line">    submax = MaxNum(l[<span class="number">1</span>:])</span><br><span class="line">    <span class="keyword">return</span> l[<span class="number">0</span>] <span class="keyword">if</span> l[<span class="number">0</span>] &gt; submax <span class="keyword">else</span> submax</span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意：<ul>
-<li>需要找好基本条件，如果找最大值的base就是还剩下两个值</li>
-<li>注意return的内容</li>
-</ul>
-</li>
-</ul>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul>
-<li>比选择排序速度快很多</li>
-<li>base条件，一个元素或者空的数组就不需要排序了</li>
-<li>需要设定一个基本值（比如取第一个值，根据这个值把原数组分成两部分），这样这三个大块就分类完成了。然后对于每个小块，再继续分组<ul>
-<li>比基准小的子数组</li>
-<li>基准</li>
-<li>比基准大的子数组<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">QuickSort</span><span class="params">(l)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(l) &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        piv = l[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 这里是快读得到比他大和比他小的写法，主要从l[1:]开始</span></span><br><span class="line">        less_part = [i <span class="keyword">for</span> i <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> i &lt; piv]</span><br><span class="line">        more_part = [i <span class="keyword">for</span> i <span class="keyword">in</span> l[<span class="number">1</span>:] <span class="keyword">if</span> i &gt; piv]</span><br><span class="line">        <span class="keyword">return</span> QuickSort(less_part) + [piv] + QuickSort(more_part)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 注意这里piv是个int，所以连接的时候需要改成list</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><ul>
-<li>快速排序的速度取决于选择的piv的值的大小，也就是说如果完全排好的情况下，复杂度是n2</li>
-<li>合并排序的速度是 nlogn，快速排序的平均速度是 nlogn，最佳情况是 logn<ul>
-<li>快速排序需要logn层，每层需要把n个元素全都遍历一次，所以最终的结果是nlogn</li>
-</ul>
-</li>
-<li>在计算复杂度的时候，复杂度是操作的次数，而这个次数需要乘一个每次操作的常量，在快速排序的时候常量更小，而且快速排序没那么容易遇到最糟情况</li>
-</ul>
-<h1 id="第五章-散列表（hash表）"><a href="#第五章-散列表（hash表）" class="headerlink" title="第五章 散列表（hash表）"></a>第五章 散列表（hash表）</h1><h2 id="hash函数"><a href="#hash函数" class="headerlink" title="hash函数"></a>hash函数</h2><ul>
-<li>最终的目的是查找的时候时间复杂度是 1</li>
-<li>函数构造：把输入映射到一个数字<ul>
-<li>无论你什么时候输入，输出的数字是一致的</li>
-<li>将不同的输入映射到不同的数字</li>
-<li>知道整个存储的范围有多大，不会返回超过这个大小的数字</li>
-</ul>
-</li>
-</ul>
-<h2 id="应用：缓存"><a href="#应用：缓存" class="headerlink" title="应用：缓存"></a>应用：缓存</h2><ul>
-<li>网站的缓存数据就存在hash表里面，这样访问速度更快，网站本身需要做的工作更少</li>
-<li>访问一个网页 -&gt; 是否在缓存里 -&gt; 有的话调用缓存 -&gt; 没有的话存进缓存</li>
-</ul>
-<h2 id="冲突"><a href="#冲突" class="headerlink" title="冲突"></a>冲突</h2><ul>
-<li>虽然假设的时候认为每个东西都被映射到不同地方，其实会产生冲突</li>
-<li>这种情况下要在hash后面加上list<ul>
-<li>hash函数需要把内容比较平均分分配</li>
-<li>如果储存的链表很长，那么性能就会急剧下降</li>
-</ul>
-</li>
-</ul>
-<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><ul>
-<li>最佳性能，1</li>
-<li>最糟性能，插入，删除，查询全都是n</li>
-<li>装填因子： 装填的元素数 / 元素总数<ul>
-<li>一旦超过0.7就需要调整hash的长度了</li>
-</ul>
-</li>
-</ul>
-<h1 id="第六章-BFS：最短路径问题"><a href="#第六章-BFS：最短路径问题" class="headerlink" title="第六章 BFS：最短路径问题"></a>第六章 BFS：最短路径问题</h1><h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><ul>
-<li>用于图的查找算法，可以解决两种问题<ul>
-<li>从A出发有前往B的路径吗</li>
-<li>从A出发到B的路径最短是什么</li>
-</ul>
-</li>
-<li>实现图 -&gt; hash表，需要将node映射到所有的邻居</li>
-<li>在python里面使用deque创建双端队列</li>
-<li>算法实现（广度搜索）：<ul>
-<li>创建一个队列，储存用于查找的人</li>
-<li>首先把初始化的人载入队列</li>
-<li>从队列里弹出一个人，查找他是不是（查过之后标记成已检查，列表记录），不是的话把这个人的相邻加入队列（一直重复）<ul>
-<li>标记成已检查非常重要，因为不标记的话可能会陷入无限循环</li>
-</ul>
-</li>
-<li>如果最后队列空了还没找到，那就是没有</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BFS</span><span class="params">(name, graph)</span>:</span></span><br><span class="line">    search_queue = deque()</span><br><span class="line">    search_queue += graph[name]</span><br><span class="line">    searched = [name]  <span class="comment"># 用来储存已经探索过的人数</span></span><br><span class="line">    <span class="keyword">while</span> search_queue:</span><br><span class="line">        person = search_queue.popleft()</span><br><span class="line">        <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:</span><br><span class="line">            <span class="keyword">if</span> person[<span class="number">-1</span>] == <span class="string">"m"</span>:  <span class="comment"># 只是一个判断是不是这个人的办法</span></span><br><span class="line">                <span class="keyword">return</span> person</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                search_queue += graph[person]</span><br><span class="line">                searched.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-<h2 id="更新版本，不但可以搜索还可以计算长度"><a href="#更新版本，不但可以搜索还可以计算长度" class="headerlink" title="更新版本，不但可以搜索还可以计算长度"></a>更新版本，不但可以搜索还可以计算长度</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BFS</span><span class="params">(name, graph)</span>:</span></span><br><span class="line">    search_queue = deque()</span><br><span class="line">    search_queue.append(name)</span><br><span class="line">    searched = [name]  <span class="comment"># 用来储存已经探索过的人数</span></span><br><span class="line">    distance = &#123;name: <span class="number">0</span>&#125;</span><br><span class="line">    <span class="keyword">while</span> search_queue:</span><br><span class="line">        current = search_queue.popleft()</span><br><span class="line">        <span class="keyword">for</span> person <span class="keyword">in</span> graph[current]:</span><br><span class="line">            <span class="keyword">if</span> person <span class="keyword">not</span> <span class="keyword">in</span> searched:</span><br><span class="line">                searched.append(person)</span><br><span class="line">                distance[person] = distance[current] + <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> person[<span class="number">-1</span>] == <span class="string">"m"</span>:</span><br><span class="line">                    <span class="keyword">return</span> person, distance[person]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    search_queue.append(person)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span>, <span class="literal">None</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>注意点：<ul>
-<li>增加了distance这个dict来储存开始点到这个点的距离</li>
-<li>在初始化的时候只在已搜索队列里添加了第一个点的信息，在后面的循环里才添加后面的点</li>
-<li>对于每个从queue里面拿出来的点，如果不在已经查找的点里就一定需要加进去，并且计算距离，距离即是和上一点的距离+1</li>
-<li>计算过距离之后再判断是不是要找的点</li>
-</ul>
-</li>
-<li><p>运行时间</p>
-<ul>
-<li>需要沿着每条边前进，所以在边上的运行时间是 O(E)</li>
-<li>把每个人加到queue里面也需要时间，每个人的时间是常数，所以人数的时间是 O(V)</li>
-<li>总的运行时间 E + V</li>
-</ul>
-</li>
-<li><p>拓扑排序</p>
-<ul>
-<li>如果任务A依赖于任务B，那么任务A就必须排在B的后面，这种就是拓扑排序</li>
-</ul>
-</li>
-</ul>
-<h1 id="第七章-狄克斯特拉算法"><a href="#第七章-狄克斯特拉算法" class="headerlink" title="第七章 狄克斯特拉算法"></a>第七章 狄克斯特拉算法</h1><ul>
-<li>之前的图找的是最短路径，现在需要给图加权，找加权之后的最短路径</li>
-<li>加权之后的最短不一定是边数最短</li>
-<li><strong>负的权重不顶用</strong>，因为负权重不能确定没有比目前消耗更小的</li>
-<li>书里写的错的地方：可以有环，没环都是树了！有向无环图可以直接拓扑排序</li>
-<li>核心思想：找到到这个点消耗最少的路径，并且确保没有路径比这个小了</li>
-</ul>
-<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><ul>
-<li>找出消耗最低的点</li>
-<li>更新这个点相邻点的开销</li>
-<li>重复这个过程，直到对所有点都做了（即A点最小之后更新B点，然后更新C点，以此类推）</li>
-<li>计算最终流程</li>
-</ul>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><ul>
-<li>创建一个表格<ul>
-<li>包含了每一项和每一项的具体开销，目前不知道的开销标记成inf</li>
-<li>需要包含每个点的父节点，才能保证最后可以计算流程</li>
-</ul>
-</li>
-<li>不停的更新这个表，从开销最低的一直更新到开销最高的，如果更新了开销的话同样需要更新父节点</li>
-<li>在确定路径的时候，从结尾的地方开始找，然后一路找到开头</li>
-</ul>
-<h2 id="一个问题：关于图在python里面的表示"><a href="#一个问题：关于图在python里面的表示" class="headerlink" title="一个问题：关于图在python里面的表示"></a>一个问题：关于图在python里面的表示</h2><ul>
-<li>实际就是一个dict叠dict，如果直接访问<strong>G[a][b]</strong>就可以直接得到这两个点的距离</li>
-<li><p>如果没有加权的话，可以直接dict叠list，因为不需要记录距离了</p>
-</li>
-<li><p>注意点</p>
-<ul>
-<li>最好是最开始指定了第一个消耗最低点，然后再循环里面最后找消耗最低点</li>
-<li>初始化的时候注意：cost里面初始为0，father里面去掉这个点，Node（cost最低点）初始化成这个点，循环的条件是Node不是空<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dijkstra</span><span class="params">(graph, src, target)</span>:</span></span><br><span class="line">    <span class="comment"># 需要创建一个cost表和一个父节点表</span></span><br><span class="line">    cost = &#123;&#125;</span><br><span class="line">    father = &#123;&#125;</span><br><span class="line">    visited = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> graph.keys():  <span class="comment"># 访问这个图里面所有的key，就是所有的店</span></span><br><span class="line">        cost[i] = float(<span class="string">'inf'</span>)</span><br><span class="line">        father[i] = <span class="literal">None</span></span><br><span class="line">    cost[src] = <span class="number">0</span>  <span class="comment"># 起始点的cost是0</span></span><br><span class="line">    father.pop(src)  <span class="comment"># 起始点不需要父节点</span></span><br><span class="line"></span><br><span class="line">    Node = src</span><br><span class="line">    <span class="comment"># 最小开销点还存在的时候更新所有的点</span></span><br><span class="line">    <span class="keyword">while</span> Node <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">for</span> near <span class="keyword">in</span> graph[Node]:</span><br><span class="line">            new_distance = cost[Node] + graph[Node][near]</span><br><span class="line">            <span class="keyword">if</span> new_distance &lt; cost[near]:</span><br><span class="line">                cost[near] = new_distance</span><br><span class="line">                father[near] = Node</span><br><span class="line">        visited.append(Node)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 找到最小开销的点(放在循环里面好一点)</span></span><br><span class="line">        Node = <span class="literal">None</span></span><br><span class="line">        smallest = float(<span class="string">'inf'</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> cost:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">                <span class="keyword">if</span> cost[i] &lt; smallest:</span><br><span class="line">                    smallest = cost[i]</span><br><span class="line">                    Node = i</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 跳出循环，得到结果</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">N = &#123;</span><br><span class="line">    <span class="string">"start"</span>: &#123;<span class="string">"a"</span>: <span class="number">2</span>, <span class="string">"b"</span>: <span class="number">6</span>&#125;,</span><br><span class="line">    <span class="string">"a"</span>: &#123;<span class="string">"fin"</span>: <span class="number">1</span>&#125;,</span><br><span class="line">    <span class="string">"b"</span>: &#123;<span class="string">"a"</span>: <span class="number">3</span>, <span class="string">"fin"</span>: <span class="number">5</span>&#125;,</span><br><span class="line">    <span class="string">"fin"</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># print(N["start"]["a"])</span></span><br><span class="line">dijkstra(N, <span class="string">"start"</span>, <span class="string">"fin"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="第八章-贪心算法"><a href="#第八章-贪心算法" class="headerlink" title="第八章 贪心算法"></a>第八章 贪心算法</h1><ul>
-<li>处理npc问题，即没有快速算法的解法的问题</li>
-<li>对NPC问题找到近似解</li>
-</ul>
-<h2 id="例子问题"><a href="#例子问题" class="headerlink" title="例子问题"></a>例子问题</h2><ul>
-<li>课表问题：<ul>
-<li>希望尽可能多的课在这个屋子里面上，但是上课时间冲突，如何排课</li>
-<li>先找到这个教室里最早开始的课，然后找到这节课结束之后最早开始的课</li>
-</ul>
-</li>
-<li>装东西<ul>
-<li>背着包去装东西，容量有限，如何装到最大价值的</li>
-<li>从最大的开始装，但是得到的不是最优解，最优解应该动态规划</li>
-</ul>
-</li>
-<li>核心思想：每一步都用局部最优解，得到的结果就是全局最优解。即使得不到最优解，也可以得到近似最优解</li>
-</ul>
-<h2 id="只能用贪心的问题"><a href="#只能用贪心的问题" class="headerlink" title="只能用贪心的问题"></a>只能用贪心的问题</h2><ul>
-<li>集合覆盖问题，比如想在全部区域广播，但是每家电台只覆盖特定区域，如果才能花费最小的计划</li>
-<li>列出所有的可能性的话，复杂度是 2^n</li>
-<li>近似算法：从覆盖最多地方的电台开始找，一直到覆盖所有地方</li>
-<li>贪心算法的复杂度是 n^2，n是广播台的数量<ul>
-<li>因为每次都需要遍历一次找出最需要的那个（n)，这样的操作需要进行最多n次（万一每次都覆盖不上）</li>
-</ul>
-</li>
-</ul>
-<h2 id="NPC问题：从旅行商问题详解"><a href="#NPC问题：从旅行商问题详解" class="headerlink" title="NPC问题：从旅行商问题详解"></a>NPC问题：从旅行商问题详解</h2><ul>
-<li>旅行商问题和求路径问题的区别在于，旅行商问题需要访问一遍所有的地方，找到最短路线</li>
-<li>旅行商问题需要查看所有的可能的路线</li>
-<li>从简单问题出发<ul>
-<li>两个地方的时候，可能的路线有两条（一来一回）</li>
-<li>三个地方的时候 6条</li>
-</ul>
-</li>
-<li>需要计算出所有的解才有可能从中选出最短的路线 -&gt; NPC问题</li>
-<li>近似方法：每次都去离得最近的地方</li>
-</ul>
-<h2 id="识别问题"><a href="#识别问题" class="headerlink" title="识别问题"></a>识别问题</h2><ul>
-<li>元素较少的时候速度快，随着元素增加非常慢</li>
-<li>涉及所有组合</li>
-<li>不能分成小问题，必须考虑所有情况</li>
-<li>涉及序列（比如旅行商中的城市序列），集合（集合覆盖问题）且难以解决。或者可以转换成这种问题的</li>
-</ul>
-<h1 id="第九章-动态规划"><a href="#第九章-动态规划" class="headerlink" title="第九章 动态规划"></a>第九章 动态规划</h1><h2 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h2><ul>
-<li>把一个大的问题拆分成很多小问题的解的合并</li>
-<li>最终的结果其实类似一个表，每次再得到新的结果的时候，其实是在比较<ul>
-<li>同等大小下上一个的值（即上一行的值，这个值已经是之前储存下来的最大的值了）</li>
-<li>当前放新的东西的价值+放完这个东西之后剩下空间可以放的东西的最大价值（这个最大价值同样也被记录了）</li>
-</ul>
-</li>
-<li>DP处理问题的时候只能整件的处理，也就是说分布应该是离散的而不是连续的</li>
-<li>而且DP处理问题的时候各个子问题之间不能互相依赖，如果互相依赖了就很复杂了</li>
-</ul>
-<h2 id="最长公共子串"><a href="#最长公共子串" class="headerlink" title="最长公共子串"></a>最长公共子串</h2><ul>
-<li>比如搜索引擎误输入，怎么判断相近词</li>
-<li>每种动态规划都涉及网络，每个网格里面的值就是我需要优化的值<ul>
-<li>每个单元格里是什么<ul>
-<li>每个单元格是这个格子之前相同的字母数量</li>
-</ul>
-</li>
-<li>如何把这个问题分成子问题<ul>
-<li>如果相同，就是前一个的字母数+1，如果不同就是0</li>
-</ul>
-</li>
-<li>网络的坐标轴是什么<ul>
-<li>在这个问题中，是两个单词的各个字母</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>注意在这个问题里面，最终答案不是在最后出现的</li>
-<li>最长公共字序列！！和子串不一样，对比的是序列而不是字母的个数<ul>
-<li>当字母不同的时候，选择上边或者左边最大的那个</li>
-</ul>
-</li>
-</ul>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
-<li>levenshtein distance（字符串的相似程度，也就是上面的公共子序列）</li>
-<li>指出文件的差异，DNA的相似性，确定什么地方断字</li>
-<li>核心思想：需要把两个str里面所有的substr的combination都计算一下</li>
-<li>实现<ul>
-<li>初始化条件：插入</li>
-<li>实际上来说一个格子有三种操作，删除，插入和置换，这个格子需要改变的操作是这三个操作的最小值</li>
-<li>删除 = d[i - 1][j] + 1 </li>
-<li>插入 = d[i][j - 1] + 1 （相当于这个单词的前一个字母，加上一个插入，这两个没有本质区别）</li>
-<li>替换 = d[i - 1][j - 1] + cost，其中这个cost，如果两个相同就是0，两个不同就是1</li>
-</ul>
-</li>
-<li>具体说明见<a href="https://bigphess.github.io/2019/08/08/Levenshtein/">levenshtein distance说明</a></li>
-</ul>
-<h1 id="第十章-K最近邻"><a href="#第十章-K最近邻" class="headerlink" title="第十章 K最近邻"></a>第十章 K最近邻</h1><h2 id="创建推荐系统"><a href="#创建推荐系统" class="headerlink" title="创建推荐系统"></a>创建推荐系统</h2><ul>
-<li>向这个人推荐电影，找到离这个人最近的五个用户</li>
-<li>如何判断最近：特征抽取</li>
-</ul>
-<h1 id="第十一章-接下来如何"><a href="#第十一章-接下来如何" class="headerlink" title="第十一章 接下来如何"></a>第十一章 接下来如何</h1><h2 id="树（数据库-高级数据结构）"><a href="#树（数据库-高级数据结构）" class="headerlink" title="树（数据库 + 高级数据结构）"></a>树（数据库 + 高级数据结构）</h2><ul>
-<li>二叉查找树：对于每一个节点，左节点都比他小，右节点都比他大<ul>
-<li>时间复杂度 logn</li>
-<li>平衡问题</li>
-</ul>
-</li>
-<li>延伸： B树，红黑树，堆，延展树</li>
-</ul>
-<h2 id="反向索引"><a href="#反向索引" class="headerlink" title="反向索引"></a>反向索引</h2><ul>
-<li>搜索引擎的工作原理</li>
-<li>把网页创建hash表，key是单词，value是包含单词的页面</li>
-</ul>
-<h2 id="傅里叶变换"><a href="#傅里叶变换" class="headerlink" title="傅里叶变换"></a>傅里叶变换</h2><ul>
-<li>信号处理</li>
-</ul>
-<h2 id="并行算法（提高速度）"><a href="#并行算法（提高速度）" class="headerlink" title="并行算法（提高速度）"></a>并行算法（提高速度）</h2><ul>
-<li>对速度的提升是非线性的<ul>
-<li>并行管理开销</li>
-<li>负载均匀</li>
-</ul>
-</li>
-</ul>
-<h2 id="MapReduce"><a href="#MapReduce" class="headerlink" title="MapReduce"></a>MapReduce</h2><ul>
-<li>分布式算法<ul>
-<li>把一台电脑上面处理的工作分布到多台电脑，处理大量数据</li>
-</ul>
-</li>
-<li>分布+归并</li>
-</ul>
-<h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><ul>
-<li>概率型数据结构：可能出现错报，但是不可能出现漏报<ul>
-<li>储存空间很少</li>
-</ul>
-</li>
-</ul>
-<h2 id="HyperLogLog"><a href="#HyperLogLog" class="headerlink" title="HyperLogLog"></a>HyperLogLog</h2><ul>
-<li>类似于布隆过滤器的算法，不能给出准确的答案但是占据的空间很小</li>
-</ul>
-<h2 id="SHA"><a href="#SHA" class="headerlink" title="SHA"></a>SHA</h2><ul>
-<li>另一种hash，安全散列算法，给定一个字符串返回hash</li>
-<li>比较大型文件</li>
-<li>检查密码</li>
-<li>局部不敏感，修改其中一个字符，会改变很多</li>
-</ul>
-<h2 id="Diffie-Hellman-密钥交换"><a href="#Diffie-Hellman-密钥交换" class="headerlink" title="Diffie-Hellman 密钥交换"></a>Diffie-Hellman 密钥交换</h2><ul>
-<li>如何对消息加密，让只有收件人看得懂</li>
-</ul>
-<h2 id="线性规划"><a href="#线性规划" class="headerlink" title="线性规划"></a>线性规划</h2><ul>
-<li>在给定的约束条件下最大限度的改善指定的指标</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/07/16/SVD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/16/SVD/" class="post-title-link" itemprop="url">SVD</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-07-16 15:47:53" itemprop="dateCreated datePublished" datetime="2019-07-16T15:47:53+09:00">2019-07-16</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/26/fusion360/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/26/fusion360/" class="post-title-link" itemprop="url">fusion360</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-26 17:06:34" itemprop="dateCreated datePublished" datetime="2019-06-26T17:06:34+09:00">2019-06-26</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-06-27 14:57:40" itemprop="dateModified" datetime="2019-06-27T14:57:40+09:00">2019-06-27</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CAD/" itemprop="url" rel="index"><span itemprop="name">CAD</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/CAD/Fusion360/" itemprop="url" rel="index"><span itemprop="name">Fusion360</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="给予特征"><a href="#给予特征" class="headerlink" title="给予特征"></a>给予特征</h2><ul>
-<li>拉伸指令</li>
-</ul>
-<h2 id="修饰外形"><a href="#修饰外形" class="headerlink" title="修饰外形"></a>修饰外形</h2><ul>
-<li>修改边缘<ul>
-<li>圆角</li>
-<li>倒角</li>
-</ul>
-</li>
-<li>外观处理<ul>
-<li>选择贴图</li>
-<li>右键选择外观</li>
-<li>可以选择加到面上面或者加到所有东西上面</li>
-</ul>
-</li>
-</ul>
-<h2 id="render（3D模型2D化）"><a href="#render（3D模型2D化）" class="headerlink" title="render（3D模型2D化）"></a>render（3D模型2D化）</h2><ul>
-<li>从model改成渲染</li>
-<li>点那个台灯，修改图片的场景设置，比如高宽比</li>
-<li>所有东西都弄好了之后直接渲染，渲染到自己满意的地方</li>
-</ul>
-<h2 id="画草图"><a href="#画草图" class="headerlink" title="画草图"></a>画草图</h2><ul>
-<li>可以把参考的图放在平面上来，这样画起来比较轻松（插入）</li>
-<li>需要校准加进去图片的比例</li>
-<li>修建偏移之类的对标CAD</li>
-<li>画曲线<ul>
-<li>直接关键点画曲线，可以再调整</li>
-</ul>
-</li>
-<li>几何关系靠计算来</li>
-</ul>
-<h2 id="咖啡杯"><a href="#咖啡杯" class="headerlink" title="咖啡杯"></a>咖啡杯</h2><ul>
-<li>杯身<ul>
-<li>旋转体成型</li>
-</ul>
-</li>
-<li>杯盖<ul>
-<li>新建新的零部件</li>
-<li>修改 – 合并（相交运算</li>
-<li>草图 – 投影，可以把其他的东西投影到现在的平面</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3152,7 +4256,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3281,7 +4385,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">56</span>
+                      
+                    
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3466,7 +4572,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">86</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

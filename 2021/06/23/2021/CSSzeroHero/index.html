@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"always","offset":12,"onmobile":true,"dimmer":true},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="course link CSS Tutorial - Zero to Hero (Complete Course)  CSS cascading style sheet 添加方法：一般用link加到html的head里面 测试方法，可以直接把background设置成别的颜色运行一下试试    Selectors &amp;amp; Propertiesselector是什么 目的：把css的文件和多个h">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Youtube课程CSS zero to Hero笔记">
+<meta property="og:url" content="https://bigphess.github.io/2021/06/23/2021/CSSzeroHero/index.html">
+<meta property="og:site_name" content="今天开始努力学习">
+<meta property="og:description" content="course link CSS Tutorial - Zero to Hero (Complete Course)  CSS cascading style sheet 添加方法：一般用link加到html的head里面 测试方法，可以直接把background设置成别的颜色运行一下试试    Selectors &amp;amp; Propertiesselector是什么 目的：把css的文件和多个h">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-06-23T08:24:44.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Youtube课程CSS zero to Hero笔记">
+<meta name="twitter:description" content="course link CSS Tutorial - Zero to Hero (Complete Course)  CSS cascading style sheet 添加方法：一般用link加到html的head里面 测试方法，可以直接把background设置成别的颜色运行一下试试    Selectors &amp;amp; Propertiesselector是什么 目的：把css的文件和多个h">
+
+
+
+
+
+
+  <link rel="canonical" href="https://bigphess.github.io/2021/06/23/2021/CSSzeroHero/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Youtube课程CSS zero to Hero笔记 | 今天开始努力学习</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">今天开始努力学习</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">面向谷歌编程选手许若芃</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">57</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">84</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/Bigphess" class="github-corner" title="垃圾代码都在我的github！" aria-label="垃圾代码都在我的github！" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2021/06/23/2021/CSSzeroHero/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Youtube课程CSS zero to Hero笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-06-23 17:23:44 / Modified: 17:24:44" itemprop="dateCreated datePublished" datetime="2021-06-23T17:23:44+09:00">2021-06-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/2021/" itemprop="url" rel="index"><span itemprop="name">2021</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/2021/6/" itemprop="url" rel="index"><span itemprop="name">6</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="course-link"><a href="#course-link" class="headerlink" title="course link"></a>course link</h2><ul>
+<li><a href="https://www.youtube.com/watch?v=1Rs2ND1ryYc" target="_blank" rel="noopener">CSS Tutorial - Zero to Hero (Complete Course)</a></li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
+<li>cascading style sheet</li>
+<li>添加方法：一般用link加到html的head里面<ul>
+<li>测试方法，可以直接把background设置成别的颜色运行一下试试</li>
+</ul>
+</li>
+</ul>
+<h2 id="Selectors-amp-Properties"><a href="#Selectors-amp-Properties" class="headerlink" title="Selectors &amp; Properties"></a>Selectors &amp; Properties</h2><h3 id="selector是什么"><a href="#selector是什么" class="headerlink" title="selector是什么"></a>selector是什么</h3><ul>
+<li>目的：把css的文件和多个html组合起来</li>
+<li>有很多种类<ul>
+<li>element:直接使用html里面的tag，会改变这个tag的所有要素（body,p）</li>
+<li>class:自己设定class的名字，使用html element的时候加上这个class。（.aclass）</li>
+<li>id: 前面加上#，给element设置id，然后只改变这个id的内容(#sometext)</li>
+</ul>
+</li>
+</ul>
+<h3 id="重要概念specificity"><a href="#重要概念specificity" class="headerlink" title="重要概念specificity"></a>重要概念specificity</h3><ul>
+<li>目的：在css里面，对同样东西不同style设定的时候，override的优先级<ul>
+<li>比如同样的文字，一个设定成红色一个设定成蓝色</li>
+</ul>
+</li>
+<li>优先级<ul>
+<li>in-line style &gt; id &gt; class &gt; element</li>
+<li>in-line是直接在element里面写<code>style=&quot;color: aliceblue&quot;</code></li>
+</ul>
+</li>
+<li>id和class的使用区别：<ul>
+<li>class会用很多次</li>
+<li>id应该只为了一个东西存在</li>
+</ul>
+</li>
+</ul>
+<h3 id="pseudoselectors"><a href="#pseudoselectors" class="headerlink" title="pseudoselectors"></a>pseudoselectors</h3><p>不仅可以加到element上面，也可以加到id或者class</p>
+<ul>
+<li><p>hover</p>
+<ul>
+<li>添加鼠标移动到上面时候的样式（但是不能覆盖id和inline style）<ul>
+<li>可以用在所有种类的元素上面</li>
+</ul>
+</li>
+<li>类似的用法可以处理<code>a</code><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>    &#123;<span class="attribute">color</span>:green;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;<span class="attribute">color</span>:green;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>   &#123;<span class="attribute">color</span>:red;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span>  &#123;<span class="attribute">color</span>:yellow;&#125; 点击的时候</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>first-child/last-child/nth-child(n)</p>
+<ul>
+<li>比如一个ul里面有很多li的时候，只让第一个/最后一个/第n个改变</li>
+</ul>
+</li>
+<li>only-child：如果有child的元素，里面只有一个元素 <code>li:only-child</code></li>
+</ul>
+<h3 id="Advance-Selector"><a href="#Advance-Selector" class="headerlink" title="Advance Selector"></a>Advance Selector</h3><p>虽然这里的例子写的都是element的selector，但是实际上也可以和id以及class组合</p>
+<ul>
+<li><code>h2 + a</code>找到所有h2下面的a tag并且改变<ul>
+<li>这个方法可以和上面的pseudo一起用</li>
+</ul>
+</li>
+<li><code>textarea ~ button</code>找到和这个area <strong>一个perent</strong>的button<ul>
+<li>必须是在一个parent里面的，如果是加号的话只要位置挨着就行</li>
+</ul>
+</li>
+<li><code>ul &gt; li</code>对于在ul里面的每一个 <strong>直接的li</strong>都会改变。比如如果在ul里面又加一个ol，那ol里面的li就不会变了</li>
+<li><code>ul li</code> 对于在ul里面的 <strong>所有</strong>li</li>
+</ul>
+<h3 id="Attribute-Selector"><a href="#Attribute-Selector" class="headerlink" title="Attribute Selector"></a>Attribute Selector</h3><p><code>element[attr=value]</code></p>
+<ul>
+<li>attr可以设置成class，src，等等element里面的任何attribute</li>
+<li>src设置的时候也可以不用绝对值用pattern <code>^&amp;*~</code>加在等号前面</li>
+<li><a href="https://www.runoob.com/cssref/css-selectors.html" target="_blank" rel="noopener">CSS selector的列表参考</a></li>
+</ul>
+<h3 id="什么是properties"><a href="#什么是properties" class="headerlink" title="什么是properties"></a>什么是properties</h3><ul>
+<li>修改选中的element的内容的属性</li>
+<li>必须有冒号和分号</li>
+</ul>
+<h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
+<li>可以现在html里面给所有需要的内容加上class或者id，然后再统一写</li>
+</ul>
+<h2 id="Coloring-amp-Formatting"><a href="#Coloring-amp-Formatting" class="headerlink" title="Coloring &amp; Formatting"></a>Coloring &amp; Formatting</h2><ul>
+<li>文字的颜色：color</li>
+<li>背景的颜色：background</li>
+</ul>
+<h3 id="用image做background"><a href="#用image做background" class="headerlink" title="用image做background"></a>用image做background</h3><ul>
+<li>可以直接用url引用图片(在线的或者本地的都可以)</li>
+<li><code>background-image</code>或者直接用<code>background</code>都可以实现，不加后面的比较灵活</li>
+</ul>
+<h4 id="一些常用的背景设置选项"><a href="#一些常用的背景设置选项" class="headerlink" title="一些常用的背景设置选项"></a>一些常用的背景设置选项</h4><ul>
+<li>当图片不够大的时候，他会自动repeat来填满这个地方</li>
+<li>加图片可以不从html里面加，而直接设置一个div，然后从css里面加背景</li>
+<li><code>background-repeat:no-repeat</code> 会只显示一张图，其他的这块区域都会空着</li>
+<li><code>background-size:50px 100px;</code> 前面的是高度，后面的是宽度</li>
+<li><code>background-size:cover;</code>:会去掉图片的一部分，让他可以完整的比例正确的显示在应该在的区域</li>
+<li><code>background-size:contain;</code></li>
+</ul>
+<h4 id="透明度"><a href="#透明度" class="headerlink" title="透明度"></a>透明度</h4><ul>
+<li>用在渐变上面比较方便</li>
+<li>颜色：用rgba（0~1）之间</li>
+</ul>
+<h4 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h4><ul>
+<li>radial:<ul>
+<li><code>background: radial-gradient(red, blue);</code></li>
+<li>会从中间蔓延到周围</li>
+<li>也可以设置各个颜色的百分比，或者设置设置形状</li>
+</ul>
+</li>
+<li>linear:<ul>
+<li><code>background: linear-gradient(to right, red, blue);</code></li>
+<li>前面要先设置方向:上下左右，左上等等，或者直接使用角度</li>
+<li>然后后面可以加上喜欢的颜色，带不带透明度的都可以</li>
+</ul>
+</li>
+</ul>
+<h3 id="unit的不同种类"><a href="#unit的不同种类" class="headerlink" title="unit的不同种类"></a>unit的不同种类</h3><ul>
+<li>绝对unit：比如英尺，厘米之类的<ul>
+<li>不管在什么硬件上面，都会显示这个尺寸</li>
+</ul>
+</li>
+<li>相对unit<ul>
+<li>百分比：比如<code>width: 70%;</code>是指占这个parent的百分之70，如果缩放现在的屏幕的话，里面的东西的大小也会跟着改变</li>
+<li>em:和标准的字体比的倍数，比如2em就会变成大小的两倍</li>
+<li>vw：占这个view宽度的百分比，view会比body大一点。比如<code>width:70vw</code><ul>
+<li>vh是高度的百分比</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>比较特殊的px<ul>
+<li>虽然他是一个概念上的绝对值，但是也会根据不同硬件而改变</li>
+<li>比如如果一个400px的东西显示在一个分辨率很高的电视上，可能实际页面的一个px占电视的三四个px</li>
+<li>其他类似的单位pc &gt; pt &gt; px</li>
+</ul>
+</li>
+</ul>
+<h2 id="建议在高度上选择绝对的单位，但是在宽度上选择相对的单位"><a href="#建议在高度上选择绝对的单位，但是在宽度上选择相对的单位" class="headerlink" title="建议在高度上选择绝对的单位，但是在宽度上选择相对的单位"></a>建议在高度上选择绝对的单位，但是在宽度上选择相对的单位</h2><ul>
+<li>因为高度可以往下拉，但是宽度和硬件的长度关系非常大</li>
+<li>chrome的inspect可以直接改变画面的尺寸</li>
+</ul>
+<h2 id="Font-amp-Text-Multipulation"><a href="#Font-amp-Text-Multipulation" class="headerlink" title="Font &amp; Text Multipulation"></a>Font &amp; Text Multipulation</h2><ul>
+<li>font和text的区别<ul>
+<li>font定义了字体，大小，加粗等等</li>
+</ul>
+</li>
+<li>text<ul>
+<li>定义了一些什么字体都能用的东西</li>
+</ul>
+</li>
+</ul>
+<h3 id="text具体"><a href="#text具体" class="headerlink" title="text具体"></a>text具体</h3><ul>
+<li><code>text-decoration</code><ul>
+<li>可以加一些线，比如下面加横线，删除线，上面加线，什么线都没有之类的</li>
+</ul>
+</li>
+<li><code>text-transform</code><ul>
+<li>全部大写，小写</li>
+</ul>
+</li>
+<li><code>text-align</code><ul>
+<li>把文本对齐，比如居中，向左，向右等等</li>
+<li><code>justify</code>努力让所有的文字分布均匀，让每一行一边长</li>
+</ul>
+</li>
+</ul>
+<h3 id="Font具体"><a href="#Font具体" class="headerlink" title="Font具体"></a>Font具体</h3><ul>
+<li><code>font-size</code> em，px等等</li>
+<li><code>font-weight</code>变细加粗属性，一般是从100～800。400可能是比较普通的</li>
+<li><code>font-style</code>，普通，斜体，更斜(oblique)等等</li>
+</ul>
+<h3 id="font-family"><a href="#font-family" class="headerlink" title="font family"></a>font family</h3><ul>
+<li>就是设置字体，选择不同的关键词设置就可以了<ul>
+<li>sans-serif,看起来比较容易 -&gt; 没有衬托线，只留下字体的主干，类似于苹果自带字体那种感觉<ul>
+<li>serif体就是类似于宋体那种感觉</li>
+</ul>
+</li>
+<li><code>font-family: &quot;Times New Roman&quot;, serif;</code>先找第一种能不能用，不能用的话就换成第二种</li>
+<li>一般可以多准备几种，防止因为浏览器等等的原因这个字体崩溃</li>
+</ul>
+</li>
+<li>找到字体的方式<ul>
+<li>google font。可以在上面自定义（最好只选自己需要的），然后直接用代码加到需要的css里面</li>
+<li>google font都给设定好了，只需要把需要的字体加进去就行了</li>
+<li><code>font-family: &quot;Merriweather&quot;, serif;</code>google自带的代码就会帮忙设定备用的字体，这样如果连不上网的话，就会自动载入第二种字体。需要保证第二种字体所有电脑上都能载入</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础Layout"><a href="#基础Layout" class="headerlink" title="基础Layout"></a>基础Layout</h2><h3 id="Box-model"><a href="#Box-model" class="headerlink" title="Box model"></a>Box model</h3><ul>
+<li>每个element都在一个box里面</li>
+<li>content -&gt; padding -&gt; border -&gt; margin<ul>
+<li>padding:不会移动content，internel</li>
+<li>border：主要是分界线的作用，可以style</li>
+<li>margin：移动，externel</li>
+</ul>
+</li>
+</ul>
+<h3 id="border"><a href="#border" class="headerlink" title="border"></a>border</h3><p><code>border: 5px solid red;</code></p>
+<ul>
+<li>三个属性，大小，style和颜色，style包括实现<ul>
+<li>soild,dotted,dashed,double是几种常用的种类，包括实线，点线，虚线和</li>
+</ul>
+</li>
+<li>可以根据border和content的距离看出来有没有padding</li>
+</ul>
+<h3 id="padding-margin"><a href="#padding-margin" class="headerlink" title="padding margin"></a>padding margin</h3><ul>
+<li>padding和margin的语法<ul>
+<li>如果只给一个参数，会在各个方向加上padding <code>padding: 3cm;</code></li>
+<li>可以加上一个参数表示在哪个方向padding <code>padding-right: 40px;</code></li>
+<li><code>padding: 100px 40px 5px 0;</code> 上，右，下，左</li>
+<li><code>margin: 80px 40px;</code>，第一个参数是上下，第二个是左右</li>
+</ul>
+</li>
+<li>margin<ul>
+<li>给边缘外面加上空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="float-amp-display-type"><a href="#float-amp-display-type" class="headerlink" title="float &amp; display type"></a>float &amp; display type</h3><ul>
+<li>inline：就像在图片旁边环绕的效果一样 -&gt; <code>span</code>。不会单起一个部分</li>
+<li>float:<ul>
+<li><code>float: right;</code>可以把现在的东西移动到一个位置，然后其他的内容自动往上顶</li>
+<li>相当于把图片扔到文字的群里面</li>
+</ul>
+</li>
+<li>display<ul>
+<li><code>display: none;</code>可以直接把这个元素从画面上隐藏掉，也不会占用相应的空间</li>
+<li><code>display: inline-block;</code>：<ul>
+<li>组合两种方法，虽然不会创建一个新的line，但是还是给留了一个可操作的block空间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Flexbox"><a href="#Flexbox" class="headerlink" title="Flexbox"></a>Flexbox</h2><p>可以自动完成一些排版的问题。</p>
+<ul>
+<li>container：一个parent的element，一般都用div</li>
+<li>item：children</li>
+</ul>
+<h3 id="创建container"><a href="#创建container" class="headerlink" title="创建container"></a>创建container</h3><ul>
+<li><code>display:flex;</code></li>
+</ul>
+<h4 id="direction-amp-wrap"><a href="#direction-amp-wrap" class="headerlink" title="direction &amp; wrap"></a>direction &amp; wrap</h4><ul>
+<li>container的属性</li>
+<li>可以改变flex分布元素的方式，行还是列，也可以reverse顺序<ul>
+<li><code>flex-direction: row;</code></li>
+<li><code>flex-wrap: wrap;</code>可以让他自动换行，不会挤在一行</li>
+</ul>
+</li>
+</ul>
+<h4 id="content-alignment"><a href="#content-alignment" class="headerlink" title="content alignment"></a>content alignment</h4><ul>
+<li><code>justify-content: flex-end;</code><ul>
+<li>可以让他往左，往右或者居中</li>
+<li><code>space-around/around</code>可以让他均匀的分布</li>
+</ul>
+</li>
+<li><code>align-items: center;</code>可以让他在container里面居中（和上面的方向不一样）<ul>
+<li>具体是哪个方向取决于flex-direction</li>
+<li><code>strech</code>拉长</li>
+<li><code>baseline</code>虽然大家大小不一样，但是所有都根据一个baseline为基准</li>
+</ul>
+</li>
+</ul>
+<h3 id="item"><a href="#item" class="headerlink" title="item"></a>item</h3><h4 id="flex-item-order"><a href="#flex-item-order" class="headerlink" title="flex item order"></a>flex item order</h4><p><code>&lt;div class=&quot;container-item&quot; style=&quot;order: 5;&quot;&gt;A&lt;/div&gt;</code><br>可以直接给每个item里面设定需要出现的order，index从1开始不从0开始</p>
+<h4 id="grow-shrink-basis"><a href="#grow-shrink-basis" class="headerlink" title="grow, shrink, basis"></a>grow, shrink, basis</h4><ul>
+<li><code>flex-basis: 100px;</code>指定他们的宽度</li>
+<li><code>flex-grow: 数字</code>设定这个元素占据的地方占所有的地方的多少，默认的是0</li>
+<li><code>flex-shrink</code>：页面缩放的时候和其他的相比的比例。数字越大缩放的越快。如果设定成0的话就不会缩放</li>
+<li>上面的三个属性，可以直接用一个命令<code>flex: 1 1 100px</code> grow，shrink，basis一条命令直接实现</li>
+</ul>
+<h4 id="item-alignment"><a href="#item-alignment" class="headerlink" title="item alignment"></a>item alignment</h4><ul>
+<li>可以在css里面用<code>text-align: center;</code>来设定具体的alignment，然后在html里面设置单独的</li>
+<li><code>align-self:flex-start;</code>可以在html里面单独设置。但是不能用baseline和strech里面的，因为他们需要的是整体的布局</li>
+</ul>
+<h2 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a>Grid</h2><p>也是一种layout的方式</p>
+<ul>
+<li>和flex的区别<ul>
+<li>grid手动设定的东西更多，可以customized很多layout</li>
+<li>flex比较关心width上面的布局，grid width和height两方面都很关注</li>
+</ul>
+</li>
+<li>创建grid：只需要把display设置成grid了</li>
+</ul>
+<h3 id="template-rows-columns"><a href="#template-rows-columns" class="headerlink" title="template rows/columns"></a>template rows/columns</h3><ul>
+<li><code>grid-template-columns: 10px 50px 10px;</code></li>
+<li><code>grid-template-rows: 50px 250px;</code></li>
+<li>设定行和列的个数，以及每个格子的大小，比如在这里设置了三列，大小分别是10，50，19。又设置了两行，分别是50和250</li>
+<li>可以直接设置成auto，这样他就会自动帮忙排版了</li>
+</ul>
+<h3 id="justify-amp-alignment"><a href="#justify-amp-alignment" class="headerlink" title="justify &amp; alignment"></a>justify &amp; alignment</h3><ul>
+<li><code>justify-content: center;</code><ul>
+<li>不用space between，而是用evenly</li>
+</ul>
+</li>
+<li><code>align-content: center;</code></li>
+</ul>
+<h3 id="row-column-gaps"><a href="#row-column-gaps" class="headerlink" title="row/column gaps"></a>row/column gaps</h3><ul>
+<li><code>column-gap: 150px;</code> 和<code>row-gap: 100px;</code>，可以控制各个格子之间的距离</li>
+<li>可以简写成<code>grid-gap: col row</code></li>
+</ul>
+<h3 id="row-column-lines"><a href="#row-column-lines" class="headerlink" title="row/column lines"></a>row/column lines</h3><ul>
+<li><strong>grid最好用的地方</strong></li>
+<li><code>grid-column: 1 / 3;</code><ul>
+<li>把现在这个项目占的地方从第一列到第三列(占1和2)，其他的项目顺延</li>
+</ul>
+</li>
+<li><code>grid-row: 1 / 3;</code></li>
+<li>也可以直接用距离表示：<code>span 2</code>占2格子的地方</li>
+</ul>
+<h4 id="grid-area：直接用一行表示上面的东西"><a href="#grid-area：直接用一行表示上面的东西" class="headerlink" title="grid area：直接用一行表示上面的东西"></a>grid area：直接用一行表示上面的东西</h4><ul>
+<li><code>grid-area: 2 / 1 / span 2/ span 3</code><ul>
+<li>顺序是 row start -&gt; column start -&gt; row end -&gt; column end</li>
+</ul>
+</li>
+</ul>
+<h2 id="Animations-amp-Transtitions"><a href="#Animations-amp-Transtitions" class="headerlink" title="Animations &amp; Transtitions"></a>Animations &amp; Transtitions</h2><h3 id="transtition"><a href="#transtition" class="headerlink" title="transtition"></a>transtition</h3><ul>
+<li>属性<ul>
+<li><code>transition: 300ms linear;</code> 类似于ppt的渐变颜色等等</li>
+</ul>
+</li>
+<li><code>transform</code>:<ul>
+<li><code>translate(50px, 30px)</code> 往右移动50，往下移动30</li>
+<li><code>scale(倍数)</code>缩放</li>
+<li><code>rotate(30deg)</code>旋转</li>
+<li><code>skew(30deg)</code>绕X轴，Y轴等等等转动</li>
+<li><code>matrix(xscale,deg,deg,yscale,transX,transY)</code>可以总结上面的所有的</li>
+</ul>
+</li>
+</ul>
+<h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><ul>
+<li>一个动画至少有两个keyframe</li>
+<li><p>创建关键帧关键词from to或者百分比</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">keyframes</span> red-to-black &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">background</span>: chocolate;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(0px, 0px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(10px, 10px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">background</span>: black;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(20px, 20px);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>增加动画</p>
+<ul>
+<li>在需要增加动画的区域里加上<code>animation-name</code>的属性</li>
+<li>然后再给动画加上时间<code>animation-duration: 10s;</code></li>
+<li><code>animation-timing-function:linear</code>控制渐变</li>
+<li><code>animation-delay: -2s;</code>可以是负值，这样的话刷新的时候就是动画运行2s的时候</li>
+<li><code>animation-iteration-count: 2;</code>重复动画</li>
+<li><code>animation-direction: reverse;</code>改变动画播放的顺序</li>
+</ul>
+</li>
+<li>也可以把上面的内容都写在一个animation里面</li>
+</ul>
+<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge!!"></a>Challenge!!</h2>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/06/23/2021/前端入门/" rel="next" title="一些前端的基础概念">
+                <i class="fa fa-chevron-left"></i> 一些前端的基础概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.jpeg" alt="RUOPENG XU">
+            
+              <p class="site-author-name" itemprop="name">RUOPENG XU</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Bigphess" title="GitHub &rarr; https://github.com/Bigphess" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:xrp0308@gmail.com" title="E-Mail &rarr; mailto:xrp0308@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#course-link"><span class="nav-number">1.</span> <span class="nav-text">course link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">2.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selectors-amp-Properties"><span class="nav-number">3.</span> <span class="nav-text">Selectors &amp; Properties</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#selector是什么"><span class="nav-number">3.1.</span> <span class="nav-text">selector是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要概念specificity"><span class="nav-number">3.2.</span> <span class="nav-text">重要概念specificity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pseudoselectors"><span class="nav-number">3.3.</span> <span class="nav-text">pseudoselectors</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advance-Selector"><span class="nav-number">3.4.</span> <span class="nav-text">Advance Selector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Attribute-Selector"><span class="nav-number">3.5.</span> <span class="nav-text">Attribute Selector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是properties"><span class="nav-number">3.6.</span> <span class="nav-text">什么是properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总体思路"><span class="nav-number">3.7.</span> <span class="nav-text">总体思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coloring-amp-Formatting"><span class="nav-number">4.</span> <span class="nav-text">Coloring &amp; Formatting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用image做background"><span class="nav-number">4.1.</span> <span class="nav-text">用image做background</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些常用的背景设置选项"><span class="nav-number">4.1.1.</span> <span class="nav-text">一些常用的背景设置选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#透明度"><span class="nav-number">4.1.2.</span> <span class="nav-text">透明度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变"><span class="nav-number">4.1.3.</span> <span class="nav-text">渐变</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unit的不同种类"><span class="nav-number">4.2.</span> <span class="nav-text">unit的不同种类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建议在高度上选择绝对的单位，但是在宽度上选择相对的单位"><span class="nav-number">5.</span> <span class="nav-text">建议在高度上选择绝对的单位，但是在宽度上选择相对的单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Font-amp-Text-Multipulation"><span class="nav-number">6.</span> <span class="nav-text">Font &amp; Text Multipulation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#text具体"><span class="nav-number">6.1.</span> <span class="nav-text">text具体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Font具体"><span class="nav-number">6.2.</span> <span class="nav-text">Font具体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#font-family"><span class="nav-number">6.3.</span> <span class="nav-text">font family</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础Layout"><span class="nav-number">7.</span> <span class="nav-text">基础Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Box-model"><span class="nav-number">7.1.</span> <span class="nav-text">Box model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#border"><span class="nav-number">7.2.</span> <span class="nav-text">border</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#padding-margin"><span class="nav-number">7.3.</span> <span class="nav-text">padding margin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float-amp-display-type"><span class="nav-number">7.4.</span> <span class="nav-text">float &amp; display type</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Flexbox"><span class="nav-number">8.</span> <span class="nav-text">Flexbox</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建container"><span class="nav-number">8.1.</span> <span class="nav-text">创建container</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#direction-amp-wrap"><span class="nav-number">8.1.1.</span> <span class="nav-text">direction &amp; wrap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content-alignment"><span class="nav-number">8.1.2.</span> <span class="nav-text">content alignment</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#item"><span class="nav-number">8.2.</span> <span class="nav-text">item</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#flex-item-order"><span class="nav-number">8.2.1.</span> <span class="nav-text">flex item order</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grow-shrink-basis"><span class="nav-number">8.2.2.</span> <span class="nav-text">grow, shrink, basis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#item-alignment"><span class="nav-number">8.2.3.</span> <span class="nav-text">item alignment</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Grid"><span class="nav-number">9.</span> <span class="nav-text">Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#template-rows-columns"><span class="nav-number">9.1.</span> <span class="nav-text">template rows/columns</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#justify-amp-alignment"><span class="nav-number">9.2.</span> <span class="nav-text">justify &amp; alignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#row-column-gaps"><span class="nav-number">9.3.</span> <span class="nav-text">row/column gaps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#row-column-lines"><span class="nav-number">9.4.</span> <span class="nav-text">row/column lines</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#grid-area：直接用一行表示上面的东西"><span class="nav-number">9.4.1.</span> <span class="nav-text">grid area：直接用一行表示上面的东西</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Animations-amp-Transtitions"><span class="nav-number">10.</span> <span class="nav-text">Animations &amp; Transtitions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transtition"><span class="nav-number">10.1.</span> <span class="nav-text">transtition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#animation"><span class="nav-number">10.2.</span> <span class="nav-text">animation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Challenge"><span class="nav-number">11.</span> <span class="nav-text">Challenge!!</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+    <div id="sidebar-dimmer"></div>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">RUOPENG XU</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
