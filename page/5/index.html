@@ -241,7 +241,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">57</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">58</span></a>
 
   </li>
         
@@ -260,7 +260,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">84</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">85</span></a>
 
   </li>
 
@@ -334,6 +334,233 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/06/05/关于字符串匹配算法KMP和BM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="RUOPENG XU">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天开始努力学习">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/05/关于字符串匹配算法KMP和BM/" class="post-title-link" itemprop="url">关于字符串匹配算法KMP和BM</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-05 12:03:50" itemprop="dateCreated datePublished" datetime="2019-06-05T12:03:50+09:00">2019-06-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-07 19:27:07" itemprop="dateModified" datetime="2019-06-07T19:27:07+09:00">2019-06-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/字符串处理/" itemprop="url" rel="index"><span itemprop="name">字符串处理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天在leetcode终于刷到了string的题，是在一大串字符里面匹配相应的字符。<br>托python的福，居然被我用暴力破解解决了，虽然结果不是很优雅。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">strStr</span><span class="params">(self, haystack: str, needle: str)</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">if</span> needle == <span class="string">""</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> i, ch <span class="keyword">in</span> enumerate(haystack):</span><br><span class="line">            <span class="keyword">if</span> ch == needle[<span class="number">0</span>]:</span><br><span class="line">                <span class="keyword">if</span> needle == haystack[i:i+len(needle)]:</span><br><span class="line">                    <span class="keyword">return</span> i</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="KMP"><a href="#KMP" class="headerlink" title="KMP"></a>KMP</h2><ul>
+<li>首先，把这个需要检测的string（a）的第一个和目标string（t）的第一个进行对比，如果不匹配，后移一位</li>
+<li>直到找到第一个相同的字母，然后把a和b同时后移一位<ul>
+<li>还是相同，继续后移</li>
+<li>不同（<strong>这部分是这个代码的精髓</strong>）<ul>
+<li>一般的思路是把b全都后移一位，但是这样其实消耗挺大的</li>
+<li>KMP的思路是，既然b的前n位都已经比较过了，那就不要放弃这个信息，不要移动回之前比较过的n位了，继续后移移动到全新的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>需要移动的位数 = 已经匹配到的字数 - 对应最后一位匹配上的东西的匹配值（由partial match table得出）</li>
+</ul>
+<h3 id="如何产生这张表"><a href="#如何产生这张表" class="headerlink" title="如何产生这张表"></a>如何产生这张表</h3><p>比如一个单词 bread</p>
+<ul>
+<li>前缀：b,br,bre,brea</li>
+<li>后缀：read,ead,ad,d<br>部分匹配值就是前缀和后缀最长的共有元素长度</li>
+<li>比如ABCDABD这个string<ul>
+<li>A前后缀都是空的，长度0</li>
+<li>AB，前缀A，后缀B，共有长度0</li>
+<li>ABC，[A, AB]，后缀为[BC, C]，共有元素的长度0</li>
+<li>ABCD，[A,AB,ABC],[B,BC,BCD] -&gt; 0</li>
+<li>ABCDA, [A,AB,ABC,ABCD],[BCDA,CDA,DA,A] -&gt; 有一个共有元素A，长度为1</li>
+<li>ABCDAB,[A, AB, ABC, ABCD, ABCDA],[BCDAB, CDAB, DAB, AB, B] -&gt; 共有元素AB，长度为2</li>
+<li>“ABCDABD”的前缀为[A, AB, ABC, ABCD, ABCDA, ABCDAB]，后缀为[BCDABD, CDABD, DABD, ABD, BD, D]，共有元素的长度为0。<br>（难点：怎么得到上面的这个长度）</li>
+</ul>
+</li>
+</ul>
+<h2 id="BM"><a href="#BM" class="headerlink" title="BM"></a>BM</h2><ul>
+<li>首先将a和b的头对其开始，然后从尾部开始比较。因为如果尾部不匹配的话，这整个一串都不匹配了。知道了这个不匹配的字符之后，这个字符就被称为坏字符<ul>
+<li>如果这个坏字符包括在单词里面，则需要把这两个对其</li>
+<li><strong>后移位数 = 坏字符的位置 - 搜索词中的上一次出现位置</strong></li>
+<li>如果不包含在搜索词里面，那么上一次的位置是-1</li>
+</ul>
+</li>
+<li>最后一位匹配上了，那么就顺着b往前捋<ul>
+<li>在a里面可以和b后面匹配上的都是good suffix（比如example的e，le，ple等等）</li>
+<li>好后缀的后移：<strong>后移位数 = 好后缀的位置（最后一个字符为准） - 搜索词中的上一次出现位置</strong></li>
+<li>如果没有出现过是 -1 </li>
+<li>如果有多个好后缀，那么除了最长的好后缀，其他的上一次出现位置必须在头部（b的头部）</li>
+</ul>
+</li>
+<li>在上面两个规则里面，选择移动的最大值<ul>
+<li>上面两个规则只和搜索词有关，和原来的字符串没关系，所以可以提前生成坏字符和好后缀表，直接比较移动位数</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -3071,375 +3298,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://bigphess.github.io/2019/05/07/CS231nassignment2Pytorch/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="RUOPENG XU">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/uploads/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="今天开始努力学习">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/07/CS231nassignment2Pytorch/" class="post-title-link" itemprop="url">CS231Nassignment2之Pytorch</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-07 13:25:38 / Modified: 18:15:35" itemprop="dateCreated datePublished" datetime="2019-05-07T13:25:38+09:00">2019-05-07</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/" itemprop="url" rel="index"><span itemprop="name">Deep Learning</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/图像处理/Deep-Learning/CS231n作业/" itemprop="url" rel="index"><span itemprop="name">CS231n作业</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这部分需要在torch和TensorFlow两个framework里面选一个。</p>
-<h1 id="PyTorch"><a href="#PyTorch" class="headerlink" title="PyTorch"></a>PyTorch</h1><h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
-<li>加入了Tensor的object（类似于narray），不需要手动的backprop了</li>
-</ul>
-<h1 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h1><ul>
-<li>在GPU上面跑，不需要CUDA就可以在自己的GPU上面跑NN</li>
-<li>functions很多</li>
-<li>站在巨人的肩膀上！</li>
-<li>在实际使用中应该写的深度学习代码</li>
-</ul>
-<h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><ul>
-<li>Justin Johnson has made an excellent<a href="https://github.com/jcjohnson/pytorch-examples" target="_blank" rel="noopener">tutorial</a> for PyTorch.</li>
-<li>Detailed<a href="http: // pytorch.org / docs / stable / index.html" target="_blank" rel="noopener">API doc</a></li>
-<li>If you have other questions that are not addressed by the API docs, the <a href="https: // discuss.pytorch.org /" target="_blank" rel="noopener">PyTorch forum</a> is a much better place to ask than StackOverflow.</li>
-</ul>
-<h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><ul>
-<li>第一部分，准备，使用dataset</li>
-<li>第二部分，abstraction level1，直接在最底层的Tensors上面操作</li>
-<li>第三部分，abstraction level2，<code>nn.Module</code>定义一个任意的NN结构</li>
-<li>第四部分，abstraction level3，<code>nn.Sequential</code>，定义一个简单的线性feed - back网络</li>
-<li>第五部分，自己调参，尽量让CIFAR - 10的精度尽可能高</li>
-</ul>
-<h2 id="Part-1-Preparation"><a href="#Part-1-Preparation" class="headerlink" title="Part 1.Preparation"></a>Part 1.Preparation</h2><p>pytorch里面有下载dataset，预处理并且迭代成minibatch的功能</p>
-<p><code>import torchvision.transforms as T</code></p>
-<ul>
-<li>这个包包括了预处理以及增强data的功能，在这里选择了减去平均的RGB并且除以标准差</li>
-<li>然后对不同的部分分别构建了一个dataset object（训练，测试，val），这个dataset会载入一次training example，并且在DataLoader部分构建minibatch</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">NUM_TRAIN = <span class="number">49000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The torchvision.transforms package provides tools for preprocessing data</span></span><br><span class="line"><span class="comment"># and for performing data augmentation; here we set up a transform to</span></span><br><span class="line"><span class="comment"># preprocess the data by subtracting the mean RGB value and dividing by the</span></span><br><span class="line"><span class="comment"># standard deviation of each RGB value; we've hardcoded the mean and std.</span></span><br><span class="line">transform = T.Compose([</span><br><span class="line">    T.ToTensor(),</span><br><span class="line">    T.Normalize((<span class="number">0.4914</span>, <span class="number">0.4822</span>, <span class="number">0.4465</span>), (<span class="number">0.2023</span>, <span class="number">0.1994</span>, <span class="number">0.2010</span>))</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># We set up a Dataset object for each split (train / val / test); Datasets load</span></span><br><span class="line"><span class="comment"># training examples one at a time, so we wrap each Dataset in a DataLoader which</span></span><br><span class="line"><span class="comment"># iterates through the Dataset and forms minibatches. We divide the CIFAR-10</span></span><br><span class="line"><span class="comment"># training set into train and val sets by passing a Sampler object to the</span></span><br><span class="line"><span class="comment"># DataLoader telling how it should sample from the underlying Dataset.</span></span><br><span class="line">cifar10_train = dset.CIFAR10(<span class="string">'./cs231n/datasets'</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                             transform=transform)</span><br><span class="line">loader_train = DataLoader(cifar10_train, batch_size=<span class="number">64</span>,</span><br><span class="line">                          sampler=sampler.SubsetRandomSampler(range(NUM_TRAIN)))</span><br><span class="line"></span><br><span class="line">cifar10_val = dset.CIFAR10(<span class="string">'./cs231n/datasets'</span>, train=<span class="literal">True</span>, download=<span class="literal">True</span>,</span><br><span class="line">                           transform=transform)</span><br><span class="line">loader_val = DataLoader(cifar10_val, batch_size=<span class="number">64</span>,</span><br><span class="line">                        sampler=sampler.SubsetRandomSampler(range(NUM_TRAIN, <span class="number">50000</span>)))</span><br><span class="line"></span><br><span class="line">cifar10_test = dset.CIFAR10(<span class="string">'./cs231n/datasets'</span>, train=<span class="literal">False</span>, download=<span class="literal">True</span>,</span><br><span class="line">                            transform=transform)</span><br><span class="line">loader_test = DataLoader(cifar10_test, batch_size=<span class="number">64</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>需要一个是否使用GPU的flag，并且set到true。在这个作业里面不是必须用GPU跑，但是如果电脑不能enableCUDA的话，<strong>就会自动返回CPU模式</strong>。</li>
-<li>除此之外，建立了两个global var，dtype代表float32，device代表用哪个</li>
-<li>因为mac本身不支持CUDA，而且好像新版本的系统还不能安装N卡的部分，所以现在用的CPU</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">USE_GPU = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">dtype = torch.float32  <span class="comment"># we will be using float throughout this tutorial</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> USE_GPU <span class="keyword">and</span> torch.cuda.is_available():</span><br><span class="line">    device = torch.device(<span class="string">'cuda'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    device = torch.device(<span class="string">'cpu'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Constant to control how frequently we print train loss</span></span><br><span class="line">print_every = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'using device:'</span>, device)</span><br></pre></td></tr></table></figure>
-<h2 id="Part2-Barebones-PyTorch"><a href="#Part2-Barebones-PyTorch" class="headerlink" title="Part2 Barebones PyTorch"></a>Part2 Barebones PyTorch</h2><ul>
-<li>虽然有很多高层的API已经有了很多功能，但是这部分从比较底层的部分来进行</li>
-<li>建立一个简单的fc - relu net，两个中间层，没有bias</li>
-<li>用Tensor的method来计算forward，并且用自带的autograd来计算back</li>
-<li>如果设定了<code>requires_grad = True</code>，那么在计算的时候不仅会计算值，还会生成计算back的graph</li>
-<li>if x is a Tensor with <code>x.requires_grad == True</code> then after backpropagation x.grad will be another Tensor holding the gradient of x with respect to the scalar loss at the end</li>
-</ul>
-<h3 id="PyTorch-Tensors-Flatten-Function"><a href="#PyTorch-Tensors-Flatten-Function" class="headerlink" title="PyTorch Tensors: Flatten Function"></a>PyTorch Tensors: Flatten Function</h3><ul>
-<li>Tensors是一个和narray很像的东西，定义了很多比较好用的功能，比如<code>flatten</code>来reshape image data</li>
-<li>在Tensor里面一个图片的形状是NxCxHxW<ul>
-<li>datapoint的数量</li>
-<li>channels</li>
-<li>feature map的H和W</li>
-</ul>
-</li>
-<li>但是在affine里面我们希望一个datapoint可以表现成一个单独的vector，而不是channel和宽和高</li>
-<li>所以在这里用flatten来首先读取NCHW的数据，然后返回这个data的view（<strong>相当于array里面的reshape，把它改成了Nx？？，其中？？可以是任何值</strong>）</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(x)</span>:</span></span><br><span class="line">    N = x.shape[<span class="number">0</span>]  <span class="comment"># read in N, C, H, W</span></span><br><span class="line">    <span class="comment"># "flatten" the C * H * W values into a single vector per image</span></span><br><span class="line">    <span class="keyword">return</span> x.view(N, <span class="number">-1</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="Barebones-PyTorch-Two-Layer-Network"><a href="#Barebones-PyTorch-Two-Layer-Network" class="headerlink" title="Barebones PyTorch: Two-Layer Network"></a>Barebones PyTorch: Two-Layer Network</h3><p>当定义一个 two_layer_fc的时候，会有两层的中间带relu的forward，在写好了forward之后需要确保输出的形状是对的并且没有什么问题(最近好像对这个大小已经没有什么疑问了)</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F  <span class="comment"># useful stateless functions</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">two_layer_fc</span><span class="params">(x, params)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A fully-connected neural networks; the architecture is:</span></span><br><span class="line"><span class="string">    NN is fully connected -&gt; ReLU -&gt; fully connected layer.</span></span><br><span class="line"><span class="string">    Note that this function only defines the forward pass; </span></span><br><span class="line"><span class="string">    PyTorch will take care of the backward pass for us.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The input to the network will be a minibatch of data, of shape</span></span><br><span class="line"><span class="string">    (N, d1, ..., dM) where d1 * ... * dM = D. The hidden layer will have H units,</span></span><br><span class="line"><span class="string">    and the output layer will produce scores for C classes.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: A PyTorch Tensor of shape (N, d1, ..., dM) giving a minibatch of</span></span><br><span class="line"><span class="string">      input data.</span></span><br><span class="line"><span class="string">    - params: A list [w1, w2] of PyTorch Tensors giving weights for the network;</span></span><br><span class="line"><span class="string">      w1 has shape (D, H) and w2 has shape (H, C).</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - scores: A PyTorch Tensor of shape (N, C) giving classification scores for</span></span><br><span class="line"><span class="string">      the input data x.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># first we flatten the image</span></span><br><span class="line">    x = flatten(x)  <span class="comment"># shape: [batch_size, C x H x W]</span></span><br><span class="line"></span><br><span class="line">    w1, w2 = params</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Forward pass: compute predicted y using operations on Tensors. Since w1 and</span></span><br><span class="line">    <span class="comment"># w2 have requires_grad=True, operations involving these Tensors will cause</span></span><br><span class="line">    <span class="comment"># PyTorch to build a computational graph, allowing automatic computation of</span></span><br><span class="line">    <span class="comment"># gradients. Since we are no longer implementing the backward pass by hand we</span></span><br><span class="line">    <span class="comment"># don't need to keep references to intermediate values.</span></span><br><span class="line">    <span class="comment"># you can also use `.clamp(min=0)`, equivalent to F.relu()</span></span><br><span class="line">    x = F.relu(x.mm(w1))</span><br><span class="line">    x = x.mm(w2)</span><br><span class="line">    <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">two_layer_fc_test</span><span class="params">()</span>:</span></span><br><span class="line">    hidden_layer_size = <span class="number">42</span></span><br><span class="line">    <span class="comment"># minibatch size 64, feature dimension 50</span></span><br><span class="line">    x = torch.zeros((<span class="number">64</span>, <span class="number">50</span>), dtype=dtype)</span><br><span class="line">    w1 = torch.zeros((<span class="number">50</span>, hidden_layer_size), dtype=dtype)</span><br><span class="line">    w2 = torch.zeros((hidden_layer_size, <span class="number">10</span>), dtype=dtype)</span><br><span class="line">    scores = two_layer_fc(x, [w1, w2])</span><br><span class="line">    print(scores.size())  <span class="comment"># you should see [64, 10]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">two_layer_fc_test()</span><br></pre></td></tr></table></figure>
-<h3 id="Barebones-PyTorch-Three-Layer-ConvNet"><a href="#Barebones-PyTorch-Three-Layer-ConvNet" class="headerlink" title="Barebones PyTorch: Three-Layer ConvNet"></a>Barebones PyTorch: Three-Layer ConvNet</h3><ul>
-<li>上下这两个都是，在测试的时候可以直接pass 0来测试tensor的大小是不是对的</li>
-<li>网络的结构<ul>
-<li>conv with bias，channel_1 filters，KW1xKH1，2 zero - padding</li>
-<li>RELU</li>
-<li>conv with bias，channel_2 filters，KW2xKH2，1 zero - padding</li>
-<li>RELU</li>
-<li>fc with bias，输出C class</li>
-</ul>
-</li>
-<li>注意！在这里fc之后没有softmax的激活层，因为在后面计算loss的时候会提供softmax，计算起来更加有效率</li>
-<li>注意2！在conv2d之前不需要flatten，在fc之前才需要flatten</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">three_layer_convnet</span><span class="params">(x, params)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Performs the forward pass of a three-layer convolutional network with the</span></span><br><span class="line"><span class="string">    architecture defined above.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - x: A PyTorch Tensor of shape (N, 3, H, W) giving a minibatch of images</span></span><br><span class="line"><span class="string">    - params: A list of PyTorch Tensors giving the weights and biases for the</span></span><br><span class="line"><span class="string">      network; should contain the following:</span></span><br><span class="line"><span class="string">      - conv_w1: PyTorch Tensor of shape (channel_1, 3, KH1, KW1) giving weights</span></span><br><span class="line"><span class="string">        for the first convolutional layer</span></span><br><span class="line"><span class="string">      - conv_b1: PyTorch Tensor of shape (channel_1,) giving biases for the first</span></span><br><span class="line"><span class="string">        convolutional layer</span></span><br><span class="line"><span class="string">      - conv_w2: PyTorch Tensor of shape (channel_2, channel_1, KH2, KW2) giving</span></span><br><span class="line"><span class="string">        weights for the second convolutional layer</span></span><br><span class="line"><span class="string">      - conv_b2: PyTorch Tensor of shape (channel_2,) giving biases for the second</span></span><br><span class="line"><span class="string">        convolutional layer</span></span><br><span class="line"><span class="string">      - fc_w: PyTorch Tensor giving weights for the fully-connected layer. Can you</span></span><br><span class="line"><span class="string">        figure out what the shape should be? (N,channel_2*H*W)</span></span><br><span class="line"><span class="string">      - fc_b: PyTorch Tensor giving biases for the fully-connected layer. Can you</span></span><br><span class="line"><span class="string">        figure out what the shape should be? (C,)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">    - scores: PyTorch Tensor of shape (N, C) giving classification scores for x</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    conv_w1, conv_b1, conv_w2, conv_b2, fc_w, fc_b = params</span><br><span class="line">    scores = <span class="literal">None</span></span><br><span class="line">    <span class="comment">################################################################################</span></span><br><span class="line">    <span class="comment"># <span class="doctag">TODO:</span> Implement the forward pass for the three-layer ConvNet.                #</span></span><br><span class="line">    <span class="comment">################################################################################</span></span><br><span class="line">    <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">    x = nn.functional.conv2d(x, conv_w1, bias=conv_b1, padding=<span class="number">2</span>)</span><br><span class="line">    x = nn.functional.conv2d(F.relu(x), conv_w2, bias=conv_b2, padding=<span class="number">1</span>)</span><br><span class="line">    x = flatten(x)</span><br><span class="line">    x = x.mm(fc_w) + fc_b</span><br><span class="line">    scores = x</span><br><span class="line"></span><br><span class="line">    <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">    <span class="comment">################################################################################</span></span><br><span class="line">    <span class="comment">#                                 END OF YOUR CODE                             #</span></span><br><span class="line">    <span class="comment">################################################################################</span></span><br><span class="line">    <span class="keyword">return</span> scores</span><br></pre></td></tr></table></figure>
-<h3 id="Barebones-PyTorch-Initialization"><a href="#Barebones-PyTorch-Initialization" class="headerlink" title="Barebones PyTorch: Initialization"></a>Barebones PyTorch: Initialization</h3><ul>
-<li><code>random_weight(shape)</code> initializes a weight tensor with the Kaiming normalization method. -&gt; 使用了KAIMING normal</li>
-<li><code>zero_weight(shape)</code> initializes a weight tensor with all zeros. Useful for instantiating bias parameters.</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">random_weight</span><span class="params">(shape)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Create random Tensors for weights; setting requires_grad=True means that we</span></span><br><span class="line"><span class="string">    want to compute gradients for these Tensors during the backward pass.</span></span><br><span class="line"><span class="string">    We use Kaiming normalization: sqrt(2 / fan_in)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> len(shape) == <span class="number">2</span>:  <span class="comment"># FC weight</span></span><br><span class="line">        fan_in = shape[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># conv weight [out_channel, in_channel, kH, kW]</span></span><br><span class="line">        fan_in = np.prod(shape[<span class="number">1</span>:])</span><br><span class="line">    <span class="comment"># randn is standard normal distribution generator.</span></span><br><span class="line">    w = torch.randn(shape, device=device, dtype=dtype) * np.sqrt(<span class="number">2.</span> / fan_in)</span><br><span class="line">    w.requires_grad = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> w</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zero_weight</span><span class="params">(shape)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> torch.zeros(shape, device=device, dtype=dtype, requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># create a weight of shape [3 x 5]</span></span><br><span class="line"><span class="comment"># you should see the type `torch.cuda.FloatTensor` if you use GPU.</span></span><br><span class="line"><span class="comment"># Otherwise it should be `torch.FloatTensor`</span></span><br><span class="line">random_weight((<span class="number">3</span>, <span class="number">5</span>))</span><br></pre></td></tr></table></figure>
-<h3 id="Barebones-PyTorch-Check-Accuracy"><a href="#Barebones-PyTorch-Check-Accuracy" class="headerlink" title="Barebones PyTorch: Check Accuracy"></a>Barebones PyTorch: Check Accuracy</h3><ul>
-<li>在这部分不需要计算grad，所以要关上<code>torch.no_grad()</code>避免浪费</li>
-<li>输入<ul>
-<li>一个DataLoader来给我们想要check的data分块</li>
-<li>一个表示模型到底是什么样子的model_fn，来计算预测的scores</li>
-<li>这个model需要的参数</li>
-</ul>
-</li>
-<li>没有返回值但是会print出来acc</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_accuracy_part2</span><span class="params">(loader, model_fn, params)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Check the accuracy of a classification model.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Inputs:</span></span><br><span class="line"><span class="string">    - loader: A DataLoader for the data split we want to check</span></span><br><span class="line"><span class="string">    - model_fn: A function that performs the forward pass of the model,</span></span><br><span class="line"><span class="string">      with the signature scores = model_fn(x, params)</span></span><br><span class="line"><span class="string">    - params: List of PyTorch Tensors giving parameters of the model</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns: Nothing, but prints the accuracy of the model</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    split = <span class="string">'val'</span> <span class="keyword">if</span> loader.dataset.train <span class="keyword">else</span> <span class="string">'test'</span></span><br><span class="line">    print(<span class="string">'Checking accuracy on the %s set'</span> % split)</span><br><span class="line">    num_correct, num_samples = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> loader:</span><br><span class="line">            x = x.to(device=device, dtype=dtype)  <span class="comment"># move to device, e.g. GPU</span></span><br><span class="line">            y = y.to(device=device, dtype=torch.int64)</span><br><span class="line">            scores = model_fn(x, params)</span><br><span class="line">            _, preds = scores.max(<span class="number">1</span>)</span><br><span class="line">            num_correct += (preds == y).sum()</span><br><span class="line">            num_samples += preds.size(<span class="number">0</span>)</span><br><span class="line">        acc = float(num_correct) / num_samples</span><br><span class="line">        print(<span class="string">'Got %d / %d correct (%.2f%%)'</span> %</span><br><span class="line">              (num_correct, num_samples, <span class="number">100</span> * acc))</span><br></pre></td></tr></table></figure>
-<h3 id="BareBones-PyTorch-Training-Loop"><a href="#BareBones-PyTorch-Training-Loop" class="headerlink" title="BareBones PyTorch: Training Loop"></a>BareBones PyTorch: Training Loop</h3><ul>
-<li>用stochastic gradient descent without momentum来train，并且用<code>torch.functional.cross_entropy</code>来计算loss</li>
-<li>输入<ul>
-<li>model_fc</li>
-<li>params</li>
-<li>learning_rate</li>
-</ul>
-</li>
-<li>没有输出</li>
-<li>进行的操作<ul>
-<li>把data移动到GPU或者CPU</li>
-<li>计算score和loss</li>
-<li>loss.backward()</li>
-<li>update params，这部分不需要计算grad</li>
-</ul>
-</li>
-</ul>
-<h3 id="BareBones-PyTorch-Training-a-ConvNet"><a href="#BareBones-PyTorch-Training-a-ConvNet" class="headerlink" title="BareBones PyTorch: Training a ConvNet"></a>BareBones PyTorch: Training a ConvNet</h3><ul>
-<li>需要网络<ol>
-<li>Convolutional layer(with bias) with 32 5x5 filters, with zero - padding of 2</li>
-<li>ReLU</li>
-<li>Convolutional layer(with bias) with 16 3x3 filters, with zero - padding of 1</li>
-<li>ReLU</li>
-<li>Fully - connected layer(with bias) to compute scores for 10 classes</li>
-</ol>
-</li>
-<li>需要自己初始化参数，不需要tune hypers<ul>
-<li>注意1：fc的w的大小是D,C，跟数据无关需要从上一层的输出求</li>
-<li>conv之后的图片大小从32-&gt; 30</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">learning_rate = <span class="number">3e-3</span></span><br><span class="line"></span><br><span class="line">channel_1 = <span class="number">32</span></span><br><span class="line">channel_2 = <span class="number">16</span></span><br><span class="line"></span><br><span class="line">conv_w1 = <span class="literal">None</span></span><br><span class="line">conv_b1 = <span class="literal">None</span></span><br><span class="line">conv_w2 = <span class="literal">None</span></span><br><span class="line">conv_b2 = <span class="literal">None</span></span><br><span class="line">fc_w = <span class="literal">None</span></span><br><span class="line">fc_b = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> Initialize the parameters of a three-layer ConvNet.                    #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">conv_w1 = random_weight((channel_1, <span class="number">3</span>, <span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">conv_b1 = zero_weight(channel_1)</span><br><span class="line">conv_w2 = random_weight((channel_2, channel_1, <span class="number">5</span>, <span class="number">5</span>))</span><br><span class="line">conv_b2 = zero_weight(channel_2)</span><br><span class="line">fc_w = random_weight((channel_2 * <span class="number">30</span> * <span class="number">30</span>, <span class="number">10</span>))</span><br><span class="line">fc_b = zero_weight(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">#                                 END OF YOUR CODE                             #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line">params = [conv_w1, conv_b1, conv_w2, conv_b2, fc_w, fc_b]</span><br><span class="line">train_part2(three_layer_convnet, params, learning_rate)</span><br></pre></td></tr></table></figure>
-<h2 id="Part3-PyTorch-Module-API"><a href="#Part3-PyTorch-Module-API" class="headerlink" title="Part3 PyTorch Module API"></a>Part3 PyTorch Module API</h2><ul>
-<li>上面的所有过程是手算来track整个过程的，但是在更大的net里面就没有什么用了</li>
-<li><code>nn.Module</code>来定义网络，并且可以选optmi的方法</li>
-</ul>
-<ol>
-<li><p>Subclass <code>nn.Module</code>. Give your network class an intuitive name like <code>TwoLayerFC</code>. </p>
-</li>
-<li><p><code>__init__()</code>里面定义自己需要的所有层.  <code>nn.Linear</code> and <code>nn.Conv2d</code> 都在模块里自带了. <code>nn.Module</code> will track these internal parameters for you. Refer to the <a href="http://pytorch.org/docs/master/nn.html" target="_blank" rel="noopener">doc</a> to learn more about the dozens of builtin layers. <strong>Warning</strong>: don’t forget to call the <code>super().__init__()</code> first!（调用父类）</p>
-</li>
-<li><p>In the <code>forward()</code> method, define the <em>connectivity</em> of your network. 直接用init里面初始化好的方法来forward，不要再forward里面增加新的方法</p>
-</li>
-</ol>
-<h3 id="用上面的方法来写一个三层的layer"><a href="#用上面的方法来写一个三层的layer" class="headerlink" title="用上面的方法来写一个三层的layer"></a>用上面的方法来写一个三层的layer</h3><ul>
-<li>注意需要初始化w和b的参数，用kaiming的方法</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreeLayerConvNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, in_channel, channel_1, channel_2, num_classes)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Set up the layers you need for a three-layer ConvNet with the  #</span></span><br><span class="line">        <span class="comment"># architecture defined above.                                          #</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">        self.conv_1 = nn.Conv2d(in_channel,channel_1,<span class="number">5</span>,stride=<span class="number">1</span>, padding=<span class="number">2</span>,bias=<span class="literal">True</span>)</span><br><span class="line">        nn.init.kaiming_normal_(self.conv_1.weight)</span><br><span class="line">        nn.init.constant_(self.conv_1.bias, <span class="number">0</span>)</span><br><span class="line">        self.conv_2 = nn.Conv2d(channel_1,channel_2,<span class="number">3</span>,stride=<span class="number">1</span>, padding=<span class="number">1</span>,bias=<span class="literal">True</span>)</span><br><span class="line">        nn.init.kaiming_normal_(self.conv_2.weight)</span><br><span class="line">        nn.init.constant_(self.conv_2.bias, <span class="number">0</span>)</span><br><span class="line">        self.fc_3 = nn.Linear(channel_2 * <span class="number">32</span> * <span class="number">32</span> , num_classes)</span><br><span class="line">        nn.init.kaiming_normal_(self.fc_3.weight)</span><br><span class="line">        nn.init.constant_(self.fc_3.bias, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment">#                          END OF YOUR CODE                            #       </span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        scores = <span class="literal">None</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># <span class="doctag">TODO:</span> Implement the forward function for a 3-layer ConvNet. you      #</span></span><br><span class="line">        <span class="comment"># should use the layers you defined in __init__ and specify the        #</span></span><br><span class="line">        <span class="comment"># connectivity of those layers in forward()                            #</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">        x = self.conv_1(x)</span><br><span class="line">        x = self.conv_2(F.relu(x))</span><br><span class="line">        x = flatten(F.relu(x))</span><br><span class="line">        x = self.fc_3(x)</span><br><span class="line">        scores = x</span><br><span class="line"></span><br><span class="line">        <span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="comment">#                             END OF YOUR CODE                         #</span></span><br><span class="line">        <span class="comment">########################################################################</span></span><br><span class="line">        <span class="keyword">return</span> scores</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_ThreeLayerConvNet</span><span class="params">()</span>:</span></span><br><span class="line">    x = torch.zeros((<span class="number">64</span>, <span class="number">3</span>, <span class="number">32</span>, <span class="number">32</span>), dtype=dtype)  <span class="comment"># minibatch size 64, image size [3, 32, 32]</span></span><br><span class="line">    model = ThreeLayerConvNet(in_channel=<span class="number">3</span>, channel_1=<span class="number">12</span>, channel_2=<span class="number">8</span>, num_classes=<span class="number">10</span>)</span><br><span class="line">    scores = model(x)</span><br><span class="line">    print(scores.size())  <span class="comment"># you should see [64, 10]</span></span><br><span class="line">test_ThreeLayerConvNet()</span><br></pre></td></tr></table></figure>
-<h3 id="Module-API-Check-Accuracy"><a href="#Module-API-Check-Accuracy" class="headerlink" title="Module API: Check Accuracy"></a>Module API: Check Accuracy</h3><ul>
-<li>不用手动pass参数了，直接就可以得到整个net的acc</li>
-</ul>
-<h3 id="Module-API-Training-Loop"><a href="#Module-API-Training-Loop" class="headerlink" title="Module API: Training Loop"></a>Module API: Training Loop</h3><ul>
-<li>用optimizer这个object来update weights</li>
-<li>输入<ul>
-<li>model</li>
-<li>optimizer</li>
-<li>epoch，可选</li>
-</ul>
-</li>
-<li>没有return，但是会打印出来training时候的acc</li>
-</ul>
-<p>其实就是设置好model和optimizer就可以了</p>
-<h2 id="Part4-PyTorch-Sequential-API"><a href="#Part4-PyTorch-Sequential-API" class="headerlink" title="Part4 PyTorch Sequential API"></a>Part4 PyTorch Sequential API</h2><ul>
-<li><code>nn.Sequential</code>没有上面的灵活，但是可以集成上面的一串功能</li>
-<li>需要提前定义一个在forward里面能用的flatten</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># We need to wrap `flatten` function in a module in order to stack it</span></span><br><span class="line"><span class="comment"># in nn.Sequential</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flatten</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> flatten(x)</span><br><span class="line"></span><br><span class="line">hidden_layer_size = <span class="number">4000</span></span><br><span class="line">learning_rate = <span class="number">1e-2</span></span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    Flatten(),</span><br><span class="line">    nn.Linear(<span class="number">3</span> * <span class="number">32</span> * <span class="number">32</span>, hidden_layer_size),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Linear(hidden_layer_size, <span class="number">10</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># you can use Nesterov momentum in optim.SGD</span></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=learning_rate,</span><br><span class="line">                     momentum=<span class="number">0.9</span>, nesterov=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">train_part34(model, optimizer)</span><br></pre></td></tr></table></figure>
-<h3 id="实现三层，注意需要初始化参数"><a href="#实现三层，注意需要初始化参数" class="headerlink" title="实现三层，注意需要初始化参数"></a>实现三层，注意需要初始化参数</h3><ul>
-<li>这里遇到了一个问题是当用random_weight实现的时候，acc会特别低</li>
-<li>从<a href="https://github.com/haofeixu/cs231n/blob/master/assignment2/PyTorch.ipynb" target="_blank" rel="noopener">这里</a>发现可以重新定义另一个计算方法不同的weights</li>
-<li>从<a href="http://pytorch.org/docs/stable/nn.html#torch.nn.Module.apply" target="_blank" rel="noopener">这里</a>得知如何给module增加新的function</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">xavier_normal</span><span class="params">(shape)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Create random Tensors for weights; setting requires_grad=True means that we</span></span><br><span class="line"><span class="string">    want to compute gradients for these Tensors during the backward pass.</span></span><br><span class="line"><span class="string">    We use Xavier normalization: sqrt(2 / (fan_in + fan_out))</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> len(shape) == <span class="number">2</span>:  <span class="comment"># FC weight</span></span><br><span class="line">        fan_in = shape[<span class="number">1</span>]</span><br><span class="line">        fan_out = shape[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        fan_in = np.prod(shape[<span class="number">1</span>:]) <span class="comment"># conv weight [out_channel, in_channel, kH, kW]</span></span><br><span class="line">        fan_out = shape[<span class="number">0</span>] * shape[<span class="number">2</span>] * shape[<span class="number">3</span>]</span><br><span class="line">    <span class="comment"># randn is standard normal distribution generator. </span></span><br><span class="line">    w = torch.randn(shape, device=device, dtype=dtype) * np.sqrt(<span class="number">2.</span> / (fan_in + fan_out))</span><br><span class="line">    w.requires_grad = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> w</span><br><span class="line"></span><br><span class="line">channel_1 = <span class="number">32</span></span><br><span class="line">channel_2 = <span class="number">16</span></span><br><span class="line">learning_rate = <span class="number">1e-2</span></span><br><span class="line"></span><br><span class="line">model = <span class="literal">None</span></span><br><span class="line">optimizer = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># <span class="doctag">TODO:</span> Rewrite the 2-layer ConvNet with bias from Part III with the           #</span></span><br><span class="line"><span class="comment"># Sequential API.                                                              #</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    nn.Conv2d(<span class="number">3</span>, channel_1,<span class="number">5</span>,stride = <span class="number">1</span>,padding = <span class="number">2</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(channel_1, channel_2,<span class="number">3</span>,stride = <span class="number">1</span>,padding = <span class="number">1</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    Flatten(),</span><br><span class="line">    nn.Linear(<span class="number">32</span>*<span class="number">32</span>*channel_2, <span class="number">10</span>),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init_weights</span><span class="params">(m)</span>:</span></span><br><span class="line">    print(m)</span><br><span class="line">    <span class="keyword">if</span> type(m) == nn.Linear:</span><br><span class="line">        m.weight.data = xavier_normal(m.weight.size())</span><br><span class="line">        m.bias.data = zero_weight(m.bias.size())</span><br><span class="line"></span><br><span class="line">model.apply(init_weights)</span><br><span class="line"></span><br><span class="line">optimizer = optim.SGD(model.parameters(), lr=learning_rate,</span><br><span class="line">                     momentum=<span class="number">0.9</span>, nesterov=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">#                                 END OF YOUR CODE                             </span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line">train_part34(model, optimizer)</span><br></pre></td></tr></table></figure>
-<h2 id="Part5-来训练CIFAR-10吧！"><a href="#Part5-来训练CIFAR-10吧！" class="headerlink" title="Part5 来训练CIFAR-10吧！"></a>Part5 来训练CIFAR-10吧！</h2><p>自己找net的结构，hyper，loss，optimizers来把CIFAR-10的val_acc在10个epoch之内升到70%以上！</p>
-<ul>
-<li>Layers in torch.nn package: <a href="http://pytorch.org/docs/stable/nn.html" target="_blank" rel="noopener">http://pytorch.org/docs/stable/nn.html</a></li>
-<li>Activations: <a href="http://pytorch.org/docs/stable/nn.html#non-linear-activations" target="_blank" rel="noopener">http://pytorch.org/docs/stable/nn.html#non-linear-activations</a></li>
-<li>Loss functions: <a href="http://pytorch.org/docs/stable/nn.html#loss-functions" target="_blank" rel="noopener">http://pytorch.org/docs/stable/nn.html#loss-functions</a></li>
-<li>Optimizers: <a href="http://pytorch.org/docs/stable/optim.html" target="_blank" rel="noopener">http://pytorch.org/docs/stable/optim.html</a></li>
-</ul>
-<p>一些可能的方法：</p>
-<ul>
-<li><strong>Filter size</strong>: Above we used 5x5; would smaller filters be more efficient?</li>
-<li><strong>Number of filters</strong>: Above we used 32 filters. Do more or fewer do better?</li>
-<li><strong>Pooling vs Strided Convolution</strong>: Do you use max pooling or just stride convolutions?</li>
-<li><strong>Batch normalization</strong>: Try adding spatial batch normalization after convolution layers and vanilla batch normalization after affine layers. Do your networks train faster?</li>
-<li><strong>Network architecture</strong>: The network above has two layers of trainable parameters. Can you do better with a deep network? Good architectures to try include:<ul>
-<li>[conv-relu-pool]xN -&gt; [affine]xM -&gt; [softmax or SVM]</li>
-<li>[conv-relu-conv-relu-pool]xN -&gt; [affine]xM -&gt; [softmax or SVM]</li>
-<li>[batchnorm-relu-conv]xN -&gt; [affine]xM -&gt; [softmax or SVM]</li>
-</ul>
-</li>
-<li><strong>Global Average Pooling</strong>: Instead of flattening and then having multiple affine layers, perform convolutions until your image gets small (7x7 or so) and then perform an average pooling operation to get to a 1x1 image picture (1, 1 , Filter#), which is then reshaped into a (Filter#) vector. This is used in <a href="https://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">Google’s Inception Network</a> (See Table 1 for their architecture).</li>
-<li><strong>Regularization</strong>: Add l2 weight regularization, or perhaps use Dropout.</li>
-</ul>
-<p>一些tips：</p>
-<ul>
-<li>应该会在几百个iter里面就看到进步，如果params work well</li>
-<li>tune hyper的时候从一大片range和小的train开始，找到好一些的之后再围绕这个范围找（多训一点）</li>
-<li>在找hyper的时候应该用val set</li>
-</ul>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">model = <span class="literal">None</span></span><br><span class="line">optimizer = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"></span><br><span class="line">channel_1 = <span class="number">16</span></span><br><span class="line">channel_2 = <span class="number">32</span></span><br><span class="line">channel_3 = <span class="number">64</span></span><br><span class="line">channel_4 = <span class="number">64</span></span><br><span class="line"></span><br><span class="line">fc_1 = <span class="number">1024</span></span><br><span class="line">num_classes = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">model = nn.Sequential(</span><br><span class="line">    nn.Conv2d(<span class="number">3</span>, channel_1,<span class="number">3</span>,stride = <span class="number">1</span>,padding = <span class="number">1</span>),</span><br><span class="line">    nn.BatchNorm2d(channel_1),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.MaxPool2d(kernel_size = <span class="number">2</span>),</span><br><span class="line">    nn.Conv2d(channel_1, channel_2,<span class="number">3</span>,stride = <span class="number">1</span>,padding = <span class="number">1</span>),</span><br><span class="line">    nn.BatchNorm2d(channel_2),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.MaxPool2d(kernel_size = <span class="number">2</span>),</span><br><span class="line">    nn.Conv2d(channel_2, channel_3,<span class="number">3</span>,stride = <span class="number">1</span>,padding = <span class="number">1</span>),</span><br><span class="line">    nn.BatchNorm2d(channel_3),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Conv2d(channel_3, channel_4,<span class="number">3</span>,stride = <span class="number">1</span>,padding = <span class="number">1</span>),</span><br><span class="line">    nn.BatchNorm2d(channel_4),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.MaxPool2d(kernel_size = <span class="number">2</span>),</span><br><span class="line">    Flatten(),</span><br><span class="line">    nn.Linear(<span class="number">4</span>*<span class="number">4</span>*channel_4, num_classes)</span><br><span class="line"><span class="comment">#     nn.Linear(fc_1,num_classes)</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">learning_rate = <span class="number">1e-3</span></span><br><span class="line">optimizer = optim.Adam(model.parameters(), lr=learning_rate,</span><br><span class="line">                     betas=(<span class="number">0.9</span>, <span class="number">0.999</span>), eps=<span class="number">1e-08</span>, weight_decay=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****</span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"><span class="comment">#                                 END OF YOUR CODE                             </span></span><br><span class="line"><span class="comment">################################################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># You should get at least 70% accuracy</span></span><br><span class="line">train_part34(model, optimizer, epochs=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第四层conv试过ksize=1，效果不是很好</li>
-<li>BN好像效果很好</li>
-<li>maxpool多一些，计算负担少而且效果好像比较好</li>
-<li>最终val_acc在77-79左右，test_acc = 76.22</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3488,7 +3346,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3619,7 +3477,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">57</span>
+                      
+                    
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -3812,7 +3672,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">90</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -3878,7 +3742,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
