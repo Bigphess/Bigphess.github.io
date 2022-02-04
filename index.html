@@ -395,7 +395,7 @@
                 
               
 
-              <time title="Created: 2021-06-23 17:23:44 / Modified: 17:24:44" itemprop="dateCreated datePublished" datetime="2021-06-23T17:23:44+09:00">2021-06-23</time>
+              <time title="Created: 2021-06-23 17:23:44 / Modified: 17:26:16" itemprop="dateCreated datePublished" datetime="2021-06-23T17:23:44+09:00">2021-06-23</time>
             
 
             
@@ -460,8 +460,7 @@
 
       
         
-          
-            <h2 id="course-link"><a href="#course-link" class="headerlink" title="course link"></a>course link</h2><ul>
+          <h2 id="course-link"><a href="#course-link" class="headerlink" title="course link"></a>course link</h2><ul>
 <li><a href="https://www.youtube.com/watch?v=1Rs2ND1ryYc" target="_blank" rel="noopener">CSS Tutorial - Zero to Hero (Complete Course)</a></li>
 </ul>
 <h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
@@ -471,342 +470,15 @@
 </ul>
 </li>
 </ul>
-<h2 id="Selectors-amp-Properties"><a href="#Selectors-amp-Properties" class="headerlink" title="Selectors &amp; Properties"></a>Selectors &amp; Properties</h2><h3 id="selector是什么"><a href="#selector是什么" class="headerlink" title="selector是什么"></a>selector是什么</h3><ul>
-<li>目的：把css的文件和多个html组合起来</li>
-<li>有很多种类<ul>
-<li>element:直接使用html里面的tag，会改变这个tag的所有要素（body,p）</li>
-<li>class:自己设定class的名字，使用html element的时候加上这个class。（.aclass）</li>
-<li>id: 前面加上#，给element设置id，然后只改变这个id的内容(#sometext)</li>
-</ul>
-</li>
-</ul>
-<h3 id="重要概念specificity"><a href="#重要概念specificity" class="headerlink" title="重要概念specificity"></a>重要概念specificity</h3><ul>
-<li>目的：在css里面，对同样东西不同style设定的时候，override的优先级<ul>
-<li>比如同样的文字，一个设定成红色一个设定成蓝色</li>
-</ul>
-</li>
-<li>优先级<ul>
-<li>in-line style &gt; id &gt; class &gt; element</li>
-<li>in-line是直接在element里面写<code>style=&quot;color: aliceblue&quot;</code></li>
-</ul>
-</li>
-<li>id和class的使用区别：<ul>
-<li>class会用很多次</li>
-<li>id应该只为了一个东西存在</li>
-</ul>
-</li>
-</ul>
-<h3 id="pseudoselectors"><a href="#pseudoselectors" class="headerlink" title="pseudoselectors"></a>pseudoselectors</h3><p>不仅可以加到element上面，也可以加到id或者class</p>
-<ul>
-<li><p>hover</p>
-<ul>
-<li>添加鼠标移动到上面时候的样式（但是不能覆盖id和inline style）<ul>
-<li>可以用在所有种类的元素上面</li>
-</ul>
-</li>
-<li>类似的用法可以处理<code>a</code><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span>    &#123;<span class="attribute">color</span>:green;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;<span class="attribute">color</span>:green;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>   &#123;<span class="attribute">color</span>:red;&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:active</span>  &#123;<span class="attribute">color</span>:yellow;&#125; 点击的时候</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>first-child/last-child/nth-child(n)</p>
-<ul>
-<li>比如一个ul里面有很多li的时候，只让第一个/最后一个/第n个改变</li>
-</ul>
-</li>
-<li>only-child：如果有child的元素，里面只有一个元素 <code>li:only-child</code></li>
-</ul>
-<h3 id="Advance-Selector"><a href="#Advance-Selector" class="headerlink" title="Advance Selector"></a>Advance Selector</h3><p>虽然这里的例子写的都是element的selector，但是实际上也可以和id以及class组合</p>
-<ul>
-<li><code>h2 + a</code>找到所有h2下面的a tag并且改变<ul>
-<li>这个方法可以和上面的pseudo一起用</li>
-</ul>
-</li>
-<li><code>textarea ~ button</code>找到和这个area <strong>一个perent</strong>的button<ul>
-<li>必须是在一个parent里面的，如果是加号的话只要位置挨着就行</li>
-</ul>
-</li>
-<li><code>ul &gt; li</code>对于在ul里面的每一个 <strong>直接的li</strong>都会改变。比如如果在ul里面又加一个ol，那ol里面的li就不会变了</li>
-<li><code>ul li</code> 对于在ul里面的 <strong>所有</strong>li</li>
-</ul>
-<h3 id="Attribute-Selector"><a href="#Attribute-Selector" class="headerlink" title="Attribute Selector"></a>Attribute Selector</h3><p><code>element[attr=value]</code></p>
-<ul>
-<li>attr可以设置成class，src，等等element里面的任何attribute</li>
-<li>src设置的时候也可以不用绝对值用pattern <code>^&amp;*~</code>加在等号前面</li>
-<li><a href="https://www.runoob.com/cssref/css-selectors.html" target="_blank" rel="noopener">CSS selector的列表参考</a></li>
-</ul>
-<h3 id="什么是properties"><a href="#什么是properties" class="headerlink" title="什么是properties"></a>什么是properties</h3><ul>
-<li>修改选中的element的内容的属性</li>
-<li>必须有冒号和分号</li>
-</ul>
-<h3 id="总体思路"><a href="#总体思路" class="headerlink" title="总体思路"></a>总体思路</h3><ul>
-<li>可以现在html里面给所有需要的内容加上class或者id，然后再统一写</li>
-</ul>
-<h2 id="Coloring-amp-Formatting"><a href="#Coloring-amp-Formatting" class="headerlink" title="Coloring &amp; Formatting"></a>Coloring &amp; Formatting</h2><ul>
-<li>文字的颜色：color</li>
-<li>背景的颜色：background</li>
-</ul>
-<h3 id="用image做background"><a href="#用image做background" class="headerlink" title="用image做background"></a>用image做background</h3><ul>
-<li>可以直接用url引用图片(在线的或者本地的都可以)</li>
-<li><code>background-image</code>或者直接用<code>background</code>都可以实现，不加后面的比较灵活</li>
-</ul>
-<h4 id="一些常用的背景设置选项"><a href="#一些常用的背景设置选项" class="headerlink" title="一些常用的背景设置选项"></a>一些常用的背景设置选项</h4><ul>
-<li>当图片不够大的时候，他会自动repeat来填满这个地方</li>
-<li>加图片可以不从html里面加，而直接设置一个div，然后从css里面加背景</li>
-<li><code>background-repeat:no-repeat</code> 会只显示一张图，其他的这块区域都会空着</li>
-<li><code>background-size:50px 100px;</code> 前面的是高度，后面的是宽度</li>
-<li><code>background-size:cover;</code>:会去掉图片的一部分，让他可以完整的比例正确的显示在应该在的区域</li>
-<li><code>background-size:contain;</code></li>
-</ul>
-<h4 id="透明度"><a href="#透明度" class="headerlink" title="透明度"></a>透明度</h4><ul>
-<li>用在渐变上面比较方便</li>
-<li>颜色：用rgba（0~1）之间</li>
-</ul>
-<h4 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h4><ul>
-<li>radial:<ul>
-<li><code>background: radial-gradient(red, blue);</code></li>
-<li>会从中间蔓延到周围</li>
-<li>也可以设置各个颜色的百分比，或者设置设置形状</li>
-</ul>
-</li>
-<li>linear:<ul>
-<li><code>background: linear-gradient(to right, red, blue);</code></li>
-<li>前面要先设置方向:上下左右，左上等等，或者直接使用角度</li>
-<li>然后后面可以加上喜欢的颜色，带不带透明度的都可以</li>
-</ul>
-</li>
-</ul>
-<h3 id="unit的不同种类"><a href="#unit的不同种类" class="headerlink" title="unit的不同种类"></a>unit的不同种类</h3><ul>
-<li>绝对unit：比如英尺，厘米之类的<ul>
-<li>不管在什么硬件上面，都会显示这个尺寸</li>
-</ul>
-</li>
-<li>相对unit<ul>
-<li>百分比：比如<code>width: 70%;</code>是指占这个parent的百分之70，如果缩放现在的屏幕的话，里面的东西的大小也会跟着改变</li>
-<li>em:和标准的字体比的倍数，比如2em就会变成大小的两倍</li>
-<li>vw：占这个view宽度的百分比，view会比body大一点。比如<code>width:70vw</code><ul>
-<li>vh是高度的百分比</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>比较特殊的px<ul>
-<li>虽然他是一个概念上的绝对值，但是也会根据不同硬件而改变</li>
-<li>比如如果一个400px的东西显示在一个分辨率很高的电视上，可能实际页面的一个px占电视的三四个px</li>
-<li>其他类似的单位pc &gt; pt &gt; px</li>
-</ul>
-</li>
-</ul>
-<h2 id="建议在高度上选择绝对的单位，但是在宽度上选择相对的单位"><a href="#建议在高度上选择绝对的单位，但是在宽度上选择相对的单位" class="headerlink" title="建议在高度上选择绝对的单位，但是在宽度上选择相对的单位"></a>建议在高度上选择绝对的单位，但是在宽度上选择相对的单位</h2><ul>
-<li>因为高度可以往下拉，但是宽度和硬件的长度关系非常大</li>
-<li>chrome的inspect可以直接改变画面的尺寸</li>
-</ul>
-<h2 id="Font-amp-Text-Multipulation"><a href="#Font-amp-Text-Multipulation" class="headerlink" title="Font &amp; Text Multipulation"></a>Font &amp; Text Multipulation</h2><ul>
-<li>font和text的区别<ul>
-<li>font定义了字体，大小，加粗等等</li>
-</ul>
-</li>
-<li>text<ul>
-<li>定义了一些什么字体都能用的东西</li>
-</ul>
-</li>
-</ul>
-<h3 id="text具体"><a href="#text具体" class="headerlink" title="text具体"></a>text具体</h3><ul>
-<li><code>text-decoration</code><ul>
-<li>可以加一些线，比如下面加横线，删除线，上面加线，什么线都没有之类的</li>
-</ul>
-</li>
-<li><code>text-transform</code><ul>
-<li>全部大写，小写</li>
-</ul>
-</li>
-<li><code>text-align</code><ul>
-<li>把文本对齐，比如居中，向左，向右等等</li>
-<li><code>justify</code>努力让所有的文字分布均匀，让每一行一边长</li>
-</ul>
-</li>
-</ul>
-<h3 id="Font具体"><a href="#Font具体" class="headerlink" title="Font具体"></a>Font具体</h3><ul>
-<li><code>font-size</code> em，px等等</li>
-<li><code>font-weight</code>变细加粗属性，一般是从100～800。400可能是比较普通的</li>
-<li><code>font-style</code>，普通，斜体，更斜(oblique)等等</li>
-</ul>
-<h3 id="font-family"><a href="#font-family" class="headerlink" title="font family"></a>font family</h3><ul>
-<li>就是设置字体，选择不同的关键词设置就可以了<ul>
-<li>sans-serif,看起来比较容易 -&gt; 没有衬托线，只留下字体的主干，类似于苹果自带字体那种感觉<ul>
-<li>serif体就是类似于宋体那种感觉</li>
-</ul>
-</li>
-<li><code>font-family: &quot;Times New Roman&quot;, serif;</code>先找第一种能不能用，不能用的话就换成第二种</li>
-<li>一般可以多准备几种，防止因为浏览器等等的原因这个字体崩溃</li>
-</ul>
-</li>
-<li>找到字体的方式<ul>
-<li>google font。可以在上面自定义（最好只选自己需要的），然后直接用代码加到需要的css里面</li>
-<li>google font都给设定好了，只需要把需要的字体加进去就行了</li>
-<li><code>font-family: &quot;Merriweather&quot;, serif;</code>google自带的代码就会帮忙设定备用的字体，这样如果连不上网的话，就会自动载入第二种字体。需要保证第二种字体所有电脑上都能载入</li>
-</ul>
-</li>
-</ul>
-<h2 id="基础Layout"><a href="#基础Layout" class="headerlink" title="基础Layout"></a>基础Layout</h2><h3 id="Box-model"><a href="#Box-model" class="headerlink" title="Box model"></a>Box model</h3><ul>
-<li>每个element都在一个box里面</li>
-<li>content -&gt; padding -&gt; border -&gt; margin<ul>
-<li>padding:不会移动content，internel</li>
-<li>border：主要是分界线的作用，可以style</li>
-<li>margin：移动，externel</li>
-</ul>
-</li>
-</ul>
-<h3 id="border"><a href="#border" class="headerlink" title="border"></a>border</h3><p><code>border: 5px solid red;</code></p>
-<ul>
-<li>三个属性，大小，style和颜色，style包括实现<ul>
-<li>soild,dotted,dashed,double是几种常用的种类，包括实线，点线，虚线和</li>
-</ul>
-</li>
-<li>可以根据border和content的距离看出来有没有padding</li>
-</ul>
-<h3 id="padding-margin"><a href="#padding-margin" class="headerlink" title="padding margin"></a>padding margin</h3><ul>
-<li>padding和margin的语法<ul>
-<li>如果只给一个参数，会在各个方向加上padding <code>padding: 3cm;</code></li>
-<li>可以加上一个参数表示在哪个方向padding <code>padding-right: 40px;</code></li>
-<li><code>padding: 100px 40px 5px 0;</code> 上，右，下，左</li>
-<li><code>margin: 80px 40px;</code>，第一个参数是上下，第二个是左右</li>
-</ul>
-</li>
-<li>margin<ul>
-<li>给边缘外面加上空间</li>
-</ul>
-</li>
-</ul>
-<h3 id="float-amp-display-type"><a href="#float-amp-display-type" class="headerlink" title="float &amp; display type"></a>float &amp; display type</h3><ul>
-<li>inline：就像在图片旁边环绕的效果一样 -&gt; <code>span</code>。不会单起一个部分</li>
-<li>float:<ul>
-<li><code>float: right;</code>可以把现在的东西移动到一个位置，然后其他的内容自动往上顶</li>
-<li>相当于把图片扔到文字的群里面</li>
-</ul>
-</li>
-<li>display<ul>
-<li><code>display: none;</code>可以直接把这个元素从画面上隐藏掉，也不会占用相应的空间</li>
-<li><code>display: inline-block;</code>：<ul>
-<li>组合两种方法，虽然不会创建一个新的line，但是还是给留了一个可操作的block空间</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Flexbox"><a href="#Flexbox" class="headerlink" title="Flexbox"></a>Flexbox</h2><p>可以自动完成一些排版的问题。</p>
-<ul>
-<li>container：一个parent的element，一般都用div</li>
-<li>item：children</li>
-</ul>
-<h3 id="创建container"><a href="#创建container" class="headerlink" title="创建container"></a>创建container</h3><ul>
-<li><code>display:flex;</code></li>
-</ul>
-<h4 id="direction-amp-wrap"><a href="#direction-amp-wrap" class="headerlink" title="direction &amp; wrap"></a>direction &amp; wrap</h4><ul>
-<li>container的属性</li>
-<li>可以改变flex分布元素的方式，行还是列，也可以reverse顺序<ul>
-<li><code>flex-direction: row;</code></li>
-<li><code>flex-wrap: wrap;</code>可以让他自动换行，不会挤在一行</li>
-</ul>
-</li>
-</ul>
-<h4 id="content-alignment"><a href="#content-alignment" class="headerlink" title="content alignment"></a>content alignment</h4><ul>
-<li><code>justify-content: flex-end;</code><ul>
-<li>可以让他往左，往右或者居中</li>
-<li><code>space-around/around</code>可以让他均匀的分布</li>
-</ul>
-</li>
-<li><code>align-items: center;</code>可以让他在container里面居中（和上面的方向不一样）<ul>
-<li>具体是哪个方向取决于flex-direction</li>
-<li><code>strech</code>拉长</li>
-<li><code>baseline</code>虽然大家大小不一样，但是所有都根据一个baseline为基准</li>
-</ul>
-</li>
-</ul>
-<h3 id="item"><a href="#item" class="headerlink" title="item"></a>item</h3><h4 id="flex-item-order"><a href="#flex-item-order" class="headerlink" title="flex item order"></a>flex item order</h4><p><code>&lt;div class=&quot;container-item&quot; style=&quot;order: 5;&quot;&gt;A&lt;/div&gt;</code><br>可以直接给每个item里面设定需要出现的order，index从1开始不从0开始</p>
-<h4 id="grow-shrink-basis"><a href="#grow-shrink-basis" class="headerlink" title="grow, shrink, basis"></a>grow, shrink, basis</h4><ul>
-<li><code>flex-basis: 100px;</code>指定他们的宽度</li>
-<li><code>flex-grow: 数字</code>设定这个元素占据的地方占所有的地方的多少，默认的是0</li>
-<li><code>flex-shrink</code>：页面缩放的时候和其他的相比的比例。数字越大缩放的越快。如果设定成0的话就不会缩放</li>
-<li>上面的三个属性，可以直接用一个命令<code>flex: 1 1 100px</code> grow，shrink，basis一条命令直接实现</li>
-</ul>
-<h4 id="item-alignment"><a href="#item-alignment" class="headerlink" title="item alignment"></a>item alignment</h4><ul>
-<li>可以在css里面用<code>text-align: center;</code>来设定具体的alignment，然后在html里面设置单独的</li>
-<li><code>align-self:flex-start;</code>可以在html里面单独设置。但是不能用baseline和strech里面的，因为他们需要的是整体的布局</li>
-</ul>
-<h2 id="Grid"><a href="#Grid" class="headerlink" title="Grid"></a>Grid</h2><p>也是一种layout的方式</p>
-<ul>
-<li>和flex的区别<ul>
-<li>grid手动设定的东西更多，可以customized很多layout</li>
-<li>flex比较关心width上面的布局，grid width和height两方面都很关注</li>
-</ul>
-</li>
-<li>创建grid：只需要把display设置成grid了</li>
-</ul>
-<h3 id="template-rows-columns"><a href="#template-rows-columns" class="headerlink" title="template rows/columns"></a>template rows/columns</h3><ul>
-<li><code>grid-template-columns: 10px 50px 10px;</code></li>
-<li><code>grid-template-rows: 50px 250px;</code></li>
-<li>设定行和列的个数，以及每个格子的大小，比如在这里设置了三列，大小分别是10，50，19。又设置了两行，分别是50和250</li>
-<li>可以直接设置成auto，这样他就会自动帮忙排版了</li>
-</ul>
-<h3 id="justify-amp-alignment"><a href="#justify-amp-alignment" class="headerlink" title="justify &amp; alignment"></a>justify &amp; alignment</h3><ul>
-<li><code>justify-content: center;</code><ul>
-<li>不用space between，而是用evenly</li>
-</ul>
-</li>
-<li><code>align-content: center;</code></li>
-</ul>
-<h3 id="row-column-gaps"><a href="#row-column-gaps" class="headerlink" title="row/column gaps"></a>row/column gaps</h3><ul>
-<li><code>column-gap: 150px;</code> 和<code>row-gap: 100px;</code>，可以控制各个格子之间的距离</li>
-<li>可以简写成<code>grid-gap: col row</code></li>
-</ul>
-<h3 id="row-column-lines"><a href="#row-column-lines" class="headerlink" title="row/column lines"></a>row/column lines</h3><ul>
-<li><strong>grid最好用的地方</strong></li>
-<li><code>grid-column: 1 / 3;</code><ul>
-<li>把现在这个项目占的地方从第一列到第三列(占1和2)，其他的项目顺延</li>
-</ul>
-</li>
-<li><code>grid-row: 1 / 3;</code></li>
-<li>也可以直接用距离表示：<code>span 2</code>占2格子的地方</li>
-</ul>
-<h4 id="grid-area：直接用一行表示上面的东西"><a href="#grid-area：直接用一行表示上面的东西" class="headerlink" title="grid area：直接用一行表示上面的东西"></a>grid area：直接用一行表示上面的东西</h4><ul>
-<li><code>grid-area: 2 / 1 / span 2/ span 3</code><ul>
-<li>顺序是 row start -&gt; column start -&gt; row end -&gt; column end</li>
-</ul>
-</li>
-</ul>
-<h2 id="Animations-amp-Transtitions"><a href="#Animations-amp-Transtitions" class="headerlink" title="Animations &amp; Transtitions"></a>Animations &amp; Transtitions</h2><h3 id="transtition"><a href="#transtition" class="headerlink" title="transtition"></a>transtition</h3><ul>
-<li>属性<ul>
-<li><code>transition: 300ms linear;</code> 类似于ppt的渐变颜色等等</li>
-</ul>
-</li>
-<li><code>transform</code>:<ul>
-<li><code>translate(50px, 30px)</code> 往右移动50，往下移动30</li>
-<li><code>scale(倍数)</code>缩放</li>
-<li><code>rotate(30deg)</code>旋转</li>
-<li><code>skew(30deg)</code>绕X轴，Y轴等等等转动</li>
-<li><code>matrix(xscale,deg,deg,yscale,transX,transY)</code>可以总结上面的所有的</li>
-</ul>
-</li>
-</ul>
-<h3 id="animation"><a href="#animation" class="headerlink" title="animation"></a>animation</h3><ul>
-<li>一个动画至少有两个keyframe</li>
-<li><p>创建关键帧关键词from to或者百分比</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">keyframes</span> red-to-black &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">background</span>: chocolate;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(0px, 0px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  50% &#123;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(10px, 10px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">background</span>: black;</span><br><span class="line">    <span class="attribute">transform</span>: <span class="built_in">translate</span>(20px, 20px);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>增加动画</p>
-<ul>
-<li>在需要增加动画的区域里加上<code>animation-name</code>的属性</li>
-<li>然后再给动画加上时间<code>animation-duration: 10s;</code></li>
-<li><code>animation-timing-function:linear</code>控制渐变</li>
-<li><code>animation-delay: -2s;</code>可以是负值，这样的话刷新的时候就是动画运行2s的时候</li>
-<li><code>animation-iteration-count: 2;</code>重复动画</li>
-<li><code>animation-direction: reverse;</code>改变动画播放的顺序</li>
-</ul>
-</li>
-<li>也可以把上面的内容都写在一个animation里面</li>
-</ul>
-<h2 id="Challenge"><a href="#Challenge" class="headerlink" title="Challenge!!"></a>Challenge!!</h2>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/06/23/2021/CSSzeroHero/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -906,7 +578,7 @@
                 
               
 
-              <time title="Created: 2021-06-23 17:21:59 / Modified: 17:23:22" itemprop="dateCreated datePublished" datetime="2021-06-23T17:21:59+09:00">2021-06-23</time>
+              <time title="Created: 2021-06-23 17:21:59 / Modified: 17:26:33" itemprop="dateCreated datePublished" datetime="2021-06-23T17:21:59+09:00">2021-06-23</time>
             
 
             
@@ -971,180 +643,19 @@
 
       
         
-          
-            <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+          <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><img src="https://www.youtube.com/watch?v=qz0aGYrrlhU" alt="HTML Tutorial for Beginners: HTML Crash Course [2021]"></li>
 </ul>
 <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>虽然在很多模板上写了不少html和css，但是还是没有一个基础的概念。正好这次的工作要写前端的模板，所以顺势学习一下他们的基本概念</p>
-<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><ul>
-<li>语言<ul>
-<li>html和css不属于programming language，他们只是用来告诉电脑这个网页的组成和皮肤</li>
-<li>只有js是programming language</li>
-</ul>
-</li>
-<li>framework<ul>
-<li>react，vue，angular</li>
-</ul>
-</li>
-<li>VS插件<ul>
-<li>live server</li>
-<li>prettier<ul>
-<li>可以直接format html的文件</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="web-work"><a href="#web-work" class="headerlink" title="web work"></a>web work</h3><ul>
-<li>client向server发送request</li>
-<li>server向client发送response<ul>
-<li>里面可能包括html，html又可能包括别的图片或者媒体文件(url)，然后再次发送一个新的http请求得到相应的东西</li>
-</ul>
-</li>
-<li>当所有的resouce都拿到之后，就会render浏览器</li>
-</ul>
-<h3 id="chrome-devtool"><a href="#chrome-devtool" class="headerlink" title="chrome devtool"></a>chrome devtool</h3><ul>
-<li>view-developer打开，可以自定义放在左边比较方便</li>
-<li>可以从netword窗口看到所有渲染这个页面的request</li>
-<li>可以在chrome里面一边调整css一边给其他人看效果</li>
-</ul>
-<p>##基础</p>
-<h3 id="HTML基础"><a href="#HTML基础" class="headerlink" title="HTML基础"></a>HTML基础</h3><ul>
-<li>html对大小写不敏感，但是一般默认都写成小写的</li>
-<li>一般的tag都有开始和结束的tag<ul>
-<li>img没有结束的tag：因为图片不能拥有任何child</li>
-</ul>
-</li>
-</ul>
-<h3 id="CSS基础"><a href="#CSS基础" class="headerlink" title="CSS基础"></a>CSS基础</h3><ul>
-<li>命名方式：<ul>
-<li>如果前面只有一个点，那么所有带这个css的class都会附加这个效果</li>
-<li>如果前面是比如<code>p.username</code>，那么只有class是username的p才会有相应的效果</li>
-</ul>
-</li>
-<li><p>类选择器</p>
-<ul>
-<li><code>.user.login</code> 匹配同时包含user和login的元素<ul>
-<li><code>&lt;div class=&#39;user login&#39;&gt;你好。这是一个 DIV 元素，class=&#39;user login&#39;。&lt;/div&gt;</code></li>
-</ul>
-</li>
-<li><p><code>.user .login</code>匹配包含user的内容下面的包含login的元素</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="keyword">class</span>=<span class="string">'user'</span>&gt;你好。这是一个 DIV 元素，<span class="keyword">class</span>=<span class="string">'user'</span>。</span><br><span class="line">    &lt;div <span class="keyword">class</span>=<span class="string">'login'</span>&gt;你好。这是一个 DIV 元素，<span class="keyword">class</span>=<span class="string">'user login'</span>。&lt;/div&gt;    </span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code></code></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><ul>
-<li><a href="https://validator.w3.org/" target="_blank" rel="noopener">https://validator.w3.org/</a></li>
-<li>可以直接搜css validator</li>
-</ul>
-<p>##提高部分</p>
-<h3 id="head-section"><a href="#head-section" class="headerlink" title="head section"></a>head section</h3><ul>
-<li>meta：提供这个webpage的信息<ul>
-<li>比如character set（ASCII，UTF-8等）</li>
-<li>viewport：让这个page可以在不同的硬件上缩放</li>
-<li>description:在搜索的时候现实的内容</li>
-</ul>
-</li>
-</ul>
-<h3 id="text"><a href="#text" class="headerlink" title="text"></a>text</h3><ul>
-<li>em：可以在p里面强调信息。是在html里面的，这样搜索的时候也能搜到重要的信息<ul>
-<li>具体的style上面的东西是由css决定的</li>
-<li>默认的是斜体</li>
-</ul>
-</li>
-<li>同时也有<i>,<strong>.但是尽量别用，因为想在css里面搞</strong></i></li>
-<li>heading<ul>
-<li>有从h1-h6的不同大小的标题</li>
-<li>不是根据大小选的！！！因为css可以决定大小</li>
-<li>heading是用来调节级别的。<strong>是让search来理解的</strong>。每个page应该只有一个h1</li>
-</ul>
-</li>
-</ul>
-<h3 id="entities"><a href="#entities" class="headerlink" title="entities"></a>entities</h3><ul>
-<li>表示一些特殊符号，比如小于号不能直接在html里面打出来</li>
-<li>都是<code>&amp;</code>开头，<code>;</code>结尾，比如<code>&amp;lt;</code>是小于号</li>
-<li><code>&amp;copy;</code>是版权的标志</li>
-<li><code>&amp;nbsp;</code>none break space</li>
-</ul>
-<h3 id="hyperlinks"><a href="#hyperlinks" class="headerlink" title="hyperlinks"></a>hyperlinks</h3><ul>
-<li><code>&lt;a herf:=&quot;&quot;&gt;&lt;/a&gt;</code></li>
-<li>可以在a里面加上图片，这样点图片就可以链接了<ul>
-<li>如果加上download，一点击就直接下载了</li>
-</ul>
-</li>
-<li>可以给页面上的不同的element加上一个id，这样就可以从页面上方跳转到下方<ul>
-<li>如果直接jump到一个井号，那就会直接跳到页面顶端</li>
-<li><code>&lt;a href=&quot;#id&quot;&gt;&lt;/a&gt;</code></li>
-</ul>
-</li>
-<li>如果加上target可以让他打开一个新的窗口</li>
-<li>可以加上<code>mailto:</code>直接跳转到发送邮件的页面</li>
-</ul>
-<p>###img</p>
-<ul>
-<li>alt的存在意义<ul>
-<li>给盲人看的时候，可以读出来</li>
-<li>如果图片读不出来还可以知道这里应该是啥</li>
-</ul>
-</li>
-<li><code>object-fit:cover</code>：会crop图片，让他能放下</li>
-</ul>
-<h1 id="JavaScript快速入门"><a href="#JavaScript快速入门" class="headerlink" title="JavaScript快速入门"></a>JavaScript快速入门</h1><ul>
-<li>每个浏览器都有javascript的引擎<ul>
-<li>Node -&gt; 把javascript从浏览器分开了，不单可以写前端，啥都能写<ul>
-<li>可以直接用node命令从terminal运行</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>最好把它放在html的body的最后<ul>
-<li>放在前面会花更多时间来parsing js的代码</li>
-<li>js里面的element需要和页面上的其他元素交互</li>
-</ul>
-</li>
-<li><code>&lt;script src=&quot;index.js&quot;&gt;&lt;/script&gt;</code>来把js的文件提取出来</li>
-</ul>
-<h2 id="console"><a href="#console" class="headerlink" title="console"></a>console</h2><ul>
-<li>是浏览器提供的调试接口，可以log，assert之类的<ul>
-<li>运行之后会在浏览器的consloe窗口里面看到</li>
-</ul>
-</li>
-</ul>
-<p>##语法们</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><ul>
-<li>最好的方法使用let来定义变量:<code>let name = &#39;xu&#39;;</code><ul>
-<li>一般在js里面都是用单引号，虽然双引号也能用</li>
-</ul>
-</li>
-<li>和python一样，变量是灵活的</li>
-</ul>
-<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p><code>const insterestRate = 1;</code></p>
-<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    name:<span class="string">"xu"</span>,</span><br><span class="line">    age:<span class="number">30</span></span><br><span class="line">&#125;;</span><br><span class="line">person.name = <span class="string">"xu2"</span>;</span><br><span class="line">person[<span class="string">"name"</span>] = <span class="string">"xu2"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(person);</span><br></pre></td></tr></table></figure>
-<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><p>同等对标python的list，也可以存不同的type</p>
-<h2 id="在web里的作用"><a href="#在web里的作用" class="headerlink" title="在web里的作用"></a>在web里的作用</h2><ul>
-<li>对事件作出反应<code>&lt;button type=&quot;button&quot; onclick=&quot;alert(&#39;欢迎!&#39;)&quot;&gt;点我!&lt;/button&gt;</code></li>
-<li><p>改变html内容,图像</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">x</span>=document.getElementById(<span class="string">"demo"</span>);  //查找元素</span><br><span class="line"><span class="attr">x.innerHTML</span>=<span class="string">"Hello JavaScript"</span>;    //改变内容</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>改变html的style </p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">x</span>=document.getElementById(<span class="string">"demo"</span>)  //找到元素 </span><br><span class="line"><span class="attr">x.style.color</span>=<span class="string">"#ff0000"</span>;           //改变样式</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>验证输入<br>以上找到元素的方法基本都是靠id</p>
-</li>
-</ul>
-<h3 id="常见js事件"><a href="#常见js事件" class="headerlink" title="常见js事件"></a>常见js事件</h3><ul>
-<li>onchange：元素改变</li>
-<li>onclick：点击</li>
-<li>onmouseover：在这个元素上移动</li>
-<li>onmouseout：从这个元素移开</li>
-<li>onkeydown：按下键盘</li>
-<li>onload：完成页面加载</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/06/23/2021/前端入门/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1244,7 +755,7 @@
                 
               
 
-              <time title="Created: 2021-06-23 17:20:30 / Modified: 17:22:25" itemprop="dateCreated datePublished" datetime="2021-06-23T17:20:30+09:00">2021-06-23</time>
+              <time title="Created: 2021-06-23 17:20:30 / Modified: 17:26:24" itemprop="dateCreated datePublished" datetime="2021-06-23T17:20:30+09:00">2021-06-23</time>
             
 
             
@@ -1309,151 +820,20 @@
 
       
         
-          
-            <h1 id="Java的imperative表达和Declarative表达"><a href="#Java的imperative表达和Declarative表达" class="headerlink" title="Java的imperative表达和Declarative表达"></a>Java的imperative表达和Declarative表达</h1><ul>
+          <h1 id="Java的imperative表达和Declarative表达"><a href="#Java的imperative表达和Declarative表达" class="headerlink" title="Java的imperative表达和Declarative表达"></a>Java的imperative表达和Declarative表达</h1><ul>
 <li>目标：创建一个person的class，打印出来里面所有的女性</li>
 <li>前置工作:创建person这个class<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Gender gender;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, Gender gender)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.name = name;</span><br><span class="line">            <span class="keyword">this</span>.gender = gender;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Person&#123;"</span> + <span class="string">"name='"</span> + name + <span class="string">'\''</span> + <span class="string">", gender="</span> + gender + <span class="string">'&#125;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">enum</span> Gender&#123;</span><br><span class="line">        MALE,FEMALE</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="imperative表达"><a href="#imperative表达" class="headerlink" title="imperative表达"></a>imperative表达</h3><ul>
-<li>需要把所有需要的东西都定义出来<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Person&gt; people = List.of(</span><br><span class="line">                <span class="keyword">new</span> Person(<span class="string">"John"</span>,Gender.MALE),</span><br><span class="line">                <span class="keyword">new</span> Person(<span class="string">"Maria"</span>,Gender.FEMALE),</span><br><span class="line">                <span class="keyword">new</span> Person(<span class="string">"Aisha"</span>,Gender.FEMALE),</span><br><span class="line">                <span class="keyword">new</span> Person(<span class="string">"Alex"</span>,Gender.MALE),</span><br><span class="line">                <span class="keyword">new</span> Person(<span class="string">"Alice"</span>,Gender.FEMALE)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Imperative approach</span></span><br><span class="line">        List&lt;Person&gt; females = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Person person : people)&#123;</span><br><span class="line">            <span class="keyword">if</span>(Gender.FEMALE.equals(person.gender))&#123;</span><br><span class="line">                females.add(person);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Person female : females)&#123;</span><br><span class="line">            System.out.println(female);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="declarative"><a href="#declarative" class="headerlink" title="declarative"></a>declarative</h3><ul>
-<li>stream:形成一个抽象的pipe</li>
-<li><p>如果想要结果是list的话需要把它转化成list</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Declarative approach</span></span><br><span class="line">        System.out.println(<span class="string">"//Declarative approach"</span>);</span><br><span class="line">        List&lt;Person&gt; female2 =</span><br><span class="line">                people.stream()</span><br><span class="line">                .filter(person -&gt; Gender.FEMALE.equals(person.gender))</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">        female2.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>主要，在Java的FunctionPackage里面有很多不同的类，比如consumer，predicate等</p>
-<ul>
-<li>比如如果在刚才的函数里提取出filter的条件，就是一个predicate（快捷键是command+option+v）</li>
-<li><code>Predicate&lt;Person&gt; personPredicate = person -&gt; Gender.FEMALE.equals(person.gender);</code></li>
-</ul>
-</li>
-</ul>
-<h1 id="Interface们"><a href="#Interface们" class="headerlink" title="Interface们"></a>Interface们</h1><h2 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h2><ul>
-<li>目的：在用stram的时候搞明白</li>
-</ul>
-<h3 id="Function-1"><a href="#Function-1" class="headerlink" title="Function"></a>Function</h3><ul>
-<li>是functional里面的一个interface，目的是写出来一个函数式的method的表达方法</li>
-<li><code>Function&lt;T,R&gt;</code>，里面的T,R表示的是input和output的类型</li>
-<li>这里使用了apply，实际上就是call这个函数，apply里面输入的值就是这个函数的参数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> increment = increment(<span class="number">1</span>);</span><br><span class="line">        System.out.println(increment);</span><br><span class="line"></span><br><span class="line">        Integer increment2 = incrementByOneFunction.apply(<span class="number">1</span>);</span><br><span class="line">        System.out.println(increment2);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Function&lt;Integer,Integer&gt; incrementByOneFunction = number -&gt; number + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">increment</span><span class="params">(<span class="keyword">int</span> number)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> number + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="AndThen的用法"><a href="#AndThen的用法" class="headerlink" title="AndThen的用法"></a>AndThen的用法</h4><ul>
-<li>可以使用它组合两个functional的函数，组成一个全新的函数</li>
-<li>比如在这个例子里，我们让这个input的数字先实行加一，再实行乘10，这样最后可以组合起来使用<ul>
-<li>也可以不组合成新的function，直接在最后apply执行<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Integer, Integer&gt; addBy1AndThenMultiplyBy10 = incrementByOneFunction.andThen(multiplyBy10Function);</span><br><span class="line"></span><br><span class="line">Integer result = addBy1AndThenMultiplyBy10.apply(<span class="number">1</span>);</span><br><span class="line">System.out.println(result);</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> Function&lt;Integer,Integer&gt; multiplyBy10Function = number -&gt; number * <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="BiFunction"><a href="#BiFunction" class="headerlink" title="BiFunction"></a>BiFunction</h3><ul>
-<li>表达的意义和function基本相同，唯一的不同就是接受两个arg作为input，然后输出一个output</li>
-<li>比如在这个例子里面，输入了两个参数，一个是需要加一的，另一个是相乘的系数</li>
-<li><strong>基本所有的functional里面加上Bi的都是用两个参数</strong><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> BiFunction&lt;Integer,Integer,Integer&gt; incrementByOneAndMultiplyBiFunction</span><br><span class="line">            = (numberToAdd1, numberToMultiple) -&gt; (numberToAdd1 + <span class="number">1</span>) * numberToMultiple;</span><br><span class="line">System.out.println(incrementByOneAndMultiplyBiFunction.apply(<span class="number">1</span>,<span class="number">10</span>));</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h2><ul>
-<li>接受一个input并且不会返回任何值<ul>
-<li>可以理解是一个void函数</li>
-<li>这里的关键词用的apply</li>
-</ul>
-</li>
-<li><p>AndThen的使用方法应该是同理</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        greetCustomer(<span class="keyword">new</span> Customer(<span class="string">"Maria"</span>,<span class="string">"9999"</span>));</span><br><span class="line">        greetCustomerConsumer.accept(<span class="keyword">new</span> Customer(<span class="string">"Maria"</span>,<span class="string">"9999"</span>));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Consumer&lt;Customer&gt; greetCustomerConsumer = customer -&gt;</span><br><span class="line">            System.out.println(<span class="string">"Hello "</span> +</span><br><span class="line">            customer.customerName +</span><br><span class="line">            <span class="string">"thanks for registering number "</span> +</span><br><span class="line">            customer.customerPhoneNumber);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">greetCustomer</span><span class="params">(Customer customer)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello "</span> +</span><br><span class="line">                customer.customerName +</span><br><span class="line">                <span class="string">"thanks for registering number "</span> +</span><br><span class="line">                customer.customerPhoneNumber);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String customerName;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> String customerPhoneNumber;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Customer</span><span class="params">(String customerName, String customerPhoneNumber)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.customerName = customerName;</span><br><span class="line">            <span class="keyword">this</span>.customerPhoneNumber = customerPhoneNumber;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Bi的使用方法也应该是同理</p>
-<ul>
-<li>比如在这个例子里面，我们判断了是不是要显示电话号码，要是不需要显示的话就显示星号</li>
-<li>注意要学会一行的if的写法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> BiConsumer&lt;Customer,Boolean&gt; greetCustomerConsumerV2 = (customer, showPhoneNumber) -&gt;</span><br><span class="line">            System.out.println(<span class="string">"Hello "</span> +</span><br><span class="line">                    customer.customerName +</span><br><span class="line">                    <span class="string">"thanks for registering number "</span> +</span><br><span class="line">                    (showPhoneNumber ? customer.customerPhoneNumber : <span class="string">"*****"</span>));</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Predicate"><a href="#Predicate" class="headerlink" title="Predicate"></a>Predicate</h2><ul>
-<li>输入一个参数，返回一个boolean<ul>
-<li>这里的参数用的test</li>
-</ul>
-</li>
-<li><p>Bi的情况和上面一样</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">_Predicate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(isPhoneNumberValid(<span class="string">"07000000000"</span>));</span><br><span class="line">        System.out.println(isPhoneNumberValid(<span class="string">"0700000000"</span>));</span><br><span class="line">        System.out.println(isPhoneNumberValid(<span class="string">"08000000000"</span>));</span><br><span class="line">        </span><br><span class="line">        System.out.println(isPhoneNumberValidPredicate.test(<span class="string">"07000000000"</span>));</span><br><span class="line">        System.out.println(isPhoneNumberValidPredicate.test(<span class="string">"0700000000"</span>));</span><br><span class="line">        System.out.println(isPhoneNumberValidPredicate.test(<span class="string">"0800000000"</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Predicate&lt;String&gt; isPhoneNumberValidPredicate =</span><br><span class="line">            phoneNumber -&gt; phoneNumber.startsWith(<span class="string">"07"</span>) &amp;&amp; phoneNumber.length() == <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isPhoneNumberValid</span><span class="params">(String phoneNumber)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> phoneNumber.startsWith(<span class="string">"07"</span>) &amp;&amp; phoneNumber.length() == <span class="number">11</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>也可以用and，or等的关键词，连接不同的predicate</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(isPhoneNumberValidPredicate.and(contains3).test(<span class="string">"07000000000"</span>)); <span class="comment">//false</span></span><br><span class="line">System.out.println(isPhoneNumberValidPredicate.and(contains3).test(<span class="string">"07003000000"</span>)); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Supplier"><a href="#Supplier" class="headerlink" title="Supplier"></a>Supplier</h2><ul>
-<li>一个不需要参数，然后返回一个返回值的东西<ul>
-<li>这里的关键词用的get</li>
-<li>虽然没有参数，但是需要在参数的地方加括号</li>
-</ul>
-</li>
-<li>应该没有Bi<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">_Supplier</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(getDBConnectionUrlSupplier.get());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Supplier&lt;String&gt; getDBConnectionUrlSupplier = () -&gt; <span class="string">"jdbc://localhost:5432/users"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> String <span class="title">getDBConnectionUrl</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"jdbc://localhost:5432/users"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h1><ul>
-<li>Stream里面的不同函数，map,filter之类的里面的内容都是上面提到的interface</li>
-<li>map：transfermation。比如下面的例子，从每个人里面取出来了性别，然后把性别组成了一个set，然后对在set里面的每一个性别都要打印出来</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">people.stream()</span><br><span class="line">                .map(person -&gt; person.gender)  <span class="comment">//function</span></span><br><span class="line">                .collect(Collectors.toSet())</span><br><span class="line">                .forEach(gender -&gt; System.out.println(gender));  <span class="comment">//consumer</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以提取出来每个人的名字的长度并且打印<ul>
-<li>如果提取出来每个命令里面的变量，就会发现都是上面的interface</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;Person, String&gt; personStringFunction = person -&gt; person.name;</span><br><span class="line">ToIntFunction&lt;String&gt; stringToIntFunction = name -&gt; name.length();</span><br><span class="line">IntConsumer println = System.out::println;</span><br><span class="line">people.stream()</span><br><span class="line">        .map(personStringFunction)  <span class="comment">//function</span></span><br><span class="line">        .mapToInt(stringToIntFunction)</span><br><span class="line">        .forEach(println);  <span class="comment">//consumer</span></span><br></pre></td></tr></table></figure>
-<h2 id="更多关于Stream"><a href="#更多关于Stream" class="headerlink" title="更多关于Stream"></a>更多关于Stream</h2><ul>
-<li>比如可以用anymatch,allmatch,nonematch的predicate来判断这个<ul>
-<li>集合里面是不是都是女的</li>
-<li>或者是不是包含女的</li>
-<li>或者是不是根本没有事PREFERNOTSAY的<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> containsOnlyFemales = people.stream().allMatch(person -&gt; FEMALE.equals(person.gender));</span><br><span class="line">System.out.println(containsOnlyFemales);</span><br><span class="line"><span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> containsFemales = people.stream().anyMatch(person -&gt; FEMALE.equals(person.gender));</span><br><span class="line">System.out.println(containsFemales);</span><br><span class="line"><span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">boolean</span> notNotSay = people.stream().noneMatch(person -&gt; PREFER_NOT_TO_SAY.equals(person.gender));</span><br><span class="line">System.out.println(notNotSay);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h2><ul>
-<li>意义：对待null pointer的方法改变了</li>
-<li>例子:<ul>
-<li>如果是null的话就会输出默认值</li>
-<li>不是null的话就会输出对应的值</li>
-<li>是null的话会throw相应的exception</li>
-<li>判断是不是有，做相应的处理<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Object value = Optional.ofNullable(<span class="string">"Hello"</span>).orElseGet(() -&gt; <span class="string">"default value"</span>);</span><br><span class="line">System.out.println(value);</span><br><span class="line"><span class="comment">//Hello</span></span><br><span class="line"></span><br><span class="line">Object value = Optional.ofNullable(<span class="keyword">null</span>).orElseGet(() -&gt; <span class="string">"default value"</span>);</span><br><span class="line">System.out.println(value);</span><br><span class="line"><span class="comment">//default value</span></span><br><span class="line"></span><br><span class="line">Object value2 = Optional.ofNullable(<span class="keyword">null</span>).orElseThrow(()-&gt; <span class="keyword">new</span> IllegalStateException(<span class="string">"exception"</span>));</span><br><span class="line">System.out.println(value2);</span><br><span class="line"><span class="comment">//exception</span></span><br><span class="line"></span><br><span class="line">Optional.ofNullable(<span class="string">"a@gmail.com"</span>).ifPresentOrElse(</span><br><span class="line">                email -&gt; System.out.println(<span class="string">"sending email to "</span> + email),</span><br><span class="line">                () -&gt; &#123;</span><br><span class="line">                    System.out.println(<span class="string">"cannot send email"</span>);</span><br><span class="line">                &#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Combinator-pattern"><a href="#Combinator-pattern" class="headerlink" title="Combinator pattern"></a>Combinator pattern</h2><ul>
-<li>把很多函数作为参数，然后返回函数。（也就是把很多不用的函数组成一个新的接口）</li>
-<li>主要用于验证的时候</li>
-<li>注意：<ul>
-<li>当用and来拼接interface里面的不同方法的时候，如果没有apply是不会实现的，只会生成一个新的接口（相当于拼接好几个函数）</li>
-<li>当apply之后才会返回相对应的值<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//继承自function，接受一个customer，输出一个validationResult（是一个enum，枚举类）</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CustomerRegistrationValidator</span></span></span><br><span class="line"><span class="class">        <span class="keyword">extends</span> <span class="title">Function</span>&lt;<span class="title">Customer</span>, <span class="title">ValidationResult</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//接口静态方法，可以实现</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> CustomerRegistrationValidator <span class="title">isEmailValid</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> customer -&gt; customer.getEmail().contains(<span class="string">"@"</span>) ?</span><br><span class="line">                SUCCESS : EMAIL_NOT_VALID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> CustomerRegistrationValidator <span class="title">isPhoneNumberValid</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> customer -&gt; customer.getPhoneNumber().startsWith(<span class="string">"+0"</span>) ?</span><br><span class="line">                SUCCESS : PHONE_NUMBER_NOT_VALID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> CustomerRegistrationValidator <span class="title">isAdult</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> customer -&gt; Period.between(customer.getDob(), LocalDate.now()).getYears() &gt; <span class="number">16</span> ?</span><br><span class="line">                SUCCESS : IS_NOT_AN_ADULT;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//接口的默认方法</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> CustomerRegistrationValidator <span class="title">and</span> <span class="params">(CustomerRegistrationValidator other)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> customer -&gt; &#123;</span><br><span class="line">            ValidationResult result = <span class="keyword">this</span>.apply(customer);</span><br><span class="line">            <span class="keyword">return</span> result.equals(SUCCESS) ? other.apply(customer) : result;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">enum</span> ValidationResult&#123;</span><br><span class="line">        SUCCESS,</span><br><span class="line">        PHONE_NUMBER_NOT_VALID,</span><br><span class="line">        EMAIL_NOT_VALID,</span><br><span class="line">        IS_NOT_AN_ADULT</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Customer customer = <span class="keyword">new</span> Customer(</span><br><span class="line">                <span class="string">"Alice"</span>,</span><br><span class="line">                <span class="string">"Alice@gmail.com"</span>,</span><br><span class="line">                <span class="string">"+01111111"</span>,</span><br><span class="line">                LocalDate.of(<span class="number">1990</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Conbinator</span></span><br><span class="line">        <span class="comment">//在apply之前都不会run，只是组成一个interface</span></span><br><span class="line">        ValidationResult result = isEmailValid().and(isPhoneNumberValid()).and(isAdult()).apply(customer);</span><br><span class="line">        System.out.println(result);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (result != ValidationResult.SUCCESS) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(result.name());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="callback"><a href="#callback" class="headerlink" title="callback"></a>callback</h2><ul>
-<li>可以直接用interface来实现往函数里面传一个函数作为参数，类似于js的callback功能<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        hello(<span class="string">"John"</span>,<span class="keyword">null</span>,value -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"lastName is not provided for "</span> + value);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        hello2(<span class="string">"John"</span>,<span class="keyword">null</span>,() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"lastName is not provided!!"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String firstName, String lastName, Consumer&lt;String&gt; callback)</span></span>&#123;</span><br><span class="line">        System.out.println(firstName);</span><br><span class="line">        <span class="keyword">if</span> (lastName != <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(lastName);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            callback.accept(firstName);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//Runnable也是一个functional</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">hello2</span><span class="params">(String firstName, String lastName, Runnable callback)</span></span>&#123;</span><br><span class="line">        System.out.println(firstName);</span><br><span class="line">        <span class="keyword">if</span> (lastName != <span class="keyword">null</span>)&#123;</span><br><span class="line">            System.out.println(lastName);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            callback.run();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="lambdas"><a href="#lambdas" class="headerlink" title="lambdas"></a>lambdas</h2><ul>
-<li>尽量多使用method reference（ij会给提示）<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Function&lt;String,String&gt; upperCaseName = name -&gt; name.toUpperCase();</span><br><span class="line">Function&lt;String,String&gt; upperCaseName2 = String::toUpperCase;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BiFunction&lt;String,Integer, String&gt; upperCaseName3 = (name,age) -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span>(name.isBlank()) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">""</span>);</span><br><span class="line">            <span class="keyword">return</span> name.toUpperCase();</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><ul>
-<li>function不能depend on任何state：<strong>不能在里面使用外面的变量</strong><ul>
-<li>self contained</li>
-</ul>
-</li>
-<li>不能在function外面有什么side effect</li>
-<li>如果把其他的function作为输入或者输出function，会变成higher order function</li>
-</ul>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/06/23/2021/FPinJava/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
